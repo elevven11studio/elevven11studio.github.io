@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#86efac" />
+      <stop offset="100%" stop-color="#22c55e" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0c866" />
+      <stop offset="100%" stop-color="#c99a2e" />
+    </linearGradient>
+  </defs>
+  <rect width="240" height="240" rx="50" fill="#0b0a10" />
+  <text x="106" y="152" text-anchor="end" font-family="'Outfit','Segoe UI',sans-serif" font-weight="800" font-size="80" fill="url(#g)">11</text>
+  <text x="134" y="152" text-anchor="start" font-family="'Outfit','Segoe UI',sans-serif" font-weight="800" font-size="80" fill="url(#g)">11</text>
+  <circle cx="120" cy="98" r="6" fill="url(#gold)" />
+  <circle cx="120" cy="142" r="6" fill="url(#gold)" />
+</svg>

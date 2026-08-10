@@ -1,0 +1,743 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Examples - Elevven11 Studio</title>
+	<meta name="description" content="Website templates and examples Elevven11 Studio can build from: personal portfolios, freelancers, small businesses, and more." />
+	<link rel="canonical" href="https://elevven11studio.github.io/examples/" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta name="theme-color" content="#0b0a10" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:title" content="Examples - Elevven11 Studio" />
+	<meta property="og:description" content="Website templates and examples Elevven11 Studio can build from: personal portfolios, freelancers, small businesses, and more." />
+	<meta property="og:url" content="https://elevven11studio.github.io/examples/" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="Examples - Elevven11 Studio" />
+	<meta name="twitter:description" content="Website templates and examples Elevven11 Studio can build from: personal portfolios, freelancers, small businesses, and more." />
+
+	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+	<style>
+		.category-block { margin-bottom: 4rem; }
+		.category-block:last-child { margin-bottom: 0; }
+		.category-heading { font-size: 1.5rem; margin-bottom: 0.4rem; }
+		.category-heading-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem; }
+		.category-heading-row .category-heading { margin-bottom: 0; scroll-margin-top: 100px; }
+		.copy-link-btn {
+			background: none;
+			border: var(--border-subtle);
+			color: var(--text-muted);
+			cursor: pointer;
+			font-size: 0.8rem;
+			width: 28px;
+			height: 28px;
+			border-radius: 6px;
+			line-height: 1;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.15s ease;
+			flex-shrink: 0;
+		}
+		.copy-link-btn:hover, .copy-link-btn.copied { color: var(--accent-gold); border-color: var(--accent-gold); }
+		.category-subtext { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+		.template-card { padding: 0; overflow: hidden; }
+		.template-swatch { height: 110px; }
+		.template-body { padding: 1.5rem; text-align: center; }
+		.template-body .style-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-gold); margin-bottom: 0.5rem; }
+		.template-body h3 { margin-bottom: 0.5rem; font-size: 1.1rem; }
+		.template-body p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.25rem; min-height: 2.6em; }
+		.template-body .btn { width: 100%; padding: 0.7rem; }
+
+		.template-swatch { background-size: cover; background-position: center; }
+
+		.sw-portfolio { background-image: linear-gradient(135deg, #ff6b6bb3, #0e0e10b3), url('/assets/images/portfolio.jpg'); }
+		.sw-portfolio-2 { background-image: linear-gradient(135deg, #a78bfab3, #22d3eeb3), url('/assets/images/portfolio-2.jpg'); }
+		.sw-portfolio-3 { background-image: linear-gradient(135deg, #f7f3eab3, #9a6b3fb3), url('/assets/images/portfolio-3.jpg'); }
+
+		.sw-freelancer { background-image: linear-gradient(135deg, #2563ebb3, #eff4ffb3), url('/assets/images/freelancer.jpg'); }
+		.sw-freelancer-2 { background-image: linear-gradient(135deg, #ff3d81b3, #ffc93cb3), url('/assets/images/freelancer-2.jpg'); }
+		.sw-freelancer-3 { background-image: linear-gradient(135deg, #0a0a0ab3, #e11d48b3), url('/assets/images/freelancer-3.jpg'); }
+
+		.sw-small-business { background-image: linear-gradient(135deg, #166534b3, #faf7f0b3), url('/assets/images/small-business.jpg'); }
+		.sw-small-business-2 { background-image: linear-gradient(135deg, #0284c7b3, #f4f8fbb3), url('/assets/images/small-business-2.jpg'); }
+		.sw-small-business-3 { background-image: linear-gradient(135deg, #262019b3, #d97706b3), url('/assets/images/small-business-3.jpg'); }
+
+		.sw-restaurant { background-image: linear-gradient(135deg, #e0793ab3, #1f1210b3), url('/assets/images/restaurant.jpg'); }
+		.sw-restaurant-2 { background-image: linear-gradient(135deg, #a9704ab3, #fbf3e7b3), url('/assets/images/restaurant-2.jpg'); }
+		.sw-restaurant-3 { background-image: linear-gradient(135deg, #0b1520b3, #2dd4bfb3), url('/assets/images/restaurant-3.jpg'); }
+
+		.sw-photographer { background-image: linear-gradient(135deg, #444444b3, #000000b3), url('/assets/images/photographer.jpg'); }
+		.sw-photographer-2 { background-image: linear-gradient(135deg, #c17a5ab3, #fdf7f4b3), url('/assets/images/photographer-2.jpg'); }
+		.sw-photographer-3 { background-image: linear-gradient(135deg, #050505b3, #ccff00b3), url('/assets/images/photographer-3.jpg'); }
+
+		.sw-fashion { background-image: linear-gradient(135deg, #d4af37b3, #0b0b0bb3), url('/assets/images/fashion.jpg'); }
+		.sw-fashion-2 { background-image: linear-gradient(135deg, #39ff14b3, #000000b3), url('/assets/images/fashion-2.jpg'); }
+		.sw-fashion-3 { background-image: linear-gradient(135deg, #c9a97eb3, #fffaf7b3), url('/assets/images/fashion-3.jpg'); }
+
+		.sw-barber { background-image: linear-gradient(135deg, #c8963eb3, #141414b3), url('/assets/images/barber.jpg'); }
+		.sw-barber-2 { background-image: linear-gradient(135deg, #d6558ab3, #fdf1f5b3), url('/assets/images/barber-2.jpg'); }
+		.sw-barber-3 { background-image: linear-gradient(135deg, #0d9488b3, #f0fbfab3), url('/assets/images/barber-3.jpg'); }
+
+		.sw-events { background-image: linear-gradient(135deg, #c76b7fb3, #fdf6f6b3), url('/assets/images/events.jpg'); }
+		.sw-events-2 { background-image: linear-gradient(135deg, #0c1524b3, #d4a941b3), url('/assets/images/events-2.jpg'); }
+		.sw-events-3 { background-image: linear-gradient(135deg, #ff7a45b3, #4ecdc4b3), url('/assets/images/events-3.jpg'); }
+
+		.sw-consultant { background-image: linear-gradient(135deg, #4f7cffb3, #0a1128b3), url('/assets/images/consultant.jpg'); }
+		.sw-consultant-2 { background-image: linear-gradient(135deg, #ec6a5eb3, #2dd4bfb3), url('/assets/images/consultant-2.jpg'); }
+		.sw-consultant-3 { background-image: linear-gradient(135deg, #0f1a14b3, #d4af37b3), url('/assets/images/consultant-3.jpg'); }
+
+		.sw-real-estate { background-image: linear-gradient(135deg, #c9a15ab3, #0f1216b3), url('/assets/images/real-estate.jpg'); }
+		.sw-real-estate-2 { background-image: linear-gradient(135deg, #d4af37b3, #0a0a0ab3), url('/assets/images/real-estate-2.jpg'); }
+		.sw-real-estate-3 { background-image: linear-gradient(135deg, #0ea5e9b3, #f5f7fab3), url('/assets/images/real-estate-3.jpg'); }
+
+		.sw-church { background-image: linear-gradient(135deg, #b5824ab3, #171018b3), url('/assets/images/church.jpg'); }
+		.sw-church-2 { background-image: linear-gradient(135deg, #34d399b3, #0d1a17b3), url('/assets/images/church-2.jpg'); }
+		.sw-church-3 { background-image: linear-gradient(135deg, #7c9cffb3, #0a0f1cb3), url('/assets/images/church-3.jpg'); }
+
+		.sw-school { background-image: linear-gradient(135deg, #d97706b3, #fffaf0b3), url('/assets/images/school.jpg'); }
+		.sw-school-2 { background-image: linear-gradient(135deg, #ec4899b3, #38bdf8b3), url('/assets/images/school-2.jpg'); }
+		.sw-school-3 { background-image: linear-gradient(135deg, #818cf8b3, #0b0f19b3), url('/assets/images/school-3.jpg'); }
+
+		.sw-fitness { background-image: linear-gradient(135deg, #ff4d29b3, #0c0c0cb3), url('/assets/images/fitness.jpg'); }
+		.sw-fitness-2 { background-image: linear-gradient(135deg, #eab308b3, #141414b3), url('/assets/images/fitness-2.jpg'); }
+		.sw-fitness-3 { background-image: linear-gradient(135deg, #8a9a5bb3, #f7f5f2b3), url('/assets/images/fitness-3.jpg'); }
+
+		.sw-logistics { background-image: linear-gradient(135deg, #f97316b3, #0b1220b3), url('/assets/images/logistics.jpg'); }
+		.sw-logistics-2 { background-image: linear-gradient(135deg, #d97706b3, #12100cb3), url('/assets/images/logistics-2.jpg'); }
+		.sw-logistics-3 { background-image: linear-gradient(135deg, #16a34ab3, #fdfdfbb3), url('/assets/images/logistics-3.jpg'); }
+
+		@media (max-width: 768px) {
+			.category-block .grid-3 { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<div class="container navbar">
+			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+			<ul class="nav-links">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
+				<li class="nav-item"><a href="/examples/">Examples</a></li>
+				<li class="nav-item"><a href="/agents/">Agents</a></li>
+				<li class="nav-item"><a href="/faq/">FAQ</a></li>
+				<li class="nav-item"><a href="/contact/">Contact</a></li>
+				<li class="nav-item"><a class="nav-cta" href="/get-started/">Get Your Website</a></li>
+			</ul>
+			<div class="hamburger"><span></span><span></span><span></span></div>
+		</div>
+	</header>
+
+	<section class="hero" style="min-height: 50vh;">
+		<div class="hero-content container">
+			<h1 class="hero-title">Website <strong>Templates</strong></h1>
+			<p class="hero-tagline">Reusable templates keep delivery fast and pricing low. Here's the type of site
+				we can build for you.</p>
+		</div>
+	</section>
+
+	<section>
+		<div class="container">
+			<div class="internal-note">
+				These are live template demos you can click through — not real customer sites yet. Every real
+				project is customized with the client's own branding, content, and photos. Each category shows 3
+				style directions — pick a vibe, or use it as a starting point for something custom.
+			</div>
+
+			<!-- Personal Portfolio -->
+			<div class="category-block">
+				<div class="category-heading-row">
+				<h2 class="category-heading" id="personal-portfolio">Personal Portfolio</h2>
+				<button class="copy-link-btn" data-slug="personal-portfolio" title="Copy link to this section" aria-label="Copy link to this section">🔗</button>
+			</div>
+				<p class="category-subtext">A clean one-pager to showcase who you are and what you do.</p>
+				<div class="grid-3">
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-portfolio"></div>
+						<div class="template-body">
+							<span class="style-tag">Style A</span>
+							<h3>Ada Okoro</h3>
+							<p>UI/UX Designer — bold coral minimal.</p>
+							<a href="/examples/portfolio/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-portfolio-2"></div>
+						<div class="template-body">
+							<span class="style-tag">Style B</span>
+							<h3>Kelechi Obi</h3>
+							<p>3D/Motion Designer — vibrant duotone.</p>
+							<a href="/examples/portfolio-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-portfolio-3"></div>
+						<div class="template-body">
+							<span class="style-tag">Style C</span>
+							<h3>Ngozi Umeh</h3>
+							<p>Writer — warm editorial serif.</p>
+							<a href="/examples/portfolio-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Freelancer -->
+			<div class="category-block">
+				<div class="category-heading-row">
+				<h2 class="category-heading" id="freelancer">Freelancer</h2>
+				<button class="copy-link-btn" data-slug="freelancer" title="Copy link to this section" aria-label="Copy link to this section">🔗</button>
+			</div>
+				<p class="category-subtext">Services, past work, and a way for clients to reach you.</p>
+				<div class="grid-3">
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-freelancer"></div>
+						<div class="template-body">
+							<span class="style-tag">Style A</span>
+							<h3>Chidi Eze</h3>
+							<p>Copywriter & Marketer — clean corporate blue.</p>
+							<a href="/examples/freelancer/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-freelancer-2"></div>
+						<div class="template-body">
+							<span class="style-tag">Style B</span>
+							<h3>Blessing Nwosu</h3>
+							<p>Graphic Designer — bold playful pop.</p>
+							<a href="/examples/freelancer-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-freelancer-3"></div>
+						<div class="template-body">
+							<span class="style-tag">Style C</span>
+							<h3>Tarela Efe</h3>
+							<p>Video Editor — dark cinematic.</p>
+							<a href="/examples/freelancer-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Small Business -->
+			<div class="category-block">
+				<div class="category-heading-row">
+				<h2 class="category-heading" id="small-business">Small Business</h2>
+				<button class="copy-link-btn" data-slug="small-business" title="Copy link to this section" aria-label="Copy link to this section">🔗</button>
+			</div>
+				<p class="category-subtext">About, services, and contact info for a local business.</p>
+				<div class="grid-3">
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-small-business"></div>
+						<div class="template-body">
+							<span class="style-tag">Style A</span>
+							<h3>GreenLeaf Mart</h3>
+							<p>Grocery store — warm cream & green.</p>
+							<a href="/examples/small-business/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-small-business-2"></div>
+						<div class="template-body">
+							<span class="style-tag">Style B</span>
+							<h3>Bright Spark Electronics</h3>
+							<p>Phone shop & repairs — clean tech blue.</p>
+							<a href="/examples/small-business-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-small-business-3"></div>
+						<div class="template-body">
+							<span class="style-tag">Style C</span>
+							<h3>Cornerstone Hardware</h3>
+							<p>Building materials — industrial amber.</p>
+							<a href="/examples/small-business-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Restaurant / Food -->
+			<div class="category-block">
+				<div class="category-heading-row">
+				<h2 class="category-heading" id="restaurant-food">Restaurant / Food</h2>
+				<button class="copy-link-btn" data-slug="restaurant-food" title="Copy link to this section" aria-label="Copy link to this section">🔗</button>
+			</div>
+				<p class="category-subtext">Menu highlights, location, and ordering contact.</p>
+				<div class="grid-3">
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-restaurant"></div>
+						<div class="template-body">
+							<span class="style-tag">Style A</span>
+							<h3>Mama Bisi's Kitchen</h3>
+							<p>Home-style Nigerian — warm dark & orange.</p>
+							<a href="/examples/restaurant/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-restaurant-2"></div>
+						<div class="template-body">
+							<span class="style-tag">Style B</span>
+							<h3>Café Aroma</h3>
+							<p>Coffee & pastries — cozy cream tones.</p>
+							<a href="/examples/restaurant-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-restaurant-3"></div>
+						<div class="template-body">
+							<span class="style-tag">Style C</span>
+							<h3>Ocean Grill & Lounge</h3>
+							<p>Seafood & cocktails — dark elegant teal.</p>
+							<a href="/examples/restaurant-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Photographer -->
+			<div class="category-block">
+				<div class="category-heading-row">
+				<h2 class="category-heading" id="photographer">Photographer</h2>
+				<button class="copy-link-btn" data-slug="photographer" title="Copy link to this section" aria-label="Copy link to this section">🔗</button>
+			</div>
+				<p class="category-subtext">A gallery-first layout that puts the images first.</p>
+				<div class="grid-3">
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-photographer"></div>
+						<div class="template-body">
+							<span class="style-tag">Style A</span>
+							<h3>Tunde Lens</h3>
+							<p>Portrait & event — black & white minimal.</p>
+							<a href="/examples/photographer/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-photographer-2"></div>
+						<div class="template-body">
+							<span class="style-tag">Style B</span>
+							<h3>Amaka Frames</h3>
+							<p>Wedding photography — soft romantic blush.</p>
+							<a href="/examples/photographer-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-photographer-3"></div>
+						<div class="template-body">
+							<span class="style-tag">Style C</span>
+							<h3>Kayfoto Studios</h3>
+							<p>Product & fashion — bold high-contrast.</p>
+							<a href="/examples/photographer-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Fashion -->
+			<div class="category-block">
+				<div class="category-heading-row">
+				<h2 class="category-heading" id="fashion">Fashion</h2>
+				<button class="copy-link-btn" data-slug="fashion" title="Copy link to this section" aria-label="Copy link to this section">🔗</button>
+			</div>
+				<p class="category-subtext">Lookbook style layout for designers and boutiques.</p>
+				<div class="grid-3">
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-fashion"></div>
+						<div class="template-body">
+							<span class="style-tag">Style A</span>
+							<h3>Zaria Couture</h3>
+							<p>Ready-to-wear — elegant black & gold.</p>
+							<a href="/examples/fashion/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-fashion-2"></div>
+						<div class="template-body">
+							<span class="style-tag">Style B</span>
+							<h3>Lumo Streetwear</h3>
+							<p>Streetwear label — loud neon energy.</p>
+							<a href="/examples/fashion-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-fashion-3"></div>
+						<div class="template-body">
+							<span class="style-tag">Style C</span>
+							<h3>Ivory & Lace</h3>
+							<p>Bridal wear — soft white & blush.</p>
+							<a href="/examples/fashion-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Beauty / Barber -->
+			<div class="category-block">
+				<div class="category-heading-row">
+				<h2 class="category-heading" id="beauty-barber">Beauty / Barber</h2>
+				<button class="copy-link-btn" data-slug="beauty-barber" title="Copy link to this section" aria-label="Copy link to this section">🔗</button>
+			</div>
+				<p class="category-subtext">Services, pricing, and a WhatsApp booking button.</p>
+				<div class="grid-3">
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-barber"></div>
+						<div class="template-body">
+							<span class="style-tag">Style A</span>
+							<h3>Fade Kings Barbershop</h3>
+							<p>Barbershop — masculine black & gold.</p>
+							<a href="/examples/barber/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-barber-2"></div>
+						<div class="template-body">
+							<span class="style-tag">Style B</span>
+							<h3>Glow Beauty Lounge</h3>
+							<p>Nails, lashes & makeup — soft rose pink.</p>
+							<a href="/examples/barber-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-barber-3"></div>
+						<div class="template-body">
+							<span class="style-tag">Style C</span>
+							<h3>Sharp Edge Salon</h3>
+							<p>Unisex salon — clean modern teal.</p>
+							<a href="/examples/barber-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Event Planner -->
+			<div class="category-block">
+				<div class="category-heading-row">
+				<h2 class="category-heading" id="event-planner">Event Planner</h2>
+				<button class="copy-link-btn" data-slug="event-planner" title="Copy link to this section" aria-label="Copy link to this section">🔗</button>
+			</div>
+				<p class="category-subtext">Past events, packages, and inquiry contact.</p>
+				<div class="grid-3">
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-events"></div>
+						<div class="template-body">
+							<span class="style-tag">Style A</span>
+							<h3>Grace Events Co.</h3>
+							<p>Weddings & parties — elegant blush.</p>
+							<a href="/examples/events/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-events-2"></div>
+						<div class="template-body">
+							<span class="style-tag">Style B</span>
+							<h3>Prime Conferences</h3>
+							<p>Corporate events — professional navy & gold.</p>
+							<a href="/examples/events-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-events-3"></div>
+						<div class="template-body">
+							<span class="style-tag">Style C</span>
+							<h3>Lil Stars Party Planners</h3>
+							<p>Kids birthdays — bright playful colors.</p>
+							<a href="/examples/events-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Consultant -->
+			<div class="category-block">
+				<div class="category-heading-row">
+				<h2 class="category-heading" id="consultant">Consultant</h2>
+				<button class="copy-link-btn" data-slug="consultant" title="Copy link to this section" aria-label="Copy link to this section">🔗</button>
+			</div>
+				<p class="category-subtext">Credibility-first layout for consultants & tutors.</p>
+				<div class="grid-3">
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-consultant"></div>
+						<div class="template-body">
+							<span class="style-tag">Style A</span>
+							<h3>Femi Balogun</h3>
+							<p>Business consultant — professional navy.</p>
+							<a href="/examples/consultant/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-consultant-2"></div>
+						<div class="template-body">
+							<span class="style-tag">Style B</span>
+							<h3>Adaeze Nwankwo</h3>
+							<p>Career coach — warm coral & teal.</p>
+							<a href="/examples/consultant-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-consultant-3"></div>
+						<div class="template-body">
+							<span class="style-tag">Style C</span>
+							<h3>TaxWise Advisory</h3>
+							<p>Financial consultant — trustworthy green & gold.</p>
+							<a href="/examples/consultant-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Real Estate Agent -->
+			<div class="category-block">
+				<div class="category-heading-row">
+				<h2 class="category-heading" id="real-estate-agent">Real Estate Agent</h2>
+				<button class="copy-link-btn" data-slug="real-estate-agent" title="Copy link to this section" aria-label="Copy link to this section">🔗</button>
+			</div>
+				<p class="category-subtext">Listings-first layout for agents, agencies, and property managers.</p>
+				<div class="grid-3">
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-real-estate"></div>
+						<div class="template-body">
+							<span class="style-tag">Style A</span>
+							<h3>Prime Realty Advisors</h3>
+							<p>Residential & commercial — warm gold on dark.</p>
+							<a href="/examples/real-estate/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-real-estate-2"></div>
+						<div class="template-body">
+							<span class="style-tag">Style B</span>
+							<h3>Halima Yusuf Properties</h3>
+							<p>Luxury listings — elegant black & gold.</p>
+							<a href="/examples/real-estate-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-real-estate-3"></div>
+						<div class="template-body">
+							<span class="style-tag">Style C</span>
+							<h3>UrbanNest Realty</h3>
+							<p>Modern listings — clean sky blue.</p>
+							<a href="/examples/real-estate-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Church / Ministry / NGO -->
+			<div class="category-block">
+				<div class="category-heading-row">
+				<h2 class="category-heading" id="church-ministry-ngo">Church / Ministry / NGO</h2>
+				<button class="copy-link-btn" data-slug="church-ministry-ngo" title="Copy link to this section" aria-label="Copy link to this section">🔗</button>
+			</div>
+				<p class="category-subtext">Service times, programs, and a way for visitors to reach out.</p>
+				<div class="grid-3">
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-church"></div>
+						<div class="template-body">
+							<span class="style-tag">Style A</span>
+							<h3>Grace Covenant Chapel</h3>
+							<p>Church — warm bronze on dark.</p>
+							<a href="/examples/church/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-church-2"></div>
+						<div class="template-body">
+							<span class="style-tag">Style B</span>
+							<h3>Hope Relief Foundation</h3>
+							<p>NGO / nonprofit — fresh green.</p>
+							<a href="/examples/church-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-church-3"></div>
+						<div class="template-body">
+							<span class="style-tag">Style C</span>
+							<h3>Living Word International</h3>
+							<p>Media-forward ministry — cool blue.</p>
+							<a href="/examples/church-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- School / Tutorial Center -->
+			<div class="category-block">
+				<div class="category-heading-row">
+				<h2 class="category-heading" id="school-tutorial-center">School / Tutorial Center</h2>
+				<button class="copy-link-btn" data-slug="school-tutorial-center" title="Copy link to this section" aria-label="Copy link to this section">🔗</button>
+			</div>
+				<p class="category-subtext">Programs, admissions, and a way for parents to get in touch.</p>
+				<div class="grid-3">
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-school"></div>
+						<div class="template-body">
+							<span class="style-tag">Style A</span>
+							<h3>Brightpath Tutorial Centre</h3>
+							<p>Exam prep — warm amber & cream.</p>
+							<a href="/examples/school/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-school-2"></div>
+						<div class="template-body">
+							<span class="style-tag">Style B</span>
+							<h3>Kiddies Corner</h3>
+							<p>Nursery & primary — playful pink & blue.</p>
+							<a href="/examples/school-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-school-3"></div>
+						<div class="template-body">
+							<span class="style-tag">Style C</span>
+							<h3>TechSkills Academy</h3>
+							<p>Coding bootcamp — modern indigo.</p>
+							<a href="/examples/school-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Fitness / Gym Coach -->
+			<div class="category-block">
+				<div class="category-heading-row">
+				<h2 class="category-heading" id="fitness-gym-coach">Fitness / Gym Coach</h2>
+				<button class="copy-link-btn" data-slug="fitness-gym-coach" title="Copy link to this section" aria-label="Copy link to this section">🔗</button>
+			</div>
+				<p class="category-subtext">Programs, pricing, and a clear call to book or join.</p>
+				<div class="grid-3">
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-fitness"></div>
+						<div class="template-body">
+							<span class="style-tag">Style A</span>
+							<h3>Kelvin Okoye Fitness</h3>
+							<p>Personal trainer — bold red on black.</p>
+							<a href="/examples/fitness/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-fitness-2"></div>
+						<div class="template-body">
+							<span class="style-tag">Style B</span>
+							<h3>IronCore Gym</h3>
+							<p>24-hour gym — bold amber on charcoal.</p>
+							<a href="/examples/fitness-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-fitness-3"></div>
+						<div class="template-body">
+							<span class="style-tag">Style C</span>
+							<h3>FlexFit Studio</h3>
+							<p>Yoga & pilates — calm sage & cream.</p>
+							<a href="/examples/fitness-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Logistics / Delivery -->
+			<div class="category-block">
+				<div class="category-heading-row">
+				<h2 class="category-heading" id="logistics-delivery">Logistics / Delivery</h2>
+				<button class="copy-link-btn" data-slug="logistics-delivery" title="Copy link to this section" aria-label="Copy link to this section">🔗</button>
+			</div>
+				<p class="category-subtext">How-it-works steps and a clear way to request a pickup or quote.</p>
+				<div class="grid-3">
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-logistics"></div>
+						<div class="template-body">
+							<span class="style-tag">Style A</span>
+							<h3>SwiftDrop Logistics</h3>
+							<p>Same-day delivery — bold orange on navy.</p>
+							<a href="/examples/logistics/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-logistics-2"></div>
+						<div class="template-body">
+							<span class="style-tag">Style B</span>
+							<h3>CargoLink Nigeria</h3>
+							<p>Freight & haulage — industrial amber.</p>
+							<a href="/examples/logistics-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+					<div class="glass-card template-card">
+						<div class="template-swatch sw-logistics-3"></div>
+						<div class="template-body">
+							<span class="style-tag">Style C</span>
+							<h3>QuickErrand</h3>
+							<p>Errand & dispatch — clean green on white.</p>
+							<a href="/examples/logistics-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="container" style="text-align: center;">
+			<h2 style="font-size: 2rem; margin-bottom: 1.25rem;">Don't see your type of business?</h2>
+			<p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto 2rem;">We can adapt any
+				template, or build something custom.</p>
+			<div class="btn-group">
+				<a href="/get-started/" class="btn btn-primary">Get Your Website</a>
+				<a href="https://wa.me/2349120925909" target="_blank" rel="noopener" class="btn btn-whatsapp">Ask on WhatsApp</a>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<div class="container">
+			<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
+			<p><a href="/agents/">Referral Agents</a> &middot; <a
+					href="/contact/">Contact</a> &middot; <a href="/privacy/">Privacy</a></p>
+		</div>
+	</footer>
+
+	<script src="/assets/main.js"></script>
+
+	<!-- Per-category "copy link" buttons: lets someone share a direct link to one template category -->
+	<script>
+		document.querySelectorAll('.copy-link-btn').forEach((btn) => {
+			btn.addEventListener('click', async () => {
+				const slug = btn.getAttribute('data-slug');
+				const url = `${location.origin}${location.pathname}#${slug}`;
+				try {
+					await navigator.clipboard.writeText(url);
+				} catch (e) {
+					window.prompt('Copy this link:', url);
+					return;
+				}
+				const original = btn.textContent;
+				btn.textContent = '✓';
+				btn.classList.add('copied');
+				setTimeout(() => {
+					btn.textContent = original;
+					btn.classList.remove('copied');
+				}, 1500);
+			});
+		});
+	</script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-QBP4PEKW8Z"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'G-QBP4PEKW8Z');
+	</script>
+</body>
+
+</html>

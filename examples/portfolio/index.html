@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Ada Okoro — Portfolio Template Demo | Elevven11 Studio</title>
+	<meta name="description" content="Personal Portfolio template demo by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #0e0e10;
+			--text: #f4f1ec;
+			--muted: #a3a0a0;
+			--accent: #ff6b6b;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		img { max-width: 100%; display: block; }
+		.wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+		/* Elevven11 demo ribbon */
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem;
+			font-family: system-ui, sans-serif; font-size: 0.85rem;
+			border-bottom: 1px solid rgba(255,255,255,0.12);
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 6rem 0 4rem; text-align: center;
+			background:
+				linear-gradient(180deg, rgba(14,14,16,.6), var(--bg) 92%),
+				url('/assets/images/portfolio.jpg') center/cover no-repeat;
+		}
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 3px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; }
+		h1 { font-size: 3rem; margin-bottom: 1rem; }
+		.tagline { color: var(--muted); font-size: 1.15rem; max-width: 520px; margin: 0 auto 2rem; }
+		.btn { display: inline-block; padding: 0.9rem 2rem; border-radius: 30px; font-weight: 700; text-decoration: none; }
+		.btn-primary { background: var(--accent); color: #1a0505; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.75rem; margin-bottom: 2rem; }
+		.about p { color: var(--muted); max-width: 640px; font-size: 1.05rem; }
+
+		.work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.work-card { border-radius: 10px; overflow: hidden; background: #17161a; }
+		.work-thumb { height: 160px; }
+		.work-card h4 { padding: 1rem 1rem 0.25rem; font-size: 1.05rem; }
+		.work-card p { padding: 0 1rem 1rem; color: var(--muted); font-size: 0.9rem; }
+		.thumb-1 { background: linear-gradient(135deg, #ff6b6b, #ffa06b); }
+		.thumb-2 { background: linear-gradient(135deg, #6bc3ff, #6b7fff); }
+		.thumb-3 { background: linear-gradient(135deg, #b76bff, #ff6bd6); }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2.1rem; }
+			.work-grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Starter">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">UI/UX Designer</div>
+			<h1>Ada Okoro</h1>
+			<p class="tagline">I design clean, usable interfaces for mobile apps and websites. Based in Lagos,
+				working with teams everywhere.</p>
+			<a href="#work" class="btn btn-primary">View My Work</a>
+		</div>
+	</header>
+
+	<section class="about">
+		<div class="wrap">
+			<h2 class="section-title">About</h2>
+			<p>I'm a product designer with 5 years of experience turning rough ideas into interfaces people enjoy
+				using. I care about the small details — spacing, copy, the way a button feels when you tap it.
+				When I'm not designing, I'm mentoring junior designers or sketching new app concepts.</p>
+		</div>
+	</section>
+
+	<section id="work">
+		<div class="wrap">
+			<h2 class="section-title">Selected Work</h2>
+			<div class="work-grid">
+				<div class="work-card">
+					<div class="work-thumb thumb-1"></div>
+					<h4>Fintech Mobile App</h4>
+					<p>Redesigned onboarding flow, cut drop-off by 40%.</p>
+				</div>
+				<div class="work-card">
+					<div class="work-thumb thumb-2"></div>
+					<h4>Booking Platform</h4>
+					<p>End-to-end UI for a service booking marketplace.</p>
+				</div>
+				<div class="work-card">
+					<div class="work-thumb thumb-3"></div>
+					<h4>Brand & Web Refresh</h4>
+					<p>Visual identity and landing page for a creator brand.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Let's Work Together</h2>
+			<p>Have a project in mind? I'd love to hear about it.</p>
+			<a href="#" class="btn btn-primary demo-cta">Get In Touch</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Ada Okoro. Fictional portfolio for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

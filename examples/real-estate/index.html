@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Prime Realty Advisors — Real Estate Template Demo | Elevven11 Studio</title>
+	<meta name="description" content="Real Estate Agent template demo by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #0f1216;
+			--text: #eef1f4;
+			--muted: #99a3ad;
+			--accent: #c9a15a;
+			--card: #171b21;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 5.5rem 0 3.5rem; text-align: center;
+			background:
+				radial-gradient(circle at 50% 0%, rgba(201,161,90,0.2), transparent 60%),
+				linear-gradient(180deg, rgba(15,18,22,.48), rgba(15,18,22,.95) 88%),
+				url('/assets/images/real-estate.jpg') center/cover no-repeat;
+		}
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; }
+		h1 { font-size: 2.75rem; margin-bottom: 1rem; }
+		.tagline { color: var(--muted); font-size: 1.1rem; max-width: 500px; margin: 0 auto 2rem; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; border-radius: 4px; font-weight: 700; text-decoration: none; }
+		.btn-primary { background: var(--accent); color: #1a1206; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.6rem; margin-bottom: 2rem; text-align: center; }
+
+		.listings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.listing-card { background: var(--card); border-radius: 10px; overflow: hidden; }
+		.listing-thumb { aspect-ratio: 4/3; }
+		.t1 { background: linear-gradient(150deg, #3a3226, #14110d); }
+		.t2 { background: linear-gradient(150deg, #2e3a32, #0d140f); }
+		.t3 { background: linear-gradient(150deg, #263440, #0c1116); }
+		.listing-body { padding: 1.25rem; }
+		.listing-body h4 { margin-bottom: 0.3rem; }
+		.listing-body p { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.5rem; }
+		.listing-body .price { color: var(--accent); font-weight: 700; }
+
+		.about { text-align: center; }
+		.about p { color: var(--muted); max-width: 600px; margin: 0 auto; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2.1rem; }
+			.listings-grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Plus">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Residential & Commercial Real Estate</div>
+			<h1><span data-intl="Prime Realty Advisors">Prime Realty Advisors</span></h1>
+			<p class="tagline">
+				<span data-intl="Serving Austin and the surrounding area.">Serving Lagos and the surrounding
+					mainland.</span>
+				Find your next home, or list yours with confidence.
+			</p>
+			<a href="#" class="btn btn-primary demo-cta">View Listings</a>
+		</div>
+	</header>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">Featured Listings</h2>
+			<div class="listings-grid">
+				<div class="listing-card">
+					<div class="listing-thumb t1"></div>
+					<div class="listing-body">
+						<h4><span data-intl="4-Bed Family Home, Round Rock">4-Bed Duplex, Lekki Phase 1</span></h4>
+						<p><span data-intl="3 bath &#183; 2,400 sqft">4 bath &#183; 5 bedrooms</span></p>
+						<div class="price"><span data-intl="$425,000">₦185,000,000</span></div>
+					</div>
+				</div>
+				<div class="listing-card">
+					<div class="listing-thumb t2"></div>
+					<div class="listing-body">
+						<h4><span data-intl="Downtown Loft, Austin">3-Bed Flat, Ikoyi</span></h4>
+						<p><span data-intl="2 bath &#183; 1,100 sqft">3 bath &#183; furnished</span></p>
+						<div class="price"><span data-intl="$310,000">₦95,000,000</span></div>
+					</div>
+				</div>
+				<div class="listing-card">
+					<div class="listing-thumb t3"></div>
+					<div class="listing-body">
+						<h4><span data-intl="Commercial Office Suite">Office Space, Victoria Island</span></h4>
+						<p><span data-intl="1,800 sqft &#183; move-in ready">200 sqm &#183; move-in ready</span></p>
+						<div class="price"><span data-intl="$2,400/mo">₦4,500,000/yr</span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="about">
+		<div class="wrap">
+			<h2 class="section-title">Why Work With Us</h2>
+			<p>
+				<span data-intl="With over a decade in Central Texas real estate, we handle everything from first-time buyer paperwork to complex commercial leases.">
+					With over a decade in Lagos real estate, we handle everything from first-time buyer paperwork to
+					complex commercial leases.
+				</span>
+				No pressure, just honest guidance.
+			</p>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Buying, Selling, or Renting?</h2>
+			<p>Tell us what you're looking for and we'll take it from there.</p>
+			<a href="#" class="btn btn-primary demo-cta">Speak With an Agent</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 <span data-intl="Prime Realty Advisors">Prime Realty Advisors</span>. Fictional business
+				for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script src="/assets/demo-localize.js"></script>
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

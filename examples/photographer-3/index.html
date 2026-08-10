@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Kayfoto Studios — Photographer Template Demo (Style C) | Elevven11 Studio</title>
+	<meta name="description" content="Photographer template demo (Style C) by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #050505;
+			--text: #f5f5f5;
+			--muted: #8a8a8a;
+			--accent: #ccff00;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 5rem 0 3rem; text-align: center;
+			background:
+				linear-gradient(180deg, rgba(0,0,0,.7), var(--bg) 92%),
+				url('/assets/images/photographer-3.jpg') center/cover no-repeat;
+		}
+		.eyebrow { text-transform: uppercase; letter-spacing: 4px; font-size: 0.8rem; font-weight: 800; margin-bottom: 1rem; color: var(--accent); }
+		h1 { font-size: 3.25rem; margin-bottom: 0.5rem; letter-spacing: -1px; text-transform: uppercase; }
+		.tagline { color: var(--muted); font-size: 1.05rem; }
+
+		.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
+		.gallery-item { aspect-ratio: 1; }
+		.g1 { background: linear-gradient(150deg, #ccff00, #111); }
+		.g2 { background: linear-gradient(150deg, #ff0055, #111); }
+		.g3 { background: linear-gradient(150deg, #00e5ff, #111); }
+		.g4 { background: linear-gradient(150deg, #ff8800, #111); }
+		.g5 { background: linear-gradient(150deg, #aa00ff, #111); }
+		.g6 { background: linear-gradient(150deg, #ccff00, #333); }
+		.g7 { background: linear-gradient(150deg, #ff0055, #333); }
+		.g8 { background: linear-gradient(150deg, #00e5ff, #333); }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.5rem; margin-bottom: 2rem; text-align: center; text-transform: uppercase; letter-spacing: 2px; }
+
+		.about { text-align: center; }
+		.about p { color: var(--muted); max-width: 560px; margin: 0 auto; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; background: var(--accent); color: #050505; font-weight: 800; text-decoration: none; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2.25rem; }
+			.gallery-grid { grid-template-columns: repeat(2, 1fr); }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Starter">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Product & Fashion Photography</div>
+			<h1>Kayfoto Studios</h1>
+			<p class="tagline">High-contrast, high-energy visuals for brands, campaigns, and lookbooks.</p>
+		</div>
+	</header>
+
+	<div class="gallery-grid">
+		<div class="gallery-item g1"></div>
+		<div class="gallery-item g2"></div>
+		<div class="gallery-item g3"></div>
+		<div class="gallery-item g4"></div>
+		<div class="gallery-item g5"></div>
+		<div class="gallery-item g6"></div>
+		<div class="gallery-item g7"></div>
+		<div class="gallery-item g8"></div>
+	</div>
+
+	<section class="about">
+		<div class="wrap">
+			<h2 class="section-title">Studio</h2>
+			<p>An in-house studio built for brands that want their product shots and campaigns to look like
+				nothing else in the feed. Full-service: concept, shoot, and retouch.</p>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Book The Studio</h2>
+			<p>Available for brand shoots, lookbooks, and campaign visuals.</p>
+			<a href="#" class="btn demo-cta">Enquire Now</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Kayfoto Studios. Fictional business for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Femi Balogun — Consultant Template Demo | Elevven11 Studio</title>
+	<meta name="description" content="Consultant template demo by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #0a1128;
+			--text: #eef1f8;
+			--muted: #9aa4c2;
+			--accent: #4f7cff;
+			--card: #101a3d;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem;
+			font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 5rem 0 3.5rem; text-align: center;
+			background:
+				radial-gradient(circle at 50% 0%, rgba(79,124,255,0.25), transparent 60%),
+				linear-gradient(180deg, rgba(10,17,40,.5), rgba(10,17,40,.94) 88%),
+				url('/assets/images/consultant.jpg') center/cover no-repeat;
+		}
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; }
+		h1 { font-size: 2.75rem; margin-bottom: 1rem; }
+		.tagline { color: var(--muted); font-size: 1.1rem; max-width: 500px; margin: 0 auto 2rem; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; border-radius: 6px; font-weight: 700; text-decoration: none; }
+		.btn-primary { background: var(--accent); color: #fff; }
+
+		.stats-strip { display: flex; justify-content: center; gap: 3rem; padding: 2.5rem 0; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; }
+		.stat { text-align: center; }
+		.stat .num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+		.stat .label { color: var(--muted); font-size: 0.85rem; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.75rem; margin-bottom: 2rem; text-align: center; }
+
+		.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.service-card { background: var(--card); border-radius: 10px; padding: 1.75rem; }
+		.service-card h4 { color: var(--accent); margin-bottom: 0.5rem; }
+		.service-card p { color: var(--muted); font-size: 0.9rem; }
+
+		.testimonial { text-align: center; }
+		.testimonial blockquote { font-size: 1.2rem; font-style: italic; max-width: 620px; margin: 0 auto 1rem; }
+		.testimonial cite { color: var(--muted); font-style: normal; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2.1rem; }
+			.services-grid { grid-template-columns: 1fr; }
+			.stats-strip { gap: 1.75rem; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Plus">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Business Growth Consultant</div>
+			<h1>Femi Balogun</h1>
+			<p class="tagline">I help small businesses fix what's leaking revenue — pricing, operations, and
+				growth strategy that actually gets implemented.</p>
+			<a href="#" class="btn btn-primary demo-cta">Book a Free Call</a>
+		</div>
+	</header>
+
+	<div class="stats-strip">
+		<div class="stat"><div class="num">60+</div><div class="label">Businesses Advised</div></div>
+		<div class="stat"><div class="num">8 yrs</div><div class="label">Consulting Experience</div></div>
+		<div class="stat"><div class="num">₦200M+</div><div class="label">Client Revenue Impact</div></div>
+	</div>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">How I Help</h2>
+			<div class="services-grid">
+				<div class="service-card">
+					<h4>Growth Strategy</h4>
+					<p>A clear, practical plan to grow revenue over the next 6–12 months.</p>
+				</div>
+				<div class="service-card">
+					<h4>Operations Review</h4>
+					<p>Find the bottlenecks quietly costing you time and money.</p>
+				</div>
+				<div class="service-card">
+					<h4>Pricing & Positioning</h4>
+					<p>Price with confidence and stand out from competitors.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="testimonial">
+		<div class="wrap">
+			<blockquote>"Femi restructured our pricing in one session and we saw the difference in the next
+				month's numbers."</blockquote>
+			<cite>— A client, retail business owner</cite>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Let's Talk About Your Business</h2>
+			<p>Book a free 20-minute call to see if we're a fit.</p>
+			<a href="#" class="btn btn-primary demo-cta">Schedule a Call</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Femi Balogun Consulting. Fictional business for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

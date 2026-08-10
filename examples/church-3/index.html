@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Living Word International Ministries — Church Template Demo (Style C) | Elevven11 Studio</title>
+	<meta name="description" content="Church / Ministry template demo (Style C) by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #0a0f1c;
+			--text: #eef1fa;
+			--muted: #939cba;
+			--accent: #7c9cff;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 6rem 0 4rem; text-align: center;
+			background:
+				radial-gradient(circle at 50% 0%, rgba(124,156,255,0.22), transparent 60%),
+				linear-gradient(180deg, rgba(6,8,16,0.6) 0%, var(--bg) 92%),
+				url('/assets/images/church-3.jpg') center/cover no-repeat;
+		}
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; }
+		h1 { font-size: 2.6rem; margin-bottom: 1rem; }
+		.tagline { color: var(--muted); font-size: 1.1rem; max-width: 500px; margin: 0 auto 2rem; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; border-radius: 30px; font-weight: 700; text-decoration: none; }
+		.btn-primary { background: var(--accent); color: #0a0f1c; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.6rem; margin-bottom: 2rem; text-align: center; }
+
+		.watch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+		.watch-grid div { aspect-ratio: 16/9; border-radius: 8px; }
+		.wv1 { background: linear-gradient(150deg, #7c9cff, #101733); }
+		.wv2 { background: linear-gradient(150deg, #a78bfa, #101733); }
+		.wv3 { background: linear-gradient(150deg, #60a5fa, #101733); }
+
+		.about { text-align: center; }
+		.about p { color: var(--muted); max-width: 600px; margin: 0 auto; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2rem; }
+			.watch-grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Starter">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Watch, Grow, Connect</div>
+			<h1>Living Word International Ministries</h1>
+			<p class="tagline">Can't make it in person? Join our services live, wherever you are.</p>
+			<a href="#" class="btn btn-primary demo-cta">Watch Live</a>
+		</div>
+	</header>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">Recent Messages</h2>
+			<div class="watch-grid">
+				<div class="wv1"></div>
+				<div class="wv2"></div>
+				<div class="wv3"></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="about">
+		<div class="wrap">
+			<h2 class="section-title">Our Church</h2>
+			<p>Based in <span data-intl="Atlanta, Georgia">Port Harcourt</span>, Living Word reaches thousands
+				online each week across Africa, Europe, and the diaspora. Come as you are, wherever you are.</p>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Need Prayer?</h2>
+			<p>Our prayer team is available to pray with you.</p>
+			<a href="#" class="btn btn-primary demo-cta">Send a Prayer Request</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Living Word International Ministries. Fictional ministry for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script src="/assets/demo-localize.js"></script>
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

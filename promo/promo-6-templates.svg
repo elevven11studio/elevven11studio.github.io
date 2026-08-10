@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&amp;display=swap');
+      text { font-family: 'Outfit', 'Segoe UI', sans-serif; }
+    </style>
+    <linearGradient id="neon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#86efac" />
+      <stop offset="100%" stop-color="#22c55e" />
+    </linearGradient>
+    <radialGradient id="glow1" cx="50%" cy="0%" r="50%">
+      <stop offset="0%" stop-color="#86efac" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#86efac" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1080" height="1080" fill="#0b0a10" />
+  <rect width="1080" height="1080" fill="url(#glow1)" />
+
+  <text x="540" y="140" text-anchor="middle" font-size="26" font-weight="700" letter-spacing="4" fill="#86efac">THE TEMPLATE GALLERY JUST GREW</text>
+  <text x="540" y="225" text-anchor="middle" font-size="66" font-weight="800" fill="#f7f3ec">14 Business Types.</text>
+  <text x="540" y="300" text-anchor="middle" font-size="66" font-weight="800" fill="url(#neon)">42 Website Styles.</text>
+  <text x="540" y="355" text-anchor="middle" font-size="26" fill="#a79f95">Real estate, churches, schools, gyms, logistics &amp; more</text>
+
+  <!-- Swatch mosaic - real colors pulled from the actual template gallery -->
+  <g>
+    <rect x="140" y="430" width="144" height="95" rx="10" fill="#ff6b6b" />
+    <rect x="304" y="430" width="144" height="95" rx="10" fill="#2563eb" />
+    <rect x="468" y="430" width="144" height="95" rx="10" fill="#166534" />
+    <rect x="632" y="430" width="144" height="95" rx="10" fill="#e0793a" />
+    <rect x="796" y="430" width="144" height="95" rx="10" fill="#444444" />
+
+    <rect x="140" y="535" width="144" height="95" rx="10" fill="#d4af37" />
+    <rect x="304" y="535" width="144" height="95" rx="10" fill="#c8963e" />
+    <rect x="468" y="535" width="144" height="95" rx="10" fill="#c76b7f" />
+    <rect x="632" y="535" width="144" height="95" rx="10" fill="#4f7cff" />
+    <rect x="796" y="535" width="144" height="95" rx="10" fill="#c9a15a" />
+
+    <rect x="140" y="640" width="144" height="95" rx="10" fill="#b5824a" />
+    <rect x="304" y="640" width="144" height="95" rx="10" fill="#d97706" />
+    <rect x="468" y="640" width="144" height="95" rx="10" fill="#ff4d29" />
+    <rect x="632" y="640" width="144" height="95" rx="10" fill="#f97316" />
+    <rect x="796" y="640" width="144" height="95" rx="10" fill="#0ea5e9" />
+  </g>
+
+  <rect x="390" y="790" width="300" height="86" rx="43" fill="url(#neon)" />
+  <text x="540" y="843" text-anchor="middle" font-size="30" font-weight="700" fill="#0b0a10">See All Examples</text>
+
+  <line x1="140" y1="960" x2="940" y2="960" stroke="#f7f3ec" stroke-opacity="0.12" stroke-width="2" />
+  <text x="540" y="1015" text-anchor="middle" font-size="30" font-weight="800" letter-spacing="1" fill="url(#neon)">ELEVVEN11 STUDIO</text>
+</svg>

@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>UrbanNest Realty — Real Estate Template Demo (Style C) | Elevven11 Studio</title>
+	<meta name="description" content="Modern Real Estate template demo (Style C) by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #f5f7fa;
+			--text: #14202b;
+			--muted: #5c6b7a;
+			--accent: #0ea5e9;
+			--card: #ffffff;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 5rem 0 3.5rem; text-align: center; color: #fff;
+			background:
+				linear-gradient(160deg, rgba(14,165,233,.82), rgba(8,32,46,.58)),
+				url('/assets/images/real-estate-3.jpg') center/cover no-repeat;
+		}
+		.eyebrow { text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; opacity: 0.9; }
+		h1 { font-size: 2.75rem; margin-bottom: 1rem; }
+		.tagline { font-size: 1.1rem; max-width: 480px; margin: 0 auto 2rem; opacity: 0.9; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; border-radius: 8px; font-weight: 700; text-decoration: none; }
+		.btn-primary { background: #fff; color: var(--accent); }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.6rem; margin-bottom: 2rem; text-align: center; }
+
+		.listings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+		.listing-card { background: var(--card); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 14px rgba(14,165,233,0.08); }
+		.listing-thumb { aspect-ratio: 4/3; }
+		.t1 { background: linear-gradient(150deg, #7dd3fc, #0ea5e9); }
+		.t2 { background: linear-gradient(150deg, #a5f3fc, #0891b2); }
+		.t3 { background: linear-gradient(150deg, #bae6fd, #0284c7); }
+		.listing-body { padding: 1.25rem; }
+		.listing-body h4 { margin-bottom: 0.3rem; font-size: 1rem; }
+		.listing-body p { color: var(--muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+		.listing-body .price { color: var(--accent); font-weight: 700; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(0,0,0,0.06); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2rem; }
+			.listings-grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Plus">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Find Your Next Place, Fast</div>
+			<h1>UrbanNest Realty</h1>
+			<p class="tagline">Modern listings, honest pricing, no back-and-forth.
+				<span data-intl="Serving the Denver metro.">Serving Lagos and Ogun State.</span></p>
+			<a href="#" class="btn btn-primary demo-cta">Browse Listings</a>
+		</div>
+	</header>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">New This Week</h2>
+			<div class="listings-grid">
+				<div class="listing-card">
+					<div class="listing-thumb t1"></div>
+					<div class="listing-body">
+						<h4><span data-intl="Modern Townhome">2-Bed Terrace, Ajah</span></h4>
+						<p><span data-intl="2 bath &#183; 1,450 sqft">2 bath &#183; newly built</span></p>
+						<div class="price"><span data-intl="$1,850/mo">₦2,200,000/yr</span></div>
+					</div>
+				</div>
+				<div class="listing-card">
+					<div class="listing-thumb t2"></div>
+					<div class="listing-body">
+						<h4><span data-intl="City View Apartment">1-Bed Flat, Yaba</span></h4>
+						<p><span data-intl="1 bath &#183; 820 sqft">1 bath &#183; serviced</span></p>
+						<div class="price"><span data-intl="$1,250/mo">₦1,500,000/yr</span></div>
+					</div>
+				</div>
+				<div class="listing-card">
+					<div class="listing-thumb t3"></div>
+					<div class="listing-body">
+						<h4><span data-intl="Starter Family Home">3-Bed Bungalow, Sangotedo</span></h4>
+						<p><span data-intl="2 bath &#183; 1,600 sqft">2 bath &#183; fenced compound</span></p>
+						<div class="price"><span data-intl="$285,000">₦85,000,000</span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Looking to Buy, Rent, or Sell?</h2>
+			<p>Get matched with the right listing or agent, fast.</p>
+			<a href="#" class="btn btn-primary demo-cta">Get Started</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 UrbanNest Realty. Fictional business for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script src="/assets/demo-localize.js"></script>
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

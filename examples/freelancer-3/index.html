@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Tarela Efe — Freelancer Template Demo (Style C) | Elevven11 Studio</title>
+	<meta name="description" content="Freelancer template demo (Style C) by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #0a0a0a;
+			--text: #f2f2f2;
+			--muted: #8f8f8f;
+			--accent: #e11d48;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 6rem 0 3.5rem; text-align: center;
+			background:
+				radial-gradient(circle at 50% 0%, rgba(225,29,72,0.28), transparent 60%),
+				linear-gradient(180deg, rgba(10,10,10,.68), var(--bg) 92%),
+				url('/assets/images/freelancer-3.jpg') center/cover no-repeat;
+		}
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; }
+		h1 { font-size: 2.9rem; margin-bottom: 1rem; }
+		.tagline { color: var(--muted); font-size: 1.1rem; max-width: 500px; margin: 0 auto 2rem; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; border-radius: 4px; font-weight: 700; text-decoration: none; }
+		.btn-primary { background: var(--accent); color: #fff; }
+
+		.reel { max-width: 700px; margin: 0 auto; aspect-ratio: 16/9; border-radius: 10px; background: linear-gradient(135deg, #1a1a1a, #2c0a12); display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--accent); }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.75rem; margin-bottom: 2rem; text-align: center; }
+
+		.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.service-card { background: #141414; border-radius: 10px; padding: 1.75rem; text-align: center; }
+		.service-card h4 { color: var(--accent); margin-bottom: 0.5rem; }
+		.service-card p { color: var(--muted); font-size: 0.9rem; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2.1rem; }
+			.services-grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Starter">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Freelance Video Editor</div>
+			<h1>Tarela Efe</h1>
+			<p class="tagline">I cut YouTube videos, brand content, and short-form edits that actually keep people
+				watching.</p>
+			<a href="#" class="btn btn-primary demo-cta">Watch My Reel</a>
+		</div>
+	</header>
+
+	<section>
+		<div class="wrap">
+			<div class="reel">▶</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">Editing Services</h2>
+			<div class="services-grid">
+				<div class="service-card">
+					<h4>YouTube Editing</h4>
+					<p>Full episode edits with pacing, captions, and sound design.</p>
+				</div>
+				<div class="service-card">
+					<h4>Short-Form Content</h4>
+					<p>Reels and TikToks cut for retention, not just length.</p>
+				</div>
+				<div class="service-card">
+					<h4>Brand Video</h4>
+					<p>Promo and ad edits polished for launch.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Have Footage That Needs a Cut?</h2>
+			<p>Send me your raw footage and I'll turn it into something worth watching.</p>
+			<a href="#" class="btn btn-primary demo-cta">Get a Quote</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Tarela Efe. Fictional freelancer site for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

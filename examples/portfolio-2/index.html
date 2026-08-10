@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Kelechi Obi — Portfolio Template Demo (Style B) | Elevven11 Studio</title>
+	<meta name="description" content="Personal Portfolio template demo (Style B) by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #0a0a12;
+			--text: #f0eefc;
+			--muted: #9490b0;
+			--accent: #a78bfa;
+			--accent2: #22d3ee;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 7rem 0 5rem; text-align: center;
+			background:
+				radial-gradient(circle at 30% 20%, rgba(167,139,250,0.35), transparent 55%),
+				radial-gradient(circle at 75% 70%, rgba(34,211,238,0.28), transparent 55%),
+				linear-gradient(180deg, rgba(10,10,18,.72), var(--bg) 92%),
+				url('/assets/images/portfolio-2.jpg') center/cover no-repeat;
+		}
+		.eyebrow { color: var(--accent2); text-transform: uppercase; letter-spacing: 3px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; }
+		h1 { font-size: 3.75rem; margin-bottom: 1rem; letter-spacing: -1px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+		.tagline { color: var(--muted); font-size: 1.15rem; max-width: 540px; margin: 0 auto 2rem; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; border-radius: 6px; font-weight: 700; text-decoration: none; }
+		.btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #0a0a12; }
+
+		section { padding: 4.5rem 0; }
+		.section-title { font-size: 1.85rem; margin-bottom: 2rem; }
+
+		.work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+		.work-card { border-radius: 14px; overflow: hidden; background: #14121e; }
+		.work-thumb { height: 220px; }
+		.work-card h4 { padding: 1.1rem 1.25rem 0.25rem; font-size: 1.1rem; }
+		.work-card p { padding: 0 1.25rem 1.25rem; color: var(--muted); font-size: 0.9rem; }
+		.t1 { background: linear-gradient(150deg, #a78bfa, #22d3ee); }
+		.t2 { background: linear-gradient(150deg, #f472b6, #a78bfa); }
+		.t3 { background: linear-gradient(150deg, #22d3ee, #4ade80); }
+		.t4 { background: linear-gradient(150deg, #fbbf24, #f472b6); }
+
+		.about p { color: var(--muted); max-width: 640px; font-size: 1.05rem; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08); }
+		footer a { color: var(--accent2); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2.4rem; }
+			.work-grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Starter">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">3D Artist & Motion Designer</div>
+			<h1>Kelechi Obi</h1>
+			<p class="tagline">I create motion graphics, 3D renders, and animated brand content for studios and
+				startups.</p>
+			<a href="#work" class="btn btn-primary">See My Reel</a>
+		</div>
+	</header>
+
+	<section class="about">
+		<div class="wrap">
+			<h2 class="section-title">About</h2>
+			<p>Six years deep in Blender and After Effects, I've shipped motion work for app launches, music
+				videos, and brand campaigns. I like projects that need a bit of weirdness — bold color, strange
+				shapes, motion that feels alive.</p>
+		</div>
+	</section>
+
+	<section id="work">
+		<div class="wrap">
+			<h2 class="section-title">Recent Work</h2>
+			<div class="work-grid">
+				<div class="work-card">
+					<div class="work-thumb t1"></div>
+					<h4>App Launch Reel</h4>
+					<p>30-second animated explainer for a fintech app.</p>
+				</div>
+				<div class="work-card">
+					<div class="work-thumb t2"></div>
+					<h4>Music Video Visuals</h4>
+					<p>3D backdrop and motion graphics for an Afrobeats single.</p>
+				</div>
+				<div class="work-card">
+					<div class="work-thumb t3"></div>
+					<h4>Brand Loop Animation</h4>
+					<p>Looping social content for a beverage brand.</p>
+				</div>
+				<div class="work-card">
+					<div class="work-thumb t4"></div>
+					<h4>Product Render Series</h4>
+					<p>Photoreal 3D renders for an e-commerce catalog.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Got a Project?</h2>
+			<p>Let's make something people can't stop watching.</p>
+			<a href="#" class="btn btn-primary demo-cta">Start a Conversation</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Kelechi Obi. Fictional portfolio for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Chidi Eze — Freelancer Template Demo | Elevven11 Studio</title>
+	<meta name="description" content="Freelancer template demo by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #ffffff;
+			--text: #0f172a;
+			--muted: #5b6478;
+			--accent: #2563eb;
+			--soft: #eff4ff;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem;
+			font-family: system-ui, sans-serif; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 5rem 0 4rem;
+			background:
+				linear-gradient(90deg, var(--soft) 40%, rgba(239,244,255,.55) 65%, rgba(239,244,255,.15) 100%),
+				url('/assets/images/freelancer.jpg') right center/cover no-repeat;
+		}
+		.hero-grid { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+		.hero-text { flex: 1; min-width: 260px; }
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; }
+		h1 { font-size: 2.6rem; margin-bottom: 1rem; }
+		.tagline { color: var(--muted); font-size: 1.1rem; margin-bottom: 2rem; max-width: 480px; }
+		.avatar { width: 220px; height: 220px; border-radius: 50%; background: linear-gradient(135deg, #2563eb, #7c3aed); flex-shrink: 0; }
+
+		.btn { display: inline-block; padding: 0.9rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; }
+		.btn-primary { background: var(--accent); color: #fff; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.75rem; margin-bottom: 2rem; text-align: center; }
+
+		.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.service-card { border: 1px solid #e5e9f2; border-radius: 10px; padding: 1.75rem; text-align: center; }
+		.service-card .icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+		.service-card h4 { margin-bottom: 0.5rem; }
+		.service-card p { color: var(--muted); font-size: 0.95rem; }
+
+		.testimonial { background: var(--soft); text-align: center; }
+		.testimonial blockquote { font-size: 1.25rem; font-style: italic; max-width: 640px; margin: 0 auto 1rem; }
+		.testimonial cite { color: var(--muted); font-style: normal; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid #e5e9f2; }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2rem; }
+			.services-grid { grid-template-columns: 1fr; }
+			.hero-grid { flex-direction: column-reverse; text-align: center; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Starter">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap hero-grid">
+			<div class="hero-text">
+				<div class="eyebrow">Freelance Copywriter & Digital Marketer</div>
+				<h1>Chidi Eze</h1>
+				<p class="tagline">I help small brands write words that sell — websites, ads, and email that
+					actually convert.</p>
+				<a href="#services" class="btn btn-primary">See What I Offer</a>
+			</div>
+			<div class="avatar"></div>
+		</div>
+	</header>
+
+	<section id="services">
+		<div class="wrap">
+			<h2 class="section-title">What I Do</h2>
+			<div class="services-grid">
+				<div class="service-card">
+					<div class="icon">✍️</div>
+					<h4>Copywriting</h4>
+					<p>Website copy, product descriptions, and sales pages that speak plainly and convert.</p>
+				</div>
+				<div class="service-card">
+					<div class="icon">📈</div>
+					<h4>SEO Content</h4>
+					<p>Blog posts and landing pages built to rank and bring in organic traffic.</p>
+				</div>
+				<div class="service-card">
+					<div class="icon">📱</div>
+					<h4>Social Media</h4>
+					<p>Captions and content calendars that keep your audience engaged.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="testimonial">
+		<div class="wrap">
+			<blockquote>"Chidi rewrote our homepage and our sign-ups doubled in a month. Genuinely great with
+				words."</blockquote>
+			<cite>— A happy client, small business owner</cite>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Ready To Work Together?</h2>
+			<p>Tell me about your project and let's see if it's a fit.</p>
+			<a href="#" class="btn btn-primary demo-cta">Hire Me</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Chidi Eze. Fictional freelancer site for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

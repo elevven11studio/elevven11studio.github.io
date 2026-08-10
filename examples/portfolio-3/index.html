@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Ngozi Umeh — Portfolio Template Demo (Style C) | Elevven11 Studio</title>
+	<meta name="description" content="Personal Portfolio template demo (Style C) by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #f7f3ea;
+			--text: #2b2620;
+			--muted: #7a7264;
+			--accent: #9a6b3f;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: Georgia, 'Times New Roman', serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+		a { color: inherit; }
+		.wrap { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem; font-family: 'Segoe UI', sans-serif;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 6rem 0 3rem; text-align: center;
+			background:
+				linear-gradient(180deg, rgba(247,243,234,.72), var(--bg) 90%),
+				url('/assets/images/portfolio-3.jpg') center/cover no-repeat;
+		}
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; font-family: 'Segoe UI', sans-serif; font-weight: 700; margin-bottom: 1.25rem; }
+		h1 { font-size: 2.75rem; margin-bottom: 1rem; font-style: italic; }
+		.tagline { color: var(--muted); font-size: 1.15rem; }
+
+		section { padding: 3rem 0; }
+		.section-title { font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--accent); font-style: italic; }
+		hr { border: 0; border-top: 1px solid rgba(0,0,0,0.1); }
+
+		.piece { margin-bottom: 2.5rem; }
+		.piece h4 { font-size: 1.2rem; margin-bottom: 0.4rem; }
+		.piece .meta { color: var(--muted); font-size: 0.85rem; font-family: 'Segoe UI', sans-serif; margin-bottom: 0.6rem; }
+		.piece p { color: #3d372e; }
+
+		.about p { color: var(--muted); }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; font-family: 'Segoe UI', sans-serif; }
+		.btn { display: inline-block; padding: 0.85rem 2rem; border: 2px solid var(--accent); color: var(--accent); text-decoration: none; font-family: 'Segoe UI', sans-serif; font-weight: 700; border-radius: 4px; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(0,0,0,0.08); font-family: 'Segoe UI', sans-serif; }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) { h1 { font-size: 2.1rem; } }
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Starter">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Writer & Content Strategist</div>
+			<h1>Ngozi Umeh</h1>
+			<p class="tagline">Essays, brand storytelling, and long-form writing that people actually finish
+				reading.</p>
+		</div>
+	</header>
+
+	<div class="wrap"><hr /></div>
+
+	<section class="about">
+		<div class="wrap">
+			<h2 class="section-title">About</h2>
+			<p>I write for people who are tired of content that says nothing. My work has appeared in a handful
+				of publications and helped a dozen brands find a voice worth reading.</p>
+		</div>
+	</section>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">Selected Writing</h2>
+			<div class="piece">
+				<h4>Why Most Startup Blogs Fail</h4>
+				<div class="meta">Essay · Featured on a Nigerian business publication</div>
+				<p>A look at why company blogs so rarely get read, and what to do differently.</p>
+			</div>
+			<div class="piece">
+				<h4>The Quiet Cost of Bad Onboarding Emails</h4>
+				<div class="meta">Brand content · Written for a fintech client</div>
+				<p>An email sequence rewrite that lifted activation rates for a new banking app.</p>
+			</div>
+			<div class="piece">
+				<h4>Lagos, Slowly</h4>
+				<div class="meta">Personal essay</div>
+				<p>A short piece on learning to sit still in a city that never does.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Work With Me</h2>
+			<p>Available for essays, brand content, and long-form projects.</p>
+			<a href="#" class="btn demo-cta">Get In Touch</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Ngozi Umeh. Fictional portfolio for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

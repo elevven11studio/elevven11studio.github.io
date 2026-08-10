@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@800&amp;display=swap');
+      text { font-family: 'Outfit', 'Segoe UI', sans-serif; }
+    </style>
+    <linearGradient id="neon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#86efac" />
+      <stop offset="100%" stop-color="#22c55e" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0c866" />
+      <stop offset="100%" stop-color="#c99a2e" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Full-bleed background: profile pics get circle-cropped by Facebook/Instagram/WhatsApp,
+       so keep the background edge-to-edge and only keep the mark itself inside the safe zone. -->
+  <rect width="1000" height="1000" fill="#0b0a10" />
+  <circle cx="500" cy="500" r="500" fill="url(#glow)" />
+
+  <!-- Mirrored 11 | 11, sized to stay inside the ~86% circular safe zone (verified below) -->
+  <text x="442" y="633" text-anchor="end" font-weight="800" font-size="333" fill="url(#neon)">11</text>
+  <text x="558" y="633" text-anchor="start" font-weight="800" font-size="333" fill="url(#neon)">11</text>
+  <circle cx="500" cy="408" r="25" fill="url(#gold)" />
+  <circle cx="500" cy="592" r="25" fill="url(#gold)" />
+</svg>

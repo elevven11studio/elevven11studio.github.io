@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&amp;display=swap');
+      text { font-family: 'Outfit', 'Segoe UI', sans-serif; }
+    </style>
+    <linearGradient id="neon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#86efac" />
+      <stop offset="100%" stop-color="#22c55e" />
+    </linearGradient>
+    <linearGradient id="mockGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1826" />
+      <stop offset="100%" stop-color="#0f0d16" />
+    </linearGradient>
+    <radialGradient id="glow1" cx="50%" cy="100%" r="50%">
+      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#2dd4bf" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1080" height="1080" fill="#0b0a10" />
+  <rect width="1080" height="1080" fill="url(#glow1)" />
+
+  <text x="540" y="150" text-anchor="middle" font-size="30" font-weight="700" letter-spacing="6" fill="#86efac">JUST LAUNCHED</text>
+  <text x="540" y="225" text-anchor="middle" font-size="44" font-weight="800" fill="#f7f3ec">We Just Built A Simple</text>
+  <text x="540" y="285" text-anchor="middle" font-size="44" font-weight="800" fill="#f7f3ec">Website For A Local Business</text>
+
+  <!-- Browser mockup -->
+  <rect x="140" y="360" width="800" height="500" rx="14" fill="url(#mockGrad)" stroke="#f7f3ec" stroke-opacity="0.1" />
+  <rect x="140" y="360" width="800" height="46" rx="14" fill="#17131f" />
+  <circle cx="175" cy="383" r="7" fill="#ff5f56" />
+  <circle cx="200" cy="383" r="7" fill="#ffbd2e" />
+  <circle cx="225" cy="383" r="7" fill="#27c93f" />
+  <rect x="260" y="373" width="460" height="20" rx="10" fill="#0b0a10" />
+  <text x="280" y="387" font-size="14" fill="#7a7268">yourbusiness.github.io</text>
+
+  <!-- mock hero -->
+  <rect x="170" y="440" width="740" height="160" rx="10" fill="#131019" />
+  <text x="540" y="500" text-anchor="middle" font-size="34" font-weight="800" fill="url(#neon)">Your Business Name</text>
+  <text x="540" y="540" text-anchor="middle" font-size="18" fill="#a79f95">A short line about what you do, for your customers to see.</text>
+  <rect x="470" y="560" width="140" height="34" rx="17" fill="url(#neon)" />
+
+  <!-- mock cards -->
+  <rect x="170" y="620" width="230" height="200" rx="10" fill="#131019" />
+  <rect x="415" y="620" width="230" height="200" rx="10" fill="#131019" />
+  <rect x="660" y="620" width="250" height="200" rx="10" fill="#131019" />
+
+  <text x="540" y="925" text-anchor="middle" font-size="34" font-weight="700" fill="#f7f3ec">No monthly hosting fee.</text>
+  <text x="540" y="965" text-anchor="middle" font-size="30" fill="#a79f95">Need one? DM us.</text>
+
+  <line x1="140" y1="1010" x2="940" y2="1010" stroke="#f7f3ec" stroke-opacity="0.12" stroke-width="2" />
+  <text x="540" y="1055" text-anchor="middle" font-size="28" font-weight="800" letter-spacing="1" fill="url(#neon)">ELEVVEN11 STUDIO</text>
+</svg>

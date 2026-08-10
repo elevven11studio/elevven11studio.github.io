@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Halima Yusuf Properties — Real Estate Template Demo (Style B) | Elevven11 Studio</title>
+	<meta name="description" content="Luxury Real Estate template demo (Style B) by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #0a0a0a;
+			--text: #f5f2ec;
+			--muted: #9a938a;
+			--accent: #d4af37;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: Georgia, 'Times New Roman', serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem; font-family: 'Segoe UI', sans-serif;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 6.5rem 0 4rem; text-align: center;
+			background:
+				linear-gradient(180deg, rgba(10,10,10,.55), rgba(10,10,10,.96) 90%),
+				url('/assets/images/real-estate-2.jpg') center/cover no-repeat;
+		}
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 4px; font-size: 0.75rem; margin-bottom: 1.5rem; font-family: 'Segoe UI', sans-serif; font-weight: 700; }
+		h1 { font-size: 3rem; margin-bottom: 1rem; font-weight: 400; }
+		.tagline { color: var(--muted); font-size: 1.1rem; max-width: 480px; margin: 0 auto; font-style: italic; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.6rem; margin-bottom: 2rem; text-align: center; color: var(--accent); font-style: italic; }
+
+		.listings-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+		.listing-card { border: 1px solid rgba(212,175,55,0.2); }
+		.listing-thumb { aspect-ratio: 16/9; }
+		.t1 { background: linear-gradient(160deg, #2a2418, #0a0806); }
+		.t2 { background: linear-gradient(160deg, #241c14, #0a0806); }
+		.listing-body { padding: 1.5rem; }
+		.listing-body h4 { margin-bottom: 0.4rem; font-size: 1.15rem; }
+		.listing-body p { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.6rem; font-family: 'Segoe UI', sans-serif; }
+		.listing-body .price { color: var(--accent); font-family: 'Segoe UI', sans-serif; font-weight: 700; }
+
+		.about { text-align: center; }
+		.about p { color: var(--muted); max-width: 600px; margin: 0 auto; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; font-family: 'Segoe UI', sans-serif; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; font-family: 'Segoe UI', sans-serif; font-weight: 700; letter-spacing: 1px; font-size: 0.85rem; text-transform: uppercase; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(212,175,55,0.1); font-family: 'Segoe UI', sans-serif; }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2.25rem; }
+			.listings-grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Plus">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Luxury Property Advisory</div>
+			<h1><span data-intl="Sarah Mitchell Properties">Halima Yusuf Properties</span></h1>
+			<p class="tagline">Curated homes for discerning buyers in
+				<span data-intl="Scottsdale and the Sonoran Desert">Abuja's most sought-after districts</span>.</p>
+		</div>
+	</header>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">Current Collection</h2>
+			<div class="listings-grid">
+				<div class="listing-card">
+					<div class="listing-thumb t1"></div>
+					<div class="listing-body">
+						<h4><span data-intl="Desert Modern Estate">Maitama Villa</span></h4>
+						<p><span data-intl="6 bed &#183; 7 bath &#183; 6,200 sqft">6 bed &#183; 7 bath &#183; private garden</span></p>
+						<div class="price"><span data-intl="$2,850,000">₦950,000,000</span></div>
+					</div>
+				</div>
+				<div class="listing-card">
+					<div class="listing-thumb t2"></div>
+					<div class="listing-body">
+						<h4><span data-intl="Hillside Retreat">Asokoro Residence</span></h4>
+						<p><span data-intl="5 bed &#183; 5 bath &#183; pool">5 bed &#183; 5 bath &#183; pool</span></p>
+						<div class="price"><span data-intl="$1,975,000">₦620,000,000</span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="about">
+		<div class="wrap">
+			<h2 class="section-title">Discretion & Expertise</h2>
+			<p>We work with a select portfolio of properties and buyers, offering the discretion and market
+				knowledge that high-value transactions require.</p>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Private Consultation</h2>
+			<p>Available by appointment for qualified buyers and sellers.</p>
+			<a href="#" class="btn demo-cta">Request an Introduction</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 <span data-intl="Sarah Mitchell Properties">Halima Yusuf Properties</span>. Fictional
+				business for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script src="/assets/demo-localize.js"></script>
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

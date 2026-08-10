@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Lil Stars Kids Party Planners — Event Planner Template Demo (Style C) | Elevven11 Studio</title>
+	<meta name="description" content="Event Planner template demo (Style C) by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #fffbea;
+			--text: #3a2e1a;
+			--muted: #8a7a5a;
+			--accent: #ff7a45;
+			--accent2: #4ecdc4;
+			--accent3: #ffd23f;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 5.5rem 0 4rem; text-align: center;
+			background:
+				linear-gradient(120deg, rgba(255,240,208,0.78), rgba(255,224,224,0.78), rgba(224,247,245,0.82)),
+				url('/assets/images/events-3.jpg') center/cover no-repeat;
+		}
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 800; margin-bottom: 1rem; }
+		h1 { font-size: 3rem; margin-bottom: 1rem; }
+		.tagline { color: var(--muted); font-size: 1.1rem; max-width: 480px; margin: 0 auto 2rem; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; border-radius: 30px; font-weight: 800; text-decoration: none; }
+		.btn-primary { background: var(--accent); color: #fff; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.75rem; margin-bottom: 2rem; text-align: center; }
+
+		.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.service-card { border-radius: 16px; padding: 1.75rem; text-align: center; color: #fff; }
+		.service-card h4 { margin-bottom: 0.5rem; }
+		.service-card p { font-size: 0.9rem; opacity: 0.95; }
+		.sc1 { background: var(--accent); }
+		.sc2 { background: var(--accent2); }
+		.sc3 { background: #a78bfa; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(0,0,0,0.06); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2.1rem; }
+			.services-grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Starter">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Birthday Parties for Kids</div>
+			<h1>Lil Stars Party Planners</h1>
+			<p class="tagline">Themed birthday parties kids remember — bouncy castles, characters, cake, and
+				chaos handled.</p>
+			<a href="#" class="btn btn-primary demo-cta">Plan a Party</a>
+		</div>
+	</header>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">Popular Packages</h2>
+			<div class="services-grid">
+				<div class="service-card sc1">
+					<h4>🎪 Carnival Package</h4>
+					<p>Bouncy castle, games, and a face painter.</p>
+				</div>
+				<div class="service-card sc2">
+					<h4>🦸 Superhero Package</h4>
+					<p>Costumed characters and themed decor.</p>
+				</div>
+				<div class="service-card sc3">
+					<h4>🎨 Craft Party Package</h4>
+					<p>Hands-on activities for smaller, cozy parties.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Ready to Celebrate?</h2>
+			<p>Tell us the birthday date and we'll handle the rest.</p>
+			<a href="#" class="btn btn-primary demo-cta">Book a Party</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Lil Stars Kids Party Planners. Fictional business for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

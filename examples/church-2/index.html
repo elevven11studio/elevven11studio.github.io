@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Hope Relief Foundation — NGO Template Demo (Style B) | Elevven11 Studio</title>
+	<meta name="description" content="NGO / Nonprofit template demo (Style B) by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #0d1a17;
+			--text: #eaf5f0;
+			--muted: #8fada2;
+			--accent: #34d399;
+			--card: #132621;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 5.5rem 0 4rem; text-align: center;
+			background:
+				linear-gradient(180deg, rgba(6,14,12,0.6) 0%, var(--bg) 92%),
+				url('/assets/images/church-2.jpg') center/cover no-repeat;
+		}
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; }
+		h1 { font-size: 2.85rem; margin-bottom: 1rem; }
+		.tagline { color: var(--muted); font-size: 1.1rem; max-width: 500px; margin: 0 auto 2rem; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; border-radius: 6px; font-weight: 700; text-decoration: none; }
+		.btn-primary { background: var(--accent); color: #06251b; }
+
+		.stats-strip { display: flex; justify-content: center; gap: 3rem; padding: 2.5rem 0; border-top: 1px solid rgba(52,211,153,0.15); border-bottom: 1px solid rgba(52,211,153,0.15); flex-wrap: wrap; }
+		.stat { text-align: center; }
+		.stat .num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+		.stat .label { color: var(--muted); font-size: 0.85rem; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.6rem; margin-bottom: 2rem; text-align: center; }
+
+		.programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.program-card { background: var(--card); border-radius: 10px; padding: 1.75rem; text-align: center; }
+		.program-card .icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+		.program-card h4 { margin-bottom: 0.5rem; }
+		.program-card p { color: var(--muted); font-size: 0.9rem; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2.1rem; }
+			.programs-grid { grid-template-columns: 1fr; }
+			.stats-strip { gap: 1.75rem; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Starter">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Community Relief & Development</div>
+			<h1>Hope Relief Foundation</h1>
+			<p class="tagline">Providing food, education, and healthcare support to underserved communities in
+				<span data-intl="Illinois">Abuja and beyond</span>.</p>
+			<a href="#" class="btn btn-primary demo-cta">Support Our Work</a>
+		</div>
+	</header>
+
+	<div class="stats-strip">
+		<div class="stat"><div class="num">12,000+</div><div class="label">People Reached</div></div>
+		<div class="stat"><div class="num">40</div><div class="label">Communities Served</div></div>
+		<div class="stat"><div class="num">8 yrs</div><div class="label">Active in the Field</div></div>
+	</div>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">Our Programs</h2>
+			<div class="programs-grid">
+				<div class="program-card">
+					<div class="icon">🍲</div>
+					<h4>Food Security</h4>
+					<p>Monthly food distribution for vulnerable families.</p>
+				</div>
+				<div class="program-card">
+					<div class="icon">📚</div>
+					<h4>Education Support</h4>
+					<p>School supplies and scholarships for children in need.</p>
+				</div>
+				<div class="program-card">
+					<div class="icon">🏥</div>
+					<h4>Health Outreach</h4>
+					<p>Free basic health screenings in rural communities.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Get Involved</h2>
+			<p>Volunteer, partner with us, or make a donation.</p>
+			<a href="#" class="btn btn-primary demo-cta">Contact Us</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Hope Relief Foundation. Fictional nonprofit for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script src="/assets/demo-localize.js"></script>
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

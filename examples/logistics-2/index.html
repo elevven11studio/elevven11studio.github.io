@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>CargoLink Nigeria — Freight Template Demo (Style B) | Elevven11 Studio</title>
+	<meta name="description" content="Haulage / Freight template demo (Style B) by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #12100c;
+			--text: #f2efe8;
+			--muted: #a39c8e;
+			--accent: #d97706;
+			--card: #1c1812;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 5.5rem 0 4rem; text-align: center; color: #fff;
+			background:
+				linear-gradient(180deg, rgba(217,119,6,.55), rgba(18,16,12,.85)),
+				url('/assets/images/logistics-2.jpg') center/cover no-repeat;
+		}
+		.eyebrow { text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; opacity: 0.9; }
+		h1 { font-size: 2.75rem; margin-bottom: 1rem; }
+		.tagline { font-size: 1.1rem; max-width: 480px; margin: 0 auto 2rem; opacity: 0.9; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; border-radius: 6px; font-weight: 700; text-decoration: none; }
+		.btn-primary { background: #fff; color: var(--accent); }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.6rem; margin-bottom: 2rem; text-align: center; }
+
+		.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.service-card { background: var(--card); border-radius: 10px; padding: 1.75rem; text-align: center; }
+		.service-card .icon { font-size: 1.75rem; margin-bottom: 0.6rem; }
+		.service-card h4 { color: var(--accent); margin-bottom: 0.5rem; }
+		.service-card p { color: var(--muted); font-size: 0.9rem; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+		.contact .btn-primary { background: var(--accent); color: #fff; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.06); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2rem; }
+			.services-grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Plus">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Freight &amp; Haulage Solutions</div>
+			<h1><span data-intl="CargoLink Express">CargoLink Nigeria</span></h1>
+			<p class="tagline">Reliable inter-state haulage for businesses that can't afford delays.
+				<span data-intl="Operating out of Dallas, Texas.">Operating out of Port Harcourt.</span></p>
+			<a href="#" class="btn btn-primary demo-cta">Get a Freight Quote</a>
+		</div>
+	</header>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">What We Move</h2>
+			<div class="services-grid">
+				<div class="service-card">
+					<div class="icon">🚛</div>
+					<h4>Bulk Cargo</h4>
+					<p>Full-truckload haulage for large shipments.</p>
+				</div>
+				<div class="service-card">
+					<div class="icon">📦</div>
+					<h4>Palletized Goods</h4>
+					<p>Secure, tracked transport for palletized freight.</p>
+				</div>
+				<div class="service-card">
+					<div class="icon">🛢️</div>
+					<h4>Industrial Equipment</h4>
+					<p>Specialized handling for heavy or oversized loads.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Request a Quote</h2>
+			<p>Tell us your route and cargo details for a fast quote.</p>
+			<a href="#" class="btn btn-primary demo-cta">Get a Quote</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 <span data-intl="CargoLink Express">CargoLink Nigeria</span>. Fictional business for demo
+				purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script src="/assets/demo-localize.js"></script>
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

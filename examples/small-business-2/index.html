@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Bright Spark Electronics — Small Business Template Demo (Style B) | Elevven11 Studio</title>
+	<meta name="description" content="Small Business template demo (Style B) by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #f4f8fb;
+			--text: #101828;
+			--muted: #5c6b7a;
+			--accent: #0284c7;
+			--card: #ffffff;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 5rem 0 4rem; text-align: center; color: #fff;
+			background:
+				linear-gradient(160deg, rgba(2,132,199,.85), rgba(8,20,30,.6)),
+				url('/assets/images/small-business-2.jpg') center/cover no-repeat;
+		}
+		.eyebrow { text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; opacity: 0.85; }
+		h1 { font-size: 2.75rem; margin-bottom: 1rem; }
+		.tagline { font-size: 1.1rem; max-width: 480px; margin: 0 auto 2rem; opacity: 0.9; }
+		.btn { display: inline-block; padding: 0.9rem 2rem; border-radius: 8px; font-weight: 700; text-decoration: none; }
+		.btn-primary { background: #fff; color: var(--accent); }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.75rem; margin-bottom: 2rem; text-align: center; }
+
+		.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+		.service-card { background: var(--card); border-radius: 10px; padding: 1.5rem 1rem; text-align: center; box-shadow: 0 2px 10px rgba(2,132,199,0.08); }
+		.service-card .icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+		.service-card h4 { font-size: 0.95rem; }
+
+		.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+		.info-card { background: var(--card); border-radius: 10px; padding: 1.75rem; }
+		.info-card h4 { color: var(--accent); margin-bottom: 0.75rem; }
+		.info-card p { color: var(--muted); }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+		.contact .btn-primary { background: var(--accent); color: #fff; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(0,0,0,0.06); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2rem; }
+			.services-grid { grid-template-columns: repeat(2, 1fr); }
+			.info-grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Starter">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Phones · Gadgets · Repairs</div>
+			<h1>Bright Spark Electronics</h1>
+			<p class="tagline">Genuine phones and accessories, plus fast, reliable repairs while you wait.</p>
+			<a href="#" class="btn btn-primary demo-cta">Visit The Shop</a>
+		</div>
+	</header>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">What We Offer</h2>
+			<div class="services-grid">
+				<div class="service-card">
+					<div class="icon">📱</div>
+					<h4>Phones</h4>
+				</div>
+				<div class="service-card">
+					<div class="icon">🔧</div>
+					<h4>Repairs</h4>
+				</div>
+				<div class="service-card">
+					<div class="icon">🎧</div>
+					<h4>Accessories</h4>
+				</div>
+				<div class="service-card">
+					<div class="icon">🔋</div>
+					<h4>Batteries & Parts</h4>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">Visit Us</h2>
+			<div class="info-grid">
+				<div class="info-card">
+					<h4>Shop Hours</h4>
+					<p>Monday – Saturday: 9am – 7pm</p>
+				</div>
+				<div class="info-card">
+					<h4>Location</h4>
+					<p>Shop 14, Wuse Market Plaza, Abuja</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Need a Repair?</h2>
+			<p>Message us on WhatsApp with your device issue for a quick quote.</p>
+			<a href="#" class="btn btn-primary demo-cta">Chat on WhatsApp</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Bright Spark Electronics. Fictional business for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

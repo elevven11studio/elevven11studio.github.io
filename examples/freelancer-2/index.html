@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Blessing Nwosu — Freelancer Template Demo (Style B) | Elevven11 Studio</title>
+	<meta name="description" content="Freelancer template demo (Style B) by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #fff8f0;
+			--text: #2b1d1d;
+			--muted: #7a6a6a;
+			--accent: #ff3d81;
+			--accent2: #ffc93c;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 5.5rem 0 4rem; text-align: center;
+			background:
+				linear-gradient(180deg, rgba(255,227,238,.75), var(--bg) 92%),
+				url('/assets/images/freelancer-2.jpg') center/cover no-repeat;
+		}
+		.eyebrow { display: inline-block; background: var(--accent2); color: #2b1d1d; padding: 0.3rem 0.9rem; border-radius: 20px; font-weight: 800; font-size: 0.8rem; margin-bottom: 1.25rem; }
+		h1 { font-size: 2.9rem; margin-bottom: 1rem; }
+		.tagline { color: var(--muted); font-size: 1.1rem; max-width: 500px; margin: 0 auto 2rem; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; border-radius: 30px; font-weight: 800; text-decoration: none; }
+		.btn-primary { background: var(--accent); color: #fff; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.75rem; margin-bottom: 2rem; text-align: center; }
+
+		.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.service-card { background: #fff; border-radius: 16px; padding: 1.75rem; text-align: center; box-shadow: 0 6px 18px rgba(255,61,129,0.08); }
+		.service-card .icon { font-size: 2rem; margin-bottom: 0.75rem; }
+		.service-card h4 { margin-bottom: 0.5rem; }
+		.service-card p { color: var(--muted); font-size: 0.9rem; }
+
+		.portfolio-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+		.portfolio-strip div { aspect-ratio: 1; border-radius: 12px; }
+		.p1 { background: linear-gradient(150deg, #ff3d81, #ffc93c); }
+		.p2 { background: linear-gradient(150deg, #ffc93c, #4ade80); }
+		.p3 { background: linear-gradient(150deg, #4ade80, #38bdf8); }
+		.p4 { background: linear-gradient(150deg, #38bdf8, #ff3d81); }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(0,0,0,0.06); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2.1rem; }
+			.services-grid { grid-template-columns: 1fr; }
+			.portfolio-strip { grid-template-columns: repeat(2, 1fr); }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Starter">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">FREELANCE GRAPHIC DESIGNER</div>
+			<h1>Blessing Nwosu</h1>
+			<p class="tagline">Bold, colorful design for brands that don't want to blend in — logos, packaging,
+				and social content.</p>
+			<a href="#work" class="btn btn-primary">See My Portfolio</a>
+		</div>
+	</header>
+
+	<section id="work">
+		<div class="wrap">
+			<h2 class="section-title">Recent Projects</h2>
+			<div class="portfolio-strip">
+				<div class="p1"></div>
+				<div class="p2"></div>
+				<div class="p3"></div>
+				<div class="p4"></div>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">What I Design</h2>
+			<div class="services-grid">
+				<div class="service-card">
+					<div class="icon">🎨</div>
+					<h4>Logo & Branding</h4>
+					<p>Identity systems that actually get remembered.</p>
+				</div>
+				<div class="service-card">
+					<div class="icon">📦</div>
+					<h4>Packaging</h4>
+					<p>Product packaging that pops on a shelf or a feed.</p>
+				</div>
+				<div class="service-card">
+					<div class="icon">📲</div>
+					<h4>Social Content</h4>
+					<p>Templates and graphics for consistent, scroll-stopping posts.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Let's Design Something Bold</h2>
+			<p>Tell me about your brand and what's missing.</p>
+			<a href="#" class="btn btn-primary demo-cta">Start a Project</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Blessing Nwosu. Fictional freelancer site for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

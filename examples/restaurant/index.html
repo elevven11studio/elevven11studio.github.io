@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Mama Bisi's Kitchen — Restaurant Template Demo | Elevven11 Studio</title>
+	<meta name="description" content="Restaurant / Food template demo by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #1f1210;
+			--text: #fbe9df;
+			--muted: #c9a99a;
+			--accent: #e0793a;
+			--card: #2c1a17;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem;
+			font-family: system-ui, sans-serif; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 6rem 0 4rem; text-align: center;
+			background:
+				radial-gradient(circle at 50% 0%, rgba(224,121,58,0.25), transparent 60%),
+				linear-gradient(180deg, rgba(31,18,16,.55), rgba(31,18,16,.92) 85%),
+				url('/assets/images/restaurant.jpg') center/cover no-repeat;
+		}
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; }
+		h1 { font-size: 2.85rem; margin-bottom: 1rem; font-family: Georgia, serif; }
+		.tagline { color: var(--muted); font-size: 1.1rem; max-width: 480px; margin: 0 auto 2rem; }
+
+		.btn { display: inline-block; padding: 0.9rem 2rem; border-radius: 30px; font-weight: 700; text-decoration: none; }
+		.btn-primary { background: var(--accent); color: #2c1a17; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.75rem; margin-bottom: 2rem; text-align: center; font-family: Georgia, serif; }
+
+		.menu-list { max-width: 560px; margin: 0 auto; }
+		.menu-item { display: flex; justify-content: space-between; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px dashed rgba(255,255,255,0.15); }
+		.menu-item h4 { font-size: 1.05rem; }
+		.menu-item p { color: var(--muted); font-size: 0.9rem; }
+		.menu-item .price { color: var(--accent); font-weight: 700; white-space: nowrap; }
+
+		.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+		.info-card { background: var(--card); border-radius: 10px; padding: 1.75rem; text-align: center; }
+		.info-card h4 { color: var(--accent); margin-bottom: 0.75rem; }
+		.info-card p { color: var(--muted); }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2.1rem; }
+			.info-grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Starter">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Home-Style Nigerian Kitchen</div>
+			<h1>Mama Bisi's Kitchen</h1>
+			<p class="tagline">Fresh, home-cooked meals made with love — jollof, soups, and grills, ready for
+				pickup or delivery.</p>
+			<a href="#menu" class="btn btn-primary">See The Menu</a>
+		</div>
+	</header>
+
+	<section id="menu">
+		<div class="wrap">
+			<h2 class="section-title">Popular Dishes</h2>
+			<div class="menu-list">
+				<div class="menu-item">
+					<div>
+						<h4>Party Jollof Rice</h4>
+						<p>Smoky jollof with grilled chicken</p>
+					</div>
+					<div class="price">₦4,500</div>
+				</div>
+				<div class="menu-item">
+					<div>
+						<h4>Egusi Soup & Pounded Yam</h4>
+						<p>Served with assorted meat</p>
+					</div>
+					<div class="price">₦5,000</div>
+				</div>
+				<div class="menu-item">
+					<div>
+						<h4>Peppered Grilled Fish</h4>
+						<p>Whole tilapia, pepper sauce, plantain</p>
+					</div>
+					<div class="price">₦6,000</div>
+				</div>
+				<div class="menu-item">
+					<div>
+						<h4>Suya Platter</h4>
+						<p>Beef suya with onions and pepper mix</p>
+					</div>
+					<div class="price">₦3,500</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">Hours & Location</h2>
+			<div class="info-grid">
+				<div class="info-card">
+					<h4>Opening Hours</h4>
+					<p>Every day: 10am – 9pm</p>
+				</div>
+				<div class="info-card">
+					<h4>Location</h4>
+					<p>4 Ademola Street, Garki, Abuja</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Order Now</h2>
+			<p>Place your order on WhatsApp for pickup or delivery.</p>
+			<a href="#" class="btn btn-primary demo-cta">Order on WhatsApp</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Mama Bisi's Kitchen. Fictional business for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

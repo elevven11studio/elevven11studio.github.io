@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Glow Beauty Lounge — Beauty/Barber Template Demo (Style B) | Elevven11 Studio</title>
+	<meta name="description" content="Beauty / Barber template demo (Style B) by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #fdf1f5;
+			--text: #3a222c;
+			--muted: #8a6d78;
+			--accent: #d6558a;
+			--card: #ffffff;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 5.5rem 0 4rem; text-align: center;
+			background:
+				linear-gradient(180deg, rgba(253,220,233,0.65), var(--bg) 92%),
+				url('/assets/images/barber-2.jpg') center/cover no-repeat;
+		}
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; }
+		h1 { font-size: 2.85rem; margin-bottom: 1rem; }
+		.tagline { color: var(--muted); font-size: 1.05rem; max-width: 480px; margin: 0 auto 2rem; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; border-radius: 30px; font-weight: 700; text-decoration: none; }
+		.btn-primary { background: var(--accent); color: #fff; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.6rem; margin-bottom: 2rem; text-align: center; }
+
+		.price-list { max-width: 560px; margin: 0 auto; }
+		.price-item { display: flex; justify-content: space-between; padding: 0.9rem 1.25rem; background: var(--card); border-radius: 10px; margin-bottom: 0.75rem; }
+		.price-item .price { color: var(--accent); font-weight: 700; }
+
+		.gallery-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+		.gallery-strip div { aspect-ratio: 1; border-radius: 10px; }
+		.gs1 { background: linear-gradient(150deg, #f7c6da, #d6558a); }
+		.gs2 { background: linear-gradient(150deg, #f0d6e0, #c988a8); }
+		.gs3 { background: linear-gradient(150deg, #fbe4ee, #e090b0); }
+		.gs4 { background: linear-gradient(150deg, #f2c8da, #b8577f); }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(0,0,0,0.06); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2.1rem; }
+			.gallery-strip { grid-template-columns: repeat(2, 1fr); }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Starter">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Nails · Lashes · Makeup</div>
+			<h1>Glow Beauty Lounge</h1>
+			<p class="tagline">Your monthly reset — nails, lashes, and makeup in a calm, welcoming space.</p>
+			<a href="#" class="btn btn-primary demo-cta">Book an Appointment</a>
+		</div>
+	</header>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">Services & Prices</h2>
+			<div class="price-list">
+				<div class="price-item"><span>Gel Manicure</span><span class="price">₦8,000</span></div>
+				<div class="price-item"><span>Classic Lash Extensions</span><span class="price">₦12,000</span></div>
+				<div class="price-item"><span>Full Face Makeup</span><span class="price">₦15,000</span></div>
+				<div class="price-item"><span>Pedicure + Manicure Combo</span><span class="price">₦14,000</span></div>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">The Lounge</h2>
+			<div class="gallery-strip">
+				<div class="gs1"></div>
+				<div class="gs2"></div>
+				<div class="gs3"></div>
+				<div class="gs4"></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Hours: Tue – Sun, 10am – 7pm</h2>
+			<p>Book your slot on WhatsApp — walk-ins subject to availability.</p>
+			<a href="#" class="btn btn-primary demo-cta">Book on WhatsApp</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Glow Beauty Lounge. Fictional business for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

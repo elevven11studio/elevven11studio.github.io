@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 312" width="820" height="312">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&amp;display=swap');
+      text { font-family: 'Outfit', 'Segoe UI', sans-serif; }
+    </style>
+    <linearGradient id="neon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#86efac" />
+      <stop offset="100%" stop-color="#22c55e" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0c866" />
+      <stop offset="100%" stop-color="#c99a2e" />
+    </linearGradient>
+    <radialGradient id="glow1" cx="10%" cy="15%" r="55%">
+      <stop offset="0%" stop-color="#86efac" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#86efac" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glow2" cx="92%" cy="92%" r="55%">
+      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#2dd4bf" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Full-bleed background: Facebook shows this at roughly 820x312 on desktop and
+       640x360 on mobile. Decorative glows can bleed to the edge; everything that
+       must stay readable (logo, tagline) is centered so it survives either crop. -->
+  <rect width="820" height="312" fill="#0b0a10" />
+  <rect width="820" height="312" fill="url(#glow1)" />
+  <rect width="820" height="312" fill="url(#glow2)" />
+
+  <!-- Icon + wordmark, centered as one group around x=410. Icon is a bars-only
+       reduction of the mirrored 11:11 mark - at 72px there isn't room for the
+       numeral detail to read cleanly, so it simplifies to strokes + colon. -->
+  <rect x="200" y="108" width="72" height="72" rx="16" fill="#131019" />
+  <rect x="211.4" y="127.5" width="6" height="33" rx="3" fill="url(#neon)" />
+  <rect x="219.8" y="127.5" width="6" height="33" rx="3" fill="url(#neon)" />
+  <circle cx="236" cy="136.5" r="2.7" fill="url(#gold)" />
+  <circle cx="236" cy="151.5" r="2.7" fill="url(#gold)" />
+  <rect x="246.2" y="127.5" width="6" height="33" rx="3" fill="url(#neon)" />
+  <rect x="254.6" y="127.5" width="6" height="33" rx="3" fill="url(#neon)" />
+  <text x="292" y="155" font-weight="800" font-size="32" letter-spacing="1" fill="url(#neon)">ELEVVEN11 STUDIO</text>
+
+  <!-- Tagline, independently centered on the full canvas width -->
+  <text x="410" y="235" text-anchor="middle" font-weight="700" font-size="22" fill="#f7f3ec">Simple Websites. No Monthly Hosting Fee.</text>
+  <text x="410" y="268" text-anchor="middle" font-size="15" fill="#a79f95">wa.me/2349120925909</text>
+</svg>

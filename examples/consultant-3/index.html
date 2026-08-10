@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>TaxWise Advisory — Consultant Template Demo (Style C) | Elevven11 Studio</title>
+	<meta name="description" content="Consultant template demo (Style C) by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #0f1a14;
+			--text: #eaf5ee;
+			--muted: #8fae9a;
+			--accent: #d4af37;
+			--card: #16241c;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 5.5rem 0 3.5rem; text-align: center;
+			background:
+				radial-gradient(circle at 50% 0%, rgba(212,175,55,0.2), transparent 60%),
+				linear-gradient(180deg, rgba(15,26,20,.5), rgba(15,26,20,.95) 88%),
+				url('/assets/images/consultant-3.jpg') center/cover no-repeat;
+		}
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; }
+		h1 { font-size: 2.75rem; margin-bottom: 1rem; }
+		.tagline { color: var(--muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto 2rem; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; border-radius: 4px; font-weight: 700; text-decoration: none; }
+		.btn-primary { background: var(--accent); color: #14210c; }
+
+		.stats-strip { display: flex; justify-content: center; gap: 3rem; padding: 2.5rem 0; border-top: 1px solid rgba(212,175,55,0.15); border-bottom: 1px solid rgba(212,175,55,0.15); flex-wrap: wrap; }
+		.stat { text-align: center; }
+		.stat .num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+		.stat .label { color: var(--muted); font-size: 0.85rem; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.75rem; margin-bottom: 2rem; text-align: center; }
+
+		.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.service-card { background: var(--card); border-radius: 8px; padding: 1.75rem; border: 1px solid rgba(212,175,55,0.15); }
+		.service-card h4 { color: var(--accent); margin-bottom: 0.5rem; }
+		.service-card p { color: var(--muted); font-size: 0.9rem; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(212,175,55,0.1); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2.1rem; }
+			.services-grid { grid-template-columns: 1fr; }
+			.stats-strip { gap: 1.75rem; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Plus">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Tax & Financial Advisory</div>
+			<h1>TaxWise Advisory</h1>
+			<p class="tagline">Straightforward tax planning, compliance, and financial advisory for small
+				businesses and individuals.</p>
+			<a href="#" class="btn btn-primary demo-cta">Book a Consultation</a>
+		</div>
+	</header>
+
+	<div class="stats-strip">
+		<div class="stat"><div class="num">15+ yrs</div><div class="label">Practice Experience</div></div>
+		<div class="stat"><div class="num">300+</div><div class="label">Clients Served</div></div>
+		<div class="stat"><div class="num">₦0</div><div class="label">Penalties on Filed Returns</div></div>
+	</div>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">Advisory Services</h2>
+			<div class="services-grid">
+				<div class="service-card">
+					<h4>Tax Filing & Compliance</h4>
+					<p>Accurate, on-time filing for individuals and businesses.</p>
+				</div>
+				<div class="service-card">
+					<h4>Financial Planning</h4>
+					<p>Structured plans to grow and protect what you earn.</p>
+				</div>
+				<div class="service-card">
+					<h4>Business Advisory</h4>
+					<p>Bookkeeping setup and financial health reviews.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Get Your Finances in Order</h2>
+			<p>Book a consultation to review your tax and financial position.</p>
+			<a href="#" class="btn btn-primary demo-cta">Book a Consultation</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 TaxWise Advisory. Fictional business for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>

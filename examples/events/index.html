@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Grace Events Co. — Event Planner Template Demo | Elevven11 Studio</title>
+	<meta name="description" content="Event Planner template demo by Elevven11 Studio." />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<style>
+		:root {
+			--bg: #fdf6f6;
+			--text: #3a2e2e;
+			--muted: #8a7a7a;
+			--accent: #c76b7f;
+			--card: #ffffff;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: Georgia, 'Times New Roman', serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem;
+			font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero {
+			padding: 6rem 0 4rem; text-align: center;
+			background:
+				linear-gradient(180deg, rgba(253,246,246,0.8), var(--bg) 92%),
+				url('/assets/images/events.jpg') center/cover no-repeat;
+		}
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 1.25rem; font-family: 'Segoe UI', sans-serif; font-weight: 700; }
+		h1 { font-size: 2.9rem; margin-bottom: 1rem; }
+		.tagline { color: var(--muted); font-size: 1.1rem; max-width: 480px; margin: 0 auto 2rem; font-style: italic; }
+		.btn { display: inline-block; padding: 0.9rem 2.25rem; border-radius: 30px; font-weight: 700; text-decoration: none; font-family: 'Segoe UI', sans-serif; }
+		.btn-primary { background: var(--accent); color: #fff; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 1.75rem; margin-bottom: 2rem; text-align: center; }
+
+		.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.service-card { background: var(--card); border-radius: 14px; padding: 1.75rem; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+		.service-card .icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+		.service-card h4 { margin-bottom: 0.5rem; }
+		.service-card p { color: var(--muted); font-size: 0.9rem; font-family: 'Segoe UI', sans-serif; }
+
+		.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+		.gallery-grid div { aspect-ratio: 4/3; border-radius: 12px; }
+		.ev1 { background: linear-gradient(140deg, #f3d1d8, #c76b7f); }
+		.ev2 { background: linear-gradient(140deg, #f6e3c8, #d9a441); }
+		.ev3 { background: linear-gradient(140deg, #dbe6f3, #7f9bc7); }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; font-family: 'Segoe UI', sans-serif; }
+
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(0,0,0,0.08); font-family: 'Segoe UI', sans-serif; }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 700px) {
+			h1 { font-size: 2.1rem; }
+			.services-grid, .gallery-grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Plus">Get a website like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Weddings · Parties · Corporate Events</div>
+			<h1>Grace Events Co.</h1>
+			<p class="tagline">Every detail, planned with care — so you can enjoy the moment, not manage it.</p>
+			<a href="#" class="btn btn-primary demo-cta">Start Planning</a>
+		</div>
+	</header>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">What We Plan</h2>
+			<div class="services-grid">
+				<div class="service-card">
+					<div class="icon">💍</div>
+					<h4>Weddings</h4>
+					<p>Full-service planning from proposal to reception.</p>
+				</div>
+				<div class="service-card">
+					<div class="icon">🎂</div>
+					<h4>Birthdays & Parties</h4>
+					<p>Themed celebrations for every age and budget.</p>
+				</div>
+				<div class="service-card">
+					<div class="icon">🏢</div>
+					<h4>Corporate Events</h4>
+					<p>Conferences, launches, and staff celebrations.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="wrap">
+			<h2 class="section-title">Recent Celebrations</h2>
+			<div class="gallery-grid">
+				<div class="ev1"></div>
+				<div class="ev2"></div>
+				<div class="ev3"></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Let's Plan Your Event</h2>
+			<p>Tell us your date and vision — we'll take it from there.</p>
+			<a href="#" class="btn btn-primary demo-cta">Send an Inquiry</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Grace Events Co. Fictional business for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo — contact buttons are for layout illustration only. Use "Get a website like this" above to start your own.');
+			});
+		});
+	</script>
+</body>
+
+</html>
