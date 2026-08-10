@@ -20,6 +20,26 @@
 	<meta name="twitter:description" content="Tell Elevven11 Studio what you need and get your website started." />
 
 	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+	<style>
+		.color-chip-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 0.4rem; }
+		.color-chip {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.5rem;
+			background: var(--bg-secondary);
+			border: var(--border-subtle);
+			color: var(--text-secondary);
+			border-radius: 20px;
+			padding: 0.45rem 0.9rem 0.45rem 0.5rem;
+			font-size: 0.85rem;
+			font-family: inherit;
+			cursor: pointer;
+			transition: all 0.15s ease;
+		}
+		.color-chip:hover { border-color: var(--accent-gold); color: var(--text-primary); }
+		.color-chip.selected { border-color: var(--accent-gold); background: var(--bg-tertiary); color: var(--text-primary); box-shadow: var(--glow-gold); }
+		.chip-swatch { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.25); }
+	</style>
 </head>
 
 <body>
@@ -101,15 +121,89 @@
 					</div>
 
 					<div class="form-group">
+						<label class="form-label" for="gs-example-type">Which example style do you like? (optional)</label>
+						<select class="form-select" id="gs-example-type" name="exampleType">
+							<option value="">No preference / not sure</option>
+							<option value="Personal Portfolio">Personal Portfolio</option>
+							<option value="Freelancer">Freelancer</option>
+							<option value="Small Business">Small Business</option>
+							<option value="Restaurant / Food">Restaurant / Food</option>
+							<option value="Photographer">Photographer</option>
+							<option value="Fashion">Fashion</option>
+							<option value="Beauty / Barber">Beauty / Barber</option>
+							<option value="Event Planner">Event Planner</option>
+							<option value="Consultant">Consultant</option>
+							<option value="Real Estate Agent">Real Estate Agent</option>
+							<option value="Church / Ministry / NGO">Church / Ministry / NGO</option>
+							<option value="School / Tutorial Center">School / Tutorial Center</option>
+							<option value="Fitness / Gym Coach">Fitness / Gym Coach</option>
+							<option value="Logistics / Delivery">Logistics / Delivery</option>
+						</select>
+						<p class="form-hint">Browse the <a href="/examples/" style="color: var(--accent-gold);">examples gallery</a> for ideas.</p>
+					</div>
+
+					<div class="form-group">
 						<label class="form-label" for="gs-description">Tell us about your business/website</label>
 						<textarea class="form-textarea" id="gs-description" name="description"
 							placeholder="What do you do? What should the website say about you?"></textarea>
 					</div>
 
 					<div class="form-group">
-						<label class="form-label" for="gs-colors">Preferred colors / style</label>
-						<input class="form-input" id="gs-colors" name="colors" type="text"
-							placeholder="e.g. blue and white, minimal" />
+						<label class="form-label" for="gs-style-mood">Overall style (optional)</label>
+						<select class="form-select" id="gs-style-mood" name="styleMood">
+							<option value="">Not sure yet</option>
+							<option value="Minimal & Clean">Minimal & Clean</option>
+							<option value="Bold & Vibrant">Bold & Vibrant</option>
+							<option value="Elegant & Luxury">Elegant & Luxury</option>
+							<option value="Playful & Colorful">Playful & Colorful</option>
+							<option value="Dark & Moody">Dark & Moody</option>
+							<option value="Warm & Earthy">Warm & Earthy</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label class="form-label">Preferred color palette (optional &mdash; tap any that fit)</label>
+						<div class="color-chip-grid">
+							<button type="button" class="color-chip" data-color="Black &amp; Gold">
+								<span class="chip-swatch" style="background: linear-gradient(135deg, #d4af37, #0b0a10);"></span>
+								Black &amp; Gold
+							</button>
+							<button type="button" class="color-chip" data-color="Blue &amp; White">
+								<span class="chip-swatch" style="background: linear-gradient(135deg, #2563eb, #ffffff);"></span>
+								Blue &amp; White
+							</button>
+							<button type="button" class="color-chip" data-color="Green &amp; Cream">
+								<span class="chip-swatch" style="background: linear-gradient(135deg, #166534, #faf7f0);"></span>
+								Green &amp; Cream
+							</button>
+							<button type="button" class="color-chip" data-color="Rose &amp; Blush">
+								<span class="chip-swatch" style="background: linear-gradient(135deg, #d6558a, #fdf1f5);"></span>
+								Rose &amp; Blush
+							</button>
+							<button type="button" class="color-chip" data-color="Orange &amp; Navy">
+								<span class="chip-swatch" style="background: linear-gradient(135deg, #f97316, #0b1220);"></span>
+								Orange &amp; Navy
+							</button>
+							<button type="button" class="color-chip" data-color="Teal &amp; White">
+								<span class="chip-swatch" style="background: linear-gradient(135deg, #0d9488, #ffffff);"></span>
+								Teal &amp; White
+							</button>
+							<button type="button" class="color-chip" data-color="Red &amp; Black">
+								<span class="chip-swatch" style="background: linear-gradient(135deg, #dc2626, #0c0c0c);"></span>
+								Red &amp; Black
+							</button>
+							<button type="button" class="color-chip" data-color="Sage &amp; Cream">
+								<span class="chip-swatch" style="background: linear-gradient(135deg, #8a9a5b, #f7f5f2);"></span>
+								Sage &amp; Cream
+							</button>
+						</div>
+						<input type="hidden" id="gs-colors" name="colors" />
+					</div>
+
+					<div class="form-group">
+						<label class="form-label" for="gs-colors-notes">Anything else about colors/style? (optional)</label>
+						<input class="form-input" id="gs-colors-notes" name="colorsNotes" type="text"
+							placeholder="e.g. I like purple, or match my existing logo" />
 					</div>
 
 					<p class="form-hint" style="margin-bottom: 1.5rem;">
@@ -124,7 +218,7 @@
 
 			<p style="text-align:center; color: var(--text-muted); margin-top: 1.5rem; font-size: 0.9rem;">
 				Prefer email? Write to
-				<a href="mailto:yimaphilemon56@gmail.com" style="color: var(--accent-gold);">yimaphilemon56@gmail.com</a>
+				<a href="mailto:elevven11studio@gmail.com" style="color: var(--accent-gold);">elevven11studio@gmail.com</a>
 				instead.
 			</p>
 		</div>
@@ -161,6 +255,25 @@
 					break;
 				}
 			}
+		})();
+	</script>
+	<script>
+		// Color palette chips: clicking toggles it into the hidden "colors" field
+		// as a comma-separated list, so the form stays a single named field.
+		(function () {
+			const chips = document.querySelectorAll('.color-chip');
+			const hidden = document.getElementById('gs-colors');
+			if (!chips.length || !hidden) return;
+
+			chips.forEach((chip) => {
+				chip.addEventListener('click', () => {
+					chip.classList.toggle('selected');
+					const selected = Array.from(chips)
+						.filter((c) => c.classList.contains('selected'))
+						.map((c) => c.getAttribute('data-color'));
+					hidden.value = selected.join(', ');
+				});
+			});
 		})();
 	</script>
 </body>

@@ -182,6 +182,8 @@ function initGetStartedForm() {
     }
   }
 
+  const packageSelect = document.getElementById('gs-package');
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -198,6 +200,17 @@ function initGetStartedForm() {
       }
     }
 
+    // Use the select's visible option text rather than its raw value, so the
+    // price shown matches whatever currency initCurrencyByCountry rewrote it
+    // to (Naira for Nigeria, an approximate USD figure elsewhere).
+    const packageText = packageSelect && packageSelect.selectedIndex >= 0
+      ? packageSelect.options[packageSelect.selectedIndex].textContent.trim()
+      : get('package');
+
+    // Best-effort, auto-detected from the same IP lookup that drives currency
+    // display - no manual country field/dropdown on the form.
+    const country = sessionStorage.getItem('e11_country');
+
     const lines = [
       'Hi Elevven11 Studio, I would like to get a website built.',
       `Name: ${get('name')}`,
@@ -205,9 +218,13 @@ function initGetStartedForm() {
       `Phone: ${get('phone')}`,
       get('email') ? `Email: ${get('email')}` : null,
       get('location') ? `Location: ${get('location')}` : null,
-      `Package: ${get('package')}`,
+      `Package: ${packageText}`,
+      get('exampleType') ? `Interested in example style: ${get('exampleType')}` : null,
       get('description') ? `About the business: ${get('description')}` : null,
-      get('colors') ? `Preferred colors/style: ${get('colors')}` : null,
+      get('styleMood') ? `Style vibe: ${get('styleMood')}` : null,
+      get('colors') ? `Preferred colors: ${get('colors')}` : null,
+      get('colorsNotes') ? `More on colors/style: ${get('colorsNotes')}` : null,
+      country ? `Detected country: ${country}` : null,
       get('referral') ? `Referral code: ${get('referral')}` : null,
     ].filter(Boolean);
 

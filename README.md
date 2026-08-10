@@ -47,7 +47,7 @@ default branch — pushing to `main` publishes the change.
 
 ## Contact
 
-yimaphilemon56@gmail.com
+elevven11studio@gmail.com
 
 ## License
 
