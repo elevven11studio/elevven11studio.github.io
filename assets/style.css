@@ -674,6 +674,20 @@ footer p { margin-bottom: 0.5rem; }
 footer a { color: var(--text-secondary); }
 footer a:hover { color: var(--accent-gold); }
 
+.footer-social { display: flex; justify-content: center; gap: 0.9rem; margin-top: 1rem; }
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: var(--border-subtle);
+  color: var(--text-muted);
+}
+.footer-social a:hover { color: var(--accent-gold); border-color: var(--accent-gold); }
+.footer-social svg { width: 16px; height: 16px; fill: currentColor; }
+
 .internal-note {
   background: rgba(45, 212, 191, 0.08);
   border: 1px dashed rgba(45, 212, 191, 0.4);

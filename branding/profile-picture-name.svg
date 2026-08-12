@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&amp;display=swap');
+      text { font-family: 'Outfit', 'Segoe UI', sans-serif; }
+    </style>
+    <linearGradient id="neon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#86efac" />
+      <stop offset="100%" stop-color="#22c55e" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0c866" />
+      <stop offset="100%" stop-color="#c99a2e" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="42%" r="60%">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity="0.20" />
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Full-bleed background: profile pics get circle-cropped by Facebook/Instagram/WhatsApp,
+       so the name is stacked on two lines and kept well inside the ~86% circular safe zone. -->
+  <rect width="1000" height="1000" fill="#0b0a10" />
+  <circle cx="500" cy="500" r="500" fill="url(#glow)" />
+
+  <text x="500" y="472" text-anchor="middle" font-weight="800" font-size="118" letter-spacing="2" fill="url(#neon)">ELEVVEN11</text>
+  <text x="500" y="580" text-anchor="middle" font-weight="700" font-size="72" letter-spacing="18" fill="url(#gold)">STUDIO</text>
+</svg>
