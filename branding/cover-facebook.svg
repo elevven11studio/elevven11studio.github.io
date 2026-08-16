@@ -1,47 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 312" width="820" height="312">
+<svg xmlns="http://www.w3.org/2000/svg" width="1640" height="624" viewBox="0 0 1640 624">
+  
   <defs>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&amp;display=swap');
-      text { font-family: 'Outfit', 'Segoe UI', sans-serif; }
-    </style>
-    <linearGradient id="neon" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#86efac" />
-      <stop offset="100%" stop-color="#22c55e" />
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#86efac"/><stop offset="100%" stop-color="#22c55e"/>
     </linearGradient>
-    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f0c866" />
-      <stop offset="100%" stop-color="#c99a2e" />
-    </linearGradient>
-    <radialGradient id="glow1" cx="10%" cy="15%" r="55%">
-      <stop offset="0%" stop-color="#86efac" stop-opacity="0.14" />
-      <stop offset="100%" stop-color="#86efac" stop-opacity="0" />
+    <radialGradient id="g1" cx="6%" cy="10%" r="62%">
+      <stop offset="0%" stop-color="#86efac" stop-opacity="0.17"/><stop offset="100%" stop-color="#86efac" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="glow2" cx="92%" cy="92%" r="55%">
-      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.12" />
-      <stop offset="100%" stop-color="#2dd4bf" stop-opacity="0" />
+    <radialGradient id="g2" cx="96%" cy="96%" r="60%">
+      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.15"/><stop offset="100%" stop-color="#2dd4bf" stop-opacity="0"/>
     </radialGradient>
   </defs>
+  <rect width="1640" height="624" fill="#0b0a10"/>
+  <rect width="1640" height="624" fill="url(#g1)"/>
+  <rect width="1640" height="624" fill="url(#g2)"/>
+  <rect width="1640" height="8" fill="url(#accent)"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="190" y="190" fill="#f7f3ec" font-size="34" font-weight="700" letter-spacing="6">ELEVVEN11 STUDIO</text>
+    <text x="190" y="278" fill="#f7f3ec" font-size="50" font-weight="700">Simple Websites.</text>
+    <text x="190" y="338" fill="url(#accent)" font-size="50" font-weight="700">No Monthly Hosting Fee.</text>
+    <text x="190" y="386" fill="#a79f95" font-size="24">For small businesses and freelancers in Nigeria.</text>
+    <g><rect x="190" y="414" width="200" height="46.2" rx="23.1"
+        fill="rgba(247,243,236,0.06)" stroke="rgba(247,243,236,0.17)"/>
+      <text x="290" y="445.24" fill="#f7f3ec" font-size="22" text-anchor="middle">42 live demos</text></g><g><rect x="405.4" y="414" width="200" height="46.2" rx="23.1"
+        fill="rgba(247,243,236,0.06)" stroke="rgba(247,243,236,0.17)"/>
+      <text x="505.4" y="445.24" fill="#f7f3ec" font-size="22" text-anchor="middle">14 industries</text></g><g><rect x="620.8" y="414" width="188" height="46.2" rx="23.1"
+        fill="rgba(247,243,236,0.06)" stroke="rgba(247,243,236,0.17)"/>
+      <text x="714.8" y="445.24" fill="#f7f3ec" font-size="22" text-anchor="middle">From ₦50,000</text></g>
+    <text x="190" y="516" fill="#7a7268" font-size="22">elevven11studio.github.io</text>
+  </g>
+  
+  <g>
+    <rect x="880" y="152" width="570" height="320" rx="14" fill="#15121d" stroke="rgba(247,243,236,0.14)"/>
+    <path d="M880 166 a14 14 0 0 1 14 -14 h542 a14 14 0 0 1 14 14 v26 h-570 z" fill="#221d2e"/>
+    <circle cx="900" cy="172" r="5" fill="#ff5f57"/><circle cx="917" cy="172" r="5" fill="#febc2e"/><circle cx="934" cy="172" r="5" fill="#28c840"/>
+    <rect x="962" y="161" width="466" height="22" rx="11" fill="rgba(11,10,16,0.65)"/>
+    <text x="976" y="177" font-size="12" fill="#8f877c">elevven11studio.github.io</text>
 
-  <!-- Full-bleed background: Facebook shows this at roughly 820x312 on desktop and
-       640x360 on mobile. Decorative glows can bleed to the edge; everything that
-       must stay readable (logo, tagline) is centered so it survives either crop. -->
-  <rect width="820" height="312" fill="#0b0a10" />
-  <rect width="820" height="312" fill="url(#glow1)" />
-  <rect width="820" height="312" fill="url(#glow2)" />
+    <rect x="881" y="192" width="568" height="279" fill="#0b0a10"/>
+    <rect x="881" y="192" width="568" height="3" fill="url(#accent)"/>
 
-  <!-- Icon + wordmark, centered as one group around x=410. Icon is a bars-only
-       reduction of the mirrored 11:11 mark - at 72px there isn't room for the
-       numeral detail to read cleanly, so it simplifies to strokes + colon. -->
-  <rect x="200" y="108" width="72" height="72" rx="16" fill="#131019" />
-  <rect x="211.4" y="127.5" width="6" height="33" rx="3" fill="url(#neon)" />
-  <rect x="219.8" y="127.5" width="6" height="33" rx="3" fill="url(#neon)" />
-  <circle cx="236" cy="136.5" r="2.7" fill="url(#gold)" />
-  <circle cx="236" cy="151.5" r="2.7" fill="url(#gold)" />
-  <rect x="246.2" y="127.5" width="6" height="33" rx="3" fill="url(#neon)" />
-  <rect x="254.6" y="127.5" width="6" height="33" rx="3" fill="url(#neon)" />
-  <text x="292" y="155" font-weight="800" font-size="32" letter-spacing="1" fill="url(#neon)">ELEVVEN11 STUDIO</text>
+    <rect x="902" y="212" width="58" height="10" rx="5" fill="#f7f3ec" opacity="0.9"/>
+    <rect x="1218" y="214" width="30" height="7" rx="3.5" fill="rgba(247,243,236,0.28)"/><rect x="1260" y="214" width="30" height="7" rx="3.5" fill="rgba(247,243,236,0.28)"/><rect x="1302" y="214" width="30" height="7" rx="3.5" fill="rgba(247,243,236,0.28)"/><rect x="1344" y="214" width="30" height="7" rx="3.5" fill="rgba(247,243,236,0.28)"/>
 
-  <!-- Tagline, independently centered on the full canvas width -->
-  <text x="410" y="235" text-anchor="middle" font-weight="700" font-size="22" fill="#f7f3ec">Simple Websites. No Monthly Hosting Fee.</text>
-  <text x="410" y="268" text-anchor="middle" font-size="15" fill="#a79f95">wa.me/2349120925909</text>
+    <rect x="902" y="254" width="326.12" height="17" rx="8.5" fill="#f7f3ec"/>
+    <rect x="902" y="280" width="410.28000000000003" height="17" rx="8.5" fill="url(#accent)"/>
+    <rect x="902" y="310" width="273.52" height="8" rx="4" fill="rgba(247,243,236,0.20)"/>
+    <rect x="902" y="324" width="210.4" height="8" rx="4" fill="rgba(247,243,236,0.14)"/>
+
+    <rect x="902" y="342" width="104" height="20" rx="10" fill="url(#accent)"/>
+    <rect x="1018" y="342" width="92" height="20" rx="10"
+          fill="none" stroke="rgba(247,243,236,0.28)"/>
+    
+    <rect x="902" y="368" width="164.66666666666666" height="74" rx="8"
+          fill="rgba(247,243,236,0.05)" stroke="rgba(247,243,236,0.10)"/>
+    <rect x="914" y="384" width="82.33333333333333" height="8" rx="4" fill="#86efac" opacity="0.75"/>
+    <rect x="914" y="402" width="128.44" height="6" rx="3" fill="rgba(247,243,236,0.22)"/>
+    <rect x="914" y="416" width="98.8" height="6" rx="3" fill="rgba(247,243,236,0.16)"/>
+    <rect x="1082.6666666666667" y="368" width="164.66666666666666" height="74" rx="8"
+          fill="rgba(247,243,236,0.05)" stroke="rgba(247,243,236,0.10)"/>
+    <rect x="1094.6666666666667" y="384" width="82.33333333333333" height="8" rx="4" fill="#86efac" opacity="0.75"/>
+    <rect x="1094.6666666666667" y="402" width="128.44" height="6" rx="3" fill="rgba(247,243,236,0.22)"/>
+    <rect x="1094.6666666666667" y="416" width="98.8" height="6" rx="3" fill="rgba(247,243,236,0.16)"/>
+    <rect x="1263.3333333333333" y="368" width="164.66666666666666" height="74" rx="8"
+          fill="rgba(247,243,236,0.05)" stroke="rgba(247,243,236,0.10)"/>
+    <rect x="1275.3333333333333" y="384" width="82.33333333333333" height="8" rx="4" fill="#86efac" opacity="0.75"/>
+    <rect x="1275.3333333333333" y="402" width="128.44" height="6" rx="3" fill="rgba(247,243,236,0.22)"/>
+    <rect x="1275.3333333333333" y="416" width="98.8" height="6" rx="3" fill="rgba(247,243,236,0.16)"/>
+  </g>
 </svg>
