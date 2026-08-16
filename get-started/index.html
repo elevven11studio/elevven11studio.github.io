@@ -69,11 +69,40 @@
 	<section class="hero" style="min-height: 40vh;">
 		<div class="hero-content container">
 			<h1 class="hero-title">Let's Build Your <strong>Website</strong></h1>
-			<p class="hero-tagline">Fill this in and we'll send it straight to WhatsApp so we can get started.</p>
+			<p class="hero-tagline">Send us your details by WhatsApp or by Google Form &mdash; whichever you prefer.</p>
 		</div>
 	</section>
 
-	<section>
+	<!-- Channel chooser. Deliberately placed above the form fields: the Google Form
+	     is a separate document, so offering it after someone has typed their details
+	     would mean losing them. -->
+	<section style="padding-bottom: 0;">
+		<div class="container" style="max-width: 760px;">
+			<div class="section-tag" style="display:block; text-align:center;">Two ways to reach us</div>
+			<h2 class="section-title" style="margin-bottom: 2rem;">Pick whichever suits you</h2>
+
+			<div class="grid-2">
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Send on WhatsApp</h3>
+					<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Fill in the form below and we'll
+						open WhatsApp with everything pre-filled. Fastest way to get a reply, and you keep a copy of
+						the conversation.</p>
+					<a href="#request-form" class="btn btn-whatsapp" style="width: 100%;">Fill in the form below</a>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Use our Google Form</h3>
+					<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Don't use WhatsApp, or would rather
+						not share your number yet? Send the same details through our Google Form and we'll reply by
+						email.</p>
+					<a href="https://forms.gle/VggZeMopx6bf2dLW9" target="_blank" rel="noopener"
+						class="btn btn-secondary" data-lead-channel="google-form-website" style="width: 100%;">Open the
+						Google Form</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="request-form">
 		<div class="container" style="max-width: 760px;">
 			<div class="referral-banner"></div>
 
@@ -222,9 +251,11 @@
 			</div>
 
 			<p style="text-align:center; color: var(--text-muted); margin-top: 1.5rem; font-size: 0.9rem;">
-				Prefer email? Write to
-				<a href="mailto:elevven11studio@gmail.com" style="color: var(--accent-gold);">elevven11studio@gmail.com</a>
-				instead.
+				Rather not use WhatsApp? Send the same details through our
+				<a href="https://forms.gle/VggZeMopx6bf2dLW9" target="_blank" rel="noopener"
+					data-lead-channel="google-form-website-footer" style="color: var(--accent-gold);">Google Form</a>,
+				or write to
+				<a href="mailto:elevven11studio@gmail.com" style="color: var(--accent-gold);">elevven11studio@gmail.com</a>.
 			</p>
 		</div>
 	</section>

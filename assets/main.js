@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initReferralCapture();
   initGetStartedForm();
   initCurrencyByCountry();
+  initLeadChannelTracking();
 });
 
 const WHATSAPP_NUMBER = '2349120925909';
@@ -138,6 +139,26 @@ function initNavbar() {
     } else {
       item.parentElement.classList.remove('active');
     }
+  });
+}
+
+/**
+ * Sends a GA4 event whenever someone picks a contact route (WhatsApp vs the
+ * Google Form), so the split between channels is visible in analytics rather
+ * than guessed at. Any element tagged data-lead-channel="<name>" is tracked.
+ */
+function initLeadChannelTracking() {
+  const targets = document.querySelectorAll('[data-lead-channel]');
+  if (!targets.length) return;
+
+  targets.forEach((el) => {
+    el.addEventListener('click', () => {
+      if (typeof gtag !== 'function') return;
+      gtag('event', 'lead_channel_click', {
+        lead_channel: el.getAttribute('data-lead-channel'),
+        page_path: window.location.pathname,
+      });
+    });
   });
 }
 
