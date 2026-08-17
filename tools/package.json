@@ -1,0 +1,15 @@
+{
+  "name": "elevven11-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Asset generators for the Elevven11 Studio marketing site. Not part of the deployed site.",
+  "scripts": {
+    "previews": "node generate-previews.js",
+    "og-cards": "node generate-og-cards.js",
+    "covers": "node generate-covers.js",
+    "all": "node generate-previews.js && node generate-og-cards.js && node generate-covers.js"
+  },
+  "dependencies": {
+    "sharp": "^0.33.0"
+  }
+}

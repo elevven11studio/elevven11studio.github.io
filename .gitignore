@@ -11,3 +11,7 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Asset generator deps (tools/ is build-time only, never deployed)
+node_modules/
+tools/package-lock.json
