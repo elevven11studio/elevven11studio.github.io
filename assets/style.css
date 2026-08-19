@@ -413,6 +413,13 @@ header.scrolled {
   margin-bottom: 0.25rem;
 }
 
+/* The featured package price picks up the champagne gold of its "Most Popular"
+   badge, per the palette note above: gold marks the money moments. Note that
+   --accent-gold is green despite the name, so this must use --accent-champagne. */
+.pricing-card.featured .pricing-price {
+  color: var(--accent-champagne);
+}
+
 .pricing-note {
   color: var(--text-muted);
   font-size: 0.9rem;
@@ -751,4 +758,123 @@ footer a:hover { color: var(--accent-gold); }
 
 @media (max-width: 480px) {
   .steps-list, .steps-list-4 { grid-template-columns: 1fr; }
+}
+
+/* ---------------------------------------------------------------------------
+   Picture slider
+
+   Built on native CSS scroll-snap, so it is already a working, swipeable
+   slider with JavaScript disabled - the arrows and dots that initSliders()
+   injects are progressive enhancement, not the mechanism.
+   --------------------------------------------------------------------------- */
+
+.slider {
+  position: relative;
+  margin: 2.5rem 0 0;
+}
+
+.slider-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  /* No scroll-behavior: smooth here on purpose - initSliders() animates the
+     track per frame, and CSS smoothing would fight those writes. Native swipe
+     still gets the browser's own snap animation. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.slider-track::-webkit-scrollbar {
+  display: none;
+}
+
+.slider-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+}
+
+.slider-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  border: var(--border-subtle);
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: var(--border-subtle);
+  background: rgba(11, 10, 16, 0.72);
+  backdrop-filter: blur(6px);
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.slider-btn:hover:not([disabled]) {
+  background: rgba(11, 10, 16, 0.92);
+  border-color: var(--accent-gold);
+}
+
+.slider-btn[disabled] {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.slider-btn.prev { left: 0.75rem; }
+.slider-btn.next { right: 0.75rem; }
+
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.slider-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(247, 243, 236, 0.22);
+  cursor: pointer;
+  transition: background var(--transition-fast), width var(--transition-fast);
+}
+
+.slider-dot[aria-current="true"] {
+  width: 26px;
+  border-radius: 5px;
+  background: var(--gradient-neon);
+}
+
+.slider-caption {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-top: 0.6rem;
+  min-height: 1.4em;
+}
+
+/* Touch devices get the native swipe; the arrows would only cover artwork. */
+@media (max-width: 640px) {
+  .slider-btn { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slider-track { scroll-behavior: auto; }
+  .slider-dot { transition: none; }
 }

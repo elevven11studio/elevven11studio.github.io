@@ -1,0 +1,42 @@
+[
+  {
+    "index": 1,
+    "src": "/assets/slides/faq/1.png",
+    "alt": "QUESTION 1 OF 8: Do I really pay no hosting fee? — Eligible static websites are hosted on GitHub Pages, which lets us provide hosting without charging a monthly hosting fee. Websites that need server-side processing, databases, authentication, private APIs, or dynamic backend functionality may require a different hosting solution"
+  },
+  {
+    "index": 2,
+    "src": "/assets/slides/faq/2.png",
+    "alt": "QUESTION 2 OF 8: Is a custom domain included? — You can use the free default GitHub Pages URL, or connect a custom domain like www.yourbusiness.com. Domain registration cost is separate from the website package unless explicitly included, and we can handle setup for an additional fee."
+  },
+  {
+    "index": 3,
+    "src": "/assets/slides/faq/3.png",
+    "alt": "QUESTION 3 OF 8: What counts as a free update? — Changing text, replacing images, updating your phone number, WhatsApp number, business information, social links, or correcting small content issues."
+  },
+  {
+    "index": 4,
+    "src": "/assets/slides/faq/4.png",
+    "alt": "QUESTION 4 OF 8: What doesn't count as a free update? — New pages, major redesigns, new functionality, e-commerce, booking systems, authentication, database-backed functionality, and major structural changes. These are quoted separately."
+  },
+  {
+    "index": 5,
+    "src": "/assets/slides/faq/5.png",
+    "alt": "QUESTION 5 OF 8: How long does delivery take? — Timelines depend on how quickly we receive your content, but our reusable template system is built to keep delivery fast, especially for Starter and Plus websites."
+  },
+  {
+    "index": 6,
+    "src": "/assets/slides/faq/6.png",
+    "alt": "QUESTION 6 OF 8: What do I need to provide? — Your business/personal details, a short description of what you do, your services, contact information, social media links, preferred colors, your logo (if you have one), and any images you'd like used."
+  },
+  {
+    "index": 7,
+    "src": "/assets/slides/faq/7.png",
+    "alt": "QUESTION 7 OF 8: Can I refer people and earn money? — Yes. See the Referral Agents page for commission rates and how it works."
+  },
+  {
+    "index": 8,
+    "src": "/assets/slides/faq/8.png",
+    "alt": "QUESTION 8 OF 8: What if my website needs are more complex than the standard packages? — Talk to us about the Custom package. Pricing and free-update period are agreed based on the scope of the project."
+  }
+]

@@ -65,6 +65,41 @@
 		</div>
 	</section>
 
+	<!-- Picture slider. The scroll-snap track works on its own without JS;
+	     initSliders() in main.js adds the arrows, dots and caption on top. -->
+	<section>
+		<div class="container" style="max-width: 900px;">
+			<div class="section-tag" style="display:block; text-align:center;">Getting Started</div>
+			<h2 class="section-title">How to become an agent</h2>
+			<div class="slider" data-slider="How to become a referral agent">
+				<div class="slider-track">
+					<div class="slider-slide">
+						<img src="/assets/slides/agents/1.png" alt="STEP 1 OF 5: Apply to join — Message us on WhatsApp or fill in the Google Form. Takes about two minutes."
+							width="1200" height="675" loading="eager" />
+					</div>
+					<div class="slider-slide">
+						<img src="/assets/slides/agents/2.png" alt="STEP 2 OF 5: Get your code — We send you a referral code that identifies every customer you bring."
+							width="1200" height="675" loading="lazy" />
+					</div>
+					<div class="slider-slide">
+						<img src="/assets/slides/agents/3.png" alt="STEP 3 OF 5: Share your link — Send your link to anyone who needs a website. Post it anywhere."
+							width="1200" height="675" loading="lazy" />
+					</div>
+					<div class="slider-slide">
+						<img src="/assets/slides/agents/4.png" alt="STEP 4 OF 5: We build it — Requirements, design, development, deployment and support. All handled."
+							width="1200" height="675" loading="lazy" />
+					</div>
+					<div class="slider-slide">
+						<img src="/assets/slides/agents/5.png" alt="STEP 5 OF 5: You get paid — Your commission is paid once the customer completes payment."
+							width="1200" height="675" loading="lazy" />
+					</div>
+				</div>
+				<p class="slider-caption"></p>
+			</div>
+		</div>
+	</section>
+
+
 	<div class="referral-banner container" style="max-width: 1200px;"></div>
 
 	<section>
@@ -187,6 +222,24 @@
 					data-lead-channel="whatsapp-agent-code">Request Code On WhatsApp</a>
 				<a href="https://forms.gle/vMDh6VMCUFDNLKw88" target="_blank" rel="noopener" class="btn btn-secondary"
 					data-lead-channel="google-form-agent-code">Request Code Via Form</a>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- qr-share-agents -->
+	<section>
+		<div class="container" style="max-width: 700px;">
+			<div class="section-tag" style="display:block; text-align:center;">Share The Programme</div>
+			<h2 class="section-title">A QR code for the agent programme</h2>
+			<div class="glass-card" style="text-align: center;">
+				<img src="/assets/qr/agents.png" alt="QR code that opens the Elevven11 Studio referral agent page"
+					width="512" height="512" loading="lazy"
+					style="width: 200px; max-width: 60%; height: auto; border-radius: 14px; margin-left: auto; margin-right: auto;" />
+				<p style="color: var(--text-secondary); margin-top: 1.25rem;">Scanning this opens the agent programme page. Show it to anyone who might want to refer people. To send customers to a form that credits you, use your own referral link above instead — this code carries no agent code.</p>
+				<p style="margin-top: 1rem;">
+					<a href="/assets/qr/agents.png" download style="color: var(--accent-gold);">Download the QR code</a>
+				</p>
 			</div>
 		</div>
 	</section>

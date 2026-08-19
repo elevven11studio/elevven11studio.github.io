@@ -7,9 +7,18 @@
     "previews": "node generate-previews.js",
     "og-cards": "node generate-og-cards.js",
     "covers": "node generate-covers.js",
-    "all": "node generate-previews.js && node generate-og-cards.js && node generate-covers.js"
+    "promos": "node generate-promos.js",
+    "all": "node generate-previews.js && node generate-og-cards.js && node generate-covers.js && node generate-promos.js && node generate-slides.js && node generate-qr.js && node generate-promo-stories.js",
+    "verify-qr": "node verify-qr.js",
+    "slides": "node generate-slides.js",
+    "qr": "node generate-qr.js",
+    "stories": "node generate-promo-stories.js"
   },
   "dependencies": {
+    "qrcode": "^1.5.4",
     "sharp": "^0.33.0"
+  },
+  "devDependencies": {
+    "jsqr": "^1.4.0"
   }
 }

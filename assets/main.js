@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGetStartedForm();
   initCurrencyByCountry();
   initLeadChannelTracking();
+  initSliders();
 });
 
 const WHATSAPP_NUMBER = '2349120925909';
@@ -259,5 +260,147 @@ function initGetStartedForm() {
       successMsg.style.display = 'block';
       successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+  });
+}
+/**
+ * Picture sliders.
+ *
+ * The markup is already a working slider on its own: a scroll-snap track that
+ * swipes on touch and scrolls on desktop with no JavaScript at all. This adds
+ * the arrows, the dot indicators, a live caption and keyboard control on top,
+ * so nothing here is load-bearing - if it fails, the slider still works.
+ *
+ * Any element with [data-slider] is picked up.
+ */
+function initSliders() {
+  const sliders = document.querySelectorAll('[data-slider]');
+  if (!sliders.length) return;
+
+  sliders.forEach((slider) => {
+    const track = slider.querySelector('.slider-track');
+    const slides = Array.from(slider.querySelectorAll('.slider-slide'));
+    if (!track || slides.length < 2) return;
+
+    const label = slider.getAttribute('data-slider') || 'Slides';
+    slider.setAttribute('role', 'region');
+    slider.setAttribute('aria-roledescription', 'carousel');
+    slider.setAttribute('aria-label', label);
+
+    const caption = slider.querySelector('.slider-caption');
+
+    const mkBtn = (dir, glyph, text) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'slider-btn ' + dir;
+      b.innerHTML = glyph;
+      b.setAttribute('aria-label', text);
+      slider.appendChild(b);
+      return b;
+    };
+    const prev = mkBtn('prev', '&#8592;', 'Previous slide');
+    const next = mkBtn('next', '&#8594;', 'Next slide');
+
+    const dots = document.createElement('div');
+    dots.className = 'slider-dots';
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'slider-dot';
+      d.setAttribute('aria-label', 'Go to slide ' + (i + 1) + ' of ' + slides.length);
+      d.addEventListener('click', () => go(i));
+      dots.appendChild(d);
+    });
+    // Above the caption: the dots belong with the artwork they index, and the
+    // caption is a description of the current slide rather than a control.
+    if (caption) slider.insertBefore(dots, caption);
+    else slider.appendChild(dots);
+
+    let current = 0;
+    let animating = null;
+    let programmatic = false;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /**
+     * The browser's own smooth scrolling scales its duration with distance, so
+     * jumping from the first dot to the last crawled for almost a second. And
+     * mandatory snapping fights a scripted scroll, yanking the position to the
+     * nearest snap point mid-flight. So: animate it here at a fixed duration,
+     * with snapping switched off for the duration of the animation only.
+     */
+    function animateTo(target) {
+      if (animating) cancelAnimationFrame(animating);
+      const start = track.scrollLeft;
+      const delta = target - start;
+      if (Math.abs(delta) < 1) return;
+
+      if (reduced) { track.scrollLeft = target; return; }
+
+      const dur = 420;
+      const t0 = performance.now();
+      const prevSnap = track.style.scrollSnapType;
+      track.style.scrollSnapType = 'none';
+      programmatic = true;
+
+      const ease = (t) => 1 - Math.pow(1 - t, 3);
+      const step = (now) => {
+        const t = Math.min(1, (now - t0) / dur);
+        track.scrollLeft = start + delta * ease(t);
+        if (t < 1) {
+          animating = requestAnimationFrame(step);
+        } else {
+          animating = null;
+          track.style.scrollSnapType = prevSnap;
+          programmatic = false;
+        }
+      };
+      animating = requestAnimationFrame(step);
+    }
+
+    function go(i) {
+      current = Math.max(0, Math.min(slides.length - 1, i));
+      // Offsets, not scrollIntoView: the latter would scroll the page too.
+      animateTo(slides[current].offsetLeft - track.offsetLeft);
+      sync();
+    }
+
+    function sync() {
+      Array.from(dots.children).forEach((d, i) =>
+        d.setAttribute('aria-current', i === current ? 'true' : 'false'));
+      prev.disabled = current === 0;
+      next.disabled = current === slides.length - 1;
+      if (caption) {
+        const img = slides[current].querySelector('img');
+        caption.textContent = img ? img.getAttribute('alt') : '';
+      }
+      slides.forEach((s, i) => s.setAttribute('aria-hidden', i === current ? 'false' : 'true'));
+    }
+
+    prev.addEventListener('click', () => go(current - 1));
+    next.addEventListener('click', () => go(current + 1));
+
+    slider.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(current - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(current + 1); }
+    });
+
+    // Someone swiping or scrolling the track directly is the source of truth,
+    // so mirror that back into the dots rather than fighting it.
+    let raf;
+    track.addEventListener('scroll', () => {
+      cancelAnimationFrame(raf);
+      if (programmatic) return; // our own animation already set the target
+      raf = requestAnimationFrame(() => {
+        const mid = track.scrollLeft + track.clientWidth / 2;
+        let best = 0, bestDist = Infinity;
+        slides.forEach((s, i) => {
+          const c = s.offsetLeft - track.offsetLeft + s.clientWidth / 2;
+          const d = Math.abs(c - mid);
+          if (d < bestDist) { bestDist = d; best = i; }
+        });
+        if (best !== current) { current = best; sync(); }
+      });
+    }, { passive: true });
+
+    sync();
   });
 }

@@ -1,0 +1,27 @@
+[
+  {
+    "index": 1,
+    "src": "/assets/slides/agents/1.png",
+    "alt": "STEP 1 OF 5: Apply to join — Message us on WhatsApp or fill in the Google Form. Takes about two minutes."
+  },
+  {
+    "index": 2,
+    "src": "/assets/slides/agents/2.png",
+    "alt": "STEP 2 OF 5: Get your code — We send you a referral code that identifies every customer you bring."
+  },
+  {
+    "index": 3,
+    "src": "/assets/slides/agents/3.png",
+    "alt": "STEP 3 OF 5: Share your link — Send your link to anyone who needs a website. Post it anywhere."
+  },
+  {
+    "index": 4,
+    "src": "/assets/slides/agents/4.png",
+    "alt": "STEP 4 OF 5: We build it — Requirements, design, development, deployment and support. All handled."
+  },
+  {
+    "index": 5,
+    "src": "/assets/slides/agents/5.png",
+    "alt": "STEP 5 OF 5: You get paid — Your commission is paid once the customer completes payment."
+  }
+]
