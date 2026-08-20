@@ -802,33 +802,59 @@ footer a:hover { color: var(--accent-gold); }
   border: var(--border-subtle);
 }
 
+/* Wraps only the track, so the arrows centre on the artwork rather than on
+   .slider (which also holds the dots and caption below it). */
+.slider-viewport {
+  position: relative;
+}
+
 .slider-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: var(--border-subtle);
-  background: rgba(11, 10, 16, 0.72);
-  backdrop-filter: blur(6px);
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  /* Bare chevron: no plate, no border, no blur. The hit area stays 46px so it
+     is still comfortably tappable even though nothing is drawn around it. */
+  border: none;
+  background: transparent;
   color: var(--text-primary);
-  font-size: 1.2rem;
-  line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background var(--transition-fast), border-color var(--transition-fast);
+  opacity: 0.75;
+  transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Sizing the glyph on the SVG keeps it optically centred; a text arrow would
+   sit slightly high because of font baseline metrics. */
+.slider-btn svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.55));
 }
 
 .slider-btn:hover:not([disabled]) {
-  background: rgba(11, 10, 16, 0.92);
-  border-color: var(--accent-gold);
+  opacity: 1;
+  transform: translateY(-50%) scale(1.12);
+}
+
+.slider-btn:active:not([disabled]) {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.slider-btn:focus-visible {
+  /* Neutral ring, not the green accent - but kept, because removing the focus
+     indicator entirely would strand keyboard users. */
+  outline: 2px solid rgba(247, 243, 236, 0.7);
+  outline-offset: 3px;
 }
 
 .slider-btn[disabled] {
-  opacity: 0.3;
+  opacity: 0.25;
   cursor: default;
 }
 
@@ -845,20 +871,42 @@ footer a:hover { color: var(--accent-gold); }
 }
 
 .slider-dot {
+  position: relative;
   width: 10px;
   height: 10px;
   padding: 0;
   border: none;
-  border-radius: 50%;
+  border-radius: 6px;
   background: rgba(247, 243, 236, 0.22);
   cursor: pointer;
-  transition: background var(--transition-fast), width var(--transition-fast);
+  overflow: hidden;
+  transition:
+    width 0.42s cubic-bezier(0.25, 0.8, 0.25, 1),
+    background 0.3s ease,
+    transform 0.2s ease;
+}
+
+.slider-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--gradient-neon);
+  opacity: 0;
+  transition: opacity 0.34s ease;
+}
+
+.slider-dot:hover:not([aria-current="true"]) {
+  background: rgba(247, 243, 236, 0.42);
+  transform: scale(1.25);
 }
 
 .slider-dot[aria-current="true"] {
-  width: 26px;
-  border-radius: 5px;
-  background: var(--gradient-neon);
+  width: 28px;
+}
+
+.slider-dot[aria-current="true"]::after {
+  opacity: 1;
 }
 
 .slider-caption {
@@ -876,5 +924,10 @@ footer a:hover { color: var(--accent-gold); }
 
 @media (prefers-reduced-motion: reduce) {
   .slider-track { scroll-behavior: auto; }
-  .slider-dot { transition: none; }
+  .slider-dot,
+  .slider-dot::after { transition: none; }
+  .slider-dot:hover:not([aria-current="true"]) { transform: none; }
+  .slider-btn { transition: none; }
+  .slider-btn:hover:not([disabled]),
+  .slider-btn:active:not([disabled]) { transform: translateY(-50%); }
 }

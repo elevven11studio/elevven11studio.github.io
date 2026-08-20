@@ -126,6 +126,26 @@ async function renderWithQr(svg, file, url) {
   return fs.statSync(file).size;
 }
 
+
+/* ---------------- social row ---------------- */
+
+const FB_PATH = 'M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4'
+  + 'v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86'
+  + 'h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z';
+const LI_PATH = 'M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5z'
+  + 'm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75'
+  + '-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7'
+  + 'h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z';
+
+/** One "icon + handle" line. scale 24px glyph up to `size`. */
+function socialRow(pathD, handle, x, y, size, fontSize) {
+  const s = size / 24;
+  return '<g><path d="' + pathD + '" fill="#f7f3ec" opacity="0.85" transform="translate('
+    + x + ',' + y + ') scale(' + s.toFixed(3) + ')"/>'
+    + '<text x="' + (x + size + 22) + '" y="' + (y + size * 0.78) + '" fill="#f7f3ec" font-size="'
+    + fontSize + '">' + esc(handle) + '</text></g>';
+}
+
 /* ---------------- page promos ---------------- */
 
 function pagePromo(o) {
@@ -144,7 +164,7 @@ function pagePromo(o) {
     + esc(o.eyebrow) + '</text>'
     + head
     + '<text x="90" y="' + subY + '" fill="#a79f95" font-size="30">' + esc(o.sub) + '</text>'
-    + pills(o.pillLabels, 90, subY + 40)
+    + (o.extra ? o.extra(subY) : pills(o.pillLabels, 90, subY + 40))
     + '<rect x="90" y="900" width="' + ctaW + '" height="72" rx="36" fill="url(#accent)"/>'
     + '<text x="' + (90 + ctaW / 2) + '" y="947" fill="#0b0a10" font-size="30" font-weight="700" '
     + 'text-anchor="middle">' + esc(o.cta) + '</text>'
@@ -199,6 +219,7 @@ function demoPromo(o) {
 (async () => {
   fs.mkdirSync(path.join(OUT, 'demos'), { recursive: true });
   let count = 0;
+  const PAGE_PROMOS = 4; // main, agents, examples, follow-share
 
   await renderWithQr(pagePromo({
     eyebrow: 'WEBSITE DESIGN IN NIGERIA', accent: 'neon',
@@ -255,7 +276,18 @@ function demoPromo(o) {
   await sharp(Buffer.from(gridSvg)).composite(gridTiles).png({ compressionLevel: 9 })
     .toFile(path.join(OUT, 'examples.png'));
   count++;
-  console.log('page promos: main, agents, examples');
+  await renderWithQr(pagePromo({
+    eyebrow: 'FOLLOW & SHARE', accent: 'neon',
+    lines: ['Like the work?', 'Follow us and', 'share the link.'],
+    sub: 'It costs nothing and helps a small business get found.',
+    cta: 'Follow Elevven11 Studio',
+    qrCaption: 'Scan to visit',
+    extra: (subY) => socialRow(FB_PATH, 'facebook.com/Elevven11Studio', 90, subY + 34, 44, 28)
+      + socialRow(LI_PATH, 'linkedin.com/company/elevven11-studio', 90, subY + 108, 44, 28),
+  }), path.join(OUT, 'follow-share.png'), SITE + '/?' + utm('follow-share'));
+  count++;
+
+  console.log('page promos: main, agents, examples, follow-share');
 
   const slugs = fs.readdirSync(path.join(ROOT, 'examples'), { withFileTypes: true })
     .filter((d) => d.isDirectory()).map((d) => d.name);
@@ -292,7 +324,7 @@ function demoPromo(o) {
     .concat(fs.readdirSync(path.join(OUT, 'demos')).map((f) => sizeOf(path.join(OUT, 'demos', f))))
     .reduce((a, b) => a + b, 0);
 
-  console.log('demo promos: ' + (count - 3));
+  console.log('demo promos: ' + (count - PAGE_PROMOS));
   console.log('\nwrote ' + count + ' promos at 1080x1080');
   console.log('total ' + (bytes / 1024 / 1024).toFixed(2) + ' MB');
   if (missing.length) {

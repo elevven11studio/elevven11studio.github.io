@@ -21,6 +21,8 @@ const ROOT = path.resolve(__dirname, '..');
 const EXPECTED = [
   { file: 'promo/main.png', mustContain: 'github.io/?' },
   { file: 'promo/agents.png', mustContain: 'github.io/agents/?' },
+  { file: 'promo/follow-share.png', mustContain: 'github.io/?' },
+  { file: 'promo/stories/follow-share.png', mustContain: 'github.io/?' },
   { file: 'promo/stories/main.png', mustContain: 'github.io/?' },
   { file: 'promo/stories/agents.png', mustContain: 'github.io/agents/?' },
   { file: 'promo/stories/examples.png', mustContain: 'github.io/examples/?' },

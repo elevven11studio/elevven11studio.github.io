@@ -202,6 +202,14 @@ async function roundedBottom(buf, w, h, r) {
       sub: 'Restaurants, salons, churches, schools.',
       pillLabels: ['Mobile friendly', '3 styles each'],
     },
+    {
+      name: 'follow-share', accent: 'neon', qr: true, qrCaption: 'Scan to visit',
+      url: SITE + '/?' + utm('story-follow-share'),
+      eyebrow: 'FOLLOW & SHARE',
+      lines: ['Like the work?', 'Follow us and', 'share the link.'],
+      sub: 'It costs nothing and helps a small business.',
+      pillLabels: ['Facebook', 'LinkedIn'],
+    },
   ];
 
   for (const p of pages) {
@@ -220,7 +228,7 @@ async function roundedBottom(buf, w, h, r) {
     await sharp(Buffer.from(svg)).composite(layers).png({ compressionLevel: 9 }).toFile(file);
     count++;
   }
-  console.log('page stories: main, agents, examples');
+  console.log('page stories: main, agents, examples, follow-share');
 
   const slugs = fs.readdirSync(path.join(ROOT, 'examples'), { withFileTypes: true })
     .filter((d) => d.isDirectory()).map((d) => d.name);
@@ -255,7 +263,7 @@ async function roundedBottom(buf, w, h, r) {
     .concat(fs.readdirSync(path.join(OUT, 'demos')).map((f) => sizeOf(path.join(OUT, 'demos', f))))
     .reduce((a, b) => a + b, 0);
 
-  console.log('demo stories: ' + (count - 3));
+  console.log('demo stories: ' + (count - pages.length));
   console.log('\n' + count + ' stories at ' + W + 'x' + H + ', ' + (bytes / 1024 / 1024).toFixed(2) + ' MB');
   if (missing.length) console.error('missing preview for: ' + missing.join(', '));
 })().catch((e) => { console.error(e.message); process.exitCode = 1; });

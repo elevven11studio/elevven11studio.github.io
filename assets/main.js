@@ -288,17 +288,33 @@ function initSliders() {
 
     const caption = slider.querySelector('.slider-caption');
 
-    const mkBtn = (dir, glyph, text) => {
+    // The buttons must centre on the TRACK, not on .slider - the dots and
+    // caption sit inside .slider too, which would drag the arrows below the
+    // artwork. Wrapping the track gives them the right box to centre against,
+    // and it stays correct on resize without any measuring.
+    const viewport = document.createElement('div');
+    viewport.className = 'slider-viewport';
+    track.parentNode.insertBefore(viewport, track);
+    viewport.appendChild(track);
+
+    // A stroked SVG rather than a text arrow: text glyphs sit off-centre in a
+    // circular button because of font metrics, and cannot be given round caps.
+    const arrow = (dir) => '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+      + '<path d="' + (dir === 'next' ? 'M9 4.5 16.5 12 9 19.5' : 'M15 4.5 7.5 12 15 19.5')
+      + '" fill="none" stroke="currentColor" stroke-width="2.1" '
+      + 'stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+    const mkBtn = (dir, text) => {
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'slider-btn ' + dir;
-      b.innerHTML = glyph;
+      b.innerHTML = arrow(dir);
       b.setAttribute('aria-label', text);
-      slider.appendChild(b);
+      viewport.appendChild(b);
       return b;
     };
-    const prev = mkBtn('prev', '&#8592;', 'Previous slide');
-    const next = mkBtn('next', '&#8594;', 'Next slide');
+    const prev = mkBtn('prev', 'Previous slide');
+    const next = mkBtn('next', 'Next slide');
 
     const dots = document.createElement('div');
     dots.className = 'slider-dots';
