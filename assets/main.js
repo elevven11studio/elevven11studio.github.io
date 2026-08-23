@@ -7,6 +7,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initReferralCapture();
+  initFormPrefill();
   initGetStartedForm();
   initCurrencyByCountry();
   initLeadChannelTracking();
@@ -521,4 +522,45 @@ function initContactForm() {
       done(channel);
     });
   });
+}
+
+/**
+ * Carries an agent's referral code into the Google Form.
+ *
+ * The WhatsApp route already appends the code to the message, but the Google
+ * Form is a separate document and had no way of knowing about it - a customer
+ * who arrived on ?ref=CODE and chose the form would have been credited to
+ * nobody. Google Forms accepts prefilled answers as query parameters, so the
+ * code travels with the link.
+ *
+ * Entry IDs live on the markup as data attributes, not here, so the form can be
+ * re-pointed without touching this file.
+ */
+function initFormPrefill() {
+  const links = document.querySelectorAll('[data-form-prefill]');
+  if (!links.length) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('ref') || sessionStorage.getItem('e11_referral_code');
+  if (!code) return; // no code, leave the plain form link alone
+
+  links.forEach((a) => {
+    const base = a.getAttribute('data-form-base');
+    const refEntry = a.getAttribute('data-form-ref-entry');
+    const referredEntry = a.getAttribute('data-form-referred-entry');
+    if (!base || !refEntry) return;
+
+    const url = new URL(base);
+    if (referredEntry) url.searchParams.set(referredEntry, 'Yes');
+    url.searchParams.set(refEntry, code);
+    a.href = url.toString();
+  });
+
+  // Tell the customer their code is being carried, so a blank-looking form
+  // field later does not read as the referral having been lost.
+  const note = document.querySelector('.form-prefill-note');
+  if (note) {
+    note.textContent = 'Referral code ' + code + ' will be filled in for you.';
+    note.style.display = 'block';
+  }
 }
