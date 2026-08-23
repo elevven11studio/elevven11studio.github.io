@@ -18,7 +18,7 @@
  * No dev server needed; a throwaway static server is started on a free port.
  */
 
-const { spawnSync } = require('child_process');
+const { spawn } = require('child_process');
 const fs = require('fs');
 const http = require('http');
 const os = require('os');
@@ -30,6 +30,14 @@ const EXAMPLES = path.join(ROOT, 'examples');
 const OUT = path.join(ROOT, 'assets/previews');
 
 const SHOT = { width: 1280, height: 900 };
+// Portrait capture for the phone mockups used by the promo graphics. The
+// audience buys on phones, so showing the template as it actually renders
+// there is more persuasive than a desktop browser frame.
+// 500 is Chrome's minimum window width on Windows. Ask for less and it clamps
+// the LAYOUT to 500 while still cropping the SCREENSHOT to what you asked for,
+// which silently cuts the right-hand 80px off every capture. Still well under
+// the templates' 700px breakpoint, so the layout is genuinely the mobile one.
+const MOBILE = { width: 500, height: 1000 };
 // Crop the top band at the Open Graph ratio (1.91:1) so the hero is what shows.
 const CROP = { left: 0, top: 0, width: 1280, height: 672 };
 const THUMB = { width: 800, height: 420, quality: 74 };
@@ -51,6 +59,23 @@ const MIME = {
   '.jpeg': 'image/jpeg', '.png': 'image/png', '.ico': 'image/x-icon',
   '.json': 'application/json', '.xml': 'application/xml', '.txt': 'text/plain',
 };
+
+/**
+ * Runs the browser and resolves when it exits.
+ *
+ * This MUST be async. The static server below lives in this same process, so a
+ * synchronous spawn blocks the event loop and the server cannot answer the
+ * request the browser is making - the page never loads, the screenshot is
+ * never taken, and every capture times out. That was a real bug here.
+ */
+function runBrowser(bin, args, timeoutMs) {
+  return new Promise((resolve) => {
+    const child = spawn(bin, args, { stdio: 'ignore' });
+    const timer = setTimeout(() => { child.kill('SIGKILL'); resolve('timeout'); }, timeoutMs);
+    child.on('error', () => { clearTimeout(timer); resolve('error'); });
+    child.on('exit', () => { clearTimeout(timer); resolve('ok'); });
+  });
+}
 
 function findBrowser() {
   const found = BROWSERS.find((p) => fs.existsSync(p));
@@ -90,26 +115,33 @@ function startServer() {
 
   const { server, port } = await startServer();
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'e11-shots-'));
+  const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'e11-profile-'));
   fs.mkdirSync(OUT, { recursive: true });
+  const mobileDir = path.join(OUT, 'mobile');
+  fs.mkdirSync(mobileDir, { recursive: true });
 
   console.log(`browser : ${path.basename(browser)}`);
   console.log(`serving : ${ROOT} on 127.0.0.1:${port}`);
   console.log(`demos   : ${slugs.length}\n`);
 
-  let thumbBytes = 0, ogBytes = 0;
+  let thumbBytes = 0, ogBytes = 0, mobileCount = 0;
   const failed = [];
 
   for (const [i, slug] of slugs.entries()) {
     const shot = path.join(tmp, `${slug}.png`);
-    const result = spawnSync(browser, [
+    const result = await runBrowser(browser, [
       '--headless=new', '--disable-gpu', '--hide-scrollbars', '--no-sandbox',
+      `--user-data-dir=${profile}`,
+      '--no-first-run', '--no-default-browser-check', '--disable-extensions',
+      '--disable-background-networking', '--disable-component-update', '--disable-sync',
+      '--metrics-recording-only', '--mute-audio',
       '--virtual-time-budget=4000',
       `--window-size=${SHOT.width},${SHOT.height}`,
       `--screenshot=${shot}`,
       `http://127.0.0.1:${port}/examples/${slug}/`,
-    ], { stdio: 'ignore' });
+    ], 25000);
 
-    if (result.error || !fs.existsSync(shot)) {
+    if (result !== 'ok' || !fs.existsSync(shot)) {
       failed.push(slug);
       console.log(`  [${i + 1}/${slugs.length}] ${slug} - FAILED`);
       continue;
@@ -119,6 +151,27 @@ function startServer() {
     await sharp(shot).extract(CROP).resize(THUMB.width, THUMB.height)
       .webp({ quality: THUMB.quality }).toFile(thumb);
     thumbBytes += fs.statSync(thumb).size;
+
+    // Portrait capture, used by the promo phone mockups.
+    const mshot = path.join(tmp, `${slug}-m.png`);
+    await runBrowser(browser, [
+      '--headless=new', '--disable-gpu', '--hide-scrollbars', '--no-sandbox',
+      `--user-data-dir=${profile}`,
+      '--no-first-run', '--no-default-browser-check', '--disable-extensions',
+      '--disable-background-networking', '--disable-component-update', '--disable-sync',
+      '--metrics-recording-only', '--mute-audio',
+      '--virtual-time-budget=4000',
+      `--window-size=${MOBILE.width},${MOBILE.height}`,
+      `--screenshot=${mshot}`,
+      `http://127.0.0.1:${port}/examples/${slug}/`,
+    ], 25000);
+    if (fs.existsSync(mshot)) {
+      await sharp(mshot)
+        .resize(MOBILE.width, MOBILE.height, { fit: 'cover', position: 'top' })
+        .jpeg({ quality: 80, mozjpeg: true })
+        .toFile(path.join(mobileDir, `${slug}.jpg`));
+      mobileCount++;
+    }
 
     const og = path.join(OUT, `${slug}-og.jpg`);
     await sharp(shot).extract(CROP).resize(OG.width, OG.height)
@@ -130,11 +183,13 @@ function startServer() {
 
   server.close();
   fs.rmSync(tmp, { recursive: true, force: true });
+  fs.rmSync(profile, { recursive: true, force: true });
 
   const done = slugs.length - failed.length;
   console.log(`\nwrote ${done * 2} files for ${done} demos`);
   console.log(`  thumbnails ${(thumbBytes / 1024 / 1024).toFixed(2)} MB`);
   console.log(`  og images  ${(ogBytes / 1024 / 1024).toFixed(2)} MB`);
+  console.log(`  mobile     ${mobileCount} portrait shots`);
 
   if (failed.length) {
     console.error(`\nFAILED (${failed.length}): ${failed.join(', ')}`);

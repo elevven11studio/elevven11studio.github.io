@@ -931,3 +931,79 @@ footer a:hover { color: var(--accent-gold); }
   .slider-btn:hover:not([disabled]),
   .slider-btn:active:not([disabled]) { transform: translateY(-50%); }
 }
+
+
+/* Two-up chooser cards. Grid already stretches them to equal height, but the
+   CTAs still floated at different heights because the copy differs in length.
+   Making each card a flex column and pinning the button with margin-top:auto
+   lines the buttons up whatever the text does. */
+.choice-grid {
+  align-items: stretch;
+}
+
+.choice-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.choice-card p {
+  flex: 1 1 auto;
+}
+
+.choice-card .btn {
+  margin-top: auto;
+}
+
+/* .btn-secondary carries a 2px border and .btn-whatsapp does not, so the two
+   CTAs were 4px different in height. A transparent border on the other button
+   makes the boxes identical without touching the secondary's green outline. */
+.choice-card .btn:not(.btn-secondary) {
+  border: 2px solid transparent;
+}
+
+
+/* ---------------------------------------------------------------------------
+   Package price finishes: silver / gold / diamond
+
+   Plus already picks up champagne gold from .pricing-card.featured above, so
+   only the outer two are defined here. Each has a flat fallback colour first;
+   the gradient version is gated behind @supports, because background-clip:text
+   with color:transparent renders the price INVISIBLE where it is unsupported.
+   --------------------------------------------------------------------------- */
+
+.tier-starter .pricing-price {
+  color: #cfd4dc;
+}
+
+.tier-custom .pricing-price {
+  color: #cdeffb;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .tier-starter .pricing-price,
+  .tier-custom .pricing-price {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Brushed silver: highlight, body, then a darker edge so it reads as metal
+     rather than flat grey. */
+  .tier-starter .pricing-price {
+    background-image: linear-gradient(135deg, #ffffff 0%, #dfe4ea 28%, #b6bcc6 58%, #8f97a4 100%);
+  }
+
+  /* Diamond: near-white with a cold blue core and a bright return, which is
+     what reads as "gem" rather than simply "light blue". */
+  .tier-custom .pricing-price {
+    background-image: linear-gradient(135deg, #ffffff 0%, #cfefff 30%, #86d6f5 58%, #f2fdff 100%);
+  }
+}
+
+/* Multi-line button labels aligned left because .btn is a flex container:
+   justify-content centres the text block, but the lines inside it still follow
+   text-align, which was inheriting start. */
+.btn {
+  text-align: center;
+}

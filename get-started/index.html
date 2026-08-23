@@ -103,15 +103,15 @@
 			<div class="section-tag" style="display:block; text-align:center;">Two ways to reach us</div>
 			<h2 class="section-title" style="margin-bottom: 2rem;">Pick whichever suits you</h2>
 
-			<div class="grid-2">
-				<div class="glass-card">
+			<div class="grid-2 choice-grid">
+				<div class="glass-card choice-card">
 					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Send on WhatsApp</h3>
 					<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Fill in the form below and we'll
 						open WhatsApp with everything pre-filled. Fastest way to get a reply, and you keep a copy of
 						the conversation.</p>
 					<a href="#request-form" class="btn btn-whatsapp" style="width: 100%;">Fill in the form below</a>
 				</div>
-				<div class="glass-card">
+				<div class="glass-card choice-card">
 					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Use our Google Form</h3>
 					<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Don't use WhatsApp, or would rather
 						not share your number yet? Send the same details through our Google Form and we'll reply by
@@ -218,7 +218,7 @@
 					</div>
 
 					<div class="form-group">
-						<label class="form-label">Preferred color palette (optional &mdash; tap any that fit)</label>
+						<label class="form-label">Preferred color palette (optional &mdash; pick one)</label>
 						<div class="color-chip-grid">
 							<button type="button" class="color-chip" data-color="Black &amp; Gold">
 								<span class="chip-swatch" style="background: linear-gradient(135deg, #d4af37, #0b0a10);"></span>
@@ -263,12 +263,19 @@
 					</div>
 
 					<p class="form-hint" style="margin-bottom: 1.5rem;">
-						Submitting opens WhatsApp with your details pre-filled, ready to send. We'll follow up with
-						next steps including payment and content collection.
+						Either button fills in your details for you &mdash; WhatsApp opens a chat, Email opens your
+						mail app. Nothing is sent until you press send there. We'll follow up with next steps
+						including payment and content collection.
 					</p>
 
-					<button class="btn btn-whatsapp" type="submit" style="width: 100%; padding: 1rem;">Send via
-						WhatsApp</button>
+					<div class="grid-2">
+						<button class="btn btn-whatsapp" type="submit"
+							data-lead-channel="whatsapp-get-started" style="width: 100%; padding: 1rem;">Send via
+							WhatsApp</button>
+						<button class="btn btn-secondary" type="button" data-gs-send="email"
+							data-lead-channel="email-get-started" style="width: 100%; padding: 1rem;">Send by
+							Email</button>
+					</div>
 				</form>
 			</div>
 
@@ -286,7 +293,7 @@
 		<div class="container">
 			<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
 			<p><a href="/agents/">Referral Agents</a> &middot; <a
-					href="/contact/">Contact</a> &middot; <a href="/privacy/">Privacy</a></p>
+					href="/contact/">Contact</a> &middot; <a href="/terms/">Terms</a> &middot; <a href="/privacy/">Privacy</a></p>
 			<div class="footer-social">
 				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
 				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>
@@ -320,20 +327,32 @@
 		})();
 	</script>
 	<script>
-		// Color palette chips: clicking toggles it into the hidden "colors" field
-		// as a comma-separated list, so the form stays a single named field.
+		// Color palette chips: single-select. Picking one clears the rest and
+		// writes it to the hidden "colors" field, so the form stays a single
+		// named field. Clicking the selected chip again clears it, because the
+		// question is optional and people need a way back to "no preference".
 		(function () {
 			const chips = document.querySelectorAll('.color-chip');
 			const hidden = document.getElementById('gs-colors');
 			if (!chips.length || !hidden) return;
 
 			chips.forEach((chip) => {
+				chip.setAttribute('aria-pressed', 'false');
+
 				chip.addEventListener('click', () => {
-					chip.classList.toggle('selected');
-					const selected = Array.from(chips)
-						.filter((c) => c.classList.contains('selected'))
-						.map((c) => c.getAttribute('data-color'));
-					hidden.value = selected.join(', ');
+					const wasSelected = chip.classList.contains('selected');
+
+					chips.forEach((c) => {
+						c.classList.remove('selected');
+						c.setAttribute('aria-pressed', 'false');
+					});
+
+					if (!wasSelected) {
+						chip.classList.add('selected');
+						chip.setAttribute('aria-pressed', 'true');
+					}
+
+					hidden.value = wasSelected ? '' : chip.getAttribute('data-color');
 				});
 			});
 		})();

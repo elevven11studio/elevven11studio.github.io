@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCurrencyByCountry();
   initLeadChannelTracking();
   initSliders();
+  initContactForm();
 });
 
 const WHATSAPP_NUMBER = '2349120925909';
@@ -206,19 +207,18 @@ function initGetStartedForm() {
 
   const packageSelect = document.getElementById('gs-package');
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+  const get = (name) => {
+    const field = form.querySelector(`[name="${name}"]`);
+    return field ? field.value.trim() : '';
+  };
 
-    const get = (name) => {
-      const field = form.querySelector(`[name="${name}"]`);
-      return field ? field.value.trim() : '';
-    };
-
+  /** Builds the message body, or returns null if required fields are empty. */
+  function compose() {
     const required = ['name', 'phone', 'package'];
     for (const field of required) {
       if (!get(field)) {
         alert('Please fill in your name, phone number, and chosen package.');
-        return;
+        return null;
       }
     }
 
@@ -250,17 +250,44 @@ function initGetStartedForm() {
       get('referral') ? `Referral code: ${get('referral')}` : null,
     ].filter(Boolean);
 
-    const message = encodeURIComponent(lines.join('\n'));
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
-    window.open(url, '_blank');
+    return lines.join('\n');
+  }
+
+  /** Hands the composed message to whichever channel was chosen. */
+  function send(channel) {
+    const body = compose();
+    if (!body) return;
+
+    if (channel === 'whatsapp') {
+      window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(body), '_blank');
+    } else {
+      // Anchor click rather than location.href: iOS Safari can block
+      // programmatic mailto: navigation, and a popup leaves a blank tab.
+      const a = document.createElement('a');
+      a.href = 'mailto:elevven11studio@gmail.com'
+        + '?subject=' + encodeURIComponent('Website request: ' + get('name'))
+        + '&body=' + encodeURIComponent(body);
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
 
     const successMsg = document.querySelector('.form-success-msg');
     if (successMsg) {
-      successMsg.textContent = `Thanks, ${get('name')}! WhatsApp should have opened in a new tab with your details filled in — just hit send there to reach us.`;
+      successMsg.textContent = channel === 'whatsapp'
+        ? `Thanks, ${get('name')}! WhatsApp should have opened with your details filled in — just hit send there to reach us.`
+        : `Thanks, ${get('name')}! Your email app should have opened with your details filled in — just hit send there to reach us.`;
       successMsg.style.display = 'block';
       successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-  });
+  }
+
+  // Submitting the form (including pressing Enter) keeps the original
+  // WhatsApp behaviour; the second button routes the same message to email.
+  form.addEventListener('submit', (e) => { e.preventDefault(); send('whatsapp'); });
+  const emailBtn = form.querySelector('[data-gs-send="email"]');
+  if (emailBtn) emailBtn.addEventListener('click', () => send('email'));
 }
 /**
  * Picture sliders.
@@ -418,5 +445,80 @@ function initSliders() {
     }, { passive: true });
 
     sync();
+  });
+}
+
+/**
+ * Contact form: same no-backend approach as the Get Started form, but the
+ * visitor picks the channel. Both buttons build the identical message; one
+ * hands it to WhatsApp, the other to the visitor's mail app.
+ *
+ * Neither actually sends. mailto: and wa.me both open a composer with the
+ * text pre-filled, and the person presses send themselves - which is worth
+ * being explicit about on the page, so nobody assumes a message went out.
+ */
+function initContactForm() {
+  const form = document.querySelector('.contact-form');
+  if (!form) return;
+
+  const EMAIL = 'elevven11studio@gmail.com';
+
+  const get = (name) => {
+    const field = form.querySelector('[name="' + name + '"]');
+    return field ? field.value.trim() : '';
+  };
+
+  function compose() {
+    if (!get('name') || !get('message')) {
+      alert('Please fill in your name and a short message.');
+      return null;
+    }
+    const lines = [
+      'Hi Elevven11 Studio,',
+      '',
+      get('message'),
+      '',
+      'Name: ' + get('name'),
+      get('email') ? 'Email: ' + get('email') : null,
+      get('phone') ? 'Phone/WhatsApp: ' + get('phone') : null,
+      'About: ' + get('topic'),
+    ].filter((l) => l !== null);
+    return lines.join('\n');
+  }
+
+  function done(channel) {
+    const msg = form.parentElement.querySelector('.form-success-msg');
+    if (!msg) return;
+    msg.textContent = channel === 'whatsapp'
+      ? 'Thanks, ' + get('name') + '! WhatsApp should have opened with your message ready \u2014 press send there to reach us.'
+      : 'Thanks, ' + get('name') + '! Your email app should have opened with the message ready \u2014 press send there to reach us.';
+    msg.style.display = 'block';
+    msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  form.querySelectorAll('[data-send]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const body = compose();
+      if (!body) return;
+      const channel = btn.getAttribute('data-send');
+
+      if (channel === 'whatsapp') {
+        window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(body), '_blank');
+      } else {
+        const subject = 'Website enquiry: ' + get('topic');
+        // A synthesised anchor click rather than window.location.href: iOS
+        // Safari sometimes blocks programmatic mailto: navigation, and a
+        // popup would leave a blank tab behind on desktop.
+        const a = document.createElement('a');
+        a.href = 'mailto:' + EMAIL
+          + '?subject=' + encodeURIComponent(subject)
+          + '&body=' + encodeURIComponent(body);
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+      done(channel);
+    });
   });
 }

@@ -109,6 +109,10 @@ const PAGES = {
     sub: 'Reach us on WhatsApp or by email. We reply quickly.',
     pills: ['WhatsApp', 'Email'] },
 
+  'terms': { page: 'terms/index.html', alt: 'Elevven11 Studio terms of service',
+    eyebrow: 'TERMS OF SERVICE', lines: ['The Terms', 'We Work To.'],
+    sub: 'Pricing, payment, updates, hosting and ownership.' },
+
   'privacy': { page: 'privacy/index.html', alt: 'Elevven11 Studio privacy policy',
     eyebrow: 'PRIVACY', lines: ['Privacy Policy.'],
     sub: 'How Elevven11 Studio handles the information you share.' }

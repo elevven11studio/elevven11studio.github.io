@@ -8,11 +8,12 @@
     "og-cards": "node generate-og-cards.js",
     "covers": "node generate-covers.js",
     "promos": "node generate-promos.js",
-    "all": "node generate-previews.js && node generate-og-cards.js && node generate-covers.js && node generate-promos.js && node generate-slides.js && node generate-qr.js && node generate-promo-stories.js",
+    "all": "node generate-previews.js && node generate-og-cards.js && node generate-covers.js && node generate-promos.js && node generate-slides.js && node generate-qr.js && node generate-promo-stories.js && node generate-carousels.js",
     "verify-qr": "node verify-qr.js",
     "slides": "node generate-slides.js",
     "qr": "node generate-qr.js",
-    "stories": "node generate-promo-stories.js"
+    "stories": "node generate-promo-stories.js",
+    "carousels": "node generate-carousels.js"
   },
   "dependencies": {
     "qrcode": "^1.5.4",
