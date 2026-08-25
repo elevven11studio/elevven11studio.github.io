@@ -28,17 +28,22 @@ function card({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
     : '<stop offset="0%" stop-color="#86efac"/><stop offset="100%" stop-color="#22c55e"/>';
   const eyebrowFill = accent === 'gold' ? '#f0c866' : '#86efac';
 
+  // Pills follow the sub-line rather than sitting at a fixed y: the display
+  // type grew, and a hardcoded row collided with the text on two-line cards.
+  const subY = 286 + lines.length * 88 + 4;
+  const pillY = subY + 30;
+
   let x = 80;
   const pillSvg = pills.map(p => {
     const w = pillW(p);
-    const g = `<g><rect x="${x}" y="470" width="${w}" height="56" rx="28" fill="rgba(247,243,236,0.06)" stroke="rgba(247,243,236,0.16)"/>` +
-              `<text x="${x + w / 2}" y="506" fill="#f7f3ec" font-size="24" text-anchor="middle">${esc(p)}</text></g>`;
+    const g = `<g><rect x="${x}" y="${pillY}" width="${w}" height="56" rx="28" fill="rgba(247,243,236,0.06)" stroke="rgba(247,243,236,0.16)"/>` +
+              `<text x="${x + w / 2}" y="${pillY + 36}" fill="#f7f3ec" font-size="24" text-anchor="middle">${esc(p)}</text></g>`;
     x += w + 20;
     return g;
   }).join('');
 
   const headline = lines.map((l, i) =>
-    `<text x="80" y="${272 + i * 84}" fill="${i === lines.length - 1 ? 'url(#accent)' : '#f7f3ec'}" font-size="66" font-weight="700">${esc(l)}</text>`
+    `<text x="80" y="${286 + i * 88}" fill="${i === lines.length - 1 ? 'url(#accent)' : '#f7f3ec'}" font-size="70" font-weight="700" letter-spacing="-1">${esc(l)}</text>`
   ).join('');
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
@@ -52,16 +57,20 @@ function card({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
       <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.14"/>
       <stop offset="100%" stop-color="#2dd4bf" stop-opacity="0"/>
     </radialGradient>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="2" fill="rgba(247,243,236,0.10)"/>
+    </pattern>
   </defs>
   <rect width="1200" height="630" fill="#0b0a10"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
   <rect width="1200" height="630" fill="url(#glow1)"/>
   <rect width="1200" height="630" fill="url(#glow2)"/>
-  <rect x="0" y="0" width="1200" height="6" fill="url(#accent)"/>
   <g font-family="Segoe UI, Arial, sans-serif">
     <text x="80" y="108" fill="#f7f3ec" font-size="28" font-weight="700" letter-spacing="5">ELEVVEN11 STUDIO</text>
     <text x="80" y="168" fill="${eyebrowFill}" font-size="22" font-weight="600" letter-spacing="3">${esc(eyebrow)}</text>
+    <rect x="80" y="200" width="88" height="4" rx="2" fill="url(#accent)"/>
     ${headline}
-    <text x="80" y="${272 + lines.length * 84 + 6}" fill="#a79f95" font-size="28">${esc(sub)}</text>
+    <text x="80" y="${subY}" fill="#a79f95" font-size="28">${esc(sub)}</text>
     ${pillSvg}
     <text x="80" y="588" fill="#7a7268" font-size="22">elevven11studio.github.io</text>
   </g>

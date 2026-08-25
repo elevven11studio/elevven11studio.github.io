@@ -5,6 +5,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initThemeToggle();
   initNavbar();
   initReferralCapture();
   initFormPrefill();
@@ -563,4 +564,46 @@ function initFormPrefill() {
     note.textContent = 'Referral code ' + code + ' will be filled in for you.';
     note.style.display = 'block';
   }
+}
+
+/**
+ * Dark / light theme.
+ *
+ * Dark is the default and is what :root defines, so "no attribute" means dark.
+ * Only an explicit light choice is stored, and the inline guard in <head>
+ * re-applies it before first paint.
+ *
+ * The OS preference is deliberately NOT followed: the brand is dark, and a
+ * light-mode visitor arriving to a light site would see a different product to
+ * the one in every promo image. They can still switch.
+ */
+function initThemeToggle() {
+  const KEY = 'e11-theme';
+  const root = document.documentElement;
+
+  const apply = (theme) => {
+    if (theme === 'light') root.setAttribute('data-theme', 'light');
+    else root.removeAttribute('data-theme');
+
+    // Keep the browser chrome colour in step with the page.
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#f4f1ea' : '#0b0a10');
+
+    document.querySelectorAll('.theme-toggle').forEach((b) => {
+      b.setAttribute('aria-label',
+        theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
+    });
+  };
+
+  let current = 'dark';
+  try { if (localStorage.getItem(KEY) === 'light') current = 'light'; } catch (e) { /* private mode */ }
+  apply(current);
+
+  document.querySelectorAll('.theme-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      current = current === 'light' ? 'dark' : 'light';
+      apply(current);
+      try { localStorage.setItem(KEY, current); } catch (e) { /* nothing to do */ }
+    });
+  });
 }

@@ -125,11 +125,12 @@ const rule = (t, y, w) => '<rect x="80" y="' + y + '" width="' + (w || 96) + '" 
 
 /* ---------------- phone mockup ---------------- */
 
-// Screen matches the 420x900 portrait capture exactly, so nothing is squashed.
+// Phone geometry is MEASURED from the capture, not hardcoded. Hardcoded values
+// were written for a 420x900 capture; when the capture later moved to 500x1000
+// they quietly cropped 80px off the right of every screen and the layout looked
+// misaligned. deriveScreen() below keeps these in step with whatever
+// generate-previews.js produces.
 const PHONE = { x: 648, y: 196, w: 352, bezel: 14 };
-// Height derived from the source aspect (420 x 808 after the ribbon crop) so
-// `cover` has nothing to trim. Hard-coding a taller screen cropped the sides
-// and cut the template headline in half.
 const SCREEN = { w: 324, h: 623 };
 
 // The demo pages carry a studio ribbon across the top. Left in, the promo says
@@ -243,8 +244,27 @@ async function roundRect(buf, w, h, r) {
   return sharp(buf).composite([{ input: mask, blend: 'dest-in' }]).png().toBuffer();
 }
 
+/**
+ * Sizes the phone screen to the real portrait capture, so `cover` never has to
+ * trim and the mock never shows a sliced-off layout. Also re-centres the phone
+ * vertically for whatever height that produces.
+ */
+async function deriveScreen() {
+  const first = fs.readdirSync(MOBILE).find((f) => f.endsWith('.jpg'));
+  if (!first) return;
+  const m = await sharp(path.join(MOBILE, first)).metadata();
+  const srcW = m.width;
+  const srcH = m.height - RIBBON_M;
+  SCREEN.w = 324;
+  SCREEN.h = Math.round(SCREEN.w * (srcH / srcW));
+  PHONE.y = Math.round((S - (SCREEN.h + PHONE.bezel * 2)) / 2);
+  console.log('capture ' + m.width + 'x' + m.height + '  ->  screen '
+    + SCREEN.w + 'x' + SCREEN.h + ', phone y=' + PHONE.y);
+}
+
 (async () => {
   fs.mkdirSync(path.join(OUT, 'demos'), { recursive: true });
+  await deriveScreen();
 
   const PAGES = [
     {
@@ -308,10 +328,13 @@ async function roundRect(buf, w, h, r) {
       .replace(/\s*\(Style [ABC]\)/, '').trim();
 
     const screen = await roundRect(
-      await sharp(shot)
-        .extract({ left: 0, top: RIBBON_M, width: 420, height: 900 - RIBBON_M })
-        .resize(SCREEN.w, SCREEN.h, { fit: 'cover', position: 'top' })
-        .png().toBuffer(),
+      await (async () => {
+        const m = await sharp(shot).metadata();
+        return sharp(shot)
+          .extract({ left: 0, top: RIBBON_M, width: m.width, height: m.height - RIBBON_M })
+          .resize(SCREEN.w, SCREEN.h, { fit: 'cover', position: 'top' })
+          .png().toBuffer();
+      })(),
       SCREEN.w, SCREEN.h, 30);
 
     await sharp(Buffer.from(demoPromo({

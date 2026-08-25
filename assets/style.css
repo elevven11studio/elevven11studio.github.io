@@ -41,10 +41,80 @@
   --border-subtle: 1px solid rgba(247, 243, 236, 0.1);
   --border-radius: 12px;
 
+  /* Surfaces and hairlines that were hardcoded to the dark ground. They need
+     to be tokens for the light theme to have anything to override. */
+  --on-accent: #0b0a10;
+  --surface-veil: rgba(11, 10, 16, 0.75);
+  --surface-veil-solid: rgba(11, 10, 16, 0.95);
+  --surface-veil-mobile: rgba(11, 10, 16, 0.98);
+  --hairline: rgba(247, 243, 236, 0.14);
+  --dot-idle: rgba(247, 243, 236, 0.22);
+  --dot-hover: rgba(247, 243, 236, 0.42);
+  --focus-ring: rgba(247, 243, 236, 0.7);
+  --shimmer: rgba(247, 243, 236, 0.15);
+  --dot-grid: rgba(247, 243, 236, 0.09);
+  --tier-silver: linear-gradient(135deg, #ffffff 0%, #dfe4ea 28%, #b6bcc6 58%, #8f97a4 100%);
+  --tier-diamond: linear-gradient(135deg, #ffffff 0%, #cfefff 30%, #86d6f5 58%, #f2fdff 100%);
+
   /* Transitions */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   --transition-slow: 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   Light theme
+
+   Applied by [data-theme="light"] on <html>. Dark stays the default: it is what
+   :root above defines, so no attribute means dark and nothing can flash the
+   wrong way on first paint.
+
+   The palette is taken from the light promo cards, so a light page and a light
+   promo look like the same brand. Note --accent-gold holds GREEN despite the
+   name; the brand green (#86efac) is tuned for a dark ground and is close to
+   illegible on cream, so it goes considerably darker here.
+   --------------------------------------------------------------------------- */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg-primary: #f4f1ea;
+  --bg-secondary: #eae6db;
+  --bg-tertiary: #ded9cb;
+  --text-primary: #14121a;
+  --text-secondary: #5d564b;
+  --text-muted: #8a8175;
+
+  --accent-gold: #1f9d55;
+  --accent-orange: #137a40;
+  --accent-purple: #0d7d72;
+  --accent-green: #16a34a;
+  --accent-champagne: #9a6f16;
+  --accent-champagne-dark: #7a560f;
+
+  --gradient-champagne: linear-gradient(135deg, var(--accent-champagne) 0%, var(--accent-champagne-dark) 100%);
+  --gradient-neon: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-orange) 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.42) 100%);
+
+  --glow-gold: 0 0 15px rgba(31, 157, 85, 0.22);
+  --glow-champagne: 0 0 15px rgba(154, 111, 22, 0.22);
+  --shadow-main: 0 8px 32px 0 rgba(20, 18, 26, 0.12);
+  --border-subtle: 1px solid rgba(20, 18, 26, 0.14);
+
+  --on-accent: #ffffff;
+  --surface-veil: rgba(244, 241, 234, 0.78);
+  --surface-veil-solid: rgba(244, 241, 234, 0.95);
+  --surface-veil-mobile: rgba(244, 241, 234, 0.98);
+  --hairline: rgba(20, 18, 26, 0.14);
+  --dot-idle: rgba(20, 18, 26, 0.20);
+  --dot-hover: rgba(20, 18, 26, 0.38);
+  --focus-ring: rgba(20, 18, 26, 0.65);
+  --shimmer: rgba(20, 18, 26, 0.12);
+  --dot-grid: rgba(20, 18, 26, 0.07);
+
+  /* The metal finishes need reversing: a white-to-grey silver disappears on
+     cream, so it runs mid-to-dark instead. */
+  --tier-silver: linear-gradient(135deg, #9aa2ae 0%, #6f7783 40%, #454c57 100%);
+  --tier-diamond: linear-gradient(135deg, #4bb6dd 0%, #1d84b5 45%, #0b5f86 100%);
 }
 
 *, *::before, *::after {
@@ -123,7 +193,7 @@ header {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(11, 10, 16, 0.75);
+  background: var(--surface-veil);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: var(--border-subtle);
@@ -131,7 +201,7 @@ header {
 }
 
 header.scrolled {
-  background: rgba(11, 10, 16, 0.95);
+  background: var(--surface-veil-solid);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -154,6 +224,7 @@ header.scrolled {
 
 .nav-links {
   display: flex;
+  margin-left: auto;
   align-items: center;
   gap: 1.5rem;
   flex-wrap: nowrap;
@@ -207,6 +278,7 @@ header.scrolled {
 
 .hamburger {
   display: none;
+  margin-left: 0.9rem;
   flex-direction: column;
   justify-content: space-between;
   width: 24px;
@@ -300,7 +372,7 @@ header.scrolled {
 
 .btn-primary {
   background: var(--gradient-neon);
-  color: var(--bg-primary);
+  color: var(--on-accent);
   box-shadow: var(--glow-gold);
 }
 
@@ -370,7 +442,7 @@ header.scrolled {
 .styled-hr {
   border: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(247, 243, 236, 0.15) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, var(--shimmer) 50%, transparent 100%);
   margin: 0;
 }
 
@@ -409,6 +481,7 @@ header.scrolled {
 .pricing-price {
   font-size: 2.5rem;
   font-weight: 800;
+  white-space: nowrap;
   color: var(--accent-gold);
   margin-bottom: 0.25rem;
 }
@@ -714,13 +787,14 @@ footer a:hover { color: var(--accent-gold); }
   .navbar { height: 70px; }
   .hamburger { display: flex; }
 
+
   .nav-links {
     position: fixed;
     top: 70px;
     left: 100%;
     width: 100%;
     height: calc(100vh - 70px);
-    background: rgba(11, 10, 16, 0.98);
+    background: var(--surface-veil-mobile);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     flex-direction: column;
@@ -849,7 +923,7 @@ footer a:hover { color: var(--accent-gold); }
 .slider-btn:focus-visible {
   /* Neutral ring, not the green accent - but kept, because removing the focus
      indicator entirely would strand keyboard users. */
-  outline: 2px solid rgba(247, 243, 236, 0.7);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -877,7 +951,7 @@ footer a:hover { color: var(--accent-gold); }
   padding: 0;
   border: none;
   border-radius: 6px;
-  background: rgba(247, 243, 236, 0.22);
+  background: var(--dot-idle);
   cursor: pointer;
   overflow: hidden;
   transition:
@@ -897,7 +971,7 @@ footer a:hover { color: var(--accent-gold); }
 }
 
 .slider-dot:hover:not([aria-current="true"]) {
-  background: rgba(247, 243, 236, 0.42);
+  background: var(--dot-hover);
   transform: scale(1.25);
 }
 
@@ -973,7 +1047,7 @@ footer a:hover { color: var(--accent-gold); }
    --------------------------------------------------------------------------- */
 
 .tier-starter .pricing-price {
-  color: #cfd4dc;
+  color: #8f97a4;
 }
 
 .tier-custom .pricing-price {
@@ -991,13 +1065,13 @@ footer a:hover { color: var(--accent-gold); }
   /* Brushed silver: highlight, body, then a darker edge so it reads as metal
      rather than flat grey. */
   .tier-starter .pricing-price {
-    background-image: linear-gradient(135deg, #ffffff 0%, #dfe4ea 28%, #b6bcc6 58%, #8f97a4 100%);
+    background-image: var(--tier-silver);
   }
 
   /* Diamond: near-white with a cold blue core and a bright return, which is
      what reads as "gem" rather than simply "light blue". */
   .tier-custom .pricing-price {
-    background-image: linear-gradient(135deg, #ffffff 0%, #cfefff 30%, #86d6f5 58%, #f2fdff 100%);
+    background-image: var(--tier-diamond);
   }
 }
 
@@ -1007,3 +1081,108 @@ footer a:hover { color: var(--accent-gold); }
 .btn {
   text-align: center;
 }
+
+
+/* ---------------------------------------------------------------------------
+   Theme toggle
+   --------------------------------------------------------------------------- */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 1.25rem;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--hairline);
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-gold);
+  background: var(--bg-secondary);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.theme-toggle svg {
+  width: 19px;
+  height: 19px;
+  display: block;
+}
+
+/* Show the icon for the theme you would switch TO, which is the convention
+   people expect from a single-button toggle. */
+.theme-toggle .icon-sun { display: block; }
+.theme-toggle .icon-moon { display: none; }
+:root[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+:root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
+/* Below the mobile breakpoint .nav-links becomes position:fixed and leaves the
+   flex flow, so the auto margin has to move to the toggle - otherwise the free
+   space splits either side of it and it strands in the middle of the bar.
+
+   This MUST come after the base .theme-toggle rule above: same specificity, so
+   source order decides, and placing it earlier in the file silently loses. */
+@media (max-width: 1080px) {
+  .theme-toggle { margin-left: auto; }
+}
+
+/* The pricing grid stays 3-across down to 768px, so between there and the point
+   the container stops growing (1200px) each card is narrow enough that a fixed
+   2.5rem figure overflows - '₦120,000+' is the worst case. Scale the figure
+   to the viewport across exactly that band; outside it the card is wide enough
+   (or full width) for the full size. */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .pricing-price {
+    font-size: clamp(1.35rem, 2.95vw, 2.5rem);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Dot texture
+
+   The same grid the promo graphics use, so the site and the artwork read as one
+   system. Applied per band rather than as one fixed layer behind everything:
+   the hero, the tinted sections and the footer all paint their own background
+   and would simply cover a single layer. An overlay also survives backgrounds
+   set inline, which a background-image on the element itself would not.
+
+   Alpha is deliberately low. It should register as texture when you look, not
+   as a pattern competing with the text.
+   --------------------------------------------------------------------------- */
+
+section,
+footer {
+  position: relative;
+}
+
+section::before,
+footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(var(--dot-grid) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+
+/* Content has to sit above the overlay, or the dots wash over the text. */
+section > *,
+footer > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* The hero carries the texture too. Its background is soft radial glows rather
+   than a photograph, which is exactly the ground the promo cards use, so the
+   dots sit on it the same way they do there. */
