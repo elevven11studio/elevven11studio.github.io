@@ -77,6 +77,68 @@
 			h1 { font-size: 2.1rem; }
 			.price-columns { grid-template-columns: 1fr; }
 		}
+		/* ---- added content sections ---- */
+		.e11-x { padding: 4.5rem 0; }
+		.e11-x-intro { max-width: 640px; margin: 0 auto 2.75rem; text-align: center; color: var(--muted); }
+		.e11-x-rule { width: 64px; height: 3px; border-radius: 2px; background: var(--accent); margin: 0 auto 1.5rem; }
+		.e11-x-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.e11-x-card {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border: 1px solid rgba(127, 127, 127, 0.22);
+			border-radius: 14px;
+			padding: 1.75rem;
+		}
+		.e11-x-card h3 { font-size: 1.08rem; margin-bottom: 0.6rem; color: var(--text); }
+		.e11-x-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		.e11-x-num {
+			display: inline-flex; align-items: center; justify-content: center;
+			width: 34px; height: 34px; border-radius: 50%;
+			background: var(--accent); color: var(--bg);
+			font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem;
+		}
+		.e11-quotes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+		.e11-quote {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border-left: 3px solid var(--accent);
+			border-radius: 10px;
+			padding: 1.75rem;
+		}
+		.e11-quote p { color: var(--text); font-size: 1.02rem; line-height: 1.7; margin-bottom: 1rem; }
+		.e11-quote .who { color: var(--accent); font-weight: 700; font-size: 0.92rem; }
+		.e11-quote .role { color: var(--muted); font-size: 0.85rem; }
+
+		.e11-sched { max-width: 720px; margin: 0 auto; }
+		.e11-sched-row {
+			display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+			padding: 0.95rem 0; border-bottom: 1px solid rgba(127, 127, 127, 0.2);
+		}
+		.e11-sched-row:last-child { border-bottom: none; }
+		.e11-sched-label { color: var(--text); font-weight: 600; font-size: 1rem; }
+		.e11-sched-note { color: var(--muted); font-size: 0.86rem; display: block; margin-top: 0.15rem; }
+		.e11-sched-value { color: var(--accent); font-weight: 700; font-size: 0.98rem; white-space: nowrap; }
+		.e11-feature {
+			max-width: 720px; margin: 0 auto; text-align: center;
+			border: 1px solid rgba(127, 127, 127, 0.28); border-radius: 14px; padding: 2.5rem 2rem;
+		}
+		.e11-feature-eyebrow {
+			color: var(--accent); font-size: 0.78rem; font-weight: 700;
+			letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.9rem;
+		}
+		.e11-feature-title { font-size: 1.9rem; margin-bottom: 0.7rem; color: var(--text); }
+		.e11-feature-meta { color: var(--accent); font-weight: 700; margin-bottom: 1rem; }
+		.e11-feature p { color: var(--muted); line-height: 1.7; max-width: 520px; margin: 0 auto; }
+		@media (max-width: 700px) {
+			.e11-feature { padding: 1.9rem 1.25rem; }
+			.e11-feature-title { font-size: 1.45rem; }
+			.e11-sched-row { flex-direction: column; gap: 0.2rem; }
+		}
+		.e11-faq { max-width: 760px; margin: 0 auto; }
+		.e11-faq-item { border-bottom: 1px solid rgba(127, 127, 127, 0.22); padding: 1.35rem 0; }
+		.e11-faq-item h3 { font-size: 1.02rem; margin-bottom: 0.5rem; color: var(--text); }
+		.e11-faq-item p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		@media (max-width: 700px) {
+			.e11-x-grid, .e11-quotes { grid-template-columns: 1fr; }
+		}
 	</style>
 </head>
 
@@ -113,6 +175,79 @@
 					<div class="price-item"><span>Beard Trim</span><span class="price">₦1,500</span></div>
 					<div class="price-item"><span>Cut + Color</span><span class="price">₦9,000</span></div>
 				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Today at the shop</h2>
+			<div class="e11-sched">
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Morning</span>
+						<span class="e11-sched-note">Walk-ins only, no booking needed</span>
+					</div>
+					<div class="e11-sched-value">9:00 – 12:00</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Afternoon</span>
+						<span class="e11-sched-note">Booked slots, 3 chairs running</span>
+					</div>
+					<div class="e11-sched-value">12:00 – 5:00</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Evening rush</span>
+						<span class="e11-sched-note">Busiest window, book ahead</span>
+					</div>
+					<div class="e11-sched-value">5:00 – 8:00</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Saturday</span>
+						<span class="e11-sched-note">Family cuts, kids half price before noon</span>
+					</div>
+					<div class="e11-sched-value">9:00 – 8:00</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">In the chair this week</h2>
+			<div class="e11-feature">
+				<div class="e11-feature-eyebrow">Cut of the week</div>
+				<h3 class="e11-feature-title">The Low Taper Fade</h3>
+				<div class="e11-feature-meta">₦4,000 · about 45 minutes</div>
+				<p>Tight on the sides, sharp line-up, finished with a hot towel and a light oil. Ask for it by name.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Common questions</h2>
+			<div class="e11-faq">
+			<div class="e11-faq-item">
+				<h3>Do I need an appointment?</h3>
+				<p>No, walk-ins are welcome. Booking ahead just means you skip the wait, especially on Fridays and Saturdays.</p>
+			</div>
+			<div class="e11-faq-item">
+				<h3>How long does a cut take?</h3>
+				<p>A standard fade takes about 40 minutes. A fade and beard combo takes around an hour.</p>
+			</div>
+			<div class="e11-faq-item">
+				<h3>What payment do you accept?</h3>
+				<p>Cash and bank transfer. Transfers are confirmed before you leave the chair.</p>
+			</div>
 			</div>
 		</div>
 	</section>

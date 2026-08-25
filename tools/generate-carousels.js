@@ -214,8 +214,8 @@ const QR = { x: 760, y: 690, size: 200, pad: 22 };
         for (let k = 0; k < gridPicks.length; k++) {
           const src = path.join(PREVIEWS, gridPicks[k] + '-og.jpg');
           if (!fs.existsSync(src)) continue;
+          // og jpgs are cropped ribbon-free at capture time now.
           const buf = await sharp(src)
-            .extract({ left: 0, top: 48, width: 1200, height: 582 })
             .resize(gw, gh, { fit: 'cover', position: 'top' }).png().toBuffer();
           const rounded = await sharp(buf).composite([{
             input: Buffer.from('<svg width="' + gw + '" height="' + gh + '"><rect width="' + gw

@@ -85,6 +85,68 @@
 			.services-grid { grid-template-columns: 1fr; }
 			.portfolio-strip { grid-template-columns: repeat(2, 1fr); }
 		}
+		/* ---- added content sections ---- */
+		.e11-x { padding: 4.5rem 0; }
+		.e11-x-intro { max-width: 640px; margin: 0 auto 2.75rem; text-align: center; color: var(--muted); }
+		.e11-x-rule { width: 64px; height: 3px; border-radius: 2px; background: var(--accent); margin: 0 auto 1.5rem; }
+		.e11-x-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.e11-x-card {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border: 1px solid rgba(127, 127, 127, 0.22);
+			border-radius: 14px;
+			padding: 1.75rem;
+		}
+		.e11-x-card h3 { font-size: 1.08rem; margin-bottom: 0.6rem; color: var(--text); }
+		.e11-x-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		.e11-x-num {
+			display: inline-flex; align-items: center; justify-content: center;
+			width: 34px; height: 34px; border-radius: 50%;
+			background: var(--accent); color: var(--bg);
+			font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem;
+		}
+		.e11-quotes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+		.e11-quote {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border-left: 3px solid var(--accent);
+			border-radius: 10px;
+			padding: 1.75rem;
+		}
+		.e11-quote p { color: var(--text); font-size: 1.02rem; line-height: 1.7; margin-bottom: 1rem; }
+		.e11-quote .who { color: var(--accent); font-weight: 700; font-size: 0.92rem; }
+		.e11-quote .role { color: var(--muted); font-size: 0.85rem; }
+
+		.e11-sched { max-width: 720px; margin: 0 auto; }
+		.e11-sched-row {
+			display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+			padding: 0.95rem 0; border-bottom: 1px solid rgba(127, 127, 127, 0.2);
+		}
+		.e11-sched-row:last-child { border-bottom: none; }
+		.e11-sched-label { color: var(--text); font-weight: 600; font-size: 1rem; }
+		.e11-sched-note { color: var(--muted); font-size: 0.86rem; display: block; margin-top: 0.15rem; }
+		.e11-sched-value { color: var(--accent); font-weight: 700; font-size: 0.98rem; white-space: nowrap; }
+		.e11-feature {
+			max-width: 720px; margin: 0 auto; text-align: center;
+			border: 1px solid rgba(127, 127, 127, 0.28); border-radius: 14px; padding: 2.5rem 2rem;
+		}
+		.e11-feature-eyebrow {
+			color: var(--accent); font-size: 0.78rem; font-weight: 700;
+			letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.9rem;
+		}
+		.e11-feature-title { font-size: 1.9rem; margin-bottom: 0.7rem; color: var(--text); }
+		.e11-feature-meta { color: var(--accent); font-weight: 700; margin-bottom: 1rem; }
+		.e11-feature p { color: var(--muted); line-height: 1.7; max-width: 520px; margin: 0 auto; }
+		@media (max-width: 700px) {
+			.e11-feature { padding: 1.9rem 1.25rem; }
+			.e11-feature-title { font-size: 1.45rem; }
+			.e11-sched-row { flex-direction: column; gap: 0.2rem; }
+		}
+		.e11-faq { max-width: 760px; margin: 0 auto; }
+		.e11-faq-item { border-bottom: 1px solid rgba(127, 127, 127, 0.22); padding: 1.35rem 0; }
+		.e11-faq-item h3 { font-size: 1.02rem; margin-bottom: 0.5rem; color: var(--text); }
+		.e11-faq-item p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		@media (max-width: 700px) {
+			.e11-x-grid, .e11-quotes { grid-template-columns: 1fr; }
+		}
 	</style>
 </head>
 
@@ -137,6 +199,79 @@
 					<h4>Social Content</h4>
 					<p>Templates and graphics for consistent, scroll-stopping posts.</p>
 				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Currently available for</h2>
+			<div class="e11-sched">
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Project work</span>
+						<span class="e11-sched-note">Fixed scope, agreed up front</span>
+					</div>
+					<div class="e11-sched-value">From 2 weeks</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Monthly retainer</span>
+						<span class="e11-sched-note">Ongoing design and build support</span>
+					</div>
+					<div class="e11-sched-value">Limited slots</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Consultation</span>
+						<span class="e11-sched-note">A focused session on one problem</span>
+					</div>
+					<div class="e11-sched-value">90 minutes</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Overflow support</span>
+						<span class="e11-sched-note">For agencies with a full pipeline</span>
+					</div>
+					<div class="e11-sched-value">By arrangement</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Working together</h2>
+			<div class="e11-feature">
+				<div class="e11-feature-eyebrow">What to expect</div>
+				<h3 class="e11-feature-title">A reply within one working day</h3>
+				<div class="e11-feature-meta">Clear scope · fixed price · no surprise invoices</div>
+				<p>You get a written scope before anything starts, and a single point of contact throughout. If the work changes, the price is agreed again before it does.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Common questions</h2>
+			<div class="e11-faq">
+			<div class="e11-faq-item">
+				<h3>How do we start?</h3>
+				<p>Send a brief. You get a quote and a timeline before any work begins.</p>
+			</div>
+			<div class="e11-faq-item">
+				<h3>How many revisions?</h3>
+				<p>Two rounds are included. Further changes are quoted separately.</p>
+			</div>
+			<div class="e11-faq-item">
+				<h3>How is payment handled?</h3>
+				<p>Part upfront to secure the slot, balance on delivery.</p>
+			</div>
 			</div>
 		</div>
 	</section>

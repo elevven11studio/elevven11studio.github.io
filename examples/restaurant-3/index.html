@@ -81,6 +81,68 @@
 			h1 { font-size: 2.1rem; }
 			.info-grid { grid-template-columns: 1fr; }
 		}
+		/* ---- added content sections ---- */
+		.e11-x { padding: 4.5rem 0; }
+		.e11-x-intro { max-width: 640px; margin: 0 auto 2.75rem; text-align: center; color: var(--muted); }
+		.e11-x-rule { width: 64px; height: 3px; border-radius: 2px; background: var(--accent); margin: 0 auto 1.5rem; }
+		.e11-x-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.e11-x-card {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border: 1px solid rgba(127, 127, 127, 0.22);
+			border-radius: 14px;
+			padding: 1.75rem;
+		}
+		.e11-x-card h3 { font-size: 1.08rem; margin-bottom: 0.6rem; color: var(--text); }
+		.e11-x-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		.e11-x-num {
+			display: inline-flex; align-items: center; justify-content: center;
+			width: 34px; height: 34px; border-radius: 50%;
+			background: var(--accent); color: var(--bg);
+			font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem;
+		}
+		.e11-quotes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+		.e11-quote {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border-left: 3px solid var(--accent);
+			border-radius: 10px;
+			padding: 1.75rem;
+		}
+		.e11-quote p { color: var(--text); font-size: 1.02rem; line-height: 1.7; margin-bottom: 1rem; }
+		.e11-quote .who { color: var(--accent); font-weight: 700; font-size: 0.92rem; }
+		.e11-quote .role { color: var(--muted); font-size: 0.85rem; }
+
+		.e11-sched { max-width: 720px; margin: 0 auto; }
+		.e11-sched-row {
+			display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+			padding: 0.95rem 0; border-bottom: 1px solid rgba(127, 127, 127, 0.2);
+		}
+		.e11-sched-row:last-child { border-bottom: none; }
+		.e11-sched-label { color: var(--text); font-weight: 600; font-size: 1rem; }
+		.e11-sched-note { color: var(--muted); font-size: 0.86rem; display: block; margin-top: 0.15rem; }
+		.e11-sched-value { color: var(--accent); font-weight: 700; font-size: 0.98rem; white-space: nowrap; }
+		.e11-feature {
+			max-width: 720px; margin: 0 auto; text-align: center;
+			border: 1px solid rgba(127, 127, 127, 0.28); border-radius: 14px; padding: 2.5rem 2rem;
+		}
+		.e11-feature-eyebrow {
+			color: var(--accent); font-size: 0.78rem; font-weight: 700;
+			letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.9rem;
+		}
+		.e11-feature-title { font-size: 1.9rem; margin-bottom: 0.7rem; color: var(--text); }
+		.e11-feature-meta { color: var(--accent); font-weight: 700; margin-bottom: 1rem; }
+		.e11-feature p { color: var(--muted); line-height: 1.7; max-width: 520px; margin: 0 auto; }
+		@media (max-width: 700px) {
+			.e11-feature { padding: 1.9rem 1.25rem; }
+			.e11-feature-title { font-size: 1.45rem; }
+			.e11-sched-row { flex-direction: column; gap: 0.2rem; }
+		}
+		.e11-faq { max-width: 760px; margin: 0 auto; }
+		.e11-faq-item { border-bottom: 1px solid rgba(127, 127, 127, 0.22); padding: 1.35rem 0; }
+		.e11-faq-item h3 { font-size: 1.02rem; margin-bottom: 0.5rem; color: var(--text); }
+		.e11-faq-item p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		@media (max-width: 700px) {
+			.e11-x-grid, .e11-quotes { grid-template-columns: 1fr; }
+		}
 	</style>
 </head>
 
@@ -142,6 +204,79 @@
 					<h4>Location</h4>
 					<p>Waterfront Plaza, Victoria Island, Lagos</p>
 				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">On the pot today</h2>
+			<div class="e11-feature">
+				<div class="e11-feature-eyebrow">Chef&rsquo;s special</div>
+				<h3 class="e11-feature-title">Smoky Jollof &amp; Grilled Chicken</h3>
+				<div class="e11-feature-meta">₦4,500 · served from noon</div>
+				<p>Party-style jollof cooked over firewood, plated with grilled chicken, fried plantain and coleslaw. When it finishes, it finishes.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Kitchen hours</h2>
+			<div class="e11-sched">
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Breakfast</span>
+						<span class="e11-sched-note">Pap, akara, moi moi and tea</span>
+					</div>
+					<div class="e11-sched-value">7:00 – 10:30</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Lunch</span>
+						<span class="e11-sched-note">Full menu, dine-in and takeaway</span>
+					</div>
+					<div class="e11-sched-value">11:00 – 4:00</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Dinner</span>
+						<span class="e11-sched-note">Grills fired from 6pm</span>
+					</div>
+					<div class="e11-sched-value">5:00 – 10:00</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Sunday</span>
+						<span class="e11-sched-note">Family portions, reservations advised</span>
+					</div>
+					<div class="e11-sched-value">12:00 – 9:00</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Common questions</h2>
+			<div class="e11-faq">
+			<div class="e11-faq-item">
+				<h3>Do you deliver?</h3>
+				<p>Yes, within the local area. Message us with your address and we will confirm the fee before you pay.</p>
+			</div>
+			<div class="e11-faq-item">
+				<h3>Can I order for an event?</h3>
+				<p>We cater for events and large orders. Give us 48 hours notice so we can shop for it properly.</p>
+			</div>
+			<div class="e11-faq-item">
+				<h3>Do you have vegetarian options?</h3>
+				<p>Several. Ask when you order and we will tell you what is meat-free that day.</p>
+			</div>
 			</div>
 		</div>
 	</section>

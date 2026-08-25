@@ -13,7 +13,8 @@
     "slides": "node generate-slides.js",
     "qr": "node generate-qr.js",
     "stories": "node generate-promo-stories.js",
-    "carousels": "node generate-carousels.js"
+    "carousels": "node generate-carousels.js",
+    "enhance-demos": "node enhance-demos.js"
   },
   "dependencies": {
     "qrcode": "^1.5.4",

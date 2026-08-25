@@ -245,8 +245,8 @@ async function roundedBottom(buf, w, h, r) {
     const styleMatch = desc.match(/\(Style ([ABC])\)/);
     const industry = (desc.split(/\s+template demo/i)[0] || 'Website').replace(/\s*\(Style [ABC]\)/, '').trim();
 
+    // og jpgs are cropped ribbon-free at capture time now.
     const img = await sharp(shot)
-      .extract({ left: 0, top: RIBBON, width: 1200, height: 630 - RIBBON })
       .resize(IMG.w, IMG.h, { fit: 'cover', position: 'top' }).png().toBuffer();
 
     await sharp(Buffer.from(demoStory({

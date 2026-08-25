@@ -44,6 +44,10 @@
   /* Surfaces and hairlines that were hardcoded to the dark ground. They need
      to be tokens for the light theme to have anything to override. */
   --on-accent: #0b0a10;
+  /* Sits on the slider artwork, which is dark in every theme, so this one is
+     intentionally absent from the light theme block below. Theming it would
+     put a dark chevron on a dark slide and make it disappear. */
+  --on-artwork: #f7f3ec;
   --surface-veil: rgba(11, 10, 16, 0.75);
   --surface-veil-solid: rgba(11, 10, 16, 0.95);
   --surface-veil-mobile: rgba(11, 10, 16, 0.98);
@@ -893,7 +897,9 @@ footer a:hover { color: var(--accent-gold); }
      is still comfortably tappable even though nothing is drawn around it. */
   border: none;
   background: transparent;
-  color: var(--text-primary);
+  /* Not --text-primary: the arrows overlay the slide images, which stay dark
+     in light mode too. Following the page theme made them vanish. */
+  color: var(--on-artwork);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -921,9 +927,10 @@ footer a:hover { color: var(--accent-gold); }
 }
 
 .slider-btn:focus-visible {
-  /* Neutral ring, not the green accent - but kept, because removing the focus
-     indicator entirely would strand keyboard users. */
-  outline: 2px solid var(--focus-ring);
+  /* Light ring for the same reason as the chevron: it lands on dark artwork
+     whatever the page theme is. Kept, because removing the focus indicator
+     entirely would strand keyboard users. */
+  outline: 2px solid rgba(247, 243, 236, 0.75);
   outline-offset: 3px;
 }
 

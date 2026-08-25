@@ -39,7 +39,11 @@ const SHOT = { width: 1280, height: 900 };
 // the templates' 700px breakpoint, so the layout is genuinely the mobile one.
 const MOBILE = { width: 500, height: 1000 };
 // Crop the top band at the Open Graph ratio (1.91:1) so the hero is what shows.
-const CROP = { left: 0, top: 0, width: 1280, height: 672 };
+// Skips the studio ribbon. The ribbon is ~52px tall in the 1280-wide capture;
+// cutting it here keeps it out of the thumbnails AND the og:images, so our
+// watermark never appears on artwork that is meant to show the customer's site.
+const RIBBON_DESKTOP = 52;
+const CROP = { left: 0, top: RIBBON_DESKTOP, width: 1280, height: 672 };
 const THUMB = { width: 800, height: 420, quality: 74 };
 const OG = { width: 1200, height: 630, quality: 76 };
 
