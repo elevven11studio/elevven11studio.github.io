@@ -407,6 +407,13 @@ header.scrolled {
   box-shadow: 0 0 25px rgba(37, 211, 102, 0.5);
 }
 
+/* Press feedback: a quick settle back toward the resting position gives the
+   click somewhere to land, instead of the hover lift just vanishing. */
+.btn:active {
+  transform: translateY(0) scale(0.97);
+  transition: transform 0.1s ease;
+}
+
 /* Grids & Cards */
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
@@ -592,13 +599,25 @@ header.scrolled {
 
 .data-table tr:last-child td { border-bottom: none; }
 
-/* FAQ Accordion (native <details>) */
+/* FAQ Accordion (native <details>, smooth-animated by initFaqAccordions() in
+   main.js - the height/open transition needs JS since <details> snaps
+   instantly on its own; everything else here is plain CSS). */
 .faq-item {
   border: var(--border-subtle);
   border-radius: var(--border-radius);
   background: var(--gradient-card);
   margin-bottom: 1rem;
   overflow: hidden;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.faq-item:hover {
+  border-color: rgba(134, 239, 172, 0.3);
+}
+
+.faq-item[open] {
+  border-color: rgba(134, 239, 172, 0.35);
+  box-shadow: var(--glow-gold);
 }
 
 .faq-item summary {
@@ -609,7 +628,11 @@ header.scrolled {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+  transition: color var(--transition-fast);
 }
+
+.faq-item summary:hover { color: var(--accent-gold); }
 
 .faq-item summary::-webkit-details-marker { display: none; }
 
@@ -618,10 +641,15 @@ header.scrolled {
   color: var(--accent-gold);
   font-size: 1.5rem;
   font-weight: 400;
-  transition: var(--transition-fast);
+  line-height: 1;
+  flex-shrink: 0;
+  display: inline-block;
+  transition: transform var(--transition-normal);
 }
 
-.faq-item[open] summary::after { content: '\2212'; }
+/* A "+" rotated 45deg reads as a close/"x" glyph, so the icon animates
+   smoothly between states instead of snapping between two characters. */
+.faq-item[open] summary::after { transform: rotate(45deg); }
 
 .faq-item p {
   padding: 0 1.5rem 1.5rem;
@@ -1011,6 +1039,13 @@ footer a:hover { color: var(--accent-gold); }
   .slider-btn { transition: none; }
   .slider-btn:hover:not([disabled]),
   .slider-btn:active:not([disabled]) { transform: translateY(-50%); }
+
+  .btn,
+  .btn:hover,
+  .btn:active,
+  .glass-card,
+  .glass-card:hover,
+  .faq-item summary::after { transition: none; transform: none; }
 }
 
 

@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLeadChannelTracking();
   initSliders();
   initContactForm();
+  initFaqAccordions();
 });
 
 const WHATSAPP_NUMBER = '2349120925909';
@@ -564,6 +565,91 @@ function initFormPrefill() {
     note.textContent = 'Referral code ' + code + ' will be filled in for you.';
     note.style.display = 'block';
   }
+}
+
+/**
+ * FAQ accordion: animates the open/close of every <details class="faq-item">
+ * instead of letting it snap instantly, which is all the browser does on its
+ * own. The height is measured and driven with the Web Animations API rather
+ * than a CSS max-height transition, since the answer text wraps to a
+ * different number of lines per viewport width and per-item, so there's no
+ * single max-height that's both tight and always tall enough.
+ */
+function initFaqAccordions() {
+  const items = document.querySelectorAll('.faq-item');
+  if (!items.length) return;
+
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  items.forEach((details) => {
+    const summary = details.querySelector('summary');
+    if (!summary) return;
+
+    let animation = null;
+    let isClosing = false;
+    let isExpanding = false;
+
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (reduced) { details.open = !details.open; return; }
+
+      details.style.overflow = 'hidden';
+      if (isClosing || !details.open) {
+        openItem();
+      } else if (isExpanding || details.open) {
+        shrinkItem();
+      }
+    });
+
+    function contentHeight() {
+      let h = 0;
+      Array.from(details.children).forEach((child) => {
+        if (child !== summary) h += child.offsetHeight;
+      });
+      return h;
+    }
+
+    function openItem() {
+      details.style.height = `${details.offsetHeight}px`;
+      details.open = true;
+      requestAnimationFrame(() => expandItem());
+    }
+
+    function expandItem() {
+      isExpanding = true;
+      const startHeight = `${details.offsetHeight}px`;
+      const endHeight = `${summary.offsetHeight + contentHeight()}px`;
+      if (animation) animation.cancel();
+      animation = details.animate(
+        { height: [startHeight, endHeight] },
+        { duration: 250, easing: 'ease-out' }
+      );
+      animation.onfinish = () => onAnimationFinish(true);
+      animation.oncancel = () => { isExpanding = false; };
+    }
+
+    function shrinkItem() {
+      isClosing = true;
+      const startHeight = `${details.offsetHeight}px`;
+      const endHeight = `${summary.offsetHeight}px`;
+      if (animation) animation.cancel();
+      animation = details.animate(
+        { height: [startHeight, endHeight] },
+        { duration: 200, easing: 'ease-out' }
+      );
+      animation.onfinish = () => onAnimationFinish(false);
+      animation.oncancel = () => { isClosing = false; };
+    }
+
+    function onAnimationFinish(open) {
+      details.open = open;
+      animation = null;
+      isClosing = false;
+      isExpanding = false;
+      details.style.height = '';
+      details.style.overflow = '';
+    }
+  });
 }
 
 /**
