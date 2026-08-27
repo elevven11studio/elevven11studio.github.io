@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSliders();
   initContactForm();
   initFaqAccordions();
+  initCopyButtons();
 });
 
 const WHATSAPP_NUMBER = '2349120925909';
@@ -649,6 +650,47 @@ function initFaqAccordions() {
       details.style.height = '';
       details.style.overflow = '';
     }
+  });
+}
+
+/**
+ * Copy-to-clipboard buttons: [data-copy="<selector>"] copies the text
+ * content of the matched element and flips the button to a checkmark
+ * briefly, so the click has visible confirmation.
+ */
+function initCopyButtons() {
+  const buttons = document.querySelectorAll('[data-copy]');
+  if (!buttons.length) return;
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const target = document.querySelector(btn.getAttribute('data-copy'));
+      const text = target ? target.textContent.trim() : '';
+      if (!text) return;
+
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (e) {
+        // Clipboard API can be unavailable (older browsers, insecure context) -
+        // fall back to the old select-and-copy trick via a hidden textarea.
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e2) { /* nothing more to try */ }
+        ta.remove();
+      }
+
+      btn.classList.add('copied');
+      btn.setAttribute('aria-label', 'Copied!');
+      clearTimeout(btn._copyResetTimer);
+      btn._copyResetTimer = setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.setAttribute('aria-label', btn.getAttribute('data-copy-label') || 'Copy');
+      }, 1800);
+    });
   });
 }
 
