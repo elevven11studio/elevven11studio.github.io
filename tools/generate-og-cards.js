@@ -1,8 +1,14 @@
 /**
- * Regenerates the nine per-page social cards in branding/og/.
+ * Regenerates the per-page social cards in branding/og/.
  *
- * Each main page gets its own 1200x630 og:image built from the site brand
- * tokens. Edit the PAGES map below when page copy or prices change, then:
+ * Each main page gets two og:image variants built from the same brand tokens
+ * and copy: a 1200x630 landscape card (<slug>.png) for platforms that show
+ * the image as-is, and a 1080x1080 square card (<slug>-square.png) for the
+ * platforms that box or crop a landscape og:image down to near-square on
+ * mobile - the square variant is designed for that shape instead of being a
+ * crop of the landscape one, so nothing gets clipped mid-word.
+ *
+ * Edit the PAGES map below when page copy or prices change, then:
  *
  *   cd tools && npm install && npm run og-cards
  *
@@ -77,11 +83,105 @@ function card({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
 </svg>`;
 }
 
+// Square 1080x1080 variant: this is the shape mobile apps actually favour for
+// a link preview (WhatsApp/iMessage/Slack tend to crop or box a landscape
+// og:image down to something near-square, which was clipping the headline
+// mid-word). This card is purpose-built square instead of a crop, and the
+// whole text block is vertically centred so it reads as one balanced mobile
+// share image rather than a landscape card with the bottom third empty.
+function squareCard({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
+  const SIZE = 1080;
+  const PAD = 72;
+  const MAXW = SIZE - PAD * 2;
+  const grad = accent === 'gold'
+    ? '<stop offset="0%" stop-color="#f0c866"/><stop offset="100%" stop-color="#c99a2e"/>'
+    : '<stop offset="0%" stop-color="#86efac"/><stop offset="100%" stop-color="#22c55e"/>';
+  const eyebrowFill = accent === 'gold' ? '#f0c866' : '#86efac';
+
+  const LOGO_H = 56;      // logo baseline to eyebrow baseline
+  const EYEBROW_H = 40;   // eyebrow baseline to accent bar
+  const BAR_TO_HEAD = 86; // accent bar to first headline baseline
+  const LINE_H = 76;      // headline line height (square runs a touch tighter than landscape)
+  const HEAD_TO_SUB = 66;
+  const SUB_TO_PILLS = 46;
+  const PILL_ROW_H = 68;  // pill row pitch (56 tall + 12 gap)
+
+  // Pills wrap onto multiple rows here (square is narrower than the landscape
+  // card), computed up front so the total block height - and therefore the
+  // vertical centring - accounts for however many rows that produces.
+  const pillRows = [[]];
+  let rowW = 0;
+  pills.forEach((p) => {
+    const w = pillW(p);
+    if (rowW && rowW + 20 + w > MAXW) { pillRows.push([]); rowW = 0; }
+    pillRows[pillRows.length - 1].push({ text: p, w });
+    rowW += (rowW ? 20 : 0) + w;
+  });
+  const hasPills = pills.length > 0;
+
+  const headlineBlockH = (lines.length - 1) * LINE_H;
+  const blockH = LOGO_H + EYEBROW_H + BAR_TO_HEAD + headlineBlockH + HEAD_TO_SUB + SUB_TO_PILLS
+    + (hasPills ? pillRows.length * PILL_ROW_H : 0);
+  let y = Math.round((SIZE - blockH) / 2);
+
+  const logoY = y; y += LOGO_H;
+  const eyebrowY = y; y += EYEBROW_H;
+  const barY = y - 16; y += BAR_TO_HEAD - 16;
+  const headStartY = y; y += headlineBlockH;
+  const subY = y + HEAD_TO_SUB;
+  const firstPillTop = subY + SUB_TO_PILLS - 40;
+
+  const headline = lines.map((l, i) =>
+    `<text x="${PAD}" y="${headStartY + i * LINE_H}" fill="${i === lines.length - 1 ? 'url(#accent)' : '#f7f3ec'}" font-size="60" font-weight="700" letter-spacing="-1">${esc(l)}</text>`
+  ).join('');
+
+  let pillSvg = '';
+  pillRows.forEach((row, i) => {
+    const rowTop = firstPillTop + i * PILL_ROW_H;
+    let x = PAD;
+    row.forEach(({ text, w }) => {
+      pillSvg += `<g><rect x="${x}" y="${rowTop}" width="${w}" height="56" rx="28" fill="rgba(247,243,236,0.06)" stroke="rgba(247,243,236,0.16)"/>` +
+        `<text x="${x + w / 2}" y="${rowTop + 36}" fill="#f7f3ec" font-size="24" text-anchor="middle">${esc(text)}</text></g>`;
+      x += w + 20;
+    });
+  });
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${SIZE}" height="${SIZE}" viewBox="0 0 ${SIZE} ${SIZE}">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">${grad}</linearGradient>
+    <radialGradient id="glow1" cx="10%" cy="8%" r="55%">
+      <stop offset="0%" stop-color="${eyebrowFill}" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="${eyebrowFill}" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="90%" cy="96%" r="55%">
+      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#2dd4bf" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="2" fill="rgba(247,243,236,0.10)"/>
+    </pattern>
+  </defs>
+  <rect width="${SIZE}" height="${SIZE}" fill="#0b0a10"/>
+  <rect width="${SIZE}" height="${SIZE}" fill="url(#dots)"/>
+  <rect width="${SIZE}" height="${SIZE}" fill="url(#glow1)"/>
+  <rect width="${SIZE}" height="${SIZE}" fill="url(#glow2)"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="${PAD}" y="${logoY}" fill="#f7f3ec" font-size="26" font-weight="700" letter-spacing="4">ELEVVEN11 STUDIO</text>
+    <text x="${PAD}" y="${eyebrowY}" fill="${eyebrowFill}" font-size="20" font-weight="600" letter-spacing="3">${esc(eyebrow)}</text>
+    <rect x="${PAD}" y="${barY}" width="80" height="4" rx="2" fill="url(#accent)"/>
+    ${headline}
+    <text x="${PAD}" y="${subY}" fill="#a79f95" font-size="26">${esc(sub)}</text>
+    ${pillSvg}
+    <text x="${PAD}" y="${SIZE - 48}" fill="#7a7268" font-size="22">elevven11studio.github.io</text>
+  </g>
+</svg>`;
+}
+
 const PAGES = {
   'home': { page: 'index.html', alt: 'Elevven11 Studio - affordable website design in Nigeria',
     eyebrow: 'WEBSITE DESIGN IN NIGERIA', lines: ['Simple Websites.', 'No Monthly Hosting Fee.'],
     sub: 'Affordable sites for small businesses and freelancers.',
-    pills: ['One-time pricing', 'Mobile friendly', 'Fast delivery'] },
+    pills: ['From ₦50,000', 'Mobile friendly', 'Fast delivery', 'Free updates'] },
 
   'pricing': { page: 'pricing/index.html', alt: 'Elevven11 Studio pricing - Starter, Plus and Custom packages',
     eyebrow: 'PRICING', lines: ['One-Time Pricing.', 'No Monthly Fees.'],
@@ -91,12 +191,12 @@ const PAGES = {
   'agents': { page: 'agents/index.html', alt: 'Become an Elevven11 Studio referral agent and earn commission',
     eyebrow: 'REFERRAL PROGRAMME', accent: 'gold', lines: ['Refer Someone.', 'Earn a Commission.'],
     sub: 'No website skills needed. Get paid when they buy.',
-    pills: ['Starter \u20a610,000', 'Plus \u20a615,000'] },
+    pills: ['Starter \u20a610,000', 'Plus \u20a615,000', 'No skills needed'] },
 
   'examples': { page: 'examples/index.html', alt: 'Elevven11 Studio website template examples',
     eyebrow: 'TEMPLATE EXAMPLES', lines: ['14 Templates.', '42 Live Demos.'],
     sub: 'Restaurants, salons, churches, schools, and more.',
-    pills: ['Mobile friendly', 'Ready to customise'] },
+    pills: ['Mobile friendly', 'Ready to customise', '42 live demos'] },
 
   'how-it-works': { page: 'how-it-works/index.html', alt: 'How Elevven11 Studio builds and delivers your website',
     eyebrow: 'HOW IT WORKS', lines: ['From Idea to', 'Live Website.'],
@@ -106,17 +206,17 @@ const PAGES = {
   'get-started': { page: 'get-started/index.html', alt: 'Get your website started with Elevven11 Studio',
     eyebrow: 'GET STARTED', lines: ['Ready to Get', 'Your Website Online?'],
     sub: "Tell us what you need and we'll take it from there.",
-    pills: ['From \u20a650,000', 'Fast delivery'] },
+    pills: ['From \u20a650,000', 'Fast delivery', 'WhatsApp or email'] },
 
   'faq': { page: 'faq/index.html', alt: 'Frequently asked questions about Elevven11 Studio websites',
     eyebrow: 'FAQ', lines: ['Common Questions,', 'Answered.'],
     sub: 'Hosting, pricing, updates, domains, and delivery.',
-    pills: ['No monthly hosting fee', 'Free update period'] },
+    pills: ['No monthly hosting fee', 'Free update period', 'Custom domains ok'] },
 
   'contact': { page: 'contact/index.html', alt: 'Contact Elevven11 Studio about your website project',
     eyebrow: 'CONTACT', lines: ["Let's Talk About", 'Your Website.'],
     sub: 'Reach us on WhatsApp or by email. We reply quickly.',
-    pills: ['WhatsApp', 'Email'] },
+    pills: ['WhatsApp', 'Email', 'Fast replies'] },
 
   'terms': { page: 'terms/index.html', alt: 'Elevven11 Studio terms of service',
     eyebrow: 'TERMS OF SERVICE', lines: ['The Terms', 'We Work To.'],
@@ -133,5 +233,9 @@ const PAGES = {
     const file = path.join(OUT, slug + '.png');
     await sharp(Buffer.from(card(cfg))).png({ compressionLevel: 9 }).toFile(file);
     console.log(slug.padEnd(14), (fs.statSync(file).size / 1024).toFixed(0) + 'K');
+
+    const squareFile = path.join(OUT, slug + '-square.png');
+    await sharp(Buffer.from(squareCard(cfg))).png({ compressionLevel: 9 }).toFile(squareFile);
+    console.log((slug + '-square').padEnd(14), (fs.statSync(squareFile).size / 1024).toFixed(0) + 'K');
   }
 })();
