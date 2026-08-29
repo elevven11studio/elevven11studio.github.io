@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFormPrefill();
   initGetStartedForm();
   initCurrencyByCountry();
+  initContactFab();
   initLeadChannelTracking();
   initSliders();
   initContactForm();
@@ -145,6 +146,58 @@ function initNavbar() {
     } else {
       item.parentElement.classList.remove('active');
     }
+  });
+}
+
+/**
+ * Floating contact speed-dial, bottom-right, on every page. Injected here
+ * rather than pasted into ~50 static HTML files, so one change here reaches
+ * every page that loads main.js (the client demo pages under examples/ don't
+ * load it - they're standalone mockups - so it correctly only shows on the
+ * studio's own site). A small "+" toggle expands into two pills - WhatsApp
+ * and Get Your Website - rather than linking straight to WhatsApp, since a
+ * visitor might prefer either route.
+ */
+function initContactFab() {
+  if (document.querySelector('.fab')) return;
+
+  const whatsappIcon = '<svg viewBox="0 0 32 32" aria-hidden="true">'
+    + '<path fill="currentColor" d="M16.001 3C9.107 3 3.5 8.607 3.5 15.5c0 2.42.697 4.68 1.902 6.59L3 29l7.09-2.36A12.44 12.44 0 0 0 16 28c6.894 0 12.5-5.607 12.5-12.5S22.895 3 16.001 3Zm0 22.7c-2.02 0-3.92-.55-5.55-1.51l-.397-.235-4.207 1.4 1.383-4.1-.258-.42a10.19 10.19 0 0 1-1.57-5.335C5.402 9.86 10.163 5.1 16 5.1c5.837 0 10.598 4.76 10.598 10.6 0 5.84-4.761 10.6-10.598 10.6Zm5.86-7.94c-.32-.16-1.9-.938-2.194-1.045-.294-.107-.508-.16-.722.16-.214.32-.83 1.045-1.018 1.26-.187.213-.374.24-.694.08-.32-.16-1.352-.498-2.575-1.588-.952-.849-1.594-1.897-1.782-2.217-.187-.32-.02-.493.14-.653.144-.143.32-.373.48-.56.16-.187.213-.32.32-.533.107-.213.053-.4-.027-.56-.08-.16-.722-1.74-.99-2.383-.26-.626-.526-.541-.722-.55l-.615-.011c-.213 0-.56.08-.854.4-.294.32-1.121 1.096-1.121 2.674s1.148 3.104 1.308 3.318c.16.213 2.26 3.45 5.474 4.838.765.33 1.362.527 1.828.674.768.244 1.467.21 2.02.128.616-.092 1.9-.777 2.168-1.527.267-.75.267-1.393.187-1.527-.08-.133-.294-.213-.614-.373Z"/>'
+    + '</svg>';
+  const plusIcon = '<svg viewBox="0 0 24 24" aria-hidden="true">'
+    + '<path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>'
+    + '</svg>';
+  const message = 'Hi Elevven11 Studio, I would like to get a website built.';
+
+  const fab = document.createElement('div');
+  fab.className = 'fab';
+  fab.innerHTML = `
+    <div class="fab-menu">
+      <a class="fab-action fab-action-whatsapp" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}"
+        target="_blank" rel="noopener" data-lead-channel="whatsapp-fab" tabindex="-1">${whatsappIcon}<span>WhatsApp</span></a>
+      <a class="fab-action fab-action-website" href="/get-started/" data-lead-channel="website-fab" tabindex="-1">Get Your Website</a>
+    </div>
+    <button type="button" class="fab-toggle" aria-label="Open contact options" aria-expanded="false">${plusIcon}</button>
+  `;
+  document.body.appendChild(fab);
+
+  const toggle = fab.querySelector('.fab-toggle');
+  const actions = fab.querySelectorAll('.fab-action');
+
+  function setOpen(open) {
+    fab.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    actions.forEach((a) => a.tabIndex = open ? 0 : -1);
+  }
+
+  toggle.addEventListener('click', () => setOpen(!fab.classList.contains('open')));
+  actions.forEach((a) => a.addEventListener('click', () => setOpen(false)));
+
+  document.addEventListener('click', (e) => {
+    if (fab.classList.contains('open') && !fab.contains(e.target)) setOpen(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && fab.classList.contains('open')) { setOpen(false); toggle.focus(); }
   });
 }
 

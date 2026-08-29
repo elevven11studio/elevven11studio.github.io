@@ -414,6 +414,116 @@ header.scrolled {
   transition: transform 0.1s ease;
 }
 
+/* Floating contact speed-dial. Injected by initContactFab() in main.js rather
+   than pasted into every page's markup, so it shows up on all ~50 static
+   pages from one place. z-index sits below the header's (1000) so the
+   mobile nav overlay still paints over it while the menu is open.
+   Structure: .fab > .fab-menu (the two pills, hidden until opened) then
+   .fab-toggle (the small + button, always visible, rotates into a close x). */
+.fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.fab-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.fab-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  transition-delay: 0s;
+  opacity: 0;
+  transform: translateY(10px) scale(0.85);
+}
+
+.fab-action svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+.fab-action-whatsapp {
+  background: #25d366;
+  color: #06210f;
+}
+
+.fab-action-website {
+  background: var(--gradient-neon);
+  color: var(--on-accent);
+}
+
+.fab.open .fab-menu { pointer-events: auto; }
+
+.fab.open .fab-action {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Staggered so the pills cascade open rather than popping in together; the
+   one nearer the toggle (website) leads by a beat since it has less distance
+   to travel. */
+.fab.open .fab-action-website { transition-delay: 0.03s; }
+.fab.open .fab-action-whatsapp { transition-delay: 0.09s; }
+
+.fab-toggle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: var(--gradient-neon);
+  color: var(--on-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--glow-gold);
+  transition: var(--transition-normal);
+  animation: fab-in 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) 0.5s backwards;
+}
+
+.fab-toggle svg {
+  width: 20px;
+  height: 20px;
+  transition: transform var(--transition-normal);
+}
+
+.fab.open .fab-toggle svg { transform: rotate(45deg); }
+
+.fab-toggle:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 25px rgba(134, 239, 172, 0.6);
+}
+
+.fab-toggle:active {
+  transform: scale(0.92);
+  transition: transform 0.1s ease;
+}
+
+@keyframes fab-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.7); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 480px) {
+  .fab { right: 16px; bottom: 16px; }
+  .fab-action { font-size: 0.82rem; padding: 0.5rem 0.9rem; }
+}
+
 /* Grids & Cards */
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
@@ -1109,7 +1219,12 @@ footer a:hover { color: var(--accent-gold); }
   .glass-card:hover,
   .faq-item summary::after,
   .copy-btn,
-  .copy-btn:active { transition: none; transform: none; }
+  .copy-btn:active,
+  .fab-toggle,
+  .fab-toggle:hover,
+  .fab-toggle:active,
+  .fab-toggle svg,
+  .fab-action { transition: none; transform: none; animation: none; }
 }
 
 
