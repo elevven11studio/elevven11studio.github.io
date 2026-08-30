@@ -4,7 +4,9 @@
    main portfolio stylesheet on purpose - this is a separate brand.
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+/* The Outfit webfont is linked from each page's <head>, not @import-ed here.
+   An @import cannot start downloading until this file has been fetched and
+   parsed, which put the fonts a full round trip behind the stylesheet. */
 
 :root {
   color-scheme: dark;
@@ -20,6 +22,9 @@
   --accent-orange: #22c55e;
   --accent-purple: #2dd4bf;
   --accent-green: #3fb950;
+  /* Failure states only (a send that didn't go through). Tuned for the dark
+     ground; the light theme takes it considerably darker to stay legible. */
+  --accent-danger: #f87171;
 
   /* True gold - used sparingly for "premium" and "money/earnings" moments
      (the Most Popular badge, referral commission figures) so it reads as a
@@ -92,6 +97,7 @@
   --accent-orange: #137a40;
   --accent-purple: #0d7d72;
   --accent-green: #16a34a;
+  --accent-danger: #b91c1c;
   --accent-champagne: #9a6f16;
   --accent-champagne-dark: #7a560f;
 
@@ -150,6 +156,41 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.25;
+}
+
+/* Skip link: the first focusable element on every page, so a keyboard or
+   screen-reader visitor can jump the eight-item nav instead of tabbing it on
+   every page load. Kept off-screen rather than display:none, since a hidden
+   element is not focusable and the link would never be reachable. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  transform: translateY(-120%);
+  padding: 0.85rem 1.4rem;
+  /* Deliberately not themed off --accent-gold/--on-accent: in the light theme
+     that pair is white on #1f9d55, which is 3.5:1 and fails AA for text this
+     size. The dark ground below holds 13:1 against the accent green in both
+     themes, and this element only ever appears over the page's own top-left
+     corner, so it doesn't need to match the surrounding surface. */
+  background: #0b0a10;
+  color: #86efac;
+  font-weight: 700;
+  border-bottom-right-radius: var(--border-radius);
+  transition: transform var(--transition-fast, 0.2s);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid #86efac;
+  outline-offset: 2px;
+}
+
+/* The header is sticky, so an anchor jump would otherwise land with the first
+   heading tucked underneath it. */
+#main {
+  scroll-margin-top: 6rem;
 }
 
 a { color: inherit; text-decoration: none; transition: var(--transition-fast); }
@@ -524,6 +565,52 @@ header.scrolled {
   .fab-action { font-size: 0.82rem; padding: 0.5rem 0.9rem; }
 }
 
+/* Cookie consent banner. Injected by initCookieConsent() in main.js, same
+   reason as the FAB above: one source instead of pasting it into every page.
+   Sits above the FAB's z-index (900) since it can appear at the same time
+   in the same corner-ish area on mobile. */
+.cookie-banner {
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 950;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem;
+  background: var(--gradient-card);
+  backdrop-filter: blur(12px);
+  border: var(--border-subtle);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-main);
+  animation: fab-in 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s backwards;
+}
+
+.cookie-banner p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.cookie-banner p a { color: var(--accent-gold); }
+
+.cookie-banner-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.cookie-banner-actions .btn {
+  padding: 0.6rem 1.4rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 480px) {
+  .cookie-banner { left: 12px; right: 12px; bottom: 12px; padding: 1.1rem; }
+  .cookie-banner-actions { flex-direction: column-reverse; }
+  .cookie-banner-actions .btn { width: 100%; }
+}
+
 /* Grids & Cards */
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
@@ -626,10 +713,15 @@ header.scrolled {
   flex-grow: 1;
 }
 
+/* Hanging indent rather than display:flex: flex would give any element
+   child (e.g. the <strong> price in the terms page's package list) its own
+   flex item separate from the surrounding text, so a narrow flex-wrap:nowrap
+   row squeezed each item onto its own staggered column instead of letting
+   the line wrap as one paragraph. This lets mixed text + inline elements
+   wrap normally, indented under the checkmark. */
 .pricing-features li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
+  position: relative;
+  padding-left: 1.35rem;
   margin-bottom: 0.85rem;
   color: var(--text-secondary);
   font-size: 0.98rem;
@@ -637,9 +729,11 @@ header.scrolled {
 
 .pricing-features li::before {
   content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
   color: var(--accent-gold);
   font-weight: 800;
-  flex-shrink: 0;
 }
 
 .pricing-commission {
@@ -887,6 +981,196 @@ header.scrolled {
   text-align: center;
   margin-bottom: 1.5rem;
   font-weight: 600;
+}
+
+/* Appended to the success message only once the lead has actually been
+   recorded, so it reads as a follow-on reassurance rather than a headline. */
+.form-success-note {
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+/* Shown when a direct send fails. Same box as the success message so the two
+   occupy identical space, in danger colours rather than green. */
+.form-error-msg {
+  display: none;
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  color: var(--accent-danger);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* Thank-you page confirmation mark. Decorative - the heading below it carries
+   the actual message, so the SVG is aria-hidden. */
+.thank-you-tick {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(134, 239, 172, 0.12);
+  border: 2px solid var(--accent-gold);
+  color: var(--accent-gold);
+  box-shadow: var(--glow-gold);
+}
+
+.thank-you-tick svg {
+  width: 34px;
+  height: 34px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .thank-you-tick {
+    animation: thank-you-pop 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  }
+}
+
+@keyframes thank-you-pop {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ---------------------------------------------------------------------------
+   Split send button.
+
+   The main half posts the form straight to the studio and the visitor stays
+   on the page; the caret opens the two handoff routes (WhatsApp, email) that
+   used to sit beside it as equals. Two real <button>s rather than a button
+   plus a styled <div>, so both halves are focusable and announce themselves.
+   --------------------------------------------------------------------------- */
+.send-split {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.send-split-main {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 30px 0 0 30px;
+}
+
+.send-split-toggle {
+  flex: 0 0 auto;
+  width: 3.4rem;
+  padding: 1rem 0;
+  border-radius: 0 30px 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Hairline between the halves so the control reads as two actions rather
+     than one wide button. Drawn in the on-accent ink since both halves share
+     the accent gradient underneath. */
+  box-shadow: inset 1px 0 0 rgba(11, 10, 16, 0.28), var(--glow-gold);
+}
+
+/* .btn-primary:hover lifts by 2px, which would slide the two halves
+   independently and split the seam open. */
+.send-split-main:hover,
+.send-split-toggle:hover {
+  transform: none;
+}
+
+.send-split-toggle svg {
+  width: 20px;
+  height: 20px;
+  transition: transform var(--transition-fast);
+}
+
+.send-split.open .send-split-toggle svg {
+  transform: rotate(180deg);
+}
+
+.send-split-menu {
+  position: absolute;
+  /* Opens UPWARD. The enclosing .glass-card is overflow:hidden and the send
+     button sits near its bottom edge, so a downward menu gets its last option
+     clipped off. There is always room above - that's the form itself. */
+  bottom: calc(100% + 0.6rem);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.4rem;
+  background: var(--surface-veil-solid);
+  backdrop-filter: blur(12px);
+  border: var(--border-subtle);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-main);
+  /* visibility rather than display:none: it can transition, and it still takes
+     the options out of the tab order while closed. */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  /* visibility is held until the fade-out finishes (0s change, delayed), so
+     the menu animates away instead of vanishing. Opening reverses that below:
+     it must flip to visible IMMEDIATELY, with no delay, because a
+     visibility:hidden element cannot take focus - deferring it here is what
+     stopped the first option from receiving focus when the caret opened. */
+  transition: opacity var(--transition-fast), transform var(--transition-fast),
+    visibility 0s linear 0.2s;
+}
+
+.send-split.open .send-split-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity var(--transition-fast), transform var(--transition-fast),
+    visibility 0s linear 0s;
+}
+
+.send-split-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  color: var(--text-primary);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.send-split-option:hover {
+  background: rgba(134, 239, 172, 0.12);
+}
+
+.send-split-option:focus-visible {
+  outline: none;
+  background: rgba(134, 239, 172, 0.12);
+  box-shadow: inset 0 0 0 2px var(--accent-gold);
+}
+
+.send-split-option svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* WhatsApp keeps its own brand green in both themes - it's a logo, not a
+   themeable accent. */
+.send-split-option[data-send="whatsapp"] svg,
+.send-split-option[data-gs-send="whatsapp"] svg {
+  color: #25d366;
+}
+
+/* In flight. Pointer-events stay on so the cursor can show progress. */
+.send-split-main[aria-busy="true"] {
+  opacity: 0.75;
+  cursor: progress;
 }
 
 .referral-banner {

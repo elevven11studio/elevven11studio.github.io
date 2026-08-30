@@ -1,16 +1,20 @@
 /**
  * Elevven11 Studio - shared site logic.
- * Vanilla JS, no dependencies: nav toggle, referral code capture,
- * and a WhatsApp-based Get Started form (no backend yet).
+ * Vanilla JS, no dependencies: nav toggle, referral code capture, and the
+ * Get Started / Contact forms, which hand off to WhatsApp or email while
+ * recording the lead server-side (see recordLead).
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
   initNavbar();
+  initCookieConsent();
   initReferralCapture();
   initFormPrefill();
+  initSendSplit();
+  initThankYou();
   initGetStartedForm();
-  initCurrencyByCountry();
+  initGeoLocalization();
   initContactFab();
   initLeadChannelTracking();
   initSliders();
@@ -22,15 +26,332 @@ document.addEventListener('DOMContentLoaded', () => {
 const WHATSAPP_NUMBER = '2349120925909';
 
 /**
- * Country-based pricing: Naira for Nigeria, USD for everywhere else.
- * There's no backend, so this is a client-side best guess using a free
- * IP-geolocation lookup, cached for the browser session. If the lookup
- * fails (offline, blocked, rate-limited) we simply leave the Naira prices
- * already in the HTML as the fallback - that's the studio's home currency.
+ * Lead capture, via Web3Forms.
+ *
+ * This is now the DEFAULT route on both forms: the main half of the split
+ * send button posts here and the visitor never leaves the page. WhatsApp and
+ * email still exist behind the caret, for anyone who would rather start a
+ * conversation in a channel they can see and keep - and when one of those is
+ * chosen, the submission is recorded here too, because both of them only open
+ * a composer. If the person never presses send in WhatsApp, the enquiry would
+ * otherwise be gone with no trace that it happened.
+ *
+ * That difference is why callers treat the returned promise two ways:
+ *
+ *  - Direct send AWAITS it, because it is the whole delivery. Success and
+ *    failure both have to be shown honestly.
+ *  - The WhatsApp/email routes must NOT await it. window.open() has to run
+ *    synchronously inside the click handler or the popup blocker eats the
+ *    tab, so there it is fired off and the handoff proceeds regardless.
+ *
+ * keepalive lets the request outlive the page either way, in case the visitor
+ * is navigated off (mobile WhatsApp deep links do this) before it lands.
+ *
+ * The access keys are publishable, submit-only identifiers - they are meant to
+ * live in client-side code and can only post to the studio's own inboxes. The
+ * two forms use separate keys so enquiries and website requests arrive as
+ * distinguishable streams rather than one mixed inbox.
+ */
+const WEB3FORMS_KEYS = {
+  getStarted: '00c55bee-a900-4c7c-9592-8729f8546b32',
+  contact: '101a72d3-398e-4963-9b8a-729d58ba5a8a',
+};
+
+/** Resolves to { ok, message } - never rejects, so no caller needs a catch. */
+function recordLead(accessKey, fields) {
+  try {
+    return fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      keepalive: true,
+      body: JSON.stringify(Object.assign({ access_key: accessKey }, fields)),
+    })
+      .then((res) => res.json().catch(() => ({})))
+      .then((data) => ({
+        ok: !!data && data.success === true,
+        message: (data && data.message) || '',
+      }))
+      // Offline, blocked, or rate-limited. The handoff routes still run; the
+      // direct route surfaces this to the visitor.
+      .catch(() => ({ ok: false, message: '' }));
+  } catch (e) {
+    return Promise.resolve({ ok: false, message: '' });
+  }
+}
+
+/**
+ * Appends a short reassurance to a handoff success message, but only once the
+ * lead has actually been stored - so the page never claims to have the details
+ * when the request failed.
+ */
+function confirmLeadStored(saved, el) {
+  if (!el) return;
+  saved.then((res) => {
+    if (!res.ok || !el.isConnected) return;
+    const note = document.createElement('span');
+    note.className = 'form-success-note';
+    note.textContent = ' We’ve also received your details here, so we can reach you either way.';
+    el.appendChild(note);
+  });
+}
+
+/**
+ * Hands off to the thank-you page after a confirmed send.
+ *
+ * The visitor's name travels in sessionStorage rather than a query string on
+ * purpose: a ?name= would show up in GA4's page reports, in browser history
+ * and in any referrer header, which is no place for someone's name. This
+ * keeps it in the tab, where it is read once and immediately discarded.
+ *
+ * location.replace rather than assign, so Back doesn't return to a form that
+ * has already been submitted.
+ */
+const THANKS_KEY = 'e11_thanks';
+
+function goToThankYou(name, from) {
+  try {
+    sessionStorage.setItem(THANKS_KEY, JSON.stringify({ name: name, from: from }));
+  } catch (e) { /* private mode - the page falls back to its generic copy */ }
+  window.location.replace('/thank-you/');
+}
+
+/**
+ * Thank-you page. Personalises the copy if we arrived from a form in this tab,
+ * and reports the conversion. The markup already reads correctly with none of
+ * this applied, which is what someone landing here directly will see.
+ */
+function initThankYou() {
+  const heading = document.querySelector('[data-thanks-heading]');
+  if (!heading) return;
+
+  let data = null;
+  try {
+    const raw = sessionStorage.getItem(THANKS_KEY);
+    if (raw) data = JSON.parse(raw);
+    // Read once: a refresh, or a later visit, gets the generic page rather
+    // than greeting someone by a name from a submission they've forgotten.
+    sessionStorage.removeItem(THANKS_KEY);
+  } catch (e) { /* fall through to the generic copy */ }
+
+  if (!data) return;
+
+  if (data.name) {
+    const nameEl = heading.querySelector('[data-thanks-name]');
+    // textContent, not innerHTML - this is user input echoed back to the page.
+    if (nameEl) nameEl.textContent = ', ' + data.name;
+  }
+
+  const line = document.querySelector('[data-thanks-line]');
+  if (line && data.from === 'get-started') {
+    line.textContent = "We've got your request and it's landed in our inbox. "
+      + "We'll be in touch shortly about next steps.";
+  }
+
+  const step2 = document.querySelector('[data-thanks-step-2]');
+  if (step2 && data.from === 'get-started') {
+    step2.textContent = 'We confirm the package, the price and the timeline, '
+      + 'then collect your content (text, photos, logo).';
+  }
+
+  // The conversion itself. The pageview is what you'd mark as the GA4
+  // conversion; this adds which form produced it.
+  if (typeof gtag === 'function') {
+    gtag('event', 'generate_lead', { form: data.from || 'unknown' });
+  }
+}
+
+/**
+ * Split send button: a primary action plus a caret that reveals the
+ * alternatives. Only the open/close behaviour lives here - each form wires
+ * what the buttons actually do, since the payloads differ.
+ *
+ * The options are inert while closed (the menu is visibility:hidden, so they
+ * leave the tab order on their own) and the caret owns aria-expanded.
+ */
+function initSendSplit() {
+  document.querySelectorAll('[data-send-split]').forEach((split) => {
+    const toggle = split.querySelector('.send-split-toggle');
+    const menu = split.querySelector('.send-split-menu');
+    const options = Array.from(split.querySelectorAll('.send-split-option'));
+    if (!toggle || !menu || !options.length) return;
+
+    function setOpen(open) {
+      split.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      options.forEach((o) => { o.tabIndex = open ? 0 : -1; });
+    }
+
+    toggle.addEventListener('click', () => {
+      const opening = !split.classList.contains('open');
+      setOpen(opening);
+      // Deferred a frame: the menu is visibility:hidden until the open class
+      // lands, and a hidden element silently refuses focus.
+      if (opening) requestAnimationFrame(() => options[0].focus());
+    });
+
+    // Choosing an option closes the menu; the action itself is wired elsewhere.
+    options.forEach((o) => o.addEventListener('click', () => setOpen(false)));
+
+    // Arrow keys move between options, matching what a menu button implies.
+    menu.addEventListener('keydown', (e) => {
+      const i = options.indexOf(document.activeElement);
+      if (i === -1) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); options[(i + 1) % options.length].focus(); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); options[(i - 1 + options.length) % options.length].focus(); }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (split.classList.contains('open') && !split.contains(e.target)) setOpen(false);
+    });
+    split.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && split.classList.contains('open')) { setOpen(false); toggle.focus(); }
+    });
+
+    setOpen(false);
+  });
+}
+
+/**
+ * Busy state and failure reporting for a direct (on-page) send.
+ *
+ * There is no success case here: a send that lands redirects to /thank-you/,
+ * so the only thing this has to render in place is the failure - and that
+ * names WhatsApp and email as the way through, since those still work when
+ * the post doesn't.
+ */
+function directSendFeedback(form, mainBtn) {
+  const card = form.closest('.glass-card') || form.parentElement;
+  const successEl = card && card.querySelector('.form-success-msg');
+  const errorEl = card && card.querySelector('.form-error-msg');
+  const label = mainBtn ? mainBtn.textContent : '';
+
+  return {
+    start() {
+      if (errorEl) errorEl.style.display = 'none';
+      // A handoff message from an earlier attempt would otherwise sit above a
+      // form the visitor is now re-sending.
+      if (successEl) successEl.style.display = 'none';
+      if (mainBtn) {
+        mainBtn.setAttribute('aria-busy', 'true');
+        mainBtn.disabled = true;
+        mainBtn.textContent = 'Sending…';
+      }
+      return () => {
+        if (!mainBtn) return;
+        mainBtn.removeAttribute('aria-busy');
+        mainBtn.disabled = false;
+        mainBtn.textContent = label;
+      };
+    },
+    failed() {
+      if (!errorEl) return;
+      errorEl.textContent = 'Sorry — that didn’t go through. Please check your connection '
+        + 'and try again, or use the arrow beside the button to send on WhatsApp or by '
+        + 'email instead.';
+      errorEl.style.display = 'block';
+      errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    },
+  };
+}
+
+/**
+ * Cookies, gated on consent.
+ *
+ * Nothing on this site needs a cookie to function - the referral code and
+ * "Get Started" form progress are already handled per-tab via sessionStorage
+ * (see initReferralCapture / initGetStartedForm below), so nothing is lost
+ * if a visitor never sees this banner or declines it. Accepting only adds
+ * two longer-lived, first-party cookies on top of that: the referral code
+ * (so it survives a return visit days later, not just the current tab) and
+ * a snapshot of the Get Started form (so a half-filled form survives a
+ * closed tab). The consent choice itself is stored in a cookie too, since
+ * that's what has to persist to avoid re-asking on every page.
+ *
+ * Note what this banner does NOT cover: the gtag.js snippet is hardcoded into
+ * every page's HTML and runs before this ever executes, so Google Analytics
+ * cookies (and, because Google Signals is on for the property, the
+ * ads/ga-audiences pixel) are set regardless of the choice made here. The
+ * banner copy says so explicitly rather than implying otherwise. To actually
+ * put Decline in charge of those, the fix is Consent Mode v2 - gtag('consent',
+ * 'default', {analytics_storage: 'denied', ad_storage: 'denied'}) ahead of the
+ * config call, then a 'update' to 'granted' in the accept handler below.
+ */
+const CONSENT_COOKIE = 'e11_consent';
+const REFERRAL_COOKIE = 'e11_ref';
+const FORM_DATA_COOKIE = 'e11_form_data';
+const COOKIE_DAYS = 90;
+
+function setCookie(name, value, days) {
+  document.cookie = `${name}=${encodeURIComponent(value)}; max-age=${days * 86400}; path=/; SameSite=Lax`;
+}
+
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
+function deleteCookie(name) {
+  document.cookie = `${name}=; max-age=0; path=/; SameSite=Lax`;
+}
+
+function hasCookieConsent() {
+  return getCookie(CONSENT_COOKIE) === 'accepted';
+}
+
+function initCookieConsent() {
+  if (getCookie(CONSENT_COOKIE)) return; // already accepted or declined
+  if (document.querySelector('.cookie-banner')) return;
+
+  const banner = document.createElement('div');
+  banner.className = 'cookie-banner';
+  banner.setAttribute('role', 'region');
+  banner.setAttribute('aria-label', 'Cookie notice');
+  banner.innerHTML = `
+    <p>We'd like to use a cookie to remember your Get Started form and referral code between
+      visits, so you don't have to start over. That's what Accept and Decline control here.
+      Separately, every page runs Google Analytics, which sets its own cookies — including
+      Google advertising audience cookies — whichever you choose. See our
+      <a href="/privacy/">privacy policy</a>.</p>
+    <div class="cookie-banner-actions">
+      <button type="button" class="btn btn-secondary" data-cookie-decline>Decline</button>
+      <button type="button" class="btn btn-primary" data-cookie-accept>Accept</button>
+    </div>
+  `;
+  document.body.appendChild(banner);
+
+  banner.querySelector('[data-cookie-accept]').addEventListener('click', () => {
+    setCookie(CONSENT_COOKIE, 'accepted', 365);
+    banner.remove();
+
+    // Promote whatever this tab already holds in sessionStorage into the
+    // new cookies immediately, rather than waiting for the next edit/visit.
+    const ref = sessionStorage.getItem('e11_referral_code');
+    if (ref) setCookie(REFERRAL_COOKIE, ref, COOKIE_DAYS);
+    const form = document.querySelector('.get-started-form');
+    if (form) saveFormDataCookie(form);
+  });
+
+  banner.querySelector('[data-cookie-decline]').addEventListener('click', () => {
+    setCookie(CONSENT_COOKIE, 'declined', 365);
+    banner.remove();
+  });
+}
+
+/**
+ * Country-based localization: Naira pricing and "Nigeria" copy by default,
+ * rewritten for visitors detected outside Nigeria. Nothing serves this site
+ * but a static host, so this is a client-side best guess using a free
+ * IP-geolocation lookup, cached for the browser session. If the lookup fails (offline, blocked,
+ * rate-limited) we simply leave the Nigeria-facing markup already in the
+ * HTML as the fallback - that's the studio's home market.
  *
  * Every price in the markup is written in Naira by default and tagged
  * with data-ngn="<amount>" (optionally data-suffix="+" for "starting at"
- * prices). This only ever rewrites those tagged elements/options.
+ * prices). Every "Nigeria"-referencing phrase that should adapt for other
+ * countries is wrapped in a <span class="geo-phrase" data-us="..."> with
+ * the Nigeria-facing text as its default content. For US visitors that
+ * span's text is swapped to its data-us alternative (e.g. "in Nigeria" ->
+ * "in America"); for every other country the phrase is simply removed.
  */
 const NGN_PER_USD = 1550; // approximate; update this occasionally to track the real rate
 
@@ -61,12 +382,13 @@ async function detectCountryCode() {
   return null;
 }
 
-async function initCurrencyByCountry() {
+async function initGeoLocalization() {
   const priceEls = document.querySelectorAll('[data-ngn]');
-  if (!priceEls.length) return;
+  const geoEls = document.querySelectorAll('.geo-phrase');
+  if (!priceEls.length && !geoEls.length) return;
 
   const country = await detectCountryCode();
-  if (!country || country === 'NG') return; // Naira markup is already correct
+  if (!country || country === 'NG') return; // Nigeria-facing markup is already correct
 
   priceEls.forEach((el) => {
     const amount = parseInt(el.getAttribute('data-ngn'), 10);
@@ -80,6 +402,10 @@ async function initCurrencyByCountry() {
     } else {
       el.textContent = usdText;
     }
+  });
+
+  geoEls.forEach((el) => {
+    el.textContent = country === 'US' ? (el.getAttribute('data-us') || '') : '';
   });
 }
 
@@ -232,6 +558,7 @@ function initReferralCapture() {
   if (!ref) return;
 
   sessionStorage.setItem('e11_referral_code', ref);
+  if (hasCookieConsent()) setCookie(REFERRAL_COOKIE, ref, COOKIE_DAYS);
 
   const banner = document.querySelector('.referral-banner');
   if (banner) {
@@ -244,14 +571,15 @@ function initReferralCapture() {
 }
 
 /**
- * Get Started form: no backend yet, so submissions are handed off to
- * WhatsApp as a pre-filled message the customer sends directly.
+ * Get Started form: submissions are handed off to WhatsApp as a pre-filled
+ * message the customer sends directly, and recorded via recordLead at the
+ * same time so the enquiry survives an abandoned handoff.
  */
 function initGetStartedForm() {
   const form = document.querySelector('.get-started-form');
   if (!form) return;
 
-  const storedRef = sessionStorage.getItem('e11_referral_code');
+  const storedRef = sessionStorage.getItem('e11_referral_code') || getCookie(REFERRAL_COOKIE);
   const hiddenInput = document.getElementById('referral-code');
   if (storedRef && hiddenInput && !hiddenInput.value) {
     hiddenInput.value = storedRef;
@@ -262,6 +590,10 @@ function initGetStartedForm() {
     }
   }
 
+  restoreFormDataCookie(form);
+  wireFormAutosave(form);
+  wireClearSavedInfo(form);
+
   const packageSelect = document.getElementById('gs-package');
 
   const get = (name) => {
@@ -269,7 +601,12 @@ function initGetStartedForm() {
     return field ? field.value.trim() : '';
   };
 
-  /** Builds the message body, or returns null if required fields are empty. */
+  /**
+   * Builds the message body plus the structured field set behind it, or
+   * returns null if required fields are empty. The body is what the visitor
+   * sends from WhatsApp or their mail app; the fields are what gets recorded
+   * server-side, so a lead is legible even if they never press send.
+   */
   function compose() {
     const required = ['name', 'phone', 'package'];
     for (const field of required) {
@@ -307,13 +644,68 @@ function initGetStartedForm() {
       get('referral') ? `Referral code: ${get('referral')}` : null,
     ].filter(Boolean);
 
-    return lines.join('\n');
+    return {
+      body: lines.join('\n'),
+      fields: {
+        subject: `Website request: ${get('name')}${get('referral') ? ` (ref ${get('referral')})` : ''}`,
+        from_name: 'Elevven11 Get Started form',
+        name: get('name'),
+        business: get('business'),
+        phone: get('phone'),
+        email: get('email'),
+        location: get('location'),
+        package: packageText,
+        example_style: get('exampleType'),
+        about: get('description'),
+        style_vibe: get('styleMood'),
+        colors: get('colors'),
+        colors_notes: get('colorsNotes'),
+        detected_country: country || '',
+        referral_code: get('referral'),
+      },
+    };
+  }
+
+  const mainBtn = form.querySelector('.send-split-main');
+  const feedback = directSendFeedback(form, mainBtn);
+
+  /**
+   * The default route: post it to us and stay put. This one awaits the
+   * result, because unlike the handoffs there is no second chance behind it -
+   * if it failed, the visitor has to know.
+   */
+  function sendDirect() {
+    const composed = compose();
+    if (!composed) return;
+
+    const finish = feedback.start();
+    recordLead(
+      WEB3FORMS_KEYS.getStarted,
+      Object.assign({ chosen_channel: 'direct' }, composed.fields)
+    ).then((res) => {
+      finish();
+      if (res.ok) {
+        // The request is in. Drop the autosaved copy first - otherwise a
+        // return visit refills the form with a request already sent.
+        deleteCookie(FORM_DATA_COOKIE);
+        goToThankYou(get('name'), 'get-started');
+      } else {
+        feedback.failed();
+      }
+    });
   }
 
   /** Hands the composed message to whichever channel was chosen. */
   function send(channel) {
-    const body = compose();
-    if (!body) return;
+    const composed = compose();
+    if (!composed) return;
+    const body = composed.body;
+
+    // Fired before the handoff and deliberately not awaited - see recordLead.
+    const saved = recordLead(
+      WEB3FORMS_KEYS.getStarted,
+      Object.assign({ chosen_channel: channel }, composed.fields)
+    );
 
     if (channel === 'whatsapp') {
       window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(body), '_blank');
@@ -331,21 +723,125 @@ function initGetStartedForm() {
     }
 
     const successMsg = document.querySelector('.form-success-msg');
+    const errorMsg = document.querySelector('.form-error-msg');
+    if (errorMsg) errorMsg.style.display = 'none';
     if (successMsg) {
       successMsg.textContent = channel === 'whatsapp'
         ? `Thanks, ${get('name')}! WhatsApp should have opened with your details filled in — just hit send there to reach us.`
         : `Thanks, ${get('name')}! Your email app should have opened with your details filled in — just hit send there to reach us.`;
       successMsg.style.display = 'block';
       successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      confirmLeadStored(saved, successMsg);
     }
   }
 
-  // Submitting the form (including pressing Enter) keeps the original
-  // WhatsApp behaviour; the second button routes the same message to email.
-  form.addEventListener('submit', (e) => { e.preventDefault(); send('whatsapp'); });
-  const emailBtn = form.querySelector('[data-gs-send="email"]');
-  if (emailBtn) emailBtn.addEventListener('click', () => send('email'));
+  // Submitting the form - the main half of the split button, or pressing Enter
+  // in a field - now sends it to us directly. Native validation runs first,
+  // since the main button is a real type="submit".
+  form.addEventListener('submit', (e) => { e.preventDefault(); sendDirect(); });
+
+  // The two handoff routes, now behind the caret.
+  form.querySelectorAll('[data-gs-send]').forEach((btn) => {
+    btn.addEventListener('click', () => send(btn.getAttribute('data-gs-send')));
+  });
 }
+
+// Fields snapshotted into FORM_DATA_COOKIE. Deliberately excludes the
+// referral field - that has its own cookie/sessionStorage path above, since
+// it needs to be captured before the form even exists (a ?ref= link can
+// land on any page, not just Get Started).
+const AUTOSAVE_FIELDS = ['name', 'business', 'phone', 'email', 'location', 'package', 'exampleType', 'description', 'styleMood', 'colors', 'colorsNotes'];
+
+function saveFormDataCookie(form) {
+  if (!hasCookieConsent()) return;
+  const data = {};
+  AUTOSAVE_FIELDS.forEach((name) => {
+    const field = form.querySelector(`[name="${name}"]`);
+    if (field && field.value) data[name] = field.value;
+  });
+  setCookie(FORM_DATA_COOKIE, JSON.stringify(data), COOKIE_DAYS);
+}
+
+/** Prefills the form from a saved cookie snapshot, without overwriting any
+ * field a page script already set (e.g. ?package= via the pricing page). */
+function restoreFormDataCookie(form) {
+  const raw = getCookie(FORM_DATA_COOKIE);
+  if (!raw) return;
+  let data;
+  try { data = JSON.parse(raw); } catch (e) { return; }
+
+  Object.keys(data).forEach((name) => {
+    const field = form.querySelector(`[name="${name}"]`);
+    if (!field || field.value) return;
+    field.value = data[name];
+  });
+
+  // The color chips track selection with a CSS class the generic loop above
+  // can't set - re-apply it to whichever chip matches the restored value.
+  if (data.colors) {
+    const chip = form.querySelector(`.color-chip[data-color="${CSS.escape(data.colors)}"]`);
+    if (chip) {
+      chip.classList.add('selected');
+      chip.setAttribute('aria-pressed', 'true');
+    }
+  }
+}
+
+/** Saves on every edit, debounced for text fields; immediate for selects and
+ * color chips since those don't fire the 'input' event this listens for. */
+function wireFormAutosave(form) {
+  let saveTimer = null;
+  const saveSoon = () => { clearTimeout(saveTimer); saveTimer = setTimeout(() => saveFormDataCookie(form), 500); };
+
+  form.addEventListener('input', saveSoon);
+  form.addEventListener('change', () => saveFormDataCookie(form));
+
+  // The color-chip click handler (wired inline on the Get Started page) sets
+  // the hidden field's value directly, which fires neither event - so hook
+  // the same click, deferred a tick to run after that handler updates it.
+  form.querySelectorAll('.color-chip').forEach((chip) => {
+    chip.addEventListener('click', () => setTimeout(() => saveFormDataCookie(form), 0));
+  });
+}
+
+/** Wires up a page's "Clear saved info & cookies" control, if present. */
+function wireClearSavedInfo(form) {
+  const btn = document.querySelector('[data-clear-cookies]');
+  if (!btn) return;
+
+  btn.addEventListener('click', () => {
+    deleteCookie(FORM_DATA_COOKIE);
+    deleteCookie(REFERRAL_COOKIE);
+    deleteCookie(CONSENT_COOKIE);
+    sessionStorage.removeItem('e11_referral_code');
+
+    form.reset();
+    form.querySelectorAll('.color-chip.selected').forEach((chip) => {
+      chip.classList.remove('selected');
+      chip.setAttribute('aria-pressed', 'false');
+    });
+
+    // form.reset() alone doesn't clear these two: setting .value on a
+    // type="hidden" input also rewrites its "value" attribute (per spec,
+    // hidden inputs have no separate dirty-value flag), so once restored
+    // from a cookie their defaultValue - what reset() restores to - is the
+    // restored value itself, not empty. Clear them directly instead.
+    const colorsField = document.getElementById('gs-colors');
+    if (colorsField) colorsField.value = '';
+    const referralField = document.getElementById('referral-code');
+    if (referralField) referralField.value = '';
+
+    const banner = document.querySelector('.referral-banner');
+    if (banner) banner.style.display = 'none';
+
+    const note = document.querySelector('[data-clear-note]');
+    if (note) {
+      note.textContent = 'Saved info and cookies cleared.';
+      note.style.display = 'block';
+    }
+  });
+}
+
 /**
  * Picture sliders.
  *
@@ -506,13 +1002,14 @@ function initSliders() {
 }
 
 /**
- * Contact form: same no-backend approach as the Get Started form, but the
- * visitor picks the channel. Both buttons build the identical message; one
- * hands it to WhatsApp, the other to the visitor's mail app.
+ * Contact form: same shape as the Get Started form, but the visitor picks the
+ * channel. Both buttons build the identical message; one hands it to WhatsApp,
+ * the other to the visitor's mail app.
  *
- * Neither actually sends. mailto: and wa.me both open a composer with the
- * text pre-filled, and the person presses send themselves - which is worth
- * being explicit about on the page, so nobody assumes a message went out.
+ * Neither channel actually sends on its own - mailto: and wa.me open a
+ * composer with the text pre-filled, and the person presses send themselves.
+ * That's why recordLead runs alongside them: the enquiry reaches the studio
+ * inbox whether or not they follow through in the composer.
  */
 function initContactForm() {
   const form = document.querySelector('.contact-form');
@@ -540,24 +1037,70 @@ function initContactForm() {
       get('phone') ? 'Phone/WhatsApp: ' + get('phone') : null,
       'About: ' + get('topic'),
     ].filter((l) => l !== null);
-    return lines.join('\n');
+
+    return {
+      body: lines.join('\n'),
+      fields: {
+        subject: 'Website enquiry: ' + get('topic'),
+        from_name: 'Elevven11 contact form',
+        name: get('name'),
+        email: get('email'),
+        phone: get('phone'),
+        topic: get('topic'),
+        message: get('message'),
+      },
+    };
   }
 
-  function done(channel) {
+  const mainBtn = form.querySelector('.send-split-main');
+  const feedback = directSendFeedback(form, mainBtn);
+
+  function done(channel, saved) {
     const msg = form.parentElement.querySelector('.form-success-msg');
+    const err = form.parentElement.querySelector('.form-error-msg');
+    if (err) err.style.display = 'none';
     if (!msg) return;
     msg.textContent = channel === 'whatsapp'
       ? 'Thanks, ' + get('name') + '! WhatsApp should have opened with your message ready \u2014 press send there to reach us.'
       : 'Thanks, ' + get('name') + '! Your email app should have opened with the message ready \u2014 press send there to reach us.';
     msg.style.display = 'block';
     msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    confirmLeadStored(saved, msg);
   }
+
+  /** The default route: delivered here, on the page. Awaited - see recordLead. */
+  function sendDirect() {
+    const composed = compose();
+    if (!composed) return;
+
+    const finish = feedback.start();
+    recordLead(
+      WEB3FORMS_KEYS.contact,
+      Object.assign({ chosen_channel: 'direct' }, composed.fields)
+    ).then((res) => {
+      finish();
+      if (res.ok) goToThankYou(get('name'), 'contact');
+      else feedback.failed();
+    });
+  }
+
+  // The main half is a real type="submit", so native validation runs and Enter
+  // in a field works; the caret's two options are type="button" and handled
+  // below. Nothing carries data-send="direct", so neither path double-fires.
+  form.addEventListener('submit', (e) => { e.preventDefault(); sendDirect(); });
 
   form.querySelectorAll('[data-send]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const body = compose();
-      if (!body) return;
       const channel = btn.getAttribute('data-send');
+      const composed = compose();
+      if (!composed) return;
+      const body = composed.body;
+
+      // Fired before the handoff and deliberately not awaited - see recordLead.
+      const saved = recordLead(
+        WEB3FORMS_KEYS.contact,
+        Object.assign({ chosen_channel: channel }, composed.fields)
+      );
 
       if (channel === 'whatsapp') {
         window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(body), '_blank');
@@ -575,7 +1118,7 @@ function initContactForm() {
         a.click();
         a.remove();
       }
-      done(channel);
+      done(channel, saved);
     });
   });
 }

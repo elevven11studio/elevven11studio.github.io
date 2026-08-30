@@ -41,6 +41,13 @@
 	<meta name="twitter:image:alt" content="Elevven11 Studio - affordable website design in Nigeria" />
 
 	<!-- Stylesheet (standalone, not shared with the main portfolio site) -->
+	<!-- Fonts. Linked here rather than @import-ed from style.css so the browser
+	     can start the font request immediately, in parallel with the stylesheet,
+	     instead of waiting for style.css to download and parse first. -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" />
 	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
 	<script type="application/ld+json">
 	{
@@ -97,6 +104,8 @@
 
 <body>
 
+	<a class="skip-link" href="#main">Skip to main content</a>
+
 	<header>
 		<div class="container navbar">
 			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
@@ -122,12 +131,14 @@
 		</div>
 	</header>
 
+	<main id="main">
+
 	<!-- Hero -->
 	<section class="hero">
 		<div class="hero-content container">
-			<div class="hero-eyebrow">Website design for small businesses in Nigeria</div>
-			<h1 class="hero-title">Simple Websites for Nigeria. <strong>No Monthly Hosting Fee.</strong></h1>
-			<p class="hero-tagline">Get a simple, mobile-friendly website for yourself or your business in Nigeria, without the
+			<div class="hero-eyebrow">Website design for small businesses<span class="geo-phrase" data-us=" in America"> in Nigeria</span></div>
+			<h1 class="hero-title">Simple Websites<span class="geo-phrase" data-us=" for America"> for Nigeria</span>. <strong>No Monthly Hosting Fee.</strong></h1>
+			<p class="hero-tagline">Get a simple, mobile-friendly website for yourself or your business<span class="geo-phrase" data-us=" in America"> in Nigeria</span>, without the
 				complexity of traditional website setup. Starting at <span data-ngn="50000">₦50,000</span>, one-time.</p>
 			<div class="btn-group">
 				<a href="/get-started/" class="btn btn-primary">Get Your Website</a>
@@ -334,6 +345,8 @@
 	</section>
 
 	<!-- Footer -->
+	</main>
+
 	<footer>
 		<div class="container">
 			<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>

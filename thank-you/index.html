@@ -4,9 +4,12 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Page Not Found - Elevven11 Studio</title>
+	<title>Thank You - Elevven11 Studio</title>
 
-	<meta name="description" content="That page could not be found. Browse Elevven11 Studio's pricing, examples, and contact pages instead." />
+	<meta name="description" content="Your request has reached Elevven11 Studio. Here's what happens next." />
+	<!-- Reached only by redirect after a successful send, so it has nothing to
+	     offer a searcher and would be a dead end if indexed. Kept out of
+	     sitemap.xml for the same reason. -->
 	<meta name="robots" content="noindex, follow" />
 
 	<!-- Favicon -->
@@ -64,37 +67,47 @@
 
 	<main id="main">
 
-	<section class="hero">
+	<section class="hero" style="min-height: 55vh;">
 		<div class="hero-content container">
-			<div class="hero-eyebrow">Error 404</div>
-			<h1 class="hero-title">Page Not Found</h1>
-			<p class="hero-tagline">The page you're looking for doesn't exist or has moved. Here's where to go next.</p>
-			<div class="btn-group">
-				<a href="/" class="btn btn-primary">Back to Home</a>
-				<a href="/examples/" class="btn btn-secondary">See Examples</a>
+			<div class="thank-you-tick" aria-hidden="true">
+				<svg viewBox="0 0 24 24" focusable="false">
+					<path d="M4 12.5l5.2 5.2L20 7" fill="none" stroke="currentColor" stroke-width="2.4"
+						stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
 			</div>
+			<h1 class="hero-title" data-thanks-heading>Thank You<span data-thanks-name></span></h1>
+			<p class="hero-tagline" data-thanks-line>
+				We've got your message and it's landed in our inbox. We'll be in touch shortly.
+			</p>
 		</div>
 	</section>
 
-	<section>
-		<div class="container">
-			<div class="grid-3">
-				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Pricing</h3>
-					<p style="color: var(--text-secondary);">One-time packages with a free update period and no monthly
-						hosting fee. <a href="/pricing/">See pricing</a>.</p>
-				</div>
-				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">How It Works</h3>
-					<p style="color: var(--text-secondary);">The five steps from your first message to a live website. <a
-							href="/how-it-works/">Read the breakdown</a>.</p>
-				</div>
-				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Get In Touch</h3>
-					<p style="color: var(--text-secondary);">Tell us what you need and we'll take it from there. <a
-							href="/contact/">Contact us</a>.</p>
-				</div>
+	<section style="padding-top: 0;">
+		<div class="container" style="max-width: 760px;">
+			<div class="glass-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">What happens next</h2>
+				<ol style="color: var(--text-secondary); padding-left: 1.2rem; display: grid; gap: 0.85rem;">
+					<li>We read your request and reply, usually within a day.</li>
+					<li data-thanks-step-2>We confirm the details, the package and the timeline with you.</li>
+					<li>Once you're happy, we start building &mdash; and you get a link to preview it.</li>
+				</ol>
 			</div>
+
+			<div class="glass-card">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">In a hurry?</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+					Message us on WhatsApp and we'll pick it up straight away. No need to repeat yourself &mdash;
+					just say you've sent the form.
+				</p>
+				<a class="btn btn-whatsapp" style="width: 100%;" data-lead-channel="whatsapp-thank-you"
+					href="https://wa.me/2349120925909?text=Hi%20Elevven11%20Studio%2C%20I%20just%20sent%20the%20form%20on%20your%20website."
+					target="_blank" rel="noopener">Message us on WhatsApp</a>
+			</div>
+
+			<p style="text-align:center; margin-top: 2rem;">
+				<a href="/examples/" style="color: var(--accent-gold);">Browse the example sites</a>
+				while you wait, or <a href="/" style="color: var(--accent-gold);">head back home</a>.
+			</p>
 		</div>
 	</section>
 

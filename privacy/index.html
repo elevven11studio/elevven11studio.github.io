@@ -33,6 +33,13 @@
 	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og/privacy.png" />
 	<meta name="twitter:image:alt" content="Elevven11 Studio privacy policy" />
 
+	<!-- Fonts. Linked here rather than @import-ed from style.css so the browser
+	     can start the font request immediately, in parallel with the stylesheet,
+	     instead of waiting for style.css to download and parse first. -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" />
 	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
 	<script type="application/ld+json">
 	{
@@ -68,6 +75,8 @@
 
 <body>
 
+	<a class="skip-link" href="#main">Skip to main content</a>
+
 	<header>
 		<div class="container navbar">
 			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
@@ -89,6 +98,8 @@
 		</div>
 	</header>
 
+	<main id="main">
+
 	<section class="hero" style="min-height: 40vh;">
 		<div class="hero-content container">
 			<h1 class="hero-title">Privacy</h1>
@@ -108,31 +119,61 @@
 				<p style="color: var(--text-secondary);">
 					This site also uses Google Analytics to see basic, aggregated traffic information — pages
 					visited, rough location (country/city level), and device type. It doesn't identify you
-					personally.
+					personally. Google Analytics is configured with Google Signals, which means Google may also
+					use this visit to build advertising audiences under its own terms.
 				</p>
 			</div>
 
 			<div class="glass-card" style="margin-bottom: 2rem;">
 				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Where it goes</h2>
 				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
-					This is a static site with no database. Submitting the Get Started or Contact forms opens
-					WhatsApp with your details pre-filled — the message only reaches us when <em>you</em> press send
-					inside WhatsApp. We don't receive or store anything until that message arrives in our WhatsApp
-					chat.
+					When you press the WhatsApp or Email button on the Get Started or Contact form, two things
+					happen. WhatsApp (or your mail app) opens with your details pre-filled, ready for
+					<em>you</em> to press send. At the same time, the details you typed are sent to our inbox
+					through Web3Forms, a form-delivery service, so that an enquiry isn't lost if the handoff
+					fails or you close the app before sending.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					This means we do receive what you typed at the moment you press one of those buttons, not
+					only when a WhatsApp message arrives. Nothing is sent while you are simply filling the form
+					in, and nothing is sent if you never press either button. Web3Forms passes the submission on
+					to us under its own privacy policy; we don't keep it anywhere else.
 				</p>
 				<p style="color: var(--text-secondary);">
 					If you arrived via a referral link (a URL ending in <code>?ref=CODE</code>), that code is held
-					briefly in your browser (not sent to any server) so it can be included in your WhatsApp message
-					and credited to the right referral agent.
+					in your browser and included with your enquiry, so it can be credited to the right referral
+					agent.
+				</p>
+			</div>
+
+			<div class="glass-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Cookies</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					Google Analytics sets its own cookies to measure traffic, including advertising audience
+					cookies, under its own privacy policy. To be clear about what our cookie banner does: these
+					Google cookies are set on every page either way, and the Accept/Decline choice in that banner
+					does not control them. Blocking them is done through your browser or an extension.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					What the banner does control is our own cookie. We ask if you'd like us to remember your form
+					progress and referral code, so a half-filled form or a referral link survives a closed tab or
+					a return visit. Nothing is saved unless you accept, and that stays in your browser — it's
+					only sent anywhere if you press the WhatsApp or Email button.
+				</p>
+				<p style="color: var(--text-secondary);">
+					You can clear these cookies at any time with the "Clear saved info &amp; cookies" button on the
+					<a href="/get-started/" style="color: var(--accent-gold);">Get Started page</a>, or by clearing
+					cookies for this site in your browser settings.
 				</p>
 			</div>
 
 			<div class="glass-card" style="margin-bottom: 2rem;">
 				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Who sees it</h2>
 				<p style="color: var(--text-secondary);">
-					Only Elevven11 Studio sees the information you send via WhatsApp or email. We don't sell or
-					share your details with third parties. Google Analytics processes anonymized traffic data under
-					its own privacy policy.
+					Only Elevven11 Studio reads the information you send. It reaches us either through WhatsApp
+					or email, or through Web3Forms, which delivers the form to our inbox and does not use it for
+					anything else. We don't sell or share your details with anyone else. Google Analytics
+					processes traffic data separately, under its own privacy policy.
 				</p>
 			</div>
 
@@ -147,6 +188,8 @@
 			</div>
 		</div>
 	</section>
+
+	</main>
 
 	<footer>
 		<div class="container">

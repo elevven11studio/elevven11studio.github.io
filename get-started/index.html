@@ -33,6 +33,13 @@
 	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og/get-started.png" />
 	<meta name="twitter:image:alt" content="Get your website started with Elevven11 Studio" />
 
+	<!-- Fonts. Linked here rather than @import-ed from style.css so the browser
+	     can start the font request immediately, in parallel with the stylesheet,
+	     instead of waiting for style.css to download and parse first. -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" />
 	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
 	<style>
 		.color-chip-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 0.4rem; }
@@ -88,6 +95,8 @@
 
 <body>
 
+	<a class="skip-link" href="#main">Skip to main content</a>
+
 	<header>
 		<div class="container navbar">
 			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
@@ -109,10 +118,13 @@
 		</div>
 	</header>
 
+	<main id="main">
+
 	<section class="hero" style="min-height: 40vh;">
 		<div class="hero-content container">
 			<h1 class="hero-title">Let's Build Your <strong>Website</strong></h1>
-			<p class="hero-tagline">Send us your details by WhatsApp or by Google Form &mdash; whichever you prefer.</p>
+			<p class="hero-tagline">Fill in the form and send it straight to us &mdash; or use WhatsApp, email or our
+				Google Form instead, whichever you prefer.</p>
 		</div>
 	</section>
 
@@ -126,10 +138,10 @@
 
 			<div class="grid-2 choice-grid">
 				<div class="glass-card choice-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Send on WhatsApp</h3>
-					<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Fill in the form below and we'll
-						open WhatsApp with everything pre-filled. Fastest way to get a reply, and you keep a copy of
-						the conversation.</p>
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Use the form below</h3>
+					<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Fill it in and press Send request
+						&mdash; it comes straight to us and there's nothing else to do. Prefer to talk on WhatsApp
+						instead? That's the arrow beside the button, and you keep a copy of the conversation.</p>
 					<a href="#request-form" class="btn btn-whatsapp" style="width: 100%;">Fill in the form below</a>
 				</div>
 				<div class="glass-card choice-card">
@@ -152,6 +164,7 @@
 
 			<div class="glass-card">
 				<div class="form-success-msg"></div>
+				<div class="form-error-msg" role="alert"></div>
 
 				<form class="get-started-form">
 					<input type="hidden" id="referral-code" name="referral" />
@@ -285,20 +298,52 @@
 					</div>
 
 					<p class="form-hint" style="margin-bottom: 1.5rem;">
-						Either button fills in your details for you &mdash; WhatsApp opens a chat, Email opens your
-						mail app. Nothing is sent until you press send there. We'll follow up with next steps
-						including payment and content collection.
+						<strong>Send request</strong> delivers your details straight to us &mdash; nothing else to
+						do. Prefer to talk on WhatsApp or send from your own mail app? Use the arrow for those.
+						We'll follow up with next steps including payment and content collection.
 					</p>
 
-					<div class="grid-2">
-						<button class="btn btn-whatsapp" type="submit"
-							data-lead-channel="whatsapp-get-started" style="width: 100%; padding: 1rem;">Send via
-							WhatsApp</button>
-						<button class="btn btn-secondary" type="button" data-gs-send="email"
-							data-lead-channel="email-get-started" style="width: 100%; padding: 1rem;">Send by
-							Email</button>
+					<!-- Split button. The plain submit is the default route now: it posts
+					     the form to us directly and the visitor stays on the page. WhatsApp
+					     and Email are still here, one tap away, for anyone who'd rather
+					     start a conversation in a channel they can see and keep. -->
+					<div class="send-split" data-send-split>
+						<button class="btn btn-primary send-split-main" type="submit"
+							data-lead-channel="direct-get-started">Send request</button>
+						<button class="btn btn-primary send-split-toggle" type="button" aria-haspopup="true"
+							aria-expanded="false" aria-label="Other ways to send">
+							<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+								<path d="M5 15l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.4"
+									stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+						</button>
+						<div class="send-split-menu" role="menu">
+							<button class="send-split-option" type="button" role="menuitem" tabindex="-1"
+								data-gs-send="whatsapp" data-lead-channel="whatsapp-get-started">
+								<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+									<path fill="currentColor"
+										d="M16.001 3C9.107 3 3.5 8.607 3.5 15.5c0 2.42.697 4.68 1.902 6.59L3 29l7.09-2.36A12.44 12.44 0 0 0 16 28c6.894 0 12.5-5.607 12.5-12.5S22.895 3 16.001 3Zm0 22.7c-2.02 0-3.92-.55-5.55-1.51l-.397-.235-4.207 1.4 1.383-4.1-.258-.42a10.19 10.19 0 0 1-1.57-5.335C5.402 9.86 10.163 5.1 16 5.1c5.837 0 10.598 4.76 10.598 10.6 0 5.84-4.761 10.6-10.598 10.6Zm5.86-7.94c-.32-.16-1.9-.938-2.194-1.045-.294-.107-.508-.16-.722.16-.214.32-.83 1.045-1.018 1.26-.187.213-.374.24-.694.08-.32-.16-1.352-.498-2.575-1.588-.952-.849-1.594-1.897-1.782-2.217-.187-.32-.02-.493.14-.653.144-.143.32-.373.48-.56.16-.187.213-.32.32-.533.107-.213.053-.4-.027-.56-.08-.16-.722-1.74-.99-2.383-.26-.626-.526-.541-.722-.55l-.615-.011c-.213 0-.56.08-.854.4-.294.32-1.121 1.096-1.121 2.674s1.148 3.104 1.308 3.318c.16.213 2.26 3.45 5.474 4.838.765.33 1.362.527 1.828.674.768.244 1.467.21 2.02.128.616-.092 1.9-.777 2.168-1.527.267-.75.267-1.393.187-1.527-.08-.133-.294-.213-.614-.373Z" />
+								</svg>
+								<span>Send via WhatsApp</span>
+							</button>
+							<button class="send-split-option" type="button" role="menuitem" tabindex="-1"
+								data-gs-send="email" data-lead-channel="email-get-started">
+								<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+									<path d="M3 6.5h18v11H3z M3 7l9 6 9-6" fill="none" stroke="currentColor"
+										stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+								<span>Send by Email</span>
+							</button>
+						</div>
 					</div>
 				</form>
+
+				<p style="text-align:center; margin-top: 1.5rem;">
+					<button type="button" data-clear-cookies
+						style="background:none; border:none; padding:0; font: inherit; text-decoration: underline; color: var(--text-muted); cursor: pointer;">Clear
+						saved info &amp; cookies</button>
+				</p>
+				<p class="form-hint" data-clear-note style="display:none; text-align:center; color: var(--accent-gold);"></p>
 			</div>
 
 			<p style="text-align:center; color: var(--text-muted); margin-top: 1.5rem; font-size: 0.9rem;">
@@ -313,6 +358,8 @@
 			</p>
 		</div>
 	</section>
+
+	</main>
 
 	<footer>
 		<div class="container">

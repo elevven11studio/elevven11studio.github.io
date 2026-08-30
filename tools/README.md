@@ -1,7 +1,11 @@
 # Asset generators
 
 Scripts that rebuild the site's generated images. Nothing here is deployed — it
-only writes files into `assets/` and `branding/`.
+only writes files into `assets/`, `branding/` and `promo/`.
+
+"Not deployed" is enforced, not just intended: the Pages workflow excludes
+`tools/` from the published artifact. See the Deployment section of the root
+[README](../README.md).
 
 ## Setup
 
@@ -10,9 +14,10 @@ cd tools
 npm install
 ```
 
-Only dependency is `sharp`. `generate-previews.js` also needs Chrome or Edge
-installed; it finds them at the usual paths and falls over with a clear message
-if it can't.
+Dependencies are `sharp` (all image work) and `qrcode` (the codes baked into the
+promos and the standalone ones in `assets/qr/`), plus `jsqr` as a dev dependency
+for `verify-qr`. `generate-previews.js` also needs Chrome or Edge installed; it
+finds them at the usual paths and falls over with a clear message if it can't.
 
 ## Commands
 
@@ -26,7 +31,12 @@ if it can't.
 | `npm run slides` | `assets/slides/` | After editing how-it-works, faq or contact copy |
 | `npm run stories` | `promo/stories/` | Same triggers as `promos` |
 | `npm run qr` | `assets/qr/` | Rarely — only if a target URL changes |
+| `npm run carousels` | `promo/carousel/` | Same triggers as `promos` |
+| `npm run enhance-demos` | `examples/<slug>/index.html` | After adding a demo template |
 | `npm run verify-qr` | nothing (read-only check) | After any promo or QR change |
+
+`npm run enhance-demos` edits HTML rather than images — it's the odd one out in
+this folder. Check its diff carefully.
 
 ## What each one does
 
@@ -48,7 +58,8 @@ only commits to JPG/PNG/GIF.
 
 ### `og-cards` — per-page social cards
 
-Builds the nine 1200×630 cards in `branding/og/`, one per main page, from the
+Builds the ten 1200×630 cards in `branding/og/`, one per main page, plus a
+1080×1080 square variant of each (20 files in total), from the
 brand tokens in `assets/style.css`. Page copy lives in the `PAGES` map at the
 bottom of the script — edit it there, not in the SVG.
 
@@ -60,12 +71,13 @@ edit HTML if you add a new page.
 
 ### `promos` — square social graphics
 
-Builds 45 promo images at 1080x1080, matching the existing hand-drawn
+Builds 46 promo images at 1080x1080, matching the existing hand-drawn
 `promo/*.svg` set:
 
 - `main.png` — the general offer
 - `agents.png` — referral programme, gold accent
 - `examples.png` — template library, with a real 6-up grid of demo screenshots
+- `follow-share.png` — follow & share card, light theme
 - `demos/<slug>.png` — one per demo, each showing that template in a browser
   mockup with its business name, industry and style variant
 
@@ -95,7 +107,7 @@ QR back out of the finished PNG and fails loudly if it broke.
 
 ### `slides` — picture sliders
 
-Builds the 28 slider images used on the agents, how-it-works, faq and contact
+Builds the 29 slider images used on the agents, how-it-works, faq and contact
 pages, at 1200x675.
 
 **Three of the four sets are parsed straight out of the live pages** — the
@@ -119,7 +131,7 @@ short sets, two once that would get absurdly tall, capped at 1600px wide.
 
 ### `stories` — vertical promos for social
 
-45 story-format promos at 1080x1920 in `promo/stories/` — the vertical
+46 story-format promos at 1080x1920 in `promo/stories/` — the vertical
 counterpart to the 1080x1080 squares, for WhatsApp Status and Instagram or
 Facebook Stories.
 

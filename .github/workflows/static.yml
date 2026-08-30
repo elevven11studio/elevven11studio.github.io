@@ -33,11 +33,35 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      # The repo holds more than the website: social/promo exports and the
+      # Node scripts that generate them. Publishing those shipped ~34 MB of
+      # files no page ever requests. Stage only what the site actually serves.
+      #
+      # Anything excluded here must be genuinely unreferenced - check with a
+      # grep for the path across *.html/*.css/*.js FIRST, and remember OG tags
+      # reference images by absolute URL (https://elevven11studio.github.io/...),
+      # not just by rooted path. assets/slides/ as a whole is NOT excludable:
+      # the numbered subfolders (agents/, contact/, faq/, how-it-works/) are
+      # live slider images. Only the unused exports beside them go.
+      - name: Stage site
+        run: |
+          mkdir -p _site
+          rsync -a ./ _site/ \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude '_site' \
+            --exclude 'tools' \
+            --exclude 'promo' \
+            --exclude 'assets/slides/singles' \
+            --exclude 'assets/slides/*-all.png'
+          echo "repo:      $(du -sh --exclude=.git --exclude=_site . | cut -f1)"
+          echo "published: $(du -sh _site | cut -f1)"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          path: '_site'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
