@@ -593,6 +593,7 @@ function initGetStartedForm() {
   restoreFormDataCookie(form);
   wireFormAutosave(form);
   wireClearSavedInfo(form);
+  initAddonCheckout(form);
 
   const packageSelect = document.getElementById('gs-package');
 
@@ -627,6 +628,13 @@ function initGetStartedForm() {
     // display - no manual country field/dropdown on the form.
     const country = sessionStorage.getItem('e11_country');
 
+    // Read straight from the checkboxes rather than recomputing prices here -
+    // initAddonCheckout already rendered the total in the visitor's currency,
+    // so reuse that text instead of duplicating its currency-detection logic.
+    const addonNames = Array.from(form.querySelectorAll('input[name="addons"]:checked')).map((el) => el.value);
+    const totalEl = document.querySelector('[data-summary-total]');
+    const totalText = totalEl ? totalEl.textContent.trim() : '';
+
     const lines = [
       'Hi Elevven11 Studio, I would like to get a website built.',
       `Name: ${get('name')}`,
@@ -635,6 +643,8 @@ function initGetStartedForm() {
       get('email') ? `Email: ${get('email')}` : null,
       get('location') ? `Location: ${get('location')}` : null,
       `Package: ${packageText}`,
+      addonNames.length ? `Add-ons: ${addonNames.join(', ')}` : null,
+      addonNames.length && totalText && totalText !== '—' ? `Estimated total: ${totalText}` : null,
       get('exampleType') ? `Interested in example style: ${get('exampleType')}` : null,
       get('description') ? `About the business: ${get('description')}` : null,
       get('styleMood') ? `Style vibe: ${get('styleMood')}` : null,
@@ -655,6 +665,8 @@ function initGetStartedForm() {
         email: get('email'),
         location: get('location'),
         package: packageText,
+        addons: addonNames.join(', '),
+        estimated_total: addonNames.length ? totalText : '',
         example_style: get('exampleType'),
         about: get('description'),
         style_vibe: get('styleMood'),
@@ -759,6 +771,12 @@ function saveFormDataCookie(form) {
     const field = form.querySelector(`[name="${name}"]`);
     if (field && field.value) data[name] = field.value;
   });
+
+  // Checkboxes share one name, so the generic single-value loop above can't
+  // capture them - collect the checked ones into their own array instead.
+  const addons = Array.from(form.querySelectorAll('input[name="addons"]:checked')).map((el) => el.value);
+  if (addons.length) data.addons = addons;
+
   setCookie(FORM_DATA_COOKIE, JSON.stringify(data), COOKIE_DAYS);
 }
 
@@ -771,6 +789,7 @@ function restoreFormDataCookie(form) {
   try { data = JSON.parse(raw); } catch (e) { return; }
 
   Object.keys(data).forEach((name) => {
+    if (name === 'addons') return; // handled separately below - it's an array, not a single value
     const field = form.querySelector(`[name="${name}"]`);
     if (!field || field.value) return;
     field.value = data[name];
@@ -784,6 +803,13 @@ function restoreFormDataCookie(form) {
       chip.classList.add('selected');
       chip.setAttribute('aria-pressed', 'true');
     }
+  }
+
+  if (Array.isArray(data.addons)) {
+    data.addons.forEach((value) => {
+      const input = form.querySelector(`input[name="addons"][value="${CSS.escape(value)}"]`);
+      if (input) input.checked = true;
+    });
   }
 }
 
@@ -839,7 +865,99 @@ function wireClearSavedInfo(form) {
       note.textContent = 'Saved info and cookies cleared.';
       note.style.display = 'block';
     }
+
+    // form.reset() unchecks the add-ons and the toggle for us, but can't
+    // touch the panel's [hidden] or repaint the summary on its own - see the
+    // matching assignment in initAddonCheckout.
+    if (form.__resetAddonPanel) form.__resetAddonPanel();
   });
+}
+
+/**
+ * Add-ons checkout on the Get Started form: a live order summary (package +
+ * checked add-ons) that updates as either changes, in whatever currency
+ * initGeoLocalization decided for this visitor. compose() below reads the
+ * same checkboxes to fold the selection into the outgoing message.
+ */
+function initAddonCheckout(form) {
+  const packageSelect = document.getElementById('gs-package');
+  const toggle = form.querySelector('[data-addon-toggle]');
+  const panel = form.querySelector('[data-addon-panel]');
+  const addonInputs = form.querySelectorAll('input[name="addons"]');
+  const summaryLines = form.querySelector('[data-summary-lines]');
+  const summaryTotal = form.querySelector('[data-summary-total]');
+  const summaryNote = form.querySelector('[data-summary-note]');
+  if (!packageSelect || !summaryLines || !summaryTotal) return;
+
+  // Collapsed by default so most visitors never see it - restoreFormDataCookie
+  // (which runs before this) may have already re-checked some add-ons on a
+  // return visit, in which case open it straight away rather than hiding a
+  // choice the visitor already made.
+  const hasRestoredSelection = Array.from(addonInputs).some((input) => input.checked);
+  if (panel) panel.hidden = !hasRestoredSelection;
+  if (toggle) toggle.checked = hasRestoredSelection;
+
+  if (toggle && panel) {
+    toggle.addEventListener('change', () => {
+      panel.hidden = !toggle.checked;
+      // Unchecking the toggle drops any selection made while it was open,
+      // so a hidden panel can't silently keep add-ons in the outgoing order.
+      if (!toggle.checked) addonInputs.forEach((input) => { input.checked = false; });
+      render();
+    });
+  }
+
+  // Lets wireClearSavedInfo collapse this back to its default state too -
+  // form.reset() unchecks the toggle and add-ons but can't touch [hidden].
+  form.__resetAddonPanel = () => {
+    if (panel) panel.hidden = true;
+    render();
+  };
+
+  async function render() {
+    const country = await detectCountryCode();
+    const fmt = (ngn) => (country && country !== 'NG') ? formatUsd(ngn) : formatNaira(ngn);
+
+    const opt = packageSelect.options[packageSelect.selectedIndex];
+    const pkgAmount = opt ? parseInt(opt.getAttribute('data-ngn'), 10) : NaN;
+    const pkgIsEstimate = !!(opt && opt.getAttribute('data-suffix') === '+');
+    const pkgLabel = opt && opt.value ? (opt.getAttribute('data-label') || opt.value) : '';
+
+    const rows = [];
+    let total = 0;
+    let hasAmount = false;
+
+    if (pkgLabel) {
+      const priceText = isNaN(pkgAmount) ? '&mdash;' : fmt(pkgAmount) + (pkgIsEstimate ? '+' : '');
+      rows.push(`<div class="order-summary-line"><span>${pkgLabel}</span><span>${priceText}</span></div>`);
+      if (!isNaN(pkgAmount)) { total += pkgAmount; hasAmount = true; }
+    }
+
+    addonInputs.forEach((input) => {
+      if (!input.checked) return;
+      const amount = parseInt(input.getAttribute('data-ngn'), 10) || 0;
+      rows.push(`<div class="order-summary-line"><span>${input.value}</span><span>${fmt(amount)}</span></div>`);
+      total += amount;
+      hasAmount = true;
+    });
+
+    summaryLines.innerHTML = rows.length
+      ? rows.join('')
+      : '<p style="color: var(--text-muted); margin: 0;">Select a package to see your total.</p>';
+    summaryTotal.textContent = hasAmount ? fmt(total) + (pkgIsEstimate ? '+' : '') : '—';
+
+    if (summaryNote) {
+      summaryNote.style.display = pkgIsEstimate ? 'block' : 'none';
+      summaryNote.textContent = pkgIsEstimate
+        ? 'Custom packages are quoted separately - this total is an estimate based on the starting price, plus your chosen add-ons.'
+        : '';
+    }
+  }
+
+  packageSelect.addEventListener('change', render);
+  addonInputs.forEach((input) => input.addEventListener('change', render));
+  form.__renderOrderSummary = render;
+  render();
 }
 
 /**

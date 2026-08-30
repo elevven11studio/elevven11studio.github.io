@@ -297,6 +297,64 @@
 							placeholder="e.g. I like purple, or match my existing logo" />
 					</div>
 
+					<div class="form-group">
+						<label class="addon-item">
+							<input type="checkbox" data-addon-toggle />
+							<span class="addon-item-name">Add optional extras? <span style="color: var(--text-muted); font-weight: 400;">(domain, QR code, Google Business Profile, and more)</span></span>
+						</label>
+					</div>
+
+					<div data-addon-panel hidden>
+						<div class="form-group">
+							<label class="form-label">Add-ons</label>
+							<div class="addon-list">
+								<label class="addon-item">
+									<input type="checkbox" name="addons" value="Custom domain connection" data-ngn="15000" />
+									<span class="addon-item-name">Custom domain connection</span>
+									<span class="addon-item-price" data-ngn="15000">₦15,000</span>
+								</label>
+								<label class="addon-item">
+									<input type="checkbox" name="addons" value="QR code for your site" data-ngn="5000" />
+									<span class="addon-item-name">QR code for your site</span>
+									<span class="addon-item-price" data-ngn="5000">₦5,000</span>
+								</label>
+								<label class="addon-item">
+									<input type="checkbox" name="addons" value="Social media cover graphics" data-ngn="10000" />
+									<span class="addon-item-name">Social media cover graphics</span>
+									<span class="addon-item-price" data-ngn="10000">₦10,000</span>
+								</label>
+								<label class="addon-item">
+									<input type="checkbox" name="addons" value="Google Business Profile setup" data-ngn="10000" />
+									<span class="addon-item-name">Google Business Profile setup</span>
+									<span class="addon-item-price" data-ngn="10000">₦10,000</span>
+								</label>
+								<label class="addon-item">
+									<input type="checkbox" name="addons" value="Web3Forms contact form" data-ngn="10000" />
+									<span class="addon-item-name">Web3Forms contact form</span>
+									<span class="addon-item-price" data-ngn="10000">₦10,000</span>
+								</label>
+								<label class="addon-item">
+									<input type="checkbox" name="addons" value="Extended update window" data-ngn="15000" />
+									<span class="addon-item-name">Extended update window</span>
+									<span class="addon-item-price" data-ngn="15000">₦15,000</span>
+								</label>
+							</div>
+							<p class="form-hint">See the <a href="/pricing/" style="color: var(--accent-gold);">pricing page</a> for what each add-on includes.</p>
+						</div>
+
+						<div class="glass-card" data-order-summary style="background: var(--bg-secondary);">
+							<h3 style="color: var(--accent-gold); margin-bottom: 0.9rem; font-size: 1.05rem;">Order summary</h3>
+							<div class="order-summary-lines" data-summary-lines>
+								<p style="color: var(--text-muted); margin: 0;">Select a package to see your total.</p>
+							</div>
+							<div class="order-summary-total">
+								<span>Total</span>
+								<span data-summary-total>&mdash;</span>
+							</div>
+							<p class="form-hint" data-summary-note style="display:none; margin-top: 0.6rem;"></p>
+						</div>
+					</div>
+
 					<p class="form-hint" style="margin-bottom: 1.5rem;">
 						<strong>Send request</strong> delivers your details straight to us &mdash; nothing else to
 						do. Prefer to talk on WhatsApp or send from your own mail app? Use the arrow for those.

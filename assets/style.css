@@ -971,6 +971,76 @@ header.scrolled {
 
 .form-hint { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem; }
 
+/* Add-ons checklist on the Get Started form, and the order summary that
+   totals it live - see initAddonCheckout() in main.js. */
+.addon-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.addon-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.1rem;
+  background: var(--bg-secondary);
+  border: var(--border-subtle);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.addon-item:has(input:checked) {
+  border-color: var(--accent-gold);
+  background: var(--bg-tertiary);
+}
+
+.addon-item input[type="checkbox"] {
+  accent-color: var(--accent-gold);
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.addon-item-name {
+  flex-grow: 1;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.addon-item-price {
+  color: var(--accent-champagne);
+  font-weight: 700;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.order-summary-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+.order-summary-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.order-summary-total {
+  display: flex;
+  justify-content: space-between;
+  border-top: var(--border-subtle);
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
 .form-success-msg {
   display: none;
   background: rgba(63, 185, 80, 0.1);
