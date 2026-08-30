@@ -219,6 +219,24 @@ function initSendSplit() {
  * names WhatsApp and email as the way through, since those still work when
  * the post doesn't.
  */
+/**
+ * Shows a validation error inline, next to the form, instead of a native
+ * alert(). Some environments - including this project's own in-editor
+ * preview tooling - suppress alert() entirely, so a warning that only ever
+ * shows as a JS dialog can silently vanish and look like the button just
+ * isn't doing anything. Reuses the same .form-error-msg box the direct-send
+ * failure state uses, so there's one visual language for "something's wrong"
+ * on these forms rather than two.
+ */
+function showFormError(form, message) {
+  const card = form.closest('.glass-card') || form.parentElement;
+  const errorEl = card && card.querySelector('.form-error-msg');
+  if (!errorEl) { alert(message); return; } // fallback for a page without the element
+  errorEl.textContent = message;
+  errorEl.style.display = 'block';
+  errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
 function directSendFeedback(form, mainBtn) {
   const card = form.closest('.glass-card') || form.parentElement;
   const successEl = card && card.querySelector('.form-success-msg');
@@ -612,7 +630,7 @@ function initGetStartedForm() {
     const required = ['name', 'phone', 'package'];
     for (const field of required) {
       if (!get(field)) {
-        alert('Please fill in your name, phone number, and chosen package.');
+        showFormError(form, 'Please fill in your name, phone number, and chosen package.');
         return null;
       }
     }
@@ -1142,7 +1160,7 @@ function initContactForm() {
 
   function compose() {
     if (!get('name') || !get('message')) {
-      alert('Please fill in your name and a short message.');
+      showFormError(form, 'Please fill in your name and a short message.');
       return null;
     }
     const lines = [
