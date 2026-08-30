@@ -503,6 +503,20 @@ header.scrolled {
   color: #06210f;
 }
 
+/* Messenger's own blue - a logo colour, not a themeable accent, same
+   reasoning as WhatsApp's green above. */
+.fab-action-messenger {
+  background: #0084ff;
+  color: #ffffff;
+}
+
+/* Contact isn't a branded channel, so it takes a site accent rather than a
+   logo colour - teal keeps it visually distinct from the other three pills. */
+.fab-action-contact {
+  background: var(--accent-purple);
+  color: #06210f;
+}
+
 .fab-action-website {
   background: var(--gradient-neon);
   color: var(--on-accent);
@@ -519,7 +533,9 @@ header.scrolled {
    one nearer the toggle (website) leads by a beat since it has less distance
    to travel. */
 .fab.open .fab-action-website { transition-delay: 0.03s; }
-.fab.open .fab-action-whatsapp { transition-delay: 0.09s; }
+.fab.open .fab-action-contact { transition-delay: 0.06s; }
+.fab.open .fab-action-messenger { transition-delay: 0.09s; }
+.fab.open .fab-action-whatsapp { transition-delay: 0.12s; }
 
 .fab-toggle {
   width: 46px;
