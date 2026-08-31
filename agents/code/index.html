@@ -4,9 +4,12 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Page Not Found - Elevven11 Studio</title>
+	<title>Your Referral Code - Elevven11 Studio</title>
 
-	<meta name="description" content="That page could not be found. Browse Elevven11 Studio's pricing, examples, and contact pages instead." />
+	<meta name="description" content="Your personal Elevven11 Studio referral code and link." />
+	<!-- Only meaningful with a personal ?name=&code= URL sent to one agent, so
+	     it has nothing to offer a searcher and would be a dead end if indexed.
+	     Kept out of sitemap.xml for the same reason. -->
 	<meta name="robots" content="noindex, follow" />
 
 	<!-- Favicon -->
@@ -64,37 +67,56 @@
 
 	<main id="main">
 
-	<section class="hero">
+	<section class="hero" style="min-height: 40vh;">
 		<div class="hero-content container">
-			<div class="hero-eyebrow">Error 404</div>
-			<h1 class="hero-title">Page Not Found</h1>
-			<p class="hero-tagline">The page you're looking for doesn't exist or has moved. Here's where to go next.</p>
-			<div class="btn-group">
-				<a href="/" class="btn btn-primary">Back to Home</a>
-				<a href="/examples/" class="btn btn-secondary">See Examples</a>
+			<h1 class="hero-title" data-code-heading>Welcome<span data-code-name></span>!</h1>
+			<p class="hero-tagline" data-code-line>This page shows your personal referral code and link once we've
+				set one up for you. If you were expecting one, message us and we'll send your link.</p>
+		</div>
+	</section>
+
+	<section style="padding-top: 0;" data-code-section hidden>
+		<div class="container" style="max-width: 640px;">
+			<div class="glass-card" style="text-align: center; margin-bottom: 2rem;">
+				<div class="section-tag" style="display: block;">Your Referral Code</div>
+				<p style="font-size: 2.5rem; font-weight: 800; color: var(--accent-gold); margin: 0.5rem 0 0; letter-spacing: 2px;"
+					data-code-value>&mdash;</p>
+			</div>
+
+			<div class="glass-card">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.2rem;">Your referral link</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1.25rem;">
+					Share this with anyone who needs a website. When they open it and submit the Get Started form,
+					your code is automatically attached to their message so the referral is credited to you.
+				</p>
+				<div class="code-copy-block">
+					<code id="agent-code-link" class="code-copy-text" data-code-link>elevven11studio.github.io/get-started/</code>
+					<button type="button" class="copy-btn" data-copy="#agent-code-link" data-copy-label="Copy referral link" aria-label="Copy referral link">
+						<svg class="icon-copy" viewBox="0 0 24 24" aria-hidden="true">
+							<rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2" />
+							<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2" />
+						</svg>
+						<svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true">
+							<path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+					</button>
+				</div>
+			</div>
+
+			<div class="btn-group" style="margin-top: 2.5rem;">
+				<a href="/agents/" class="btn btn-secondary">Full Programme Details</a>
+				<a href="https://wa.me/2349120925909" target="_blank" rel="noopener" class="btn btn-whatsapp"
+					data-lead-channel="whatsapp-agent-code-page">Questions? Chat On WhatsApp</a>
 			</div>
 		</div>
 	</section>
 
-	<section>
-		<div class="container">
-			<div class="grid-3">
-				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Pricing</h3>
-					<p style="color: var(--text-secondary);">One-time packages with a free update period and no monthly
-						hosting fee. <a href="/pricing/">See pricing</a>.</p>
-				</div>
-				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">How It Works</h3>
-					<p style="color: var(--text-secondary);">The five steps from your first message to a live website. <a
-							href="/how-it-works/">Read the breakdown</a>.</p>
-				</div>
-				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Get In Touch</h3>
-					<p style="color: var(--text-secondary);">Tell us what you need and we'll take it from there. <a
-							href="/contact/">Contact us</a>.</p>
-				</div>
-			</div>
+	<section data-code-empty>
+		<div class="container" style="max-width: 640px; text-align: center;">
+			<p style="color: var(--text-secondary);">
+				Looking to become an agent? <a href="/agents/#apply-form" style="color: var(--accent-gold);">Apply
+					here</a>.
+			</p>
 		</div>
 	</section>
 
@@ -104,7 +126,7 @@
 		<div class="container">
 			<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
 			<p><a href="/agents/">Referral Agents</a> &middot; <a href="/contact/">Contact</a> &middot; <a
-					href="/privacy/">Privacy</a></p>
+					href="/terms/#referral-terms">Terms</a> &middot; <a href="/privacy/">Privacy</a></p>
 			<div class="footer-social">
 				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
 				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>

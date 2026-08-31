@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFormPrefill();
   initSendSplit();
   initThankYou();
+  initAgentCodePage();
   initGetStartedForm();
   initGeoLocalization();
   initContactFab();
@@ -163,6 +164,42 @@ function initThankYou() {
   if (typeof gtag === 'function') {
     gtag('event', 'generate_lead', { form: data.from || 'unknown' });
   }
+}
+
+/**
+ * Agent referral code page (/agents/code/). A link the studio hands an agent
+ * directly - e.g. https://elevven11studio.github.io/agents/code/?name=Jane&code=JANE10 -
+ * that greets them by name and hands back their ready-to-share referral link,
+ * built entirely from the URL so there's no backend involved. With no ?code=
+ * (someone opening the bare page) it just shows the generic fallback already
+ * in the markup.
+ */
+function initAgentCodePage() {
+  const heading = document.querySelector('[data-code-heading]');
+  if (!heading) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get('name');
+  const code = params.get('code');
+  if (!code) return;
+
+  const nameEl = heading.querySelector('[data-code-name]');
+  // textContent, not innerHTML - this is user-suppliable (from the URL).
+  if (name && nameEl) nameEl.textContent = ', ' + name;
+
+  const line = document.querySelector('[data-code-line]');
+  if (line) line.textContent = "Here's your personal referral code and link - save this page, or copy your link below.";
+
+  const valueEl = document.querySelector('[data-code-value]');
+  if (valueEl) valueEl.textContent = code;
+
+  const linkEl = document.querySelector('[data-code-link]');
+  if (linkEl) linkEl.textContent = 'https://elevven11studio.github.io/get-started/?ref=' + encodeURIComponent(code);
+
+  const section = document.querySelector('[data-code-section]');
+  if (section) section.hidden = false;
+  const empty = document.querySelector('[data-code-empty]');
+  if (empty) empty.hidden = true;
 }
 
 /**
@@ -533,7 +570,7 @@ function initContactFab() {
       <a class="fab-action fab-action-messenger" href="${MESSENGER_LINK}"
         target="_blank" rel="noopener" data-lead-channel="messenger-fab" tabindex="-1">${messengerIcon}<span>Messenger</span></a>
       <a class="fab-action fab-action-contact" href="/contact/" data-lead-channel="contact-fab" tabindex="-1">${contactIcon}<span>Contact</span></a>
-      <a class="fab-action fab-action-website" href="/get-started/" data-lead-channel="website-fab" tabindex="-1">Get Your Website</a>
+      <a class="fab-action fab-action-website" href="/get-started/#request-form" data-lead-channel="website-fab" tabindex="-1">Get Your Website</a>
     </div>
     <button type="button" class="fab-toggle" aria-label="Open contact options" aria-expanded="false">${plusIcon}</button>
   `;
@@ -1284,10 +1321,11 @@ function initContactForm() {
  * Referral agent application form. Same shape as the Contact form above -
  * default route posts to Web3Forms directly, WhatsApp/Email sit behind the
  * caret as handoffs. Streamlined from the source Google Form: one combined
- * agreement checkbox instead of six, and occupation/experience/how-they-
- * heard-about-us folded into a single optional notes field, since the full
- * rules are already spelled out further down this page and in full at
- * /terms/#referral-terms.
+ * agreement checkbox instead of six; location, referral type, occupation,
+ * experience and how-they-heard-about-us all folded away - location comes
+ * from the same IP lookup the currency display uses, and the rest is left to
+ * a single optional notes field, since the full rules are already spelled
+ * out further down this page and in full at /terms/#referral-terms.
  */
 function initAgentForm() {
   const form = document.querySelector('.agent-form');
@@ -1301,10 +1339,10 @@ function initAgentForm() {
   };
 
   function compose() {
-    const required = ['name', 'phone', 'email', 'location', 'referralType'];
+    const required = ['name', 'phone', 'email'];
     for (const f of required) {
       if (!get(f)) {
-        showFormError(form, 'Please fill in your name, WhatsApp number, email, location, and who you can refer.');
+        showFormError(form, 'Please fill in your name, WhatsApp number, and email.');
         return null;
       }
     }
@@ -1313,13 +1351,16 @@ function initAgentForm() {
       return null;
     }
 
+    // Best-effort, auto-detected from the same IP lookup the currency display
+    // uses elsewhere - no manual location field on this form.
+    const country = sessionStorage.getItem('e11_country');
+
     const lines = [
       'Hi Elevven11 Studio, I would like to become a referral agent.',
       `Name: ${get('name')}`,
       `WhatsApp: ${get('phone')}`,
       `Email: ${get('email')}`,
-      `Location: ${get('location')}`,
-      `Can refer: ${get('referralType')}`,
+      country ? `Detected country: ${country}` : null,
       get('notes') ? `Notes: ${get('notes')}` : null,
       'Agreed to referral program terms: Yes',
     ].filter(Boolean);
@@ -1332,8 +1373,7 @@ function initAgentForm() {
         name: get('name'),
         phone: get('phone'),
         email: get('email'),
-        location: get('location'),
-        can_refer: get('referralType'),
+        detected_country: country || '',
         notes: get('notes'),
         agreed_terms: get('agreeTerms') ? 'yes' : 'no',
       },
