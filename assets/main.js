@@ -570,7 +570,7 @@ function initContactFab() {
       <a class="fab-action fab-action-messenger" href="${MESSENGER_LINK}"
         target="_blank" rel="noopener" data-lead-channel="messenger-fab" tabindex="-1">${messengerIcon}<span>Messenger</span></a>
       <a class="fab-action fab-action-contact" href="/contact/" data-lead-channel="contact-fab" tabindex="-1">${contactIcon}<span>Contact</span></a>
-      <a class="fab-action fab-action-website" href="/get-started/#request-form" data-lead-channel="website-fab" tabindex="-1">Get Your Website</a>
+      <a class="fab-action fab-action-website" href="/get-started/" data-lead-channel="website-fab" tabindex="-1">Get Your Website</a>
     </div>
     <button type="button" class="fab-toggle" aria-label="Open contact options" aria-expanded="false">${plusIcon}</button>
   `;
