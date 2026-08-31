@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1640" height="856" viewBox="0 0 1640 856">
+  
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#86efac"/><stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+    <radialGradient id="g1" cx="6%" cy="10%" r="62%">
+      <stop offset="0%" stop-color="#86efac" stop-opacity="0.17"/><stop offset="100%" stop-color="#86efac" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g2" cx="96%" cy="96%" r="60%">
+      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.15"/><stop offset="100%" stop-color="#2dd4bf" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Matches the site's own section::before dot-grid background-image
+         (style.css): 1.5px radius dots on a 28x28 grid. -->
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.5" fill="rgba(247,243,236,0.09)"/>
+    </pattern>
+  </defs>
+  <rect width="1640" height="856" fill="#0b0a10"/>
+  <rect width="1640" height="856" fill="url(#g1)"/>
+  <rect width="1640" height="856" fill="url(#g2)"/>
+  <rect width="1640" height="856" fill="url(#dots)"/>
+  <rect width="1640" height="8" fill="url(#accent)"/>
+  <rect y="848" width="1640" height="8" fill="url(#accent)"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="190" y="306" fill="#f7f3ec" font-size="34" font-weight="700" letter-spacing="6">FACEBOOK GROUP</text>
+    <text x="190" y="394" fill="#f7f3ec" font-size="42" font-weight="700">I need a Simple website /</text>
+    <text x="190" y="454" fill="url(#accent)" font-size="42" font-weight="700">Elevven11 Studio</text>
+    <text x="190" y="502" fill="#a79f95" font-size="24">Get your website built. Meet other owners.</text>
+    <g><rect x="190" y="530" width="188" height="46.2" rx="23.1"
+        fill="rgba(247,243,236,0.06)" stroke="rgba(247,243,236,0.17)"/>
+      <text x="284" y="561.24" fill="#f7f3ec" font-size="22" text-anchor="middle">Website help</text></g><g><rect x="393.4" y="530" width="163" height="46.2" rx="23.1"
+        fill="rgba(247,243,236,0.06)" stroke="rgba(247,243,236,0.17)"/>
+      <text x="474.9" y="561.24" fill="#f7f3ec" font-size="22" text-anchor="middle">Networking</text></g><g><rect x="571.8" y="530" width="200" height="46.2" rx="23.1"
+        fill="rgba(247,243,236,0.06)" stroke="rgba(247,243,236,0.17)"/>
+      <text x="671.8" y="561.24" fill="#f7f3ec" font-size="22" text-anchor="middle">Member offers</text></g>
+    <text x="190" y="632" fill="#7a7268" font-size="22">elevven11studio.github.io</text>
+  </g>
+  
+  <g>
+    <rect x="880" y="268" width="570" height="320" rx="14" fill="#15121d" stroke="rgba(247,243,236,0.14)"/>
+    <path d="M880 282 a14 14 0 0 1 14 -14 h542 a14 14 0 0 1 14 14 v26 h-570 z" fill="#221d2e"/>
+    <circle cx="900" cy="288" r="5" fill="#ff5f57"/><circle cx="917" cy="288" r="5" fill="#febc2e"/><circle cx="934" cy="288" r="5" fill="#28c840"/>
+    <rect x="962" y="277" width="466" height="22" rx="11" fill="rgba(11,10,16,0.65)"/>
+    <text x="976" y="293" font-size="12" fill="#8f877c">elevven11studio.github.io</text>
+
+    <rect x="881" y="308" width="568" height="279" fill="#0b0a10"/>
+    <rect x="881" y="308" width="568" height="3" fill="url(#accent)"/>
+
+    <rect x="902" y="328" width="58" height="10" rx="5" fill="#f7f3ec" opacity="0.9"/>
+    <rect x="1218" y="330" width="30" height="7" rx="3.5" fill="rgba(247,243,236,0.28)"/><rect x="1260" y="330" width="30" height="7" rx="3.5" fill="rgba(247,243,236,0.28)"/><rect x="1302" y="330" width="30" height="7" rx="3.5" fill="rgba(247,243,236,0.28)"/><rect x="1344" y="330" width="30" height="7" rx="3.5" fill="rgba(247,243,236,0.28)"/>
+
+    <rect x="902" y="370" width="326.12" height="17" rx="8.5" fill="#f7f3ec"/>
+    <rect x="902" y="396" width="410.28000000000003" height="17" rx="8.5" fill="url(#accent)"/>
+    <rect x="902" y="426" width="273.52" height="8" rx="4" fill="rgba(247,243,236,0.20)"/>
+    <rect x="902" y="440" width="210.4" height="8" rx="4" fill="rgba(247,243,236,0.14)"/>
+
+    <rect x="902" y="458" width="104" height="20" rx="10" fill="url(#accent)"/>
+    <rect x="1018" y="458" width="92" height="20" rx="10"
+          fill="none" stroke="rgba(247,243,236,0.28)"/>
+    
+    <rect x="902" y="484" width="164.66666666666666" height="74" rx="8"
+          fill="rgba(247,243,236,0.05)" stroke="rgba(247,243,236,0.10)"/>
+    <rect x="914" y="500" width="82.33333333333333" height="8" rx="4" fill="#86efac" opacity="0.75"/>
+    <rect x="914" y="518" width="128.44" height="6" rx="3" fill="rgba(247,243,236,0.22)"/>
+    <rect x="914" y="532" width="98.8" height="6" rx="3" fill="rgba(247,243,236,0.16)"/>
+    <rect x="1082.6666666666667" y="484" width="164.66666666666666" height="74" rx="8"
+          fill="rgba(247,243,236,0.05)" stroke="rgba(247,243,236,0.10)"/>
+    <rect x="1094.6666666666667" y="500" width="82.33333333333333" height="8" rx="4" fill="#86efac" opacity="0.75"/>
+    <rect x="1094.6666666666667" y="518" width="128.44" height="6" rx="3" fill="rgba(247,243,236,0.22)"/>
+    <rect x="1094.6666666666667" y="532" width="98.8" height="6" rx="3" fill="rgba(247,243,236,0.16)"/>
+    <rect x="1263.3333333333333" y="484" width="164.66666666666666" height="74" rx="8"
+          fill="rgba(247,243,236,0.05)" stroke="rgba(247,243,236,0.10)"/>
+    <rect x="1275.3333333333333" y="500" width="82.33333333333333" height="8" rx="4" fill="#86efac" opacity="0.75"/>
+    <rect x="1275.3333333333333" y="518" width="128.44" height="6" rx="3" fill="rgba(247,243,236,0.22)"/>
+    <rect x="1275.3333333333333" y="532" width="98.8" height="6" rx="3" fill="rgba(247,243,236,0.16)"/>
+  </g>
+</svg>

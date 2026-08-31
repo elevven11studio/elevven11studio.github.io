@@ -107,15 +107,128 @@
 				needs a simple website, introduce them to Elevven11 Studio, and earn a commission when they become a
 				paying customer.</p>
 			<div class="btn-group">
-				<a href="https://wa.me/2349120925909?text=Hi%2C%20I%27d%20like%20to%20become%20an%20Elevven11%20Studio%20referral%20agent."
-					target="_blank" rel="noopener" class="btn btn-whatsapp"
-					data-lead-channel="whatsapp-agent-hero">Apply on WhatsApp</a>
-				<a href="https://forms.gle/vMDh6VMCUFDNLKw88" target="_blank" rel="noopener" class="btn btn-secondary"
-					data-lead-channel="google-form-agent-hero">Apply via Google Form</a>
+				<a href="#apply-form" class="btn btn-whatsapp">Apply Now</a>
 			</div>
-			<p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 1.25rem;">
-				Either route reaches us. Use the form if you'd rather not message on WhatsApp.
-			</p>
+		</div>
+	</section>
+
+	<!-- Channel chooser. Same pattern as the Get Started / Contact forms. -->
+	<section style="padding-bottom: 0;">
+		<div class="container" style="max-width: 760px;">
+			<div class="section-tag" style="display:block; text-align:center;">Two Ways To Apply</div>
+			<h2 class="section-title" style="margin-bottom: 2rem;">Pick whichever suits you</h2>
+
+			<div class="grid-2 choice-grid">
+				<div class="glass-card choice-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Use the form below</h3>
+					<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Fill it in and press Send
+						Application &mdash; it comes straight to us and there's nothing else to do. Prefer to talk on
+						WhatsApp instead? That's the arrow beside the button, and you keep a copy of the
+						conversation.</p>
+					<a href="#apply-form" class="btn btn-whatsapp" style="width: 100%;">Fill in the form below</a>
+				</div>
+				<div class="glass-card choice-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Use our Google Form</h3>
+					<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Don't use WhatsApp, or would
+						rather not share your number yet? Send the same details through our Google Form and we'll
+						reply by email.</p>
+					<a href="https://forms.gle/vMDh6VMCUFDNLKw88" target="_blank" rel="noopener" class="btn btn-secondary"
+						data-lead-channel="google-form-agent-apply" style="width: 100%;">Open the Google Form</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="apply-form">
+		<div class="container" style="max-width: 760px;">
+			<div class="glass-card">
+				<div class="form-success-msg"></div>
+				<div class="form-error-msg" role="alert"></div>
+
+				<form class="agent-form">
+					<div class="form-group">
+						<label class="form-label" for="ag-name">Your Name *</label>
+						<input class="form-input" id="ag-name" name="name" type="text" placeholder="Your full name"
+							required />
+					</div>
+
+					<div class="grid-2">
+						<div class="form-group">
+							<label class="form-label" for="ag-phone">WhatsApp Number *</label>
+							<input class="form-input" id="ag-phone" name="phone" type="tel" placeholder="+234..."
+								required />
+						</div>
+						<div class="form-group">
+							<label class="form-label" for="ag-email">Email *</label>
+							<input class="form-input" id="ag-email" name="email" type="email"
+								placeholder="you@example.com" required />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="form-label" for="ag-location">Location *</label>
+						<input class="form-input" id="ag-location" name="location" type="text"
+							placeholder="City, State" required />
+					</div>
+
+					<div class="form-group">
+						<label class="form-label" for="ag-referrals">What type of customers can you refer? *</label>
+						<input class="form-input" id="ag-referrals" name="referralType" type="text"
+							placeholder="e.g. small business owners, freelancers, my community" required />
+					</div>
+
+					<div class="form-group">
+						<label class="form-label" for="ag-notes">Anything else? (optional)</label>
+						<textarea class="form-textarea" id="ag-notes" name="notes"
+							placeholder="Occupation, past referral/sales experience, how you heard about us — anything helpful."></textarea>
+					</div>
+
+					<div class="form-group">
+						<label style="display: flex; align-items: flex-start; gap: 0.6rem; cursor: pointer;">
+							<input type="checkbox" name="agreeTerms" required style="margin-top: 0.2rem;" />
+							<span class="form-hint" style="margin-top: 0;">I agree to the
+								<a href="/terms/#referral-terms" style="color: var(--accent-gold);">Elevven11 Studio Referral Program Terms</a>
+								&mdash; I'm an independent referrer, not an employee, and commission is paid only
+								after a confirmed customer payment.</span>
+						</label>
+					</div>
+
+					<p class="form-hint" style="margin-bottom: 1.5rem;">
+						<strong>Send Application</strong> delivers it straight to us &mdash; nothing else to do.
+						Prefer to talk on WhatsApp or send from your own mail app? Use the arrow for those.
+					</p>
+
+					<div class="send-split" data-send-split>
+						<button class="btn btn-primary send-split-main" type="submit"
+							data-lead-channel="direct-agent-apply">Send Application</button>
+						<button class="btn btn-primary send-split-toggle" type="button" aria-haspopup="true"
+							aria-expanded="false" aria-label="Other ways to send">
+							<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+								<path d="M5 15l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.4"
+									stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+						</button>
+						<div class="send-split-menu" role="menu">
+							<button class="send-split-option" type="button" role="menuitem" tabindex="-1"
+								data-agent-send="whatsapp" data-lead-channel="whatsapp-agent-apply">
+								<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+									<path fill="currentColor"
+										d="M16.001 3C9.107 3 3.5 8.607 3.5 15.5c0 2.42.697 4.68 1.902 6.59L3 29l7.09-2.36A12.44 12.44 0 0 0 16 28c6.894 0 12.5-5.607 12.5-12.5S22.895 3 16.001 3Zm0 22.7c-2.02 0-3.92-.55-5.55-1.51l-.397-.235-4.207 1.4 1.383-4.1-.258-.42a10.19 10.19 0 0 1-1.57-5.335C5.402 9.86 10.163 5.1 16 5.1c5.837 0 10.598 4.76 10.598 10.6 0 5.84-4.761 10.6-10.598 10.6Zm5.86-7.94c-.32-.16-1.9-.938-2.194-1.045-.294-.107-.508-.16-.722.16-.214.32-.83 1.045-1.018 1.26-.187.213-.374.24-.694.08-.32-.16-1.352-.498-2.575-1.588-.952-.849-1.594-1.897-1.782-2.217-.187-.32-.02-.493.14-.653.144-.143.32-.373.48-.56.16-.187.213-.32.32-.533.107-.213.053-.4-.027-.56-.08-.16-.722-1.74-.99-2.383-.26-.626-.526-.541-.722-.55l-.615-.011c-.213 0-.56.08-.854.4-.294.32-1.121 1.096-1.121 2.674s1.148 3.104 1.308 3.318c.16.213 2.26 3.45 5.474 4.838.765.33 1.362.527 1.828.674.768.244 1.467.21 2.02.128.616-.092 1.9-.777 2.168-1.527.267-.75.267-1.393.187-1.527-.08-.133-.294-.213-.614-.373Z" />
+								</svg>
+								<span>Send via WhatsApp</span>
+							</button>
+							<button class="send-split-option" type="button" role="menuitem" tabindex="-1"
+								data-agent-send="email" data-lead-channel="email-agent-apply">
+								<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+									<path d="M3 6.5h18v11H3z M3 7l9 6 9-6" fill="none" stroke="currentColor"
+										stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+								</svg>
+								<span>Send by Email</span>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 	</section>
 

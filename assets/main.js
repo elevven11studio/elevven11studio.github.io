@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLeadChannelTracking();
   initSliders();
   initContactForm();
+  initAgentForm();
   initFaqAccordions();
   initCopyButtons();
 });
@@ -51,13 +52,14 @@ const MESSENGER_LINK = 'https://m.me/Elevven11Studio';
  * is navigated off (mobile WhatsApp deep links do this) before it lands.
  *
  * The access keys are publishable, submit-only identifiers - they are meant to
- * live in client-side code and can only post to the studio's own inboxes. The
- * two forms use separate keys so enquiries and website requests arrive as
- * distinguishable streams rather than one mixed inbox.
+ * live in client-side code and can only post to the studio's own inboxes. Each
+ * form uses its own key so enquiries, website requests and agent applications
+ * arrive as distinguishable streams rather than one mixed inbox.
  */
 const WEB3FORMS_KEYS = {
   getStarted: '00c55bee-a900-4c7c-9592-8729f8546b32',
   contact: '101a72d3-398e-4963-9b8a-729d58ba5a8a',
+  agents: '05717410-4640-4fba-ade1-d99326369e03',
 };
 
 /** Resolves to { ok, message } - never rejects, so no caller needs a catch. */
@@ -629,7 +631,9 @@ function initGetStartedForm() {
 
   const get = (name) => {
     const field = form.querySelector(`[name="${name}"]`);
-    return field ? field.value.trim() : '';
+    if (!field) return '';
+    if (field.type === 'checkbox') return field.checked ? 'Yes' : '';
+    return field.value.trim();
   };
 
   /**
@@ -645,6 +649,10 @@ function initGetStartedForm() {
         showFormError(form, 'Please fill in your name, phone number, and chosen package.');
         return null;
       }
+    }
+    if (!get('agreeTerms')) {
+      showFormError(form, 'Please agree to the Terms of Service to continue.');
+      return null;
     }
 
     // Use the select's visible option text rather than its raw value, so the
@@ -704,6 +712,7 @@ function initGetStartedForm() {
         colors_notes: get('colorsNotes'),
         detected_country: country || '',
         referral_code: get('referral'),
+        terms_agreed: get('agreeTerms') ? 'yes' : 'no',
       },
     };
   }
@@ -1260,6 +1269,132 @@ function initContactForm() {
         const a = document.createElement('a');
         a.href = 'mailto:' + EMAIL
           + '?subject=' + encodeURIComponent(subject)
+          + '&body=' + encodeURIComponent(body);
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+      done(channel, saved);
+    });
+  });
+}
+
+/**
+ * Referral agent application form. Same shape as the Contact form above -
+ * default route posts to Web3Forms directly, WhatsApp/Email sit behind the
+ * caret as handoffs. Streamlined from the source Google Form: one combined
+ * agreement checkbox instead of six, and occupation/experience/how-they-
+ * heard-about-us folded into a single optional notes field, since the full
+ * rules are already spelled out further down this page and in full at
+ * /terms/#referral-terms.
+ */
+function initAgentForm() {
+  const form = document.querySelector('.agent-form');
+  if (!form) return;
+
+  const get = (name) => {
+    const field = form.querySelector('[name="' + name + '"]');
+    if (!field) return '';
+    if (field.type === 'checkbox') return field.checked ? 'Yes' : '';
+    return field.value.trim();
+  };
+
+  function compose() {
+    const required = ['name', 'phone', 'email', 'location', 'referralType'];
+    for (const f of required) {
+      if (!get(f)) {
+        showFormError(form, 'Please fill in your name, WhatsApp number, email, location, and who you can refer.');
+        return null;
+      }
+    }
+    if (!get('agreeTerms')) {
+      showFormError(form, 'Please agree to the Referral Program Terms to apply.');
+      return null;
+    }
+
+    const lines = [
+      'Hi Elevven11 Studio, I would like to become a referral agent.',
+      `Name: ${get('name')}`,
+      `WhatsApp: ${get('phone')}`,
+      `Email: ${get('email')}`,
+      `Location: ${get('location')}`,
+      `Can refer: ${get('referralType')}`,
+      get('notes') ? `Notes: ${get('notes')}` : null,
+      'Agreed to referral program terms: Yes',
+    ].filter(Boolean);
+
+    return {
+      body: lines.join('\n'),
+      fields: {
+        subject: `Agent application: ${get('name')}`,
+        from_name: 'Elevven11 agent application form',
+        name: get('name'),
+        phone: get('phone'),
+        email: get('email'),
+        location: get('location'),
+        can_refer: get('referralType'),
+        notes: get('notes'),
+        agreed_terms: get('agreeTerms') ? 'yes' : 'no',
+      },
+    };
+  }
+
+  const mainBtn = form.querySelector('.send-split-main');
+  const feedback = directSendFeedback(form, mainBtn);
+
+  function done(channel, saved) {
+    const msg = form.parentElement.querySelector('.form-success-msg');
+    const err = form.parentElement.querySelector('.form-error-msg');
+    if (err) err.style.display = 'none';
+    if (!msg) return;
+    msg.textContent = channel === 'whatsapp'
+      ? 'Thanks, ' + get('name') + '! WhatsApp should have opened with your application ready — press send there to reach us.'
+      : 'Thanks, ' + get('name') + '! Your email app should have opened with the application ready — press send there to reach us.';
+    msg.style.display = 'block';
+    msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    confirmLeadStored(saved, msg);
+  }
+
+  /** The default route: delivered here, on the page. Awaited - see recordLead. */
+  function sendDirect() {
+    const composed = compose();
+    if (!composed) return;
+
+    const finish = feedback.start();
+    recordLead(
+      WEB3FORMS_KEYS.agents,
+      Object.assign({ chosen_channel: 'direct' }, composed.fields)
+    ).then((res) => {
+      finish();
+      if (res.ok) goToThankYou(get('name'), 'agents');
+      else feedback.failed();
+    });
+  }
+
+  form.addEventListener('submit', (e) => { e.preventDefault(); sendDirect(); });
+
+  form.querySelectorAll('[data-agent-send]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const channel = btn.getAttribute('data-agent-send');
+      const composed = compose();
+      if (!composed) return;
+      const body = composed.body;
+
+      // Fired before the handoff and deliberately not awaited - see recordLead.
+      const saved = recordLead(
+        WEB3FORMS_KEYS.agents,
+        Object.assign({ chosen_channel: channel }, composed.fields)
+      );
+
+      if (channel === 'whatsapp') {
+        window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(body), '_blank');
+      } else {
+        // Anchor click rather than location.href: iOS Safari can block
+        // programmatic mailto: navigation, and a popup leaves a blank tab.
+        const a = document.createElement('a');
+        a.href = 'mailto:elevven11studio@gmail.com'
+          + '?subject=' + encodeURIComponent('Agent application: ' + get('name'))
           + '&body=' + encodeURIComponent(body);
         a.style.display = 'none';
         document.body.appendChild(a);

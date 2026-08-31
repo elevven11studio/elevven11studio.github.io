@@ -1,12 +1,16 @@
 /**
- * Regenerates the Facebook and LinkedIn cover images in branding/.
+ * Regenerates the Facebook, Facebook Group and LinkedIn cover images in branding/.
  *
- *   cover-facebook.png  1640x624  (2x of 820x312)
- *   cover-linkedin.png  1128x376
+ *   cover-facebook.png        1640x624  (2x of 820x312 - Facebook Page cover)
+ *   cover-facebook-group.png  1640x856  (Facebook Group cover)
+ *   cover-linkedin.png        1128x376
  *
- * Both render the site as a browser mockup. Layout constraints worth keeping:
- * Facebook centre-crops on mobile, so text stays inside the safe band; LinkedIn
- * overlays the company logo bottom-left, so that corner is left empty.
+ * All three render the site as a browser mockup. Layout constraints worth
+ * keeping: both Facebook covers centre-crop on mobile, so text stays inside
+ * the safe band; LinkedIn overlays the company logo bottom-left, so that
+ * corner is left empty. The Group cover reuses the Page cover's exact layout,
+ * shifted down 116px (half of the extra 232px of height) so it stays
+ * vertically centred rather than just padding the bottom.
  *
  *   cd tools && npm install && npm run covers
  */
@@ -79,6 +83,11 @@ const defs = `
     <radialGradient id="g2" cx="96%" cy="96%" r="60%">
       <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.15"/><stop offset="100%" stop-color="#2dd4bf" stop-opacity="0"/>
     </radialGradient>
+    <!-- Matches the site's own section::before dot-grid background-image
+         (style.css): 1.5px radius dots on a 28x28 grid. -->
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.5" fill="rgba(247,243,236,0.09)"/>
+    </pattern>
   </defs>`;
 
 const pills = (labels, x0, y, fs, padX) => {
@@ -112,6 +121,28 @@ const facebook = `<svg xmlns="http://www.w3.org/2000/svg" width="1640" height="6
   ${browser(880, 152, 570, 320)}
 </svg>`;
 
+/* ---- Facebook Group: 1640x856. Same layout as the Page cover above,
+   shifted down 116px (half of the 232px height difference) to stay
+   vertically centred, with a mirrored accent bar along the bottom edge. ---- */
+const facebookGroup = `<svg xmlns="http://www.w3.org/2000/svg" width="1640" height="856" viewBox="0 0 1640 856">
+  ${defs}
+  <rect width="1640" height="856" fill="#0b0a10"/>
+  <rect width="1640" height="856" fill="url(#g1)"/>
+  <rect width="1640" height="856" fill="url(#g2)"/>
+  <rect width="1640" height="856" fill="url(#dots)"/>
+  <rect width="1640" height="8" fill="url(#accent)"/>
+  <rect y="848" width="1640" height="8" fill="url(#accent)"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <text x="190" y="306" fill="#f7f3ec" font-size="34" font-weight="700" letter-spacing="6">FACEBOOK GROUP</text>
+    <text x="190" y="394" fill="#f7f3ec" font-size="42" font-weight="700">I need a Simple website /</text>
+    <text x="190" y="454" fill="url(#accent)" font-size="42" font-weight="700">Elevven11 Studio</text>
+    <text x="190" y="502" fill="#a79f95" font-size="24">Get your website built. Meet other owners.</text>
+    ${pills(['Website help', 'Networking', 'Member offers'], 190, 530, 22, 20)}
+    <text x="190" y="632" fill="#7a7268" font-size="22">elevven11studio.github.io</text>
+  </g>
+  ${browser(880, 268, 570, 320)}
+</svg>`;
+
 /* ---- LinkedIn: 1128x376. Bottom-left is reserved for the company logo
    overlay, so the text block starts further right. ---- */
 const linkedin = `<svg xmlns="http://www.w3.org/2000/svg" width="1128" height="376" viewBox="0 0 1128 376">
@@ -132,7 +163,7 @@ const linkedin = `<svg xmlns="http://www.w3.org/2000/svg" width="1128" height="3
 </svg>`;
 
 (async () => {
-  for (const [name, svg] of [['cover-facebook', facebook], ['cover-linkedin', linkedin]]) {
+  for (const [name, svg] of [['cover-facebook', facebook], ['cover-facebook-group', facebookGroup], ['cover-linkedin', linkedin]]) {
     const f = path.join(OUT, name + '.png');
     await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toFile(f);
     fs.writeFileSync(path.join(OUT, name + '.svg'), svg);

@@ -10,6 +10,11 @@
     <radialGradient id="g2" cx="96%" cy="96%" r="60%">
       <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.15"/><stop offset="100%" stop-color="#2dd4bf" stop-opacity="0"/>
     </radialGradient>
+    <!-- Matches the site's own section::before dot-grid background-image
+         (style.css): 1.5px radius dots on a 28x28 grid. -->
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.5" fill="rgba(247,243,236,0.09)"/>
+    </pattern>
   </defs>
   <rect width="1128" height="376" fill="#0b0a10"/>
   <rect width="1128" height="376" fill="url(#g1)"/>
