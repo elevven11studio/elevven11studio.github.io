@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Agent Link Generator - Elevven11 Studio</title>
+
+	<meta name="description" content="Internal tool for building an agent's personal referral welcome link." />
+	<!-- Internal tool, not a page for visitors - nothing here to offer a
+	     searcher, and not linked from navigation anywhere on the site. Kept
+	     out of sitemap.xml for the same reason. This is "private" only in the
+	     sense of being unlinked and unindexed - anyone with the exact URL can
+	     still open it, since the site has no login. -->
+	<meta name="robots" content="noindex, nofollow" />
+
+	<!-- Favicon -->
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta name="theme-color" content="#0b0a10" />
+
+	<!-- Fonts. Linked here rather than @import-ed from style.css so the browser
+	     can start the font request immediately, in parallel with the stylesheet,
+	     instead of waiting for style.css to download and parse first. -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" />
+	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+	<script>
+		// Applied before paint so a light-mode visitor never sees a dark flash.
+		(function () {
+			try {
+				if (localStorage.getItem('e11-theme') === 'light') {
+					document.documentElement.setAttribute('data-theme', 'light');
+				}
+			} catch (e) { /* private mode: stay on the dark default */ }
+		})();
+	</script>
+</head>
+
+<body>
+
+	<a class="skip-link" href="#main">Skip to main content</a>
+
+	<header>
+		<div class="container navbar">
+			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+			<ul class="nav-links">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item"><a href="/agents/">Agents</a></li>
+			</ul>
+			<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+				<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+				<svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>
+			</button>
+			<div class="hamburger">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+	</header>
+
+	<main id="main">
+
+	<section class="hero" style="min-height: 35vh;">
+		<div class="hero-content container">
+			<h1 class="hero-title">Agent Link <strong>Generator</strong></h1>
+			<p class="hero-tagline">Internal tool. Type an agent's name and their referral code to build their
+				welcome link, then copy and send it.</p>
+		</div>
+	</section>
+
+	<section style="padding-top: 0;">
+		<div class="container" style="max-width: 640px;">
+			<div class="glass-card">
+				<div class="form-group">
+					<label class="form-label" for="gen-name">Agent Name</label>
+					<input class="form-input" id="gen-name" type="text" placeholder="e.g. Kpete Daniel" data-gen-name />
+				</div>
+
+				<div class="form-group" style="margin-bottom: 0;">
+					<label class="form-label" for="gen-code">Referral Code</label>
+					<input class="form-input" id="gen-code" type="text" placeholder="e.g. DAN508" data-gen-code />
+				</div>
+			</div>
+
+			<div class="glass-card" style="margin-top: 1.5rem;">
+				<p style="color: var(--text-muted); margin: 0;" data-gen-empty>Fill in both fields above to generate
+					the link.</p>
+
+				<div data-gen-output hidden>
+					<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.1rem;">Their welcome link</h2>
+					<div class="code-copy-block" style="margin-bottom: 1.25rem;">
+						<code id="gen-link" class="code-copy-text" data-gen-link>&mdash;</code>
+						<button type="button" class="copy-btn" data-copy="#gen-link" data-copy-label="Copy link" aria-label="Copy link">
+							<svg class="icon-copy" viewBox="0 0 24 24" aria-hidden="true">
+								<rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2" />
+								<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2" />
+							</svg>
+							<svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+						</button>
+					</div>
+					<a href="#" target="_blank" rel="noopener" class="btn btn-secondary" style="width: 100%;" data-gen-open>Preview It</a>
+				</div>
+			</div>
+
+			<p style="text-align:center; color: var(--text-muted); font-size: 0.8rem; margin-top: 1.5rem;">
+				Not password-protected &mdash; anyone with this exact page URL could open it. Don't share this
+				link publicly.
+			</p>
+		</div>
+	</section>
+
+	</main>
+
+	<script src="/assets/main.js"></script>
+</body>
+
+</html>

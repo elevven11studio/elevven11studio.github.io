@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSendSplit();
   initThankYou();
   initAgentCodePage();
+  initAgentLinkGenerator();
   initGetStartedForm();
   initGeoLocalization();
   initContactFab();
@@ -29,6 +30,153 @@ const WHATSAPP_NUMBER = '2349120925909';
 
 // Opens a new conversation with the page directly in Messenger.
 const MESSENGER_LINK = 'https://m.me/Elevven11Studio';
+
+/**
+ * Printable/shareable summary images for the three forms below - a receipt-
+ * style PNG of what was submitted, built on <canvas> rather than a PDF
+ * library so there's no new dependency. Three things use it:
+ *   - A "Download a summary" link added to the success message after a
+ *     WhatsApp/email handoff, and to the thank-you page after a direct send
+ *     (see goToThankYou's optional third argument).
+ *   - The WhatsApp channel, which tries handing the image + a caption to the
+ *     device's native share sheet (where WhatsApp shows up if installed)
+ *     before falling back to the existing text-only wa.me link.
+ * Everything here is synchronous (toDataURL, not the async toBlob) so the
+ * WhatsApp fallback's window.open() stays inside the same click-handler tick
+ * that started it - breaking that chain is what gets a window.open() eaten
+ * by the popup blocker.
+ */
+function renderSummaryImage(subtitle, rows) {
+  const width = 720;
+  const padding = 40;
+  const lineHeight = 26;
+  const labelFont = '600 14px Arial, sans-serif';
+  const valueFont = '400 15px Arial, sans-serif';
+  const maxTextWidth = width - padding * 2;
+
+  const measure = document.createElement('canvas').getContext('2d');
+
+  function wrap(text) {
+    const words = String(text).split(' ');
+    const out = [];
+    let line = '';
+    words.forEach((w) => {
+      const test = line ? line + ' ' + w : w;
+      if (measure.measureText(test).width > maxTextWidth && line) {
+        out.push(line);
+        line = w;
+      } else {
+        line = test;
+      }
+    });
+    if (line) out.push(line);
+    return out;
+  }
+
+  const drawRows = [];
+  rows.forEach(({ label, value }) => {
+    if (!value) return;
+    measure.font = labelFont;
+    drawRows.push({ font: labelFont, color: '#8a8175', text: label });
+    measure.font = valueFont;
+    wrap(value).forEach((line) => drawRows.push({ font: valueFont, color: '#1f1b16', text: line }));
+    drawRows.push({ gap: true });
+  });
+
+  const headerHeight = 118;
+  const footerHeight = 40;
+  const height = headerHeight + drawRows.length * lineHeight + footerHeight;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, width, height);
+  ctx.fillStyle = '#22c55e';
+  ctx.fillRect(0, 0, width, 6);
+
+  ctx.fillStyle = '#0b0a10';
+  ctx.font = '700 24px Arial, sans-serif';
+  ctx.fillText('Elevven11 Studio', padding, 52);
+  ctx.fillStyle = '#5d564b';
+  ctx.font = '400 15px Arial, sans-serif';
+  ctx.fillText(subtitle, padding, 78);
+  ctx.strokeStyle = '#e5e0d5';
+  ctx.beginPath();
+  ctx.moveTo(padding, 98);
+  ctx.lineTo(width - padding, 98);
+  ctx.stroke();
+
+  let y = headerHeight;
+  drawRows.forEach((row) => {
+    if (row.gap) { y += lineHeight * 0.4; return; }
+    ctx.fillStyle = row.color;
+    ctx.font = row.font;
+    ctx.fillText(row.text, padding, y);
+    y += lineHeight;
+  });
+
+  ctx.fillStyle = '#8a8175';
+  ctx.font = '400 12px Arial, sans-serif';
+  ctx.fillText('elevven11studio.github.io  ·  ' + new Date().toLocaleString(), padding, height - 16);
+
+  return canvas;
+}
+
+/** Synchronous: a data: URL needs no Blob or object-URL cleanup, and keeps
+ * the whole call chain synchronous with whatever click triggered it. */
+function downloadCanvas(canvas, filename) {
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+function dataUrlToBlob(dataUrl) {
+  const [meta, b64] = dataUrl.split(',');
+  const mime = meta.match(/:(.*?);/)[1];
+  const bin = atob(b64);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+
+function canvasToFile(canvas, filename) {
+  return new File([dataUrlToBlob(canvas.toDataURL('image/png'))], filename, { type: 'image/png' });
+}
+
+/**
+ * Tries the WhatsApp channel via the device's native share sheet (image +
+ * caption together) and returns true if that sheet opened. Callers fall back
+ * to the plain wa.me text link when this returns false - desktop browsers
+ * and anything lacking file-sharing support all take that path, so nothing
+ * regresses for them.
+ */
+function tryShareToWhatsApp(canvas, filename, text) {
+  if (!navigator.canShare) return false;
+  const file = canvasToFile(canvas, filename);
+  if (!navigator.canShare({ files: [file] })) return false;
+  navigator.share({ files: [file], text }).catch(() => { /* cancelled - nothing to recover */ });
+  return true;
+}
+
+/** Adds a "Download a summary" link to a success message box, once - safe to
+ * call every time a success message is shown without piling up duplicates. */
+function addSummaryDownload(container, subtitle, rows, filename) {
+  if (!container || container.querySelector('[data-summary-download]')) return;
+  const link = document.createElement('button');
+  link.type = 'button';
+  link.setAttribute('data-summary-download', '');
+  link.textContent = 'Download a summary of this';
+  link.style.cssText = 'display:inline-block; margin-top:0.75rem; background:none; border:none; padding:0; '
+    + 'font:inherit; text-decoration:underline; color:inherit; cursor:pointer; opacity:0.85;';
+  link.addEventListener('click', () => downloadCanvas(renderSummaryImage(subtitle, rows), filename));
+  container.appendChild(link);
+}
 
 /**
  * Lead capture, via Web3Forms.
@@ -108,15 +256,19 @@ function confirmLeadStored(saved, el) {
  * purpose: a ?name= would show up in GA4's page reports, in browser history
  * and in any referrer header, which is no place for someone's name. This
  * keeps it in the tab, where it is read once and immediately discarded.
+ * summary (optional) is {subtitle, rows, filename} for the same "download a
+ * summary" link the WhatsApp/email handoffs show - the direct-send route
+ * skips those success messages entirely (it redirects here instead), so this
+ * is how it still offers the same download.
  *
  * location.replace rather than assign, so Back doesn't return to a form that
  * has already been submitted.
  */
 const THANKS_KEY = 'e11_thanks';
 
-function goToThankYou(name, from) {
+function goToThankYou(name, from, summary) {
   try {
-    sessionStorage.setItem(THANKS_KEY, JSON.stringify({ name: name, from: from }));
+    sessionStorage.setItem(THANKS_KEY, JSON.stringify({ name: name, from: from, summary: summary || null }));
   } catch (e) { /* private mode - the page falls back to its generic copy */ }
   window.location.replace('/thank-you/');
 }
@@ -157,6 +309,11 @@ function initThankYou() {
   if (step2 && data.from === 'get-started') {
     step2.textContent = 'We confirm the package, the price and the timeline, '
       + 'then collect your content (text, photos, logo).';
+  }
+
+  if (data.summary) {
+    const summaryEl = document.querySelector('[data-thanks-summary]');
+    if (summaryEl) addSummaryDownload(summaryEl, data.summary.subtitle, data.summary.rows, data.summary.filename);
   }
 
   // The conversion itself. The pageview is what you'd mark as the GA4
@@ -200,6 +357,45 @@ function initAgentCodePage() {
   if (section) section.hidden = false;
   const empty = document.querySelector('[data-code-empty]');
   if (empty) empty.hidden = true;
+}
+
+/**
+ * Private agent-link generator (/agents/generate/). Not indexed or linked
+ * from navigation anywhere on the site - a small tool for building the
+ * /agents/code/ welcome link for an agent without hand-encoding their name
+ * into a URL. Everything happens client-side; nothing is sent anywhere.
+ */
+function initAgentLinkGenerator() {
+  const nameInput = document.querySelector('[data-gen-name]');
+  if (!nameInput) return;
+
+  const codeInput = document.querySelector('[data-gen-code]');
+  const output = document.querySelector('[data-gen-output]');
+  const empty = document.querySelector('[data-gen-empty]');
+  const linkEl = document.querySelector('[data-gen-link]');
+  const openLink = document.querySelector('[data-gen-open]');
+
+  function update() {
+    const name = nameInput.value.trim();
+    const code = codeInput.value.trim();
+
+    if (!name || !code) {
+      if (output) output.hidden = true;
+      if (empty) empty.hidden = false;
+      return;
+    }
+
+    const url = 'https://elevven11studio.github.io/agents/code/?name='
+      + encodeURIComponent(name) + '&code=' + encodeURIComponent(code);
+
+    if (linkEl) linkEl.textContent = url;
+    if (openLink) openLink.href = url;
+    if (empty) empty.hidden = true;
+    if (output) output.hidden = false;
+  }
+
+  nameInput.addEventListener('input', update);
+  codeInput.addEventListener('input', update);
 }
 
 /**
@@ -751,6 +947,25 @@ function initGetStartedForm() {
         referral_code: get('referral'),
         terms_agreed: get('agreeTerms') ? 'yes' : 'no',
       },
+      summary: {
+        subtitle: 'Website Request Summary',
+        filename: 'elevven11-website-request.png',
+        rows: [
+          { label: 'Name', value: get('name') },
+          { label: 'Business/Person name', value: get('business') },
+          { label: 'Phone', value: get('phone') },
+          { label: 'Email', value: get('email') },
+          { label: 'Location', value: get('location') },
+          { label: 'Package', value: packageText },
+          { label: 'Add-ons', value: addonNames.join(', ') },
+          { label: 'Estimated total', value: addonNames.length ? totalText : '' },
+          { label: 'Example style', value: get('exampleType') },
+          { label: 'About the business', value: get('description') },
+          { label: 'Style vibe', value: get('styleMood') },
+          { label: 'Preferred colors', value: get('colors') },
+          { label: 'More on colors/style', value: get('colorsNotes') },
+        ],
+      },
     };
   }
 
@@ -776,7 +991,7 @@ function initGetStartedForm() {
         // The request is in. Drop the autosaved copy first - otherwise a
         // return visit refills the form with a request already sent.
         deleteCookie(FORM_DATA_COOKIE);
-        goToThankYou(get('name'), 'get-started');
+        goToThankYou(get('name'), 'get-started', composed.summary);
       } else {
         feedback.failed();
       }
@@ -795,8 +1010,20 @@ function initGetStartedForm() {
       Object.assign({ chosen_channel: channel }, composed.fields)
     );
 
+    let sharedToWhatsApp = false;
     if (channel === 'whatsapp') {
-      window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(body), '_blank');
+      // Tries the device's native share sheet first (image + text together,
+      // WhatsApp shows up there if installed) - see tryShareToWhatsApp. Only
+      // reaches window.open() when that isn't supported, so the popup-blocker-
+      // sensitive call stays in the same synchronous tick as this click either way.
+      sharedToWhatsApp = tryShareToWhatsApp(
+        renderSummaryImage(composed.summary.subtitle, composed.summary.rows),
+        composed.summary.filename,
+        body
+      );
+      if (!sharedToWhatsApp) {
+        window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(body), '_blank');
+      }
     } else {
       // Anchor click rather than location.href: iOS Safari can block
       // programmatic mailto: navigation, and a popup leaves a blank tab.
@@ -814,12 +1041,15 @@ function initGetStartedForm() {
     const errorMsg = document.querySelector('.form-error-msg');
     if (errorMsg) errorMsg.style.display = 'none';
     if (successMsg) {
-      successMsg.textContent = channel === 'whatsapp'
+      successMsg.textContent = sharedToWhatsApp
+        ? `Thanks, ${get('name')}! Pick WhatsApp from the share menu to send your details.`
+        : channel === 'whatsapp'
         ? `Thanks, ${get('name')}! WhatsApp should have opened with your details filled in — just hit send there to reach us.`
         : `Thanks, ${get('name')}! Your email app should have opened with your details filled in — just hit send there to reach us.`;
       successMsg.style.display = 'block';
       successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
       confirmLeadStored(saved, successMsg);
+      addSummaryDownload(successMsg, composed.summary.subtitle, composed.summary.rows, composed.summary.filename);
     }
   }
 
@@ -1243,23 +1473,37 @@ function initContactForm() {
         topic: get('topic'),
         message: get('message'),
       },
+      summary: {
+        subtitle: 'Enquiry Summary',
+        filename: 'elevven11-enquiry.png',
+        rows: [
+          { label: 'Name', value: get('name') },
+          { label: 'Email', value: get('email') },
+          { label: 'Phone/WhatsApp', value: get('phone') },
+          { label: 'About', value: get('topic') },
+          { label: 'Message', value: get('message') },
+        ],
+      },
     };
   }
 
   const mainBtn = form.querySelector('.send-split-main');
   const feedback = directSendFeedback(form, mainBtn);
 
-  function done(channel, saved) {
+  function done(channel, saved, summary, sharedToWhatsApp) {
     const msg = form.parentElement.querySelector('.form-success-msg');
     const err = form.parentElement.querySelector('.form-error-msg');
     if (err) err.style.display = 'none';
     if (!msg) return;
-    msg.textContent = channel === 'whatsapp'
+    msg.textContent = sharedToWhatsApp
+      ? 'Thanks, ' + get('name') + '! Pick WhatsApp from the share menu to send your message.'
+      : channel === 'whatsapp'
       ? 'Thanks, ' + get('name') + '! WhatsApp should have opened with your message ready \u2014 press send there to reach us.'
       : 'Thanks, ' + get('name') + '! Your email app should have opened with the message ready \u2014 press send there to reach us.';
     msg.style.display = 'block';
     msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
     confirmLeadStored(saved, msg);
+    addSummaryDownload(msg, summary.subtitle, summary.rows, summary.filename);
   }
 
   /** The default route: delivered here, on the page. Awaited - see recordLead. */
@@ -1273,7 +1517,7 @@ function initContactForm() {
       Object.assign({ chosen_channel: 'direct' }, composed.fields)
     ).then((res) => {
       finish();
-      if (res.ok) goToThankYou(get('name'), 'contact');
+      if (res.ok) goToThankYou(get('name'), 'contact', composed.summary);
       else feedback.failed();
     });
   }
@@ -1296,8 +1540,19 @@ function initContactForm() {
         Object.assign({ chosen_channel: channel }, composed.fields)
       );
 
+      let sharedToWhatsApp = false;
       if (channel === 'whatsapp') {
-        window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(body), '_blank');
+        // See the matching comment on the Get Started form - tries the native
+        // share sheet (image + text) first, falls back to the text-only link
+        // in the same synchronous tick when that isn't supported.
+        sharedToWhatsApp = tryShareToWhatsApp(
+          renderSummaryImage(composed.summary.subtitle, composed.summary.rows),
+          composed.summary.filename,
+          body
+        );
+        if (!sharedToWhatsApp) {
+          window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(body), '_blank');
+        }
       } else {
         const subject = 'Website enquiry: ' + get('topic');
         // A synthesised anchor click rather than window.location.href: iOS
@@ -1312,7 +1567,7 @@ function initContactForm() {
         a.click();
         a.remove();
       }
-      done(channel, saved);
+      done(channel, saved, composed.summary, sharedToWhatsApp);
     });
   });
 }
@@ -1377,23 +1632,37 @@ function initAgentForm() {
         notes: get('notes'),
         agreed_terms: get('agreeTerms') ? 'yes' : 'no',
       },
+      summary: {
+        subtitle: 'Agent Application Summary',
+        filename: 'elevven11-agent-application.png',
+        rows: [
+          { label: 'Name', value: get('name') },
+          { label: 'WhatsApp', value: get('phone') },
+          { label: 'Email', value: get('email') },
+          { label: 'Detected country', value: country || '' },
+          { label: 'Notes', value: get('notes') },
+        ],
+      },
     };
   }
 
   const mainBtn = form.querySelector('.send-split-main');
   const feedback = directSendFeedback(form, mainBtn);
 
-  function done(channel, saved) {
+  function done(channel, saved, summary, sharedToWhatsApp) {
     const msg = form.parentElement.querySelector('.form-success-msg');
     const err = form.parentElement.querySelector('.form-error-msg');
     if (err) err.style.display = 'none';
     if (!msg) return;
-    msg.textContent = channel === 'whatsapp'
+    msg.textContent = sharedToWhatsApp
+      ? 'Thanks, ' + get('name') + '! Pick WhatsApp from the share menu to send your application.'
+      : channel === 'whatsapp'
       ? 'Thanks, ' + get('name') + '! WhatsApp should have opened with your application ready — press send there to reach us.'
       : 'Thanks, ' + get('name') + '! Your email app should have opened with the application ready — press send there to reach us.';
     msg.style.display = 'block';
     msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
     confirmLeadStored(saved, msg);
+    addSummaryDownload(msg, summary.subtitle, summary.rows, summary.filename);
   }
 
   /** The default route: delivered here, on the page. Awaited - see recordLead. */
@@ -1407,7 +1676,7 @@ function initAgentForm() {
       Object.assign({ chosen_channel: 'direct' }, composed.fields)
     ).then((res) => {
       finish();
-      if (res.ok) goToThankYou(get('name'), 'agents');
+      if (res.ok) goToThankYou(get('name'), 'agents', composed.summary);
       else feedback.failed();
     });
   }
@@ -1427,8 +1696,19 @@ function initAgentForm() {
         Object.assign({ chosen_channel: channel }, composed.fields)
       );
 
+      let sharedToWhatsApp = false;
       if (channel === 'whatsapp') {
-        window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(body), '_blank');
+        // See the matching comment on the Get Started form - tries the native
+        // share sheet (image + text) first, falls back to the text-only link
+        // in the same synchronous tick when that isn't supported.
+        sharedToWhatsApp = tryShareToWhatsApp(
+          renderSummaryImage(composed.summary.subtitle, composed.summary.rows),
+          composed.summary.filename,
+          body
+        );
+        if (!sharedToWhatsApp) {
+          window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(body), '_blank');
+        }
       } else {
         // Anchor click rather than location.href: iOS Safari can block
         // programmatic mailto: navigation, and a popup leaves a blank tab.
@@ -1441,7 +1721,7 @@ function initAgentForm() {
         a.click();
         a.remove();
       }
-      done(channel, saved);
+      done(channel, saved, composed.summary, sharedToWhatsApp);
     });
   });
 }
