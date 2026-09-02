@@ -29,6 +29,13 @@ const EXPECTED = [
   { file: 'assets/qr/site.png', mustContain: 'github.io/?' },
   { file: 'assets/qr/agents.png', mustContain: 'github.io/agents/?' },
   { file: 'assets/qr/get-started.png', mustContain: 'github.io/get-started/?' },
+  // The WebP copies are what the contact and agents pages actually display, so
+  // they are the ones people scan. Encoded lossless, but check them rather than
+  // assume it - a re-encode is exactly the kind of change that quietly softens
+  // the module edges.
+  { file: 'assets/qr/site.webp', mustContain: 'github.io/?' },
+  { file: 'assets/qr/agents.webp', mustContain: 'github.io/agents/?' },
+  { file: 'assets/qr/get-started.webp', mustContain: 'github.io/get-started/?' },
 ];
 
 // Rendered at these widths (aspect preserved); the smallest that still decodes tells

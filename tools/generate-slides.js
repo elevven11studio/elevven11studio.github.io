@@ -2,10 +2,14 @@
  * Builds the picture-slider images used on the agents, how-it-works, faq and
  * contact pages.
  *
- *   assets/slides/agents/1..5.png          how to become a referral agent
- *   assets/slides/how-it-works/1..N.png    the delivery process
- *   assets/slides/faq/1..N.png             common questions
- *   assets/slides/contact/1..N.png         ways to reach us
+ *   assets/slides/agents/1..5.{png,webp}          how to become a referral agent
+ *   assets/slides/how-it-works/1..N.{png,webp}    the delivery process
+ *   assets/slides/faq/1..N.{png,webp}             common questions
+ *   assets/slides/contact/1..N.{png,webp}         ways to reach us
+ *
+ * Each slide is written twice. The pages load the .webp, which is about half
+ * the bytes; the .png is kept as the master the contact sheet and the flat
+ * singles/ copies are built from, and as something that opens anywhere.
  *
  * Everything except the agents set is PARSED OUT OF THE LIVE PAGES, so the
  * slides cannot drift from the copy they illustrate. Edit the page, re-run
@@ -297,6 +301,14 @@ const AGENTS = [
       bytes += fs.statSync(file).size;
       total++;
 
+      // What the page actually loads. Roughly half the PNG at a quality the
+      // slide type survives - these are crisp text on flat colour, which is
+      // where lossy encoders normally ring, so 95 rather than the usual 80.
+      // The PNG stays: the contact sheet composites from it, and the singles
+      // below are copies of it.
+      await sharp(file).webp({ quality: 95, effort: 6 })
+        .toFile(path.join(dir, s.index + '.webp'));
+
       // Flat, self-describing copy for sharing one step at a time. The
       // numbered files above stay exactly as they are because the page markup
       // points at them; these exist because "1.png" tells you nothing once it
@@ -308,7 +320,7 @@ const AGENTS = [
     }
     fs.writeFileSync(path.join(dir, 'manifest.json'), JSON.stringify(slides.map((s) => ({
       index: s.index,
-      src: '/assets/slides/' + name + '/' + s.index + '.png',
+      src: '/assets/slides/' + name + '/' + s.index + '.webp',
       alt: s.eyebrow + ': ' + s.title + ' — ' + s.body.join(' ').replace(/…$/, ''),
     })), null, 2) + '\n', 'utf8');
     // One combined PNG per set, so the whole sequence can be shared as a single

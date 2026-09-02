@@ -1,52 +1,52 @@
 [
   {
     "index": 1,
-    "src": "/assets/slides/how-it-works/1.png",
+    "src": "/assets/slides/how-it-works/1.webp",
     "alt": "STEP 1 OF 10: Choose a package — Starter, Plus, or Custom based on what you need."
   },
   {
     "index": 2,
-    "src": "/assets/slides/how-it-works/2.png",
+    "src": "/assets/slides/how-it-works/2.webp",
     "alt": "STEP 2 OF 10: Submit requirements — Fill out the Get Started form with your details."
   },
   {
     "index": 3,
-    "src": "/assets/slides/how-it-works/3.png",
+    "src": "/assets/slides/how-it-works/3.webp",
     "alt": "STEP 3 OF 10: Payment — Confirm your order to begin work."
   },
   {
     "index": 4,
-    "src": "/assets/slides/how-it-works/4.png",
+    "src": "/assets/slides/how-it-works/4.webp",
     "alt": "STEP 4 OF 10: Content collection — Send your text, images, logo, and links."
   },
   {
     "index": 5,
-    "src": "/assets/slides/how-it-works/5.png",
+    "src": "/assets/slides/how-it-works/5.webp",
     "alt": "STEP 5 OF 10: Development — Your website is built using our template system."
   },
   {
     "index": 6,
-    "src": "/assets/slides/how-it-works/6.png",
+    "src": "/assets/slides/how-it-works/6.webp",
     "alt": "STEP 6 OF 10: Customer review — You review the site and request revisions."
   },
   {
     "index": 7,
-    "src": "/assets/slides/how-it-works/7.png",
+    "src": "/assets/slides/how-it-works/7.webp",
     "alt": "STEP 7 OF 10: Updates & revisions — We adjust the site based on your feedback."
   },
   {
     "index": 8,
-    "src": "/assets/slides/how-it-works/8.png",
+    "src": "/assets/slides/how-it-works/8.webp",
     "alt": "STEP 8 OF 10: Deployment — The website is published and made live."
   },
   {
     "index": 9,
-    "src": "/assets/slides/how-it-works/9.png",
+    "src": "/assets/slides/how-it-works/9.webp",
     "alt": "STEP 9 OF 10: Delivered — Your website is online and ready to share."
   },
   {
     "index": 10,
-    "src": "/assets/slides/how-it-works/10.png",
+    "src": "/assets/slides/how-it-works/10.webp",
     "alt": "STEP 10 OF 10: Free update period — Your package's free update window begins."
   }
 ]

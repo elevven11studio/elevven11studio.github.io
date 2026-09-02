@@ -161,20 +161,20 @@
 				<form class="agent-form">
 					<div class="form-group">
 						<label class="form-label" for="ag-name">Your Name *</label>
-						<input class="form-input" id="ag-name" name="name" type="text" placeholder="Your full name"
-							required />
+						<input class="form-input" id="ag-name" name="name" type="text" autocomplete="name"
+							placeholder="Your full name" required />
 					</div>
 
 					<div class="grid-2">
 						<div class="form-group">
 							<label class="form-label" for="ag-phone">WhatsApp Number *</label>
-							<input class="form-input" id="ag-phone" name="phone" type="tel" placeholder="+234..."
-								required />
+							<input class="form-input" id="ag-phone" name="phone" type="tel" autocomplete="tel"
+								placeholder="+234..." required />
 						</div>
 						<div class="form-group">
 							<label class="form-label" for="ag-email">Email *</label>
 							<input class="form-input" id="ag-email" name="email" type="email"
-								placeholder="you@example.com" required />
+								autocomplete="email" placeholder="you@example.com" required />
 						</div>
 					</div>
 
@@ -242,23 +242,23 @@
 			<div class="slider" data-slider="How to become a referral agent">
 				<div class="slider-track">
 					<div class="slider-slide">
-						<img src="/assets/slides/agents/1.png" alt="STEP 1 OF 5: Apply to join — Message us on WhatsApp or fill in the Google Form. Takes about two minutes."
+						<img src="/assets/slides/agents/1.webp" alt="STEP 1 OF 5: Apply to join — Message us on WhatsApp or fill in the Google Form. Takes about two minutes."
 							width="1200" height="675" loading="eager" />
 					</div>
 					<div class="slider-slide">
-						<img src="/assets/slides/agents/2.png" alt="STEP 2 OF 5: Get your code — We send you a referral code that identifies every customer you bring."
+						<img src="/assets/slides/agents/2.webp" alt="STEP 2 OF 5: Get your code — We send you a referral code that identifies every customer you bring."
 							width="1200" height="675" loading="lazy" />
 					</div>
 					<div class="slider-slide">
-						<img src="/assets/slides/agents/3.png" alt="STEP 3 OF 5: Share your link — Send your link to anyone who needs a website. Post it anywhere."
+						<img src="/assets/slides/agents/3.webp" alt="STEP 3 OF 5: Share your link — Send your link to anyone who needs a website. Post it anywhere."
 							width="1200" height="675" loading="lazy" />
 					</div>
 					<div class="slider-slide">
-						<img src="/assets/slides/agents/4.png" alt="STEP 4 OF 5: We build it — Requirements, design, development, deployment and support. All handled."
+						<img src="/assets/slides/agents/4.webp" alt="STEP 4 OF 5: We build it — Requirements, design, development, deployment and support. All handled."
 							width="1200" height="675" loading="lazy" />
 					</div>
 					<div class="slider-slide">
-						<img src="/assets/slides/agents/5.png" alt="STEP 5 OF 5: You get paid — Your commission is paid once the customer completes payment."
+						<img src="/assets/slides/agents/5.webp" alt="STEP 5 OF 5: You get paid — Your commission is paid once the customer completes payment."
 							width="1200" height="675" loading="lazy" />
 					</div>
 				</div>
@@ -410,12 +410,14 @@
 			<div class="section-tag" style="display:block; text-align:center;">Share The Programme</div>
 			<h2 class="section-title">A QR code for the agent programme</h2>
 			<div class="glass-card" style="text-align: center;">
-				<img src="/assets/qr/agents.png" alt="QR code that opens the Elevven11 Studio referral agent page"
+				<img src="/assets/qr/agents.webp" alt="QR code that opens the Elevven11 Studio referral agent page"
 					width="512" height="512" loading="lazy"
 					style="width: 200px; max-width: 60%; height: auto; border-radius: 14px; margin-left: auto; margin-right: auto;" />
 				<p style="color: var(--text-secondary); margin-top: 1.25rem;">Scanning this opens the agent programme page. Show it to anyone who might want to refer people. To send customers to a form that credits you, use your own referral link above instead — this code carries no agent code.</p>
 				<p style="margin-top: 1rem;">
-					<a href="/assets/qr/agents.png" download style="color: var(--accent-gold);">Download the QR code</a>
+					<a href="/assets/qr/agents.png" download
+						style="color: var(--accent-gold); display: inline-flex; align-items: center; min-height: 24px;">Download
+						the QR code</a>
 				</p>
 			</div>
 		</div>

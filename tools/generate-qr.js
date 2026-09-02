@@ -6,6 +6,11 @@
  *   assets/qr/agents.png       -> the referral programme
  *   assets/qr/get-started.png  -> the order form
  *
+ * Each is written twice. The pages display the .webp (lossless, so every module
+ * stays exactly square and the code still scans, at roughly a sixth of the
+ * bytes); the .png stays because that is what the "download the QR code" links
+ * hand over, and a PNG opens and prints anywhere.
+ *
  * Dark-on-white with a wide quiet zone; an inverted code on the dark brand
  * background scans far less reliably. Each is tagged utm_medium=qr so scans are
  * separable from ordinary traffic in GA4.
@@ -56,7 +61,13 @@ const TARGETS = [
       .png({ compressionLevel: 9 })
       .toFile(file);
 
-    console.log(t.name.padEnd(14) + Math.round(fs.statSync(file).size / 1024) + 'K  -> ' + t.url);
+    const webp = path.join(OUT, t.name + '.webp');
+    await sharp(file).webp({ lossless: true, effort: 6 }).toFile(webp);
+
+    console.log(t.name.padEnd(14)
+      + (Math.round(fs.statSync(file).size / 1024) + 'K png').padEnd(9)
+      + (Math.round(fs.statSync(webp).size / 1024) + 'K webp').padEnd(10)
+      + '-> ' + t.url);
   }
 
   console.log('\n' + TARGETS.length + ' QR codes at ' + SIZE + 'x' + SIZE);

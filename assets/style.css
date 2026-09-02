@@ -164,6 +164,21 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.25;
 }
 
+/* Keyboard focus, site-wide floor.
+
+   Several components below set outline:none and replace it with their own
+   ring (.btn, .send-split-option, .theme-toggle, .slider-btn). This rule is
+   the floor for everything that does not: nav links, footer links, inline
+   links, the slider dots, the copy buttons. A single class in those selectors
+   is enough to beat this one, so it never overrides a deliberate treatment.
+
+   :focus-visible, not :focus, so a mouse click on a button does not leave a
+   ring behind. */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
 /* Skip link: the first focusable element on every page, so a keyboard or
    screen-reader visitor can jump the eight-item nav instead of tabbing it on
    every page load. Kept off-screen rather than display:none, since a hidden
@@ -528,10 +543,16 @@ header.scrolled {
 }
 
 /* Contact isn't a branded channel, so it takes a site accent rather than a
-   logo colour - teal keeps it visually distinct from the other three pills. */
+   logo colour - teal keeps it visually distinct from the other three pills.
+
+   The label follows --on-accent instead of a fixed near-black. --accent-purple
+   is a bright teal on dark (#2dd4bf) and a deep one on light (#0d7d72), so no
+   single ink clears AA on both: #06210f measured only 3.40:1 on the light
+   theme's teal. Near-black on the dark teal is 9.1:1, white on the light teal
+   5.0:1, which is what --on-accent already resolves to in each theme. */
 .fab-action-contact {
   background: var(--accent-purple);
-  color: #06210f;
+  color: var(--on-accent);
 }
 
 .fab-action-website {
@@ -989,6 +1010,18 @@ header.scrolled {
   background: var(--bg-tertiary);
 }
 
+/* The border and glow above are a colour change on a hairline, which is easy
+   to miss on a form of five identical boxes - and it reads as decoration
+   rather than position to anyone who cannot separate the two greens. Keyboard
+   focus gets a real ring on top of it; pointer focus keeps the quieter
+   border-only treatment. */
+.form-input:focus-visible,
+.form-select:focus-visible,
+.form-textarea:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 .form-select {
   appearance: none;
   -webkit-appearance: none;
@@ -1313,6 +1346,17 @@ header.scrolled {
 .contact-info-text p, .contact-info-text a { font-size: 0.98rem; color: var(--text-secondary); }
 .contact-info-text a:hover { color: var(--accent-gold); }
 
+/* These are the page's primary actions on a phone - tap to mail, tap to call,
+   tap to open WhatsApp - but as bare inline links they were only 20px tall,
+   under the ~24px a fingertip hits reliably. inline-flex with a min-height
+   grows the box without moving the text: the extra 4px is split above and
+   below the same baseline. */
+.contact-info-text p a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+
 /* Badges */
 .badge-strip {
   display: flex;
@@ -1542,43 +1586,72 @@ footer a:hover { color: var(--accent-gold); }
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  /* No gap. Each dot button is now a 24px touch target with the visible 10px
+     dot painted inside it, so the buttons already sit 14px apart visually and
+     can touch edge to edge without the dots looking crowded. */
+  gap: 0;
   margin-top: 1.25rem;
   margin-bottom: 0.25rem;
 }
 
+/* The button is the touch target, not the dot.
+
+   A 10px dot is well under the ~24px a fingertip can hit reliably, and the
+   button box is what a pointer-target check measures - so the button is sized
+   to 24px and the dot you actually see is painted by ::before inside it.
+   Nothing about the design changes; only the invisible hit area grew. */
 .slider-dot {
   position: relative;
-  width: 10px;
-  height: 10px;
+  width: 24px;
+  height: 24px;
   padding: 0;
   border: none;
-  border-radius: 6px;
-  background: var(--dot-idle);
+  background: none;
   cursor: pointer;
-  overflow: hidden;
-  transition:
-    width 0.42s cubic-bezier(0.25, 0.8, 0.25, 1),
-    background 0.3s ease,
-    transform 0.2s ease;
+  transition: width 0.42s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* ::before is the resting dot, ::after the gradient fill that crossfades in
+   on the current slide. Same geometry, stacked. */
+.slider-dot::before,
 .slider-dot::after {
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 6px;
+  transition:
+    width 0.42s cubic-bezier(0.25, 0.8, 0.25, 1),
+    background 0.3s ease,
+    opacity 0.34s ease,
+    transform 0.2s ease;
+}
+
+.slider-dot::before {
+  background: var(--dot-idle);
+}
+
+.slider-dot::after {
   background: var(--gradient-neon);
   opacity: 0;
-  transition: opacity 0.34s ease;
 }
 
-.slider-dot:hover:not([aria-current="true"]) {
+.slider-dot:hover:not([aria-current="true"])::before {
   background: var(--dot-hover);
-  transform: scale(1.25);
+  transform: translate(-50%, -50%) scale(1.25);
 }
 
+/* The current slide gets a stretched pill. The button widens with it so the
+   target never ends up narrower than the dot it contains. */
 .slider-dot[aria-current="true"] {
+  width: 28px;
+}
+
+.slider-dot[aria-current="true"]::before,
+.slider-dot[aria-current="true"]::after {
   width: 28px;
 }
 
@@ -1602,8 +1675,9 @@ footer a:hover { color: var(--accent-gold); }
 @media (prefers-reduced-motion: reduce) {
   .slider-track { scroll-behavior: auto; }
   .slider-dot,
+  .slider-dot::before,
   .slider-dot::after { transition: none; }
-  .slider-dot:hover:not([aria-current="true"]) { transform: none; }
+  .slider-dot:hover:not([aria-current="true"])::before { transform: translate(-50%, -50%); }
   .slider-btn { transition: none; }
   .slider-btn:hover:not([disabled]),
   .slider-btn:active:not([disabled]) { transform: translateY(-50%); }

@@ -124,6 +124,12 @@ then re-inject the markup, or the slide count and the markup will disagree.
 The sliders complement the text sections rather than replacing them — the
 original copy stays on the page, so nothing crawlable is lost.
 
+Every slide is written twice: a `.webp` at quality 95, which is what the pages
+load and runs about half the bytes of the PNG, and the `.png` itself, which
+stays as the master the combined sheet and the flat `singles/` copies are built
+from. Quality 95 rather than the usual 80 because these are crisp type on flat
+colour, which is exactly where a lossy encoder rings.
+
 Each set also gets a **combined sheet** at `assets/slides/<set>-all.png` — every
 slide in that set laid out in one image, for sharing the whole sequence on
 WhatsApp or printing it, rather than sending N separate files. One column for
@@ -144,9 +150,11 @@ story scans are separable from square-promo scans in GA4.
 
 ### `qr` — QR codes used on the site
 
-Three standalone 512x512 codes in `assets/qr/`: `site.png`, `agents.png` and
-`get-started.png`. The contact page shows the site code; the agents page shows
-the agents one. Both offer the PNG as a download.
+Three standalone 512x512 codes in `assets/qr/`, each written as both `.png` and
+`.webp`. The contact page shows the site code; the agents page shows the agents
+one. Both **display** the WebP — lossless, so every module stays exactly square
+and the code still scans, at roughly a sixth of the bytes — and both **offer the
+PNG as the download**, since a saved PNG opens and prints anywhere.
 
 These are separate from the codes baked into the promo graphics. Because they
 are standalone rather than a small element inside a larger image, they stay

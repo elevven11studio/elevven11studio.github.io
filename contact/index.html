@@ -125,7 +125,7 @@
 						<div class="form-group">
 							<label class="form-label" for="ct-name">Your Name *</label>
 							<input class="form-input" id="ct-name" name="name" type="text"
-								placeholder="Your full name" required />
+								autocomplete="name" placeholder="Your full name" required />
 						</div>
 						<div class="form-group">
 							<label class="form-label" for="ct-topic">What's this about?</label>
@@ -143,12 +143,12 @@
 						<div class="form-group">
 							<label class="form-label" for="ct-email">Email</label>
 							<input class="form-input" id="ct-email" name="email" type="email"
-								placeholder="you@example.com" />
+								autocomplete="email" placeholder="you@example.com" />
 						</div>
 						<div class="form-group">
 							<label class="form-label" for="ct-phone">Phone / WhatsApp</label>
 							<input class="form-input" id="ct-phone" name="phone" type="tel"
-								placeholder="+234..." />
+								autocomplete="tel" placeholder="+234..." />
 						</div>
 					</div>
 
@@ -209,27 +209,27 @@
 			<div class="slider" data-slider="Ways to contact Elevven11 Studio">
 				<div class="slider-track">
 					<div class="slider-slide">
-						<img src="/assets/slides/contact/1.png" alt="GET IN TOUCH: Email — Reach Elevven11 Studio on Email."
+						<img src="/assets/slides/contact/1.webp" alt="GET IN TOUCH: Email — Reach Elevven11 Studio on Email."
 							width="1200" height="675" loading="eager" />
 					</div>
 					<div class="slider-slide">
-						<img src="/assets/slides/contact/2.png" alt="GET IN TOUCH: Phone — Reach Elevven11 Studio on Phone."
+						<img src="/assets/slides/contact/2.webp" alt="GET IN TOUCH: Phone — Reach Elevven11 Studio on Phone."
 							width="1200" height="675" loading="lazy" />
 					</div>
 					<div class="slider-slide">
-						<img src="/assets/slides/contact/3.png" alt="GET IN TOUCH: WhatsApp — Reach Elevven11 Studio on WhatsApp."
+						<img src="/assets/slides/contact/3.webp" alt="GET IN TOUCH: WhatsApp — Reach Elevven11 Studio on WhatsApp."
 							width="1200" height="675" loading="lazy" />
 					</div>
 					<div class="slider-slide">
-						<img src="/assets/slides/contact/4.png" alt="GET IN TOUCH: LinkedIn — Reach Elevven11 Studio on LinkedIn."
+						<img src="/assets/slides/contact/4.webp" alt="GET IN TOUCH: LinkedIn — Reach Elevven11 Studio on LinkedIn."
 							width="1200" height="675" loading="lazy" />
 					</div>
 					<div class="slider-slide">
-						<img src="/assets/slides/contact/5.png" alt="GET IN TOUCH: Facebook — Reach Elevven11 Studio on Facebook."
+						<img src="/assets/slides/contact/5.webp" alt="GET IN TOUCH: Facebook — Reach Elevven11 Studio on Facebook."
 							width="1200" height="675" loading="lazy" />
 					</div>
 					<div class="slider-slide">
-						<img src="/assets/slides/contact/6.png" alt="GET IN TOUCH: Instagram — Reach Elevven11 Studio on Instagram."
+						<img src="/assets/slides/contact/6.webp" alt="GET IN TOUCH: Instagram — Reach Elevven11 Studio on Instagram."
 							width="1200" height="675" loading="lazy" />
 					</div>
 				</div>
@@ -338,12 +338,14 @@
 			<div class="section-tag" style="display:block; text-align:center;">Share</div>
 			<h2 class="section-title">Scan or share this site</h2>
 			<div class="glass-card" style="text-align: center;">
-				<img src="/assets/qr/site.png" alt="QR code that opens the Elevven11 Studio website"
+				<img src="/assets/qr/site.webp" alt="QR code that opens the Elevven11 Studio website"
 					width="512" height="512" loading="lazy"
 					style="width: 200px; max-width: 60%; height: auto; border-radius: 14px; margin-left: auto; margin-right: auto;" />
 				<p style="color: var(--text-secondary); margin-top: 1.25rem;">Point a phone camera at the code to open this site. Useful for showing someone in person, or printing on a flyer, poster or business card.</p>
 				<p style="margin-top: 1rem;">
-					<a href="/assets/qr/site.png" download style="color: var(--accent-gold);">Download the QR code</a>
+					<a href="/assets/qr/site.png" download
+						style="color: var(--accent-gold); display: inline-flex; align-items: center; min-height: 24px;">Download
+						the QR code</a>
 				</p>
 			</div>
 		</div>
