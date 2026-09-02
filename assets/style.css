@@ -421,6 +421,14 @@ header.scrolled {
   outline: none;
 }
 
+/* The outline:none above drops the default focus ring for every .btn
+   sitewide (primary/secondary/whatsapp CTAs) - replace it rather than just
+   removing it, so keyboard users still see where focus is. */
+.btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
 .btn-primary {
   background: var(--gradient-neon);
   color: var(--on-accent);
@@ -510,9 +518,12 @@ header.scrolled {
 }
 
 /* Messenger's own blue - a logo colour, not a themeable accent, same
-   reasoning as WhatsApp's green above. */
+   reasoning as WhatsApp's green above. Darkened a shade from the brand's
+   usual #0084ff, which only measures 3.66:1 against white text - short of
+   the 4.5:1 AA minimum. #0074d6 clears it (~4.7:1) while still reading as
+   Messenger blue. */
 .fab-action-messenger {
-  background: #0084ff;
+  background: #0074d6;
   color: #ffffff;
 }
 
@@ -799,7 +810,7 @@ header.scrolled {
   box-shadow: var(--glow-gold);
 }
 
-.step-item h4 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+.step-item h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
 .step-item p { color: var(--text-secondary); font-size: 0.9rem; }
 
 /* Tables */
@@ -1331,7 +1342,10 @@ footer {
 }
 
 footer p { margin-bottom: 0.5rem; }
-footer a { color: var(--text-secondary); }
+/* display:inline-block + vertical padding brings the tap target up toward the
+   24px minimum (WCAG 2.5.8) without disturbing the middot-separated inline
+   flow these links sit in. */
+footer a { display: inline-block; padding: 0.35rem 0; color: var(--text-secondary); }
 footer a:hover { color: var(--accent-gold); }
 
 .footer-social { display: flex; justify-content: center; gap: 0.9rem; margin-top: 1rem; }
@@ -1371,7 +1385,7 @@ footer a:hover { color: var(--accent-gold); }
   .nav-links {
     position: fixed;
     top: 70px;
-    left: 100%;
+    left: 0;
     width: 100%;
     height: calc(100vh - 70px);
     background: var(--surface-veil-mobile);
@@ -1381,11 +1395,17 @@ footer a:hover { color: var(--accent-gold); }
     align-items: center;
     justify-content: center;
     gap: 2rem;
-    transition: left var(--transition-normal);
+    /* Parked off-canvas with a transform rather than left:100% - a moved
+       layout position (left) still counts toward the header's scrollWidth
+       even though nothing is visibly overflowing, which is what tripped the
+       "elements wider than a phone screen" audit finding. A transform is
+       paint-only and doesn't expand the ancestor's scrollable area. */
+    transform: translateX(100%);
+    transition: transform var(--transition-normal);
     border-top: var(--border-subtle);
   }
 
-  .nav-links.active { left: 0; }
+  .nav-links.active { transform: translateX(0); }
 
   .nav-item a { font-size: 1.1rem; }
 }
