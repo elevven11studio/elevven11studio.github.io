@@ -17,7 +17,10 @@
   --bg-tertiary: #1c1826;
   --text-primary: #f7f3ec;
   --text-secondary: #a79f95;
-  --text-muted: #7a7268;
+  /* #7a7268 measured 4.16:1 on --bg-primary - just under the 4.5:1 AA
+     minimum for normal text (footer copy, pricing notes, form hints all use
+     it). Lightened to clear AA with some margin (~5.1:1). */
+  --text-muted: #8a8175;
   --accent-gold: #86efac;
   --accent-orange: #22c55e;
   --accent-purple: #2dd4bf;
@@ -91,7 +94,10 @@
   --bg-tertiary: #ded9cb;
   --text-primary: #14121a;
   --text-secondary: #5d564b;
-  --text-muted: #8a8175;
+  /* Same AA fix as the dark theme above, mirrored for a light ground: the
+     old #8a8175 only measured ~3.4:1 on --bg-primary here. Darkened to
+     clear 4.5:1 (~4.65:1). */
+  --text-muted: #736b60;
 
   --accent-gold: #1f9d55;
   --accent-orange: #137a40;
