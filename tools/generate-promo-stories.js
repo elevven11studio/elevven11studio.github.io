@@ -26,7 +26,10 @@ const SITE = 'https://elevven11studio.github.io';
 
 const W = 1080, H = 1920;
 const SAFE_TOP = 300, MARGIN = 80;
-const NAIRA = '₦';
+// Currency codes rather than the ₦ symbol, matching the site and what
+// Paystack prints at checkout. The trailing space is part of it: every call
+// site concatenates straight onto a figure.
+const NAIRA = 'NGN ';
 const MIDDOT = '·';
 const EMDASH = '—';
 

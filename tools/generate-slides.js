@@ -30,7 +30,10 @@ const W = 1200, H = 675;
 
 const GOLD = '#f0c866';
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const NAIRA = '₦';
+// Currency codes rather than the ₦ symbol, matching the site and what
+// Paystack prints at checkout. The trailing space is part of it: every call
+// site concatenates straight onto a figure.
+const NAIRA = 'NGN ';
 
 function decode(s) {
   return s.replace(/<[^>]*>/g, ' ')
@@ -222,9 +225,11 @@ const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 function parseSteps(file) {
   const html = read(file);
   const out = [];
-  const re = /<div class="step-number">(\d+)<\/div>\s*<h4>([\s\S]*?)<\/h4>\s*<p>([\s\S]*?)<\/p>/g;
+  // h3 or h4. The heading level on the how-it-works page has moved between
+  // the two, and while this said h4 only it silently matched nothing.
+  const re = /<div class="step-number">(\d+)<\/div>\s*<h([34])>([\s\S]*?)<\/h\2>\s*<p>([\s\S]*?)<\/p>/g;
   let m;
-  while ((m = re.exec(html))) out.push({ title: decode(m[2]), body: decode(m[3]) });
+  while ((m = re.exec(html))) out.push({ title: decode(m[3]), body: decode(m[4]) });
   return out;
 }
 
@@ -292,6 +297,19 @@ const AGENTS = [
   const sheets = [];
   const singlesDir = path.join(OUT, 'singles');
   fs.mkdirSync(singlesDir, { recursive: true });
+  // Check every set before writing anything. An empty set used to be reported
+  // at the end of its own iteration - by which point the manifest had already
+  // been overwritten with [] and the contact sheet had thrown on a zero-width
+  // canvas, so the warning never printed and the manifest was simply gone.
+  const empty = Object.entries(sets).filter(([, slides]) => !slides.length).map(([name]) => name);
+  if (empty.length) {
+    console.error('parsed 0 items for: ' + empty.join(', ')
+      + '\n  The page markup no longer matches the selectors in this file.'
+      + '\n  Nothing was written - fix the parser rather than ship empty sets.');
+    process.exitCode = 1;
+    return;
+  }
+
   for (const [name, slides] of Object.entries(sets)) {
     const dir = path.join(OUT, name);
     fs.mkdirSync(dir, { recursive: true });
@@ -350,10 +368,6 @@ const AGENTS = [
     sheets.push(name + '-all.png (' + Math.round(fs.statSync(sheetFile).size / 1024) + 'K)');
 
     console.log(name.padEnd(14) + slides.length + ' slides');
-    if (!slides.length) {
-      console.error('  WARNING: parsed 0 items from the page - check the markup selectors');
-      process.exitCode = 1;
-    }
   }
   console.log('\n' + total + ' slides at ' + W + 'x' + H + ', ' + (bytes / 1024 / 1024).toFixed(2) + ' MB');
   console.log('combined sheets: ' + sheets.join(', '));

@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initLeadChannelTracking();
   initSliders();
   initContactForm();
+  initSupportForm();
+  initSupportThanks();
   initAgentForm();
   initFaqAccordions();
   initCopyButtons();
@@ -609,16 +611,115 @@ function initCookieConsent() {
  * span's text is swapped to its data-us alternative (e.g. "in Nigeria" ->
  * "in America"); for every other country the phrase is simply removed.
  */
-const NGN_PER_USD = 1550; // approximate; update this occasionally to track the real rate
+/**
+ * Live NGN/USD rate.
+ *
+ * Two things need it: the USD prices shown to visitors outside Nigeria, and the
+ * support page, which has to convert a USD donation into the Naira figure
+ * Paystack will actually charge. This used to be a hardcoded 1550 with a note
+ * to update it occasionally, which is exactly the kind of note nobody acts on -
+ * by the time it was replaced the real rate was around 1325, so every USD price
+ * on the site was reading about 15% low.
+ *
+ * Two providers, both free, keyless and CORS-enabled; the second exists so one
+ * being down is not an outage. The result is cached in localStorage for six
+ * hours, so a normal browse costs at most one request a day and the last good
+ * rate keeps working offline. NGN_PER_USD_FALLBACK is only ever reached by a
+ * first-time visitor with both providers unreachable.
+ */
+const NGN_PER_USD_FALLBACK = 1325;
+const RATE_CACHE_KEY = 'e11_usd_rate';
+const RATE_TTL_MS = 6 * 60 * 60 * 1000;
 
+const RATE_SOURCES = [
+  {
+    url: 'https://open.er-api.com/v6/latest/USD',
+    pick: (d) => d && d.rates && d.rates.NGN,
+  },
+  {
+    url: 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json',
+    pick: (d) => d && d.usd && d.usd.ngn,
+  },
+];
+
+// Module state rather than a return value, so formatUsd() can stay synchronous
+// for the many call sites that only format. Anything that needs an accurate
+// number awaits getNgnPerUsd() first.
+let ngnPerUsd = NGN_PER_USD_FALLBACK;
+let rateFetchedAt = 0;
+let rateIsLive = false;
+let ratePromise = null;
+
+function readCachedRate() {
+  try {
+    const cached = JSON.parse(localStorage.getItem(RATE_CACHE_KEY));
+    if (!cached || !isFinite(cached.rate) || cached.rate <= 0) return null;
+    return cached;
+  } catch (e) {
+    return null; // private mode, or something else wrote to the key
+  }
+}
+
+/**
+ * Resolves to Naira per USD. Safe to call as often as you like: the in-flight
+ * promise is shared, so ten call sites on one page make one request between
+ * them. Never rejects - a total failure resolves to the last known rate.
+ */
+function getNgnPerUsd() {
+  if (ratePromise) return ratePromise;
+
+  // A cached rate is adopted immediately even when it has expired, so a slow
+  // or failing lookup degrades to yesterday's rate rather than to the fallback.
+  const cached = readCachedRate();
+  if (cached) {
+    ngnPerUsd = cached.rate;
+    rateFetchedAt = cached.at || 0;
+    rateIsLive = true;
+    if (Date.now() - rateFetchedAt < RATE_TTL_MS) {
+      ratePromise = Promise.resolve(ngnPerUsd);
+      return ratePromise;
+    }
+  }
+
+  ratePromise = (async () => {
+    for (const source of RATE_SOURCES) {
+      try {
+        const res = await fetch(source.url);
+        if (!res.ok) continue;
+        const rate = source.pick(await res.json());
+        if (!isFinite(rate) || rate <= 0) continue;
+
+        ngnPerUsd = rate;
+        rateFetchedAt = Date.now();
+        rateIsLive = true;
+        try {
+          localStorage.setItem(RATE_CACHE_KEY, JSON.stringify({ rate, at: rateFetchedAt }));
+        } catch (e) { /* private mode: this session still has the rate in memory */ }
+        return rate;
+      } catch (e) { /* try the next provider */ }
+    }
+    return ngnPerUsd;
+  })();
+
+  return ratePromise;
+}
+
+/**
+ * Currency codes rather than symbols, sitewide. NGN and USD are unambiguous to
+ * an international reader, ₦ is not widely recognised outside Nigeria, and the
+ * codes match what Paystack prints at checkout - so the figure someone sees on
+ * a pricing card and the figure on the payment page read the same way.
+ */
 function formatNaira(amount) {
-  return '₦' + amount.toLocaleString('en-NG');
+  return 'NGN ' + Math.round(amount).toLocaleString('en-NG');
 }
 
 function formatUsd(amountNgn) {
-  const usd = amountNgn / NGN_PER_USD;
+  const usd = amountNgn / ngnPerUsd;
+  // Round to something that reads like a price rather than a conversion:
+  // whole dollars while small, then to the nearest 5.
   const rounded = usd < 20 ? Math.round(usd) : Math.round(usd / 5) * 5;
-  return '$' + rounded.toLocaleString('en-US');
+  return 'USD ' + rounded.toLocaleString('en-US');
 }
 
 async function detectCountryCode() {
@@ -645,6 +746,7 @@ async function initGeoLocalization() {
 
   const country = await detectCountryCode();
   if (!country || country === 'NG') return; // Nigeria-facing markup is already correct
+  await getNgnPerUsd();
 
   priceEls.forEach((el) => {
     const amount = parseInt(el.getAttribute('data-ngn'), 10);
@@ -1222,7 +1324,9 @@ function initAddonCheckout(form) {
 
   async function render() {
     const country = await detectCountryCode();
-    const fmt = (ngn) => (country && country !== 'NG') ? formatUsd(ngn) : formatNaira(ngn);
+    const overseas = !!(country && country !== 'NG');
+    if (overseas) await getNgnPerUsd();
+    const fmt = (ngn) => (overseas ? formatUsd(ngn) : formatNaira(ngn));
 
     const opt = packageSelect.options[packageSelect.selectedIndex];
     const pkgAmount = opt ? parseInt(opt.getAttribute('data-ngn'), 10) : NaN;
@@ -1933,4 +2037,273 @@ function initThemeToggle() {
       try { localStorage.setItem(KEY, current); } catch (e) { /* nothing to do */ }
     });
   });
+}
+
+/**
+ * Support page: a donation form that hands off to a Paystack payment page.
+ *
+ * Paystack settles in Naira only, so Naira is the currency of record and USD is
+ * a convenience for donors abroad. Picking USD converts at the live rate and
+ * sends the resulting Naira figure to Paystack; the page shows both numbers
+ * before the handoff, so nobody arrives at checkout surprised by the amount.
+ *
+ * The handoff is a plain URL with prefilled query parameters, all four marked
+ * readonly, so the payment page cannot be edited into a different amount or a
+ * different donor after we have shown the confirmation. Checked against the
+ * live page: `amount` is in Naira, not kobo.
+ *
+ * Without JavaScript the form cannot build that URL, so the markup carries a
+ * <noscript> link straight to the payment page for the donor to fill in
+ * themselves.
+ */
+const PAYSTACK_PAGE = 'https://paystack.shop/pay/-q3x9ac71x';
+
+// Preset amounts per currency, plus the floor and ceiling for a custom one.
+// The Naira minimum is a sensible small donation; the USD minimum is set so
+// the converted Naira figure clears Paystack's own minimum at any plausible
+// rate. The maximum is what stops the field quoting a number nobody is going
+// to pay: a bare type="number" accepts exponent notation, so "1e20" used to
+// produce a straight-faced offer to charge NGN 100,000,000,000,000,000,000.
+// Anyone genuinely giving more than this should talk to us instead.
+const DONATION_PRESETS = {
+  NGN: { amounts: [10000, 30000, 50000], min: 500, max: 10000000, step: 500 },
+  USD: { amounts: [10, 25, 50], min: 1, max: 10000, step: 1 },
+};
+
+function limitText(code, bound) {
+  const amount = DONATION_PRESETS[code][bound];
+  return code === 'NGN' ? formatNaira(amount) : 'USD ' + amount.toLocaleString('en-US');
+}
+
+function initSupportForm() {
+  const form = document.querySelector('.support-form');
+  if (!form) return;
+
+  const amountInput = form.querySelector('[name="amount"]');
+  const presetWrap = form.querySelector('[data-amount-presets]');
+  const currencyInputs = Array.from(form.querySelectorAll('[name="currency"]'));
+  const amountPrefix = form.querySelector('[data-amount-prefix]');
+  const conversionEl = form.querySelector('[data-conversion]');
+  const rateEl = form.querySelector('[data-rate-note]');
+  const submitBtn = form.querySelector('[type="submit"]');
+
+  const currency = () => (currencyInputs.find((i) => i.checked) || {}).value || 'NGN';
+  const value = (name) => {
+    const field = form.querySelector('[name="' + name + '"]');
+    return field ? field.value.trim() : '';
+  };
+
+  // Naira is what Paystack charges, so every amount collapses to it here and
+  // the rest of the page works off that one number.
+  function amountInNaira() {
+    const raw = parseFloat(amountInput.value);
+    if (!isFinite(raw) || raw <= 0) return NaN;
+    return currency() === 'USD' ? Math.round(raw * ngnPerUsd) : Math.round(raw);
+  }
+
+  function renderPresets() {
+    const code = currency();
+    presetWrap.innerHTML = DONATION_PRESETS[code].amounts.map((amount) => {
+      const label = code === 'NGN' ? formatNaira(amount) : 'USD ' + amount;
+      return '<button class="amount-option" type="button" aria-pressed="false" '
+        + 'data-amount="' + amount + '">' + label + '</button>';
+    }).join('');
+  }
+
+  function syncPresetState() {
+    const raw = parseFloat(amountInput.value);
+    presetWrap.querySelectorAll('.amount-option').forEach((btn) => {
+      btn.setAttribute('aria-pressed', String(parseFloat(btn.dataset.amount) === raw));
+    });
+  }
+
+  function renderRate() {
+    if (!rateEl) return;
+    if (!rateIsLive) {
+      rateEl.textContent = 'Using an indicative rate of USD 1 = ' + formatNaira(ngnPerUsd)
+        + '. We could not reach the rate service just now.';
+      return;
+    }
+    const when = new Date(rateFetchedAt)
+      .toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    rateEl.textContent = 'Today’s rate: USD 1 = NGN '
+      + ngnPerUsd.toLocaleString('en-NG', { maximumFractionDigits: 2 })
+      + ' · checked ' + when;
+  }
+
+  function render() {
+    const code = currency();
+    if (amountPrefix) amountPrefix.textContent = code;
+    amountInput.min = DONATION_PRESETS[code].min;
+    amountInput.max = DONATION_PRESETS[code].max;
+    amountInput.step = DONATION_PRESETS[code].step;
+    amountInput.placeholder = code === 'NGN' ? '30000' : '25';
+
+    syncPresetState();
+    renderRate();
+
+    if (!conversionEl) return;
+    const naira = amountInNaira();
+
+    if (isNaN(naira)) {
+      conversionEl.textContent = code === 'USD'
+        ? 'Paystack charges in Naira. Enter an amount and we will show you the Naira figure first.'
+        : '';
+      return;
+    }
+
+    const raw = parseFloat(amountInput.value);
+    if (raw > DONATION_PRESETS[code].max) {
+      conversionEl.textContent = 'That is more than this form takes. The most it will send is '
+        + limitText(code, 'max')
+        + '. For anything larger, please get in touch and we will arrange it properly.';
+      return;
+    }
+
+    if (raw < DONATION_PRESETS[code].min) {
+      conversionEl.textContent = 'The smallest amount this form takes is '
+        + limitText(code, 'min') + '.';
+      return;
+    }
+
+    conversionEl.textContent = code === 'USD'
+      // The donor's own bank converts back on the way out, at its own rate, so
+      // the dollar figure on their statement will differ a little. Say so here
+      // rather than let the statement be the first they hear of it.
+      ? 'Paystack will charge ' + formatNaira(naira) + '. That is about USD '
+        + parseFloat(amountInput.value).toLocaleString('en-US')
+        + ' at today’s rate; your own bank sets its rate, so the figure on your '
+        + 'statement may differ slightly.'
+      : 'Paystack will charge ' + formatNaira(naira) + ' (about ' + formatUsd(naira) + ').';
+  }
+
+  presetWrap.addEventListener('click', (e) => {
+    const btn = e.target.closest('.amount-option');
+    if (!btn) return;
+    amountInput.value = btn.dataset.amount;
+    render();
+  });
+
+  currencyInputs.forEach((input) => input.addEventListener('change', () => {
+    // The number in the box belongs to the currency it was typed in, and 25
+    // dollars is not 25 naira. Clearing it is less wrong than reinterpreting it.
+    amountInput.value = '';
+    renderPresets();
+    render();
+  }));
+
+  amountInput.addEventListener('input', render);
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const first = value('first_name');
+    const last = value('last_name');
+    const email = value('email');
+    const code = currency();
+    const raw = parseFloat(amountInput.value);
+    const naira = amountInNaira();
+
+    if (!first || !last) {
+      showFormError(form, 'Please enter your first and last name - Paystack asks for both.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showFormError(form, 'Please enter a valid email address, so Paystack can send your receipt.');
+      return;
+    }
+    if (isNaN(naira) || raw < DONATION_PRESETS[code].min) {
+      showFormError(form, 'Please choose an amount of at least '
+        + limitText(code, 'min') + '.');
+      return;
+    }
+    if (raw > DONATION_PRESETS[code].max) {
+      showFormError(form, 'That is more than this form takes. The most it will send is '
+        + limitText(code, 'max') + '. For anything larger, please get in touch first.');
+      return;
+    }
+
+    const card = form.closest('.glass-card');
+    const errorEl = card && card.querySelector('.form-error-msg');
+    if (errorEl) errorEl.style.display = 'none';
+
+    const url = PAYSTACK_PAGE + '?' + new URLSearchParams({
+      email: email,
+      first_name: first,
+      last_name: last,
+      amount: String(naira),
+      readonly: 'email,amount,first_name,last_name',
+    }).toString();
+
+    if (typeof gtag === 'function') {
+      gtag('event', 'begin_checkout', {
+        currency: 'NGN',
+        value: naira,
+        chosen_currency: code,
+        items: [{ item_id: 'donation', item_name: 'Support donation' }],
+      });
+    }
+
+    if (submitBtn) {
+      submitBtn.setAttribute('aria-busy', 'true');
+      submitBtn.textContent = 'Opening Paystack…';
+    }
+
+    // Same tab, not a popup: this is the whole point of the page, and a
+    // window.open() here is exactly what a popup blocker eats.
+    window.location.href = url;
+  });
+
+  renderPresets();
+  render();
+
+  // Default to the donor's likely currency, then let the live rate refine the
+  // figures. Both are best-effort, and the form is usable before either
+  // resolves - Naira, the currency of record, is the starting state.
+  (async () => {
+    const country = await detectCountryCode();
+    if (country && country !== 'NG') {
+      const usd = currencyInputs.find((i) => i.value === 'USD');
+      if (usd && !usd.checked) { usd.checked = true; renderPresets(); }
+    }
+    await getNgnPerUsd();
+    render();
+  })();
+}
+
+/**
+ * Support thank-you page.
+ *
+ * The page itself is static and says nothing about the transaction - the donor
+ * has already seen the amount on Paystack, and a page on a static host has no
+ * way to verify a payment anyway, so it would only be repeating back a number
+ * from the URL. This exists purely to close the funnel that initSupportForm
+ * opened with begin_checkout.
+ *
+ * Two guards. Paystack appends ?trxref=&reference= to its redirect, so a visit
+ * without one of those did not come from a completed payment and is not
+ * counted. And the reference is remembered, so a refresh or a back-and-forward
+ * does not book the same donation twice.
+ */
+function initSupportThanks() {
+  if (!document.querySelector('[data-support-thanks]')) return;
+
+  const params = new URLSearchParams(location.search);
+  const reference = params.get('reference') || params.get('trxref');
+  if (!reference) return; // opened directly, not redirected from a payment
+
+  const key = 'e11_thanked_' + reference;
+  try {
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, '1');
+  } catch (e) { /* private mode: risk a double count rather than lose the event */ }
+
+  if (typeof gtag === 'function') {
+    // No value or currency: the redirect carries neither, and a figure invented
+    // from the URL would be worse than no figure at all.
+    gtag('event', 'purchase', {
+      transaction_id: reference,
+      items: [{ item_id: 'donation', item_name: 'Support donation' }],
+    });
+  }
 }

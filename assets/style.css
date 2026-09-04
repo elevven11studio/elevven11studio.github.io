@@ -1107,6 +1107,165 @@ header.scrolled {
   color: var(--text-primary);
 }
 
+/* Support page: currency switch, preset amounts and the conversion line.
+   See initSupportForm() in main.js. */
+
+/* Segmented control built on real radios, so it arrows between options and
+   announces itself as a group without any ARIA of its own. The radio is
+   visually hidden rather than display:none - a display:none input is not
+   focusable, which would strand the keyboard on this control. */
+.currency-switch {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  background: var(--bg-secondary);
+  border: var(--border-subtle);
+  border-radius: 30px;
+}
+
+.currency-switch-option {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 84px;
+  min-height: 38px;
+  padding: 0 1.1rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.currency-switch-option input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+.currency-switch-option:hover {
+  color: var(--text-primary);
+}
+
+.currency-switch-option:has(input:checked) {
+  background: var(--gradient-neon);
+  color: var(--on-accent);
+  box-shadow: var(--glow-gold);
+}
+
+/* The ring goes on the label, since the input it belongs to is transparent
+   and stretched across it. */
+.currency-switch-option:has(input:focus-visible) {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.amount-grid {
+  display: grid;
+  /* minmax(0, 1fr), not 1fr: a bare 1fr floors each track at its min-content
+     width, so on a narrow phone the three buttons refused to shrink and the
+     last one ran off the side of the card. A zero floor lets them fit. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.amount-option {
+  padding: 0.9rem 0.5rem;
+  background: var(--bg-secondary);
+  border: var(--border-subtle);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  /* Wraps rather than nowrap: where the label will not fit on one line it
+     breaks to "NGN" over "10,000" instead of spilling out of the button. */
+  line-height: 1.25;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.amount-option:hover {
+  border-color: var(--accent-gold);
+  background: var(--bg-tertiary);
+}
+
+.amount-option[aria-pressed="true"] {
+  border-color: var(--accent-gold);
+  background: rgba(134, 239, 172, 0.12);
+  color: var(--accent-gold);
+}
+
+/* Currency code sits inside the field rather than beside it, so the amount is
+   never read without knowing which currency it is in. The padding on the input
+   is what keeps the typed digits clear of it. */
+.amount-field {
+  position: relative;
+}
+
+.amount-field .form-input {
+  padding-left: 4.25rem;
+}
+
+.amount-field-prefix {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+/* The Naira figure Paystack will actually charge. Given its own box because it
+   is the one number on the page a donor must not miss. */
+.amount-conversion {
+  min-height: 1.4em;
+  margin-bottom: 1.5rem;
+  padding: 0.85rem 1.1rem;
+  background: rgba(134, 239, 172, 0.07);
+  border: 1px solid rgba(134, 239, 172, 0.22);
+  border-radius: var(--border-radius);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.amount-conversion:empty {
+  display: none;
+}
+
+.rate-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.6rem;
+}
+
+@media (max-width: 480px) {
+  /* 2rem of container padding wrapped around 2.25rem of card padding spent
+     136px of a 375px screen on margins, leaving the content column at 64% of
+     the phone. That is what pushed the amount buttons onto two lines. Both come
+     down here, which widens every card on a small phone, not just this one. */
+  .container { padding: 0 1.25rem; }
+  .glass-card { padding: 1.75rem 1.25rem; }
+
+  .amount-grid { gap: 0.5rem; }
+  /* The side padding is only ever a floor here - the label is centred, so on
+     anything but the narrowest screens there is space to spare. Trimming it to
+     0.2rem is what gets "NGN 10,000" onto one line at 360px, which was missing
+     by a single pixel. Below ~350px it wraps to two lines, which is fine: all
+     three wrap together, so the row stays even. */
+  .amount-option { padding: 0.85rem 0.2rem; font-size: 0.8rem; }
+  .currency-switch-option { min-width: 72px; }
+}
+
 .form-success-msg {
   display: none;
   background: rgba(63, 185, 80, 0.1);
@@ -1469,6 +1628,15 @@ footer a:hover { color: var(--accent-gold); }
   .hero-tagline { font-size: 1.05rem; }
 
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+
+  /* Stacked form fields keep the form's own 1.5rem rhythm. Without this the
+     grid's 2rem row gap lands on top of each .form-group margin and pushes
+     paired fields 56px apart, against 24px for every unpaired one. Grids of
+     cards are untouched - they have no .form-group to match. */
+  .grid-2:has(.form-group),
+  .grid-3:has(.form-group),
+  .grid-4:has(.form-group) { row-gap: 0; }
+
   .steps-list, .steps-list-4 { grid-template-columns: repeat(2, 1fr); }
   .pricing-card.featured { transform: none; }
   .btn-group { flex-direction: column; align-items: stretch; }

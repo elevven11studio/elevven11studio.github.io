@@ -25,7 +25,10 @@ const OUT = path.join(ROOT, 'promo/carousel');
 const SITE = 'https://elevven11studio.github.io';
 const S = 1080;
 
-const NAIRA = '₦';
+// Currency codes rather than the ₦ symbol, matching the site and what
+// Paystack prints at checkout. The trailing space is part of it: every call
+// site concatenates straight onto a figure.
+const NAIRA = 'NGN ';
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const utm = (c) => 'utm_source=promo&utm_medium=carousel&utm_campaign=' + c;
 

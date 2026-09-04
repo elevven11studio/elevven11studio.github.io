@@ -181,17 +181,17 @@ const PAGES = {
   'home': { page: 'index.html', alt: 'Elevven11 Studio - affordable website design in Nigeria',
     eyebrow: 'WEBSITE DESIGN IN NIGERIA', lines: ['Simple Websites.', 'No Monthly Hosting Fee.'],
     sub: 'Affordable sites for small businesses and freelancers.',
-    pills: ['From ₦50,000', 'Mobile friendly', 'Fast delivery', 'Free updates'] },
+    pills: ['From NGN 50,000', 'Mobile friendly', 'Fast delivery', 'Free updates'] },
 
   'pricing': { page: 'pricing/index.html', alt: 'Elevven11 Studio pricing - Starter, Plus and Custom packages',
     eyebrow: 'PRICING', lines: ['One-Time Pricing.', 'No Monthly Fees.'],
     sub: 'Every package includes a free update period.',
-    pills: ['Starter \u20a650,000', 'Plus \u20a680,000', 'Custom \u20a6120,000+'] },
+    pills: ['Starter NGN 50,000', 'Plus NGN 80,000', 'Custom NGN 120,000+'] },
 
   'agents': { page: 'agents/index.html', alt: 'Become an Elevven11 Studio referral agent and earn commission',
     eyebrow: 'REFERRAL PROGRAMME', accent: 'gold', lines: ['Refer Someone.', 'Earn a Commission.'],
     sub: 'No website skills needed. Get paid when they buy.',
-    pills: ['Starter \u20a610,000', 'Plus \u20a615,000', 'No skills needed'] },
+    pills: ['Starter NGN 10,000', 'Plus NGN 15,000', 'No skills needed'] },
 
   'examples': { page: 'examples/index.html', alt: 'Elevven11 Studio website template examples',
     eyebrow: 'TEMPLATE EXAMPLES', lines: ['14 Templates.', '42 Live Demos.'],
@@ -206,7 +206,7 @@ const PAGES = {
   'get-started': { page: 'get-started/index.html', alt: 'Get your website started with Elevven11 Studio',
     eyebrow: 'GET STARTED', lines: ['Ready to Get', 'Your Website Online?'],
     sub: "Tell us what you need and we'll take it from there.",
-    pills: ['From \u20a650,000', 'Fast delivery', 'WhatsApp or email'] },
+    pills: ['From NGN 50,000', 'Fast delivery', 'WhatsApp or email'] },
 
   'faq': { page: 'faq/index.html', alt: 'Frequently asked questions about Elevven11 Studio websites',
     eyebrow: 'FAQ', lines: ['Common Questions,', 'Answered.'],
@@ -217,6 +217,11 @@ const PAGES = {
     eyebrow: 'CONTACT', lines: ["Let's Talk About", 'Your Website.'],
     sub: 'Reach us on WhatsApp or by email. We reply quickly.',
     pills: ['WhatsApp', 'Email', 'Fast replies'] },
+
+  'support': { page: 'support/index.html', alt: 'Support Elevven11 Studio - pay what you like in NGN or USD',
+    eyebrow: 'SUPPORT', accent: 'gold', lines: ['Pay What', 'You Like.'],
+    sub: 'Optional, and it buys nothing. Card, transfer or USSD.',
+    pills: ['NGN or USD', 'Secured by Paystack', 'No account needed'] },
 
   'terms': { page: 'terms/index.html', alt: 'Elevven11 Studio terms of service',
     eyebrow: 'TERMS OF SERVICE', lines: ['The Terms', 'We Work To.'],
