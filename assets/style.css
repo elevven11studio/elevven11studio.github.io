@@ -892,6 +892,16 @@ header.scrolled {
 
 .faq-item summary:hover { color: var(--accent-gold); }
 
+/* The row is the full width of its card, so its focus ring should follow the
+   card's corners rather than boxing them. The negative offset draws the ring
+   just inside the edge, because .faq-item is overflow:hidden and would clip a
+   ring drawn outside it - which is what was quietly happening. */
+.faq-item summary:focus-visible {
+  border-radius: var(--border-radius);
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -3px;
+}
+
 .faq-item summary::-webkit-details-marker { display: none; }
 
 .faq-item summary::after {
@@ -1516,6 +1526,40 @@ header.scrolled {
   min-height: 24px;
 }
 
+/* Tinted bands.
+
+   These break a page into slabs, and a slab running edge to edge with square
+   corners reads as a hard seam across the screen. Rounding the corners lets the
+   page ground show through at those four points, so each band sits on the page
+   as a panel rather than looking like a stripe cut out of it.
+
+   Bigger than --border-radius on purpose: 12px is tuned for a card a few
+   hundred pixels wide and all but disappears on a surface the full width of the
+   viewport. */
+.section-tinted {
+  background: var(--bg-secondary);
+  border-radius: 32px;
+}
+
+/* Two tinted bands can sit next to each other (the agents page has a pair).
+   Left alone they would meet in a pinched double curve, so the touching edges
+   go square and the pair reads as one slab. */
+.section-tinted + .section-tinted {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.section-tinted:has(+ .section-tinted) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+@media (max-width: 768px) {
+  /* Scaled with the viewport - 32px on a 375px screen eats visibly into the
+     content width at the corners. */
+  .section-tinted { border-radius: 22px; }
+}
+
 /* Badges */
 .badge-strip {
   display: flex;
@@ -1550,6 +1594,34 @@ footer p { margin-bottom: 0.5rem; }
    flow these links sit in. */
 footer a { display: inline-block; padding: 0.35rem 0; color: var(--text-secondary); }
 footer a:hover { color: var(--accent-gold); }
+
+/* The row of five footer links cleared 24px in both directions but sat only
+   7px apart, which is fine under a mouse and not under a thumb: a tap landing
+   anywhere near a boundary got the neighbour instead. Margin rather than
+   padding, so the gap between targets opens up instead of the targets growing
+   into each other and swallowing the separator. The row wraps to two lines on
+   a narrow phone, which is the better shape for it anyway.
+
+   :has(a) keeps this off the copyright line above, which is a <p> with no
+   links in it. .footer-social is a <div>, so it is untouched too. */
+@media (max-width: 768px) {
+  /* The row wraps on a phone, and an inline separator stranded at the end of a
+     wrapped line reads as a typo. Flex and gap give the same separation with no
+     character left to strand, so the dots come out and the gap does the work.
+     Whitespace-only text between flex items is not rendered, so the spaces that
+     sat around each dot cost nothing here.
+
+     Above 768px the paragraph stays in normal inline flow and the dots render
+     exactly as they always did. */
+  footer p:has(a) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem 1.25rem;
+  }
+
+  footer .footer-sep { display: none; }
+}
 
 .footer-social { display: flex; justify-content: center; gap: 0.9rem; margin-top: 1rem; }
 .footer-social a {
@@ -1705,6 +1777,9 @@ footer a:hover { color: var(--accent-gold); }
      is still comfortably tappable even though nothing is drawn around it. */
   border: none;
   background: transparent;
+  /* Nothing is painted here, so this shows up in one place only: the focus
+     ring, which was drawing a square around a round 46px hit area. */
+  border-radius: 50%;
   /* Not --text-primary: the arrows overlay the slide images, which stay dark
      in light mode too. Following the page theme made them vanish. */
   color: var(--on-artwork);
@@ -1776,6 +1851,9 @@ footer a:hover { color: var(--accent-gold); }
   border: none;
   background: none;
   cursor: pointer;
+  /* Same reason as .slider-btn: the button paints nothing, so this only ever
+     shows on the focus ring, which was boxing a pill in a square. */
+  border-radius: 30px;
   transition: width 0.42s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
