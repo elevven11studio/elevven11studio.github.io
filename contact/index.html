@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Contact - Elevven11 Studio</title>
-	<meta name="description" content="Contact Elevven11 Studio about your website. Reach us on WhatsApp, by email or through our form, and we reply quickly. Serving businesses in Nigeria." />
+	<meta name="description" content="Contact Elevven11 Studio about a website, a package, the agent programme or one of our browser extensions. Reach us on WhatsApp, by email or through our form." />
 	<link rel="canonical" href="https://elevven11studio.github.io/contact/" />
 	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 	<meta name="theme-color" content="#0b0a10" />
@@ -14,7 +14,7 @@
 	<meta property="og:site_name" content="Elevven11 Studio" />
 	<meta property="og:locale" content="en_NG" />
 	<meta property="og:title" content="Contact - Elevven11 Studio" />
-	<meta property="og:description" content="Contact Elevven11 Studio about your website. Reach us on WhatsApp, by email or through our form, and we reply quickly. Serving businesses in Nigeria." />
+	<meta property="og:description" content="Contact Elevven11 Studio about a website, a package, the agent programme or one of our browser extensions. Reach us on WhatsApp, by email or through our form." />
 	<meta property="og:url" content="https://elevven11studio.github.io/contact/" />
 	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/contact.png" />
 	<meta property="og:image:width" content="1200" />
@@ -29,7 +29,7 @@
 	<meta property="og:image:alt" content="Contact Elevven11 Studio about your website project" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Contact - Elevven11 Studio" />
-	<meta name="twitter:description" content="Contact Elevven11 Studio about your website. Reach us on WhatsApp, by email or through our form, and we reply quickly. Serving businesses in Nigeria." />
+	<meta name="twitter:description" content="Contact Elevven11 Studio about a website, a package, the agent programme or one of our browser extensions. Reach us on WhatsApp, by email or through our form." />
 	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og/contact.png" />
 	<meta name="twitter:image:alt" content="Contact Elevven11 Studio about your website project" />
 
@@ -103,7 +103,8 @@
 	<section class="hero" style="min-height: 40vh;">
 		<div class="hero-content container">
 			<h1 class="hero-title">Let's <strong>Talk</strong></h1>
-			<p class="hero-tagline">Questions about a package, a custom project, or the agent program? Reach out.</p>
+			<p class="hero-tagline">Questions about a package, a custom project, the agent programme, or one of our
+				browser extensions? Reach out.</p>
 		</div>
 	</section>
 
@@ -134,6 +135,17 @@
 								<option value="Question about pricing">Question about pricing</option>
 								<option value="Referral agent programme">Referral agent programme</option>
 								<option value="Update to an existing site">Update to an existing site</option>
+								<!-- The extension topics carry their own subject line, so an inbox
+								     full of "Website enquiry" does not swallow a bug report. The
+								     data-key is what /extensions/ and /webinspect/ put in ?topic=. -->
+								<optgroup label="Browser extensions">
+									<option value="Tell me when an extension launches" data-key="extension-launch"
+										data-subject="Extension enquiry">Tell me when an extension launches</option>
+									<option value="Question about an extension" data-key="extension"
+										data-subject="Extension enquiry">Question about an extension</option>
+									<option value="Bug report or feature request" data-key="extension-bug"
+										data-subject="Extension bug report">Bug report or feature request</option>
+								</optgroup>
 								<option value="Something else">Something else</option>
 							</select>
 						</div>
@@ -196,6 +208,50 @@
 					</div>
 				</form>
 			</div>
+		</div>
+	</section>
+
+
+	<!-- Extension support. The studio sells websites and gives away browser
+	     extensions, and somebody arriving from a popup is not here to buy
+	     anything - they have a bug, a question, or they want to know when the
+	     next one ships. Each link pre-selects the matching topic above. -->
+	<section class="section-tinted" id="extensions">
+		<div class="container" style="max-width: 900px;">
+			<div class="section-tag" style="display:block; text-align:center;">Browser Extensions</div>
+			<h2 class="section-title">Using one of our extensions?</h2>
+			<p class="section-subtitle">Our extensions have no accounts and no support inbox of their own, so
+				this page is where they send you. Pick the closest one and the form above fills in the rest.</p>
+
+			<div class="grid-3">
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Something is broken</h3>
+					<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">A wrong result, a check that will not
+						run, or a page it reads badly. Tell us which extension and which site, and we can usually
+						reproduce it from that alone.</p>
+					<a href="/contact/?topic=extension-bug#message-us" class="btn btn-secondary">Report a bug</a>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">A question about one</h3>
+					<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">What it reads, what it stores, what a
+						permission is for, or whether it can do the thing you need. Ask and we will answer
+						plainly.</p>
+					<a href="/contact/?topic=extension#message-us" class="btn btn-secondary">Ask a question</a>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Waiting on a launch</h3>
+					<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">WebInspect is on its way to the Chrome
+						Web Store, with three more behind it. Say which one you are after and we will tell you when
+						its listing goes live.</p>
+					<a href="/contact/?topic=extension-launch#message-us" class="btn btn-secondary">Tell me when</a>
+				</div>
+			</div>
+
+			<p class="section-subtitle" style="margin-top: 2.5rem;">Every extension publishes its own privacy
+				policy saying exactly what it reads and stores. See
+				<a href="/extensions/" style="color: var(--accent-gold);">all four extensions</a>, or read
+				<a href="/webinspect/privacy/" style="color: var(--accent-gold);">the WebInspect policy</a>
+				directly.</p>
 		</div>
 	</section>
 
@@ -323,9 +379,11 @@
 					</div>
 				</div>
 
-				<div style="margin-top: 2.5rem;">
+				<div style="margin-top: 2.5rem; display: grid; gap: 0.75rem;">
 					<a href="/get-started/" class="btn btn-primary" style="width: 100%;">Start A
 						Website Project Instead</a>
+					<a href="/extensions/" class="btn btn-secondary" style="width: 100%;">Browse Our Browser
+						Extensions</a>
 				</div>
 			</div>
 		</div>
@@ -357,7 +415,7 @@
 		<div class="container">
 			<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
 			<p><a href="/agents/">Referral Agents</a> <span class="footer-sep">&middot;</span> <a
-					href="/faq/">FAQ</a> <span class="footer-sep">&middot;</span> <a href="/webinspect/">WebInspect</a> <span class="footer-sep">&middot;</span> <a href="/terms/">Terms</a> <span class="footer-sep">&middot;</span> <a href="/privacy/">Privacy</a> <span class="footer-sep">&middot;</span> <a href="/support/">Support</a></p>
+					href="/faq/">FAQ</a> <span class="footer-sep">&middot;</span> <a href="/extensions/">Extensions</a> <span class="footer-sep">&middot;</span> <a href="/terms/">Terms</a> <span class="footer-sep">&middot;</span> <a href="/privacy/">Privacy</a> <span class="footer-sep">&middot;</span> <a href="/support/">Support</a></p>
 			<div class="footer-social">
 				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
 				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>

@@ -23,6 +23,11 @@
   --text-muted: #8a8175;
   --accent-gold: #86efac;
   --accent-orange: #22c55e;
+  /* The accent as "r, g, b", for rgba() tints. Deliberately not redefined in
+     the light theme: the tints it feeds used this one triple in both themes
+     before it existed. An extension page overrides it to take an accent of
+     its own, and every tint below follows. */
+  --accent-rgb: 134, 239, 172;
   --accent-purple: #2dd4bf;
   --accent-green: #3fb950;
   /* Failure states only (a send that didn't go through). Tuned for the dark
@@ -38,10 +43,13 @@
 
   /* Gradients */
   --gradient-neon: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-orange) 100%);
+  /* The studio wordmark. Held separately from --gradient-neon so a page can
+     take an accent of its own without repainting the brand in the corner. */
+  --gradient-brand: linear-gradient(135deg, #86efac 0%, #22c55e 100%);
   --gradient-card: linear-gradient(145deg, rgba(19, 16, 25, 0.8) 0%, rgba(28, 24, 38, 0.5) 100%);
 
   /* Shadows & Glows */
-  --glow-gold: 0 0 15px rgba(134, 239, 172, 0.35);
+  --glow-gold: 0 0 15px rgba(var(--accent-rgb), 0.35);
   --glow-champagne: 0 0 15px rgba(240, 200, 102, 0.35);
   --shadow-main: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
@@ -109,6 +117,7 @@
 
   --gradient-champagne: linear-gradient(135deg, var(--accent-champagne) 0%, var(--accent-champagne-dark) 100%);
   --gradient-neon: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-orange) 100%);
+  --gradient-brand: linear-gradient(135deg, #1f9d55 0%, #137a40 100%);
   --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.42) 100%);
 
   --glow-gold: 0 0 15px rgba(31, 157, 85, 0.22);
@@ -282,7 +291,7 @@ header.scrolled {
 .logo {
   font-size: 1.4rem;
   font-weight: 800;
-  background: var(--gradient-neon);
+  background: var(--gradient-brand);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 0.5px;
@@ -369,7 +378,7 @@ header.scrolled {
   padding-top: 120px;
   padding-bottom: 4rem;
   background:
-    radial-gradient(circle at 20% 20%, rgba(134, 239, 172, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 20% 20%, rgba(var(--accent-rgb), 0.12) 0%, transparent 45%),
     radial-gradient(circle at 80% 60%, rgba(45, 212, 191, 0.12) 0%, transparent 45%),
     var(--bg-primary);
 }
@@ -452,7 +461,7 @@ header.scrolled {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 25px rgba(134, 239, 172, 0.6);
+  box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.6);
 }
 
 .btn-secondary {
@@ -462,7 +471,7 @@ header.scrolled {
 }
 
 .btn-secondary:hover {
-  background: rgba(134, 239, 172, 0.1);
+  background: rgba(var(--accent-rgb), 0.1);
   box-shadow: var(--glow-gold);
   transform: translateY(-2px);
 }
@@ -601,7 +610,7 @@ header.scrolled {
 
 .fab-toggle:hover {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 0 25px rgba(134, 239, 172, 0.6);
+  box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.6);
 }
 
 .fab-toggle:active {
@@ -695,8 +704,8 @@ header.scrolled {
 
 .glass-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(134, 239, 172, 0.3);
-  box-shadow: 0 12px 40px rgba(134, 239, 172, 0.1);
+  border-color: rgba(var(--accent-rgb), 0.3);
+  box-shadow: 0 12px 40px rgba(var(--accent-rgb), 0.1);
 }
 
 .glass-card:hover::before { opacity: 1; }
@@ -716,8 +725,8 @@ header.scrolled {
 }
 
 .pricing-card.featured {
-  border-color: rgba(134, 239, 172, 0.5);
-  box-shadow: 0 0 30px rgba(134, 239, 172, 0.12);
+  border-color: rgba(var(--accent-rgb), 0.5);
+  box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.12);
   transform: scale(1.03);
 }
 
@@ -870,11 +879,11 @@ header.scrolled {
 }
 
 .faq-item:hover {
-  border-color: rgba(134, 239, 172, 0.3);
+  border-color: rgba(var(--accent-rgb), 0.3);
 }
 
 .faq-item[open] {
-  border-color: rgba(134, 239, 172, 0.35);
+  border-color: rgba(var(--accent-rgb), 0.35);
   box-shadow: var(--glow-gold);
 }
 
@@ -961,7 +970,7 @@ header.scrolled {
 .copy-btn:hover {
   color: var(--accent-gold);
   border-color: var(--accent-gold);
-  background: rgba(134, 239, 172, 0.1);
+  background: rgba(var(--accent-rgb), 0.1);
 }
 
 .copy-btn:active { transform: scale(0.92); }
@@ -976,7 +985,7 @@ header.scrolled {
 .copy-btn.copied {
   color: var(--accent-gold);
   border-color: var(--accent-gold);
-  background: rgba(134, 239, 172, 0.1);
+  background: rgba(var(--accent-rgb), 0.1);
 }
 
 .copy-btn.copied .icon-copy { display: none; }
@@ -1208,7 +1217,7 @@ header.scrolled {
 
 .amount-option[aria-pressed="true"] {
   border-color: var(--accent-gold);
-  background: rgba(134, 239, 172, 0.12);
+  background: rgba(var(--accent-rgb), 0.12);
   color: var(--accent-gold);
 }
 
@@ -1240,8 +1249,8 @@ header.scrolled {
   min-height: 1.4em;
   margin-bottom: 1.5rem;
   padding: 0.85rem 1.1rem;
-  background: rgba(134, 239, 172, 0.07);
-  border: 1px solid rgba(134, 239, 172, 0.22);
+  background: rgba(var(--accent-rgb), 0.07);
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
   border-radius: var(--border-radius);
   color: var(--text-secondary);
   font-size: 0.9rem;
@@ -1319,7 +1328,7 @@ header.scrolled {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(134, 239, 172, 0.12);
+  background: rgba(var(--accent-rgb), 0.12);
   border: 2px solid var(--accent-gold);
   color: var(--accent-gold);
   box-shadow: var(--glow-gold);
@@ -1450,12 +1459,12 @@ header.scrolled {
 }
 
 .send-split-option:hover {
-  background: rgba(134, 239, 172, 0.12);
+  background: rgba(var(--accent-rgb), 0.12);
 }
 
 .send-split-option:focus-visible {
   outline: none;
-  background: rgba(134, 239, 172, 0.12);
+  background: rgba(var(--accent-rgb), 0.12);
   box-shadow: inset 0 0 0 2px var(--accent-gold);
 }
 
@@ -1480,8 +1489,8 @@ header.scrolled {
 
 .referral-banner {
   display: none;
-  background: rgba(134, 239, 172, 0.1);
-  border: 1px solid rgba(134, 239, 172, 0.3);
+  background: rgba(var(--accent-rgb), 0.1);
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
   color: var(--accent-gold);
   border-radius: var(--border-radius);
   padding: 1rem 1.25rem;
@@ -1500,8 +1509,8 @@ header.scrolled {
   width: 46px;
   height: 46px;
   border-radius: 12px;
-  background: rgba(134, 239, 172, 0.08);
-  border: 1px solid rgba(134, 239, 172, 0.2);
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
   color: var(--accent-gold);
   display: flex;
   align-items: center;
@@ -1569,8 +1578,8 @@ header.scrolled {
 }
 
 .badge-pill {
-  background: rgba(134, 239, 172, 0.08);
-  border: 1px solid rgba(134, 239, 172, 0.25);
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
   color: var(--text-primary);
   padding: 0.5rem 1.1rem;
   border-radius: 20px;

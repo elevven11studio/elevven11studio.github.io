@@ -1550,6 +1550,60 @@ function initContactForm() {
     return field ? field.value.trim() : '';
   };
 
+  const topicSelect = form.querySelector('[name="topic"]');
+
+  // A link can arrive with the topic already settled: the extension pages
+  // send people here to ask about a particular product. Matches an option by
+  // its short data-key first, then by its full value, and leaves the default
+  // selected when the parameter names nothing on the list.
+  (function preselectTopic() {
+    if (!topicSelect) return;
+    const requested = new URLSearchParams(window.location.search).get('topic');
+    if (!requested) return;
+    const wanted = requested.trim().toLowerCase();
+    const match = Array.from(topicSelect.options).find(
+      (o) => (o.dataset.key || '').toLowerCase() === wanted || o.value.toLowerCase() === wanted
+    );
+    if (match) topicSelect.value = match.value;
+  })();
+
+  // The same links appear further down this page, where following them would
+  // reload the page to change one dropdown. Set it in place instead. The href
+  // stays a working link, so this is an enhancement rather than the mechanism.
+  function selectTopic(key) {
+    if (!topicSelect) return false;
+    const wanted = key.trim().toLowerCase();
+    const match = Array.from(topicSelect.options).find(
+      (o) => (o.dataset.key || '').toLowerCase() === wanted || o.value.toLowerCase() === wanted
+    );
+    if (!match) return false;
+    topicSelect.value = match.value;
+    topicSelect.dispatchEvent(new Event('change', { bubbles: true }));
+    return true;
+  }
+
+  document.querySelectorAll('a[href*="topic="]').forEach((link) => {
+    const url = new URL(link.href, window.location.href);
+    if (url.pathname !== window.location.pathname) return;
+    const key = url.searchParams.get('topic');
+    if (!key) return;
+    link.addEventListener('click', (event) => {
+      if (!selectTopic(key)) return;
+      event.preventDefault();
+      const target = document.querySelector(url.hash || '#message-us') || form;
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // "Website enquiry" is the wrong subject line on a question about an
+  // extension, and the subject is the first thing read in the inbox. An
+  // option that needs a different one says so in data-subject.
+  const subjectLine = () => {
+    const option = topicSelect && topicSelect.selectedOptions[0];
+    const prefix = (option && option.dataset.subject) || 'Website enquiry';
+    return prefix + ': ' + get('topic');
+  };
+
   function compose() {
     if (!get('name') || !get('message')) {
       showFormError(form, 'Please fill in your name and a short message.');
@@ -1569,7 +1623,7 @@ function initContactForm() {
     return {
       body: lines.join('\n'),
       fields: {
-        subject: 'Website enquiry: ' + get('topic'),
+        subject: subjectLine(),
         from_name: 'Elevven11 contact form',
         name: get('name'),
         email: get('email'),
@@ -1658,7 +1712,7 @@ function initContactForm() {
           window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(body), '_blank');
         }
       } else {
-        const subject = 'Website enquiry: ' + get('topic');
+        const subject = subjectLine();
         // A synthesised anchor click rather than window.location.href: iOS
         // Safari sometimes blocks programmatic mailto: navigation, and a
         // popup would leave a blank tab behind on desktop.

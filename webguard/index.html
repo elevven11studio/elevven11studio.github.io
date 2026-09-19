@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>WebGuard - Chrome Extension by Elevven11 Studio</title>
+	<meta name="description" content="Spot suspicious websites and protect sensitive information while you browse. A free Chrome extension that checks for phishing on your device. Online checks off by default." />
+	<link rel="canonical" href="https://elevven11studio.github.io/webguard/" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta name="theme-color" content="#0b0a10" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:locale" content="en_NG" />
+	<meta property="og:title" content="WebGuard - Chrome Extension by Elevven11 Studio" />
+	<meta property="og:description" content="Spot suspicious websites and protect sensitive information while you browse. A free Chrome extension that checks for phishing on your device. Online checks off by default." />
+	<meta property="og:url" content="https://elevven11studio.github.io/webguard/" />
+	<!-- Uses the studio card until WebGuard has share artwork of its own.
+	     tools/generate-og-cards.js is where a webguard case would go. -->
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og-image.png" />
+	<meta property="og:image:alt" content="Elevven11 Studio" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="WebGuard - Chrome Extension by Elevven11 Studio" />
+	<meta name="twitter:description" content="Spot suspicious websites and protect sensitive information while you browse. A free Chrome extension that checks for phishing on your device." />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og-image.png" />
+	<meta name="twitter:image:alt" content="Elevven11 Studio" />
+
+	<!-- Fonts. Linked here rather than @import-ed from style.css so the browser
+	     can start the font request immediately, in parallel with the stylesheet,
+	     instead of waiting for style.css to download and parse first. -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" />
+	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+
+	<style>
+		/* ---------------------------------------------------------------
+		   WebGuard takes its own accent. WebGuard's shield is sky blue. The studio
+		   wordmark keeps --gradient-brand and stays green: the product owns
+		   the page, not the brand in the corner.
+		
+		   --accent-rgb feeds every tint, border and glow in style.css, so
+		   these few lines repaint the whole page rather than one element at
+		   a time. The light shade is darker than the icon because the site
+		   sets headings and links in the accent, and the icon colour on a
+		   cream ground does not clear 4.5:1.
+		   --------------------------------------------------------------- */
+		:root {
+			--accent-gold: #38bdf8;
+			--accent-orange: #0ea5e9;
+			--accent-rgb: 56, 189, 248;
+		}
+
+		:root[data-theme="light"] {
+			--accent-gold: #0369a1;
+			--accent-orange: #075985;
+			/* style.css pins the light glow to a literal, so it is restated here. */
+			--glow-gold: 0 0 15px rgba(3, 105, 161, 0.22);
+		}
+		/* The product mark, shown at its native 128px so the icon stays crisp. */
+		.wg-mark {
+			width: 88px;
+			height: 88px;
+			margin: 0 auto 1.5rem;
+			display: block;
+			border-radius: 20px;
+		}
+
+		/* Says where the extension is in the launch process. A button would
+		   promise a click that has nowhere to go until the listing is live. */
+		.wg-status {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.6rem;
+			background: rgba(var(--accent-rgb), 0.08);
+			border: 1px solid rgba(var(--accent-rgb), 0.3);
+			color: var(--text-primary);
+			padding: 0.6rem 1.2rem;
+			border-radius: 22px;
+			font-size: 0.92rem;
+			font-weight: 600;
+			margin-bottom: 1.75rem;
+		}
+
+		.wg-status::before {
+			content: '';
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: var(--accent-gold);
+			box-shadow: var(--glow-gold);
+			flex-shrink: 0;
+		}
+
+		.wg-check-card h3 {
+			color: var(--accent-gold);
+			margin-bottom: 0.6rem;
+			font-size: 1.1rem;
+		}
+
+		.wg-check-card p {
+			color: var(--text-secondary);
+			font-size: 0.95rem;
+		}
+
+		/* The four verdicts, as a ladder. Each keeps its own colour so the page
+		   shows the scale rather than describing it. */
+		.wg-verdicts {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 1rem;
+			margin-top: 2rem;
+		}
+
+		.wg-verdict {
+			border-radius: 14px;
+			padding: 1.25rem 1rem;
+			text-align: center;
+			border: 1px solid;
+		}
+
+		.wg-verdict .label {
+			font-weight: 800;
+			font-size: 1rem;
+			margin-bottom: 0.35rem;
+		}
+
+		.wg-verdict .note {
+			color: var(--text-secondary);
+			font-size: 0.85rem;
+			line-height: 1.45;
+		}
+
+		/* Not themed off --accent-gold: these four have to read as a scale from
+		   calm to alarming, which one brand colour cannot express. They are given
+		   explicit pairs that clear 4.5:1 on both the light and dark grounds. */
+		.wg-verdict-low { border-color: rgba(var(--accent-rgb), 0.35); background: rgba(var(--accent-rgb), 0.07); }
+		.wg-verdict-low .label { color: #4ade80; }
+		.wg-verdict-sus { border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.07); }
+		.wg-verdict-sus .label { color: #fbbf24; }
+		.wg-verdict-high { border-color: rgba(248, 113, 113, 0.4); background: rgba(248, 113, 113, 0.08); }
+		.wg-verdict-high .label { color: #f87171; }
+		.wg-verdict-unknown { border-color: rgba(148, 163, 184, 0.35); background: rgba(148, 163, 184, 0.07); }
+		.wg-verdict-unknown .label { color: #94a3b8; }
+
+		:root[data-theme="light"] .wg-verdict-low .label { color: #166534; }
+		:root[data-theme="light"] .wg-verdict-sus .label { color: #854d0e; }
+		:root[data-theme="light"] .wg-verdict-high .label { color: #b91c1c; }
+		:root[data-theme="light"] .wg-verdict-unknown .label { color: #475569; }
+
+		@media (max-width: 900px) {
+			.wg-verdicts { grid-template-columns: repeat(2, 1fr); }
+		}
+
+		@media (max-width: 480px) {
+			.wg-verdicts { grid-template-columns: 1fr; }
+		}
+
+		/* A keyboard shortcut, kept on one line. */
+		.wg-keys { white-space: nowrap; }
+
+		.wg-key {
+			font-family: inherit;
+			font-weight: 700;
+			background: rgba(var(--accent-rgb), 0.1);
+			color: var(--accent-gold);
+			border: 1px solid rgba(var(--accent-rgb), 0.25);
+			border-radius: 6px;
+			padding: 0.15rem 0.5rem;
+			font-size: 0.92em;
+			white-space: nowrap;
+		}
+
+		/* The "this is not" block. Stated plainly rather than buried, because a
+		   security tool that oversells itself is worse than none. */
+		.wg-disclaimer {
+			border-left: 3px solid var(--accent-gold);
+			padding-left: 1.5rem;
+		}
+	</style>
+
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "BreadcrumbList",
+	  "itemListElement": [
+	    {
+	      "@type": "ListItem",
+	      "position": 1,
+	      "name": "Home",
+	      "item": "https://elevven11studio.github.io/"
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 2,
+	      "name": "Extensions",
+	      "item": "https://elevven11studio.github.io/extensions/"
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 3,
+	      "name": "WebGuard",
+	      "item": "https://elevven11studio.github.io/webguard/"
+	    }
+	  ]
+	}
+	</script>
+	<script>
+		// Applied before paint so a light-mode visitor never sees a dark flash.
+		(function () {
+			try {
+				if (localStorage.getItem('e11-theme') === 'light') {
+					document.documentElement.setAttribute('data-theme', 'light');
+				}
+			} catch (e) { /* private mode: stay on the dark default */ }
+		})();
+	</script>
+</head>
+
+<body>
+
+	<a class="skip-link" href="#main">Skip to main content</a>
+
+	<header>
+		<div class="container navbar">
+			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+			<ul class="nav-links">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
+				<li class="nav-item"><a href="/examples/">Examples</a></li>
+				<li class="nav-item"><a href="/agents/">Agents</a></li>
+				<li class="nav-item"><a href="/faq/">FAQ</a></li>
+				<li class="nav-item"><a href="/contact/">Contact</a></li>
+				<li class="nav-item"><a class="nav-cta" href="/get-started/">Get Your Website</a></li>
+			</ul>
+			<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+				<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+				<svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>
+			</button>
+			<div class="hamburger"><span></span><span></span><span></span></div>
+		</div>
+	</header>
+
+	<main id="main">
+
+	<section class="hero">
+		<div class="hero-content container">
+			<img class="wg-mark" src="/assets/webguard/icon-128.png" width="128" height="128" alt="" />
+			<div class="hero-eyebrow"><a href="/extensions/" style="color: inherit;">Extensions</a> / Chrome
+				Extension</div>
+			<h1 class="hero-title">Spot the fake <strong>before you type.</strong></h1>
+			<p class="hero-tagline">WebGuard checks the page you are on for the signs of phishing, and warns you
+				before you hand sensitive information to a site that should not have it. It runs on your device, and
+				online checks are off by default.</p>
+			<div class="wg-status">Coming soon to the Chrome Web Store</div>
+			<div class="btn-group">
+				<a href="/contact/?topic=extension-launch#message-us" class="btn btn-primary">Tell me when it
+					launches</a>
+				<a href="#checks" class="btn btn-secondary">See what it checks</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- What it checks -->
+	<section id="checks">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">What It Checks</div>
+			<h2 class="section-title">Eight kinds of trouble</h2>
+			<p class="section-subtitle">No single weak signal can produce a warning. Risk is the sum of several
+				observations, each scaled by confidence, because a warning you learn to click through protects
+				nobody.</p>
+
+			<div class="grid-3">
+				<div class="glass-card wg-check-card">
+					<h3>Website security</h3>
+					<p>HTTPS, URL structure, redirect parameters, embedded credentials, unusual ports, encoded
+						addresses and risky file types.</p>
+				</div>
+				<div class="glass-card wg-check-card">
+					<h3>Phishing</h3>
+					<p>Brand impersonation across 34 commonly imitated services, typosquatting, homograph and
+						mixed-script characters, brand names hidden in subdomains, and a page title that disagrees with
+						the domain.</p>
+				</div>
+				<div class="glass-card wg-check-card">
+					<h3>Domain analysis</h3>
+					<p>Registered-domain extraction, raw IP hosts, Punycode, and subdomains dressed up to look like
+						domains.</p>
+				</div>
+				<div class="glass-card wg-check-card">
+					<h3>Forms</h3>
+					<p>Login and payment form detection, passwords sent over http, and forms that post to a different
+						domain than the one you are on.</p>
+				</div>
+				<div class="glass-card wg-check-card">
+					<h3>Passwords</h3>
+					<p>Strength, common passwords and character substitutions, keyboard runs and sequences, plus a
+						breach lookup that never transmits your password.</p>
+				</div>
+				<div class="glass-card wg-check-card">
+					<h3>Sensitive data</h3>
+					<p>API keys, tokens, JWTs, private keys, connection strings, card numbers (Luhn checked), IBANs and
+						crypto addresses in text you select.</p>
+				</div>
+				<div class="glass-card wg-check-card">
+					<h3>Privacy</h3>
+					<p>124 known trackers, third-party requests, cookies and local storage. Informational: if trackers
+						moved the safety verdict, most of the web would turn orange and the verdict would stop
+						meaning anything.</p>
+				</div>
+				<div class="glass-card wg-check-card">
+					<h3>Threat lists</h3>
+					<p>Known malicious and phishing URLs, matched on your device against downloaded hash prefixes. The
+						addresses you visit are never sent.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- How it reports -->
+	<section class="section-tinted">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">How It Reports</div>
+			<h2 class="section-title">Four verdicts. Never "safe".</h2>
+			<p class="section-subtitle">A blocklist miss is not evidence of safety. WebGuard reports how much of a
+				check it was actually able to complete, rather than presenting an empty database as a clean
+				result.</p>
+
+			<div class="wg-verdicts">
+				<div class="wg-verdict wg-verdict-low">
+					<div class="label">Low Risk</div>
+					<div class="note">Nothing found by the checks that ran.</div>
+				</div>
+				<div class="wg-verdict wg-verdict-sus">
+					<div class="label">Suspicious</div>
+					<div class="note">Enough signals to be worth a look. Shows a badge on the toolbar icon.</div>
+				</div>
+				<div class="wg-verdict wg-verdict-high">
+					<div class="label">High Risk</div>
+					<div class="note">The only verdict that interrupts you.</div>
+				</div>
+				<div class="wg-verdict wg-verdict-unknown">
+					<div class="label">Unknown</div>
+					<div class="note">The check could not run, or the lists are missing or stale.</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- How you use it -->
+	<section>
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">How You Use It</div>
+			<h2 class="section-title">Mostly, you don't</h2>
+			<p class="section-subtitle">Protection runs as pages load. The rest is there when you want to ask
+				something specific.</p>
+
+			<div class="steps-list steps-list-4">
+				<div class="step-item">
+					<div class="step-number">1</div>
+					<h3>It watches</h3>
+					<p>Pages are checked as they load. Only a High Risk verdict interrupts you.</p>
+				</div>
+				<div class="step-item">
+					<div class="step-number">2</div>
+					<h3>You ask</h3>
+					<p>Click the toolbar icon or press
+						<span class="wg-keys"><span class="wg-key">Ctrl</span> <span class="wg-key">Shift</span>
+						<span class="wg-key">W</span></span> for the full breakdown of the current site.</p>
+				</div>
+				<div class="step-item">
+					<div class="step-number">3</div>
+					<h3>You check text</h3>
+					<p>Select something and press
+						<span class="wg-keys"><span class="wg-key">Ctrl</span> <span class="wg-key">Shift</span>
+						<span class="wg-key">U</span></span> to scan it for credentials before you paste it
+						anywhere.</p>
+				</div>
+				<div class="step-item">
+					<div class="step-number">4</div>
+					<h3>You decide</h3>
+					<p>Every signal shows what it saw. Trust a site and WebGuard stops warning you about it.</p>
+				</div>
+			</div>
+
+			<p class="section-subtitle" style="margin-top: 2.5rem;">Both shortcuts can be changed at
+				<code>chrome://extensions/shortcuts</code>.</p>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- Privacy -->
+	<section class="section-tinted">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">Privacy</div>
+			<h2 class="section-title">Nothing about the pages you visit leaves your browser</h2>
+			<p class="section-subtitle">A tool that reads every page you open has to be worth trusting with that.
+				Here is exactly what WebGuard does with it.</p>
+
+			<div class="grid-3">
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Online checks are off by default
+					</h3>
+					<p style="color: var(--text-secondary);">With them off, WebGuard makes no network requests at all
+						and every check runs on your device. Turning them on is your decision, made in settings.</p>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Passwords are never transmitted</h3>
+					<p style="color: var(--text-secondary);">The breach check hashes the password on your device and
+						sends the first five characters of that hash, which returns a bucket of several hundred
+						candidates to compare locally. The service cannot learn the password, or even its full
+						hash.</p>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Password fields are never read</h3>
+					<p style="color: var(--text-secondary);">The input monitor skips them entirely. Their values are
+						not read, not scanned, and not counted.</p>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Secrets are never stored</h3>
+					<p style="color: var(--text-secondary);">The sensitive-data scanner returns a label, a confidence,
+						an offset and a mask. There is no field in the result for the matched value, so nothing
+						downstream of it can display, keep or send a credential even by accident.</p>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Threat lists are downloaded, not
+						queried</h3>
+					<p style="color: var(--text-secondary);">Matching happens on your device against synced hash
+						prefixes. The only request derived from a page carries four bytes of a hash, which a great many
+						addresses share.</p>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">History is off by default</h3>
+					<p style="color: var(--text-secondary);">Turned on, a record holds a hostname, a verdict, a score
+						and a time, and nothing else fits in it. Pages you merely visit are never recorded. Settings
+						has a reset that clears every piece of local data.</p>
+				</div>
+			</div>
+
+			<div style="text-align:center; margin-top: 2.5rem;">
+				<a href="/webguard/privacy/" class="btn btn-secondary">Read the full privacy policy</a>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- What it isn't -->
+	<section>
+		<div class="container" style="max-width: 760px;">
+			<div class="glass-card">
+				<div class="wg-disclaimer">
+					<h2 style="font-size: 1.5rem; margin-bottom: 1rem;">What WebGuard is not</h2>
+					<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+						It is not an antivirus, not a password manager, and not a guarantee. It helps you make a safer
+						decision with better information. It does not replace security software, and it cannot promise
+						a site is safe.
+					</p>
+					<p style="color: var(--text-secondary);">
+						That is why there is no "safe" verdict. The most WebGuard will say is that the checks it was
+						able to run found nothing.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- FAQ -->
+	<section class="section-tinted">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">FAQ</div>
+			<h2 class="section-title">Common questions</h2>
+
+			<div style="max-width: 760px; margin: 0 auto;">
+				<details class="faq-item">
+					<summary>What does it cost?</summary>
+					<p>Nothing, and it stays that way. There is no account and no subscription. WebGuard carries one
+						house advertisement for the studio's own work, labelled "Ad", served from a list that ships
+						inside the extension, and one click turns it off permanently.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Why does it need access to every site?</summary>
+					<p>Because checking a page after you have already typed your password into it is no use. Automatic
+						protection means reading each page as it loads, and Chrome asks for that access at install.
+						What gets read is listed in full in the
+						<a href="/webguard/privacy/" style="color: var(--accent-gold);">privacy policy</a>: the
+						address, the shape of the forms, resource hostnames, counts and the title. It is sent
+						nowhere.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Does it send the sites I visit to a blocklist service?</summary>
+					<p>No. The lists are downloaded to your device as hash prefixes and matched locally, so almost
+						every page resolves with no network activity at all. The single exception is confirming a
+						prefix hit on a prefix-only list, which sends four bytes of a hash that a great many addresses
+						share.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Is checking my password against a breach list safe?</summary>
+					<p>The password is hashed in the popup on your device, and only the first five characters of that
+						hash are sent. That selects a bucket of roughly eight hundred hashes, which comes back in full
+						and is compared locally. The service sees five hexadecimal characters and cannot reconstruct
+						your password or its full hash. The check is also off unless you have turned online checks
+						on.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Which browsers does it work in?</summary>
+					<p>Chrome 116 and later, and the Chromium browsers that install Chrome extensions, such as Edge,
+						Brave and Opera. It is a Manifest V3 extension.</p>
+				</details>
+				<details class="faq-item">
+					<summary>It flagged a site I know is fine. What now?</summary>
+					<p>Add it to your trusted sites from the popup and WebGuard stops warning you about it. Every
+						signal shows what it saw, so you can judge whether the finding is wrong or whether the site is
+						doing something it should not. If it is a genuine false positive, we would like to hear about
+						it.</p>
+				</details>
+			</div>
+
+			<p class="section-subtitle" style="margin-top: 2.5rem;">Not answered here?
+				<a href="/extensions/support/" style="color: var(--accent-gold);">Extension support</a> has the
+				troubleshooting for WebGuard, and what to include if you need to report a bug.</p>
+		</div>
+	</section>
+
+	<!-- Final CTA -->
+	<section id="final-cta">
+		<div class="container" style="text-align: center;">
+			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Want it the day it lands?</h2>
+			<p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem;">
+				Send us a message and we'll tell you when the listing goes live. While you are here: we also build
+				websites, and we have other extensions on the way.
+			</p>
+			<div class="btn-group">
+				<a href="/contact/?topic=extension-launch#message-us" class="btn btn-primary">Tell me when it
+					launches</a>
+				<a href="/extensions/" class="btn btn-secondary">See all our extensions</a>
+			</div>
+		</div>
+	</section>
+
+	</main>
+
+	<footer>
+		<div class="container">
+			<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
+			<p><a href="/agents/">Referral Agents</a> <span class="footer-sep">&middot;</span> <a
+					href="/contact/">Contact</a> <span class="footer-sep">&middot;</span> <a href="/extensions/">Extensions</a> <span class="footer-sep">&middot;</span> <a href="/terms/">Terms</a> <span class="footer-sep">&middot;</span> <a href="/privacy/">Privacy</a> <span class="footer-sep">&middot;</span> <a href="/support/">Support</a>
+			</p>
+			<div class="footer-social">
+				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
+				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+				<a href="https://www.instagram.com/elevven11studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/main.js" defer></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+	</script>
+</body>
+
+</html>

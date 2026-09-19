@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>WebGuard Privacy Policy - Elevven11 Studio</title>
+	<meta name="description" content="The privacy policy for WebGuard, the browser extension by Elevven11 Studio. No servers, no account, no telemetry: online checks are off by default and your passwords never leave your device." />
+	<link rel="canonical" href="https://elevven11studio.github.io/webguard/privacy/" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta name="theme-color" content="#0b0a10" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:locale" content="en_NG" />
+	<meta property="og:title" content="WebGuard Privacy Policy - Elevven11 Studio" />
+	<meta property="og:description" content="The privacy policy for WebGuard, the browser extension by Elevven11 Studio. No servers, no account, no telemetry: online checks are off by default and your passwords never leave your device." />
+	<meta property="og:url" content="https://elevven11studio.github.io/webguard/privacy/" />
+	<!-- Shares the studio privacy card until WebGuard has artwork of its own. -->
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/privacy.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="Elevven11 Studio privacy policy" />
+	<!-- Square alternate: platforms whose share dialog lets you pick between
+	     linked images (Facebook, LinkedIn) can offer this one instead of a
+	     landscape crop for mobile-style posts. -->
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/privacy-square.png" />
+	<meta property="og:image:width" content="1080" />
+	<meta property="og:image:height" content="1080" />
+	<meta property="og:image:alt" content="Elevven11 Studio privacy policy" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="WebGuard Privacy Policy - Elevven11 Studio" />
+	<meta name="twitter:description" content="The privacy policy for WebGuard, the browser extension by Elevven11 Studio. No servers, no account, no telemetry." />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og/privacy.png" />
+	<meta name="twitter:image:alt" content="Elevven11 Studio privacy policy" />
+
+	<!-- Fonts. Linked here rather than @import-ed from style.css so the browser
+	     can start the font request immediately, in parallel with the stylesheet,
+	     instead of waiting for style.css to download and parse first. -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" />
+	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+
+	<style>
+		/* ---------------------------------------------------------------
+		   WebGuard takes its own accent. WebGuard's shield is sky blue. The studio
+		   wordmark keeps --gradient-brand and stays green: the product owns
+		   the page, not the brand in the corner.
+		
+		   --accent-rgb feeds every tint, border and glow in style.css, so
+		   these few lines repaint the whole page rather than one element at
+		   a time. The light shade is darker than the icon because the site
+		   sets headings and links in the accent, and the icon colour on a
+		   cream ground does not clear 4.5:1.
+		   --------------------------------------------------------------- */
+		:root {
+			--accent-gold: #38bdf8;
+			--accent-orange: #0ea5e9;
+			--accent-rgb: 56, 189, 248;
+		}
+
+		:root[data-theme="light"] {
+			--accent-gold: #0369a1;
+			--accent-orange: #075985;
+			/* style.css pins the light glow to a literal, so it is restated here. */
+			--glow-gold: 0 0 15px rgba(3, 105, 161, 0.22);
+		}
+		/* A plain bullet list. The site's .pricing-features list marks every item
+		   with a green tick, which reads as approval - wrong on a list headed
+		   "what it never reads". */
+		.policy-list {
+			list-style: none;
+			margin: 0 0 1rem;
+			padding: 0;
+		}
+
+		.policy-list li {
+			position: relative;
+			padding-left: 1.35rem;
+			margin-bottom: 0.85rem;
+			color: var(--text-secondary);
+			font-size: 0.98rem;
+		}
+
+		.policy-list li::before {
+			content: '';
+			position: absolute;
+			left: 0.1rem;
+			top: 0.62em;
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: var(--accent-gold);
+		}
+
+		.policy-list li:last-child { margin-bottom: 0; }
+
+		/* The breach check and the threat lists are both easier to trust when the
+		   order of operations is numbered rather than described. */
+		.policy-steps {
+			list-style: none;
+			counter-reset: policy-step;
+			margin: 0 0 1rem;
+			padding: 0;
+		}
+
+		.policy-steps li {
+			position: relative;
+			padding-left: 2.35rem;
+			margin-bottom: 0.9rem;
+			color: var(--text-secondary);
+			font-size: 0.98rem;
+			min-height: 1.6rem;
+		}
+
+		.policy-steps li::before {
+			counter-increment: policy-step;
+			content: counter(policy-step);
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 1.6rem;
+			height: 1.6rem;
+			border-radius: 50%;
+			background: rgba(var(--accent-rgb), 0.12);
+			border: 1px solid rgba(var(--accent-rgb), 0.3);
+			color: var(--accent-gold);
+			font-weight: 800;
+			font-size: 0.82rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.policy-steps li:last-child { margin-bottom: 0; }
+
+		.policy-card h3 {
+			color: var(--text-primary);
+			font-size: 1.05rem;
+			margin: 1.75rem 0 0.75rem;
+		}
+
+		.policy-card p code,
+		.policy-card h3 code,
+		.policy-list code,
+		.policy-steps code,
+		.data-table code {
+			font-size: 0.9em;
+			padding: 0.1rem 0.35rem;
+			border-radius: 4px;
+			background: rgba(var(--accent-rgb), 0.1);
+			color: var(--accent-gold);
+		}
+
+		.policy-card strong { color: var(--text-primary); }
+	</style>
+
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "BreadcrumbList",
+	  "itemListElement": [
+	    {
+	      "@type": "ListItem",
+	      "position": 1,
+	      "name": "Home",
+	      "item": "https://elevven11studio.github.io/"
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 2,
+	      "name": "Extensions",
+	      "item": "https://elevven11studio.github.io/extensions/"
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 3,
+	      "name": "WebGuard",
+	      "item": "https://elevven11studio.github.io/webguard/"
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 4,
+	      "name": "WebGuard Privacy Policy",
+	      "item": "https://elevven11studio.github.io/webguard/privacy/"
+	    }
+	  ]
+	}
+	</script>
+	<script>
+		// Applied before paint so a light-mode visitor never sees a dark flash.
+		(function () {
+			try {
+				if (localStorage.getItem('e11-theme') === 'light') {
+					document.documentElement.setAttribute('data-theme', 'light');
+				}
+			} catch (e) { /* private mode: stay on the dark default */ }
+		})();
+	</script>
+</head>
+
+<body>
+
+	<a class="skip-link" href="#main">Skip to main content</a>
+
+	<header>
+		<div class="container navbar">
+			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+			<ul class="nav-links">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
+				<li class="nav-item"><a href="/examples/">Examples</a></li>
+				<li class="nav-item"><a href="/agents/">Agents</a></li>
+				<li class="nav-item"><a href="/faq/">FAQ</a></li>
+				<li class="nav-item"><a href="/contact/">Contact</a></li>
+				<li class="nav-item"><a class="nav-cta" href="/get-started/">Get Your Website</a></li>
+			</ul>
+			<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+				<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+				<svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>
+			</button>
+			<div class="hamburger"><span></span><span></span><span></span></div>
+		</div>
+	</header>
+
+	<main id="main">
+
+	<section class="hero" style="min-height: 40vh;">
+		<div class="hero-content container">
+			<div class="hero-eyebrow"><a href="/webguard/" style="color: inherit;">WebGuard</a> / Privacy</div>
+			<h1 class="hero-title">WebGuard Privacy</h1>
+			<p class="hero-tagline">WebGuard has no servers. Online checks are off by default, and with them off it
+				makes no network requests at all.</p>
+		</div>
+	</section>
+
+	<section>
+		<div class="container" style="max-width: 820px;">
+			<p style="color: var(--text-muted); margin-bottom: 2.5rem;">Last updated: 1 September 2026</p>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">In short</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					WebGuard is a browser extension that checks websites for signs of phishing and warns you before
+					you send sensitive information somewhere you might not intend.
+				</p>
+				<p style="color: var(--text-secondary);">
+					<strong>WebGuard has no servers.</strong> There is no account, no login, no analytics and no
+					telemetry. Nobody at Elevven11 Studio can see what you browse, what you check, or what WebGuard
+					finds.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">What WebGuard reads
+				</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">To check the page you are on, WebGuard
+					reads:</p>
+				<ul class="policy-list">
+					<li>the page's address, from the browser rather than from the page;</li>
+					<li>the structure of its forms: whether there is a password or card field, where the form submits
+						to, and the field types. Never the values;</li>
+					<li>the hostnames of resources the page loaded, to recognise trackers;</li>
+					<li>the number of cookies and local-storage entries the page can see;</li>
+					<li>the page title.</li>
+				</ul>
+				<p style="color: var(--text-secondary);">
+					It does not read the text of the page unless a check specifically asks for it, and no shipped
+					check currently does.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">What WebGuard never
+					reads</h2>
+				<ul class="policy-list">
+					<li><strong>Password fields.</strong> The input monitor skips them entirely. Their values are not
+						read, not scanned, and not counted.</li>
+					<li><strong>The contents of any field you type into</strong>, other than the paste and blur-time
+						scan described below, which is local and returns no values.</li>
+				</ul>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">What WebGuard stores
+				</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					On your device, in <code>chrome.storage.local</code>:
+				</p>
+				<ul class="policy-list">
+					<li>your settings;</li>
+					<li>your trusted sites, as registered domains;</li>
+					<li>a short-lived cache of page verdicts, which expires after ten minutes and holds at most forty
+						entries;</li>
+					<li>a feed API key, if you entered one;</li>
+					<li><strong>only if you turn history on:</strong> a list of checks, where each record holds a
+						hostname, a risk level, a score and a timestamp. Nothing else fits in the record. Pages you
+						merely visit are never recorded. History is off by default.</li>
+				</ul>
+				<p style="color: var(--text-secondary);">
+					And in IndexedDB: downloaded threat lists, as hash prefixes. This is public threat data and
+					contains nothing about you or where you have been.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">What WebGuard never
+					stores</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					Anything sensitive it encounters while you browse: passwords, API keys, tokens, private keys, card
+					numbers, database connection strings, the contents of any field you type into, and the contents of
+					the pages you visit.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					None of these is written to storage, placed in a log, included in an error message, or sent
+					anywhere.
+				</p>
+				<p style="color: var(--text-secondary);">
+					The one credential WebGuard does keep is a feed API key you deliberately typed into settings, which
+					is yours and is described below. Nothing WebGuard <em>finds</em> is ever kept.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Network requests</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					<strong>Online checks are off by default.</strong> With them off, WebGuard makes no network
+					requests whatsoever, and every check runs on your device.
+				</p>
+				<p style="color: var(--text-secondary);">
+					If you turn them on, two things may leave your browser, and neither of them is a URL or a
+					password.
+				</p>
+
+				<h3>The password breach check</h3>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					When you ask WebGuard to check a password for breaches:
+				</p>
+				<ol class="policy-steps">
+					<li>The password is hashed <strong>on your device</strong>, in the popup.</li>
+					<li>Only the <strong>first five characters</strong> of that hash are sent to
+						<code>api.pwnedpasswords.com</code>.</li>
+					<li>That prefix selects a bucket of roughly eight hundred hashes, which comes back in full.</li>
+					<li>WebGuard compares the rest of your hash against that bucket <strong>locally</strong>.</li>
+				</ol>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					The service receives five hexadecimal characters. It cannot learn your password, and it cannot
+					learn your password's full hash. The request also asks for padding, so the size of the response
+					cannot hint at whether your password was in it.
+				</p>
+				<p style="color: var(--text-secondary);">
+					The password itself never leaves your device, under any setting.
+				</p>
+
+				<h3>Threat lists</h3>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					WebGuard can check addresses against published lists of known malicious and phishing URLs. It does
+					this by downloading the lists, not by asking about your pages.
+				</p>
+				<ol class="policy-steps">
+					<li>Lists are fetched wholesale and stored on your device as <strong>hash prefixes</strong>: four
+						bytes of a SHA-256 hash per entry.</li>
+					<li>When a page is checked, its address is canonicalised and hashed <strong>locally</strong>, and
+						the prefixes are compared against the local database. Almost every page is resolved here, with
+						no network activity at all.</li>
+					<li>Four bytes collide, so a prefix match is a candidate rather than an answer. Confirmation
+						compares the full hash. For lists WebGuard hashed itself, the full hashes are already local and
+						confirmation needs no network.</li>
+					<li>For prefix-only lists such as Safe Browsing, confirmation sends <strong>the four-byte
+						prefix</strong> and asks which full hashes sit under it. The comparison happens back on your
+						device.</li>
+				</ol>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					Step 4 is the only request in the product derived from a page you visited, and it carries four
+					bytes of a hash. The service cannot tell which address produced it, because a great many addresses
+					share any given prefix.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					Because matching is local, threat-list protection keeps working with no network at all once the
+					lists are downloaded.
+				</p>
+				<p style="color: var(--text-secondary);">
+					<strong>Coverage is reported honestly.</strong> WebGuard distinguishes "checked against current
+					lists and not listed" from "no lists downloaded", "lists out of date" and "not checked". An empty
+					or stale database is never presented as a clean result.
+				</p>
+
+				<h3>API keys</h3>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					Some feeds require a key. WebGuard ships none: an extension cannot keep a secret, since anyone can
+					unpack it. A feed that needs a key stays off until you supply your own, and says so.
+				</p>
+				<p style="color: var(--text-secondary);">
+					A key you enter is stored in <code>chrome.storage.local</code> on this device and sent only to the
+					service it belongs to. It is <strong>deliberately excluded from the settings export</strong>,
+					because an exported file is easy to email or sync somewhere else.
+				</p>
+
+				<h3>Email breach checking</h3>
+				<p style="color: var(--text-secondary);">
+					Not implemented. Every breach directory for email addresses requires a paid, authenticated key, and
+					an extension cannot hold one secretly. Rather than ship a key or invent a result, WebGuard tells
+					you so and offers to open the service that can answer. WebGuard never checks an email address it
+					finds on a page; only one you type in yourself, and only when you ask.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">The sensitive-data scan
+				</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					When you paste text into a page, or leave a field you typed into, WebGuard scans that text for
+					things shaped like credentials.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					This happens entirely in the page, synchronously, in a pure function. The text is a local variable.
+					The scanner returns only:
+				</p>
+				<ul class="policy-list">
+					<li>what kind of thing it recognised, as a label;</li>
+					<li>a confidence;</li>
+					<li>where in the text it was, as offsets;</li>
+					<li>a <strong>masked</strong> preview, for example <code>sk_l&hellip;********&hellip;kLmN</code>.
+					</li>
+				</ul>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					There is deliberately no field in the result for the matched value. Everything downstream of the
+					scanner, the warning card included, is structurally unable to display, store or transmit a secret,
+					even by accident.
+				</p>
+				<p style="color: var(--text-secondary);">
+					Nothing about the scan is stored or sent.
+				</p>
+
+				<h3>One exception, and how it is handled</h3>
+				<p style="color: var(--text-secondary);">
+					Choosing "Scan selection for sensitive data" from the right-click menu has to move the selected
+					text from the background service to the popup that renders the result. That text is put in
+					<code>chrome.storage.session</code>, which lives in memory and is never written to disk, is read
+					exactly once (the read deletes it), and expires after thirty seconds. Nothing else in WebGuard may
+					use that channel.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem; overflow-x: auto;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Permissions</h2>
+				<table class="data-table">
+					<thead>
+						<tr>
+							<th>Permission</th>
+							<th>Why</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>storage</code></td>
+							<td>Your settings, trusted sites and optional history.</td>
+						</tr>
+						<tr>
+							<td><code>activeTab</code></td>
+							<td>Looking at the page you are on when you ask.</td>
+						</tr>
+						<tr>
+							<td><code>tabs</code></td>
+							<td>Reading the current tab's address, which is what the URL and domain checks examine.
+							</td>
+						</tr>
+						<tr>
+							<td><code>scripting</code></td>
+							<td>Injecting the page reader into tabs already open when WebGuard was installed or
+								updated.</td>
+						</tr>
+						<tr>
+							<td><code>contextMenus</code></td>
+							<td>The right-click entries.</td>
+						</tr>
+						<tr>
+							<td><code>notifications</code></td>
+							<td>A single notification when a high-risk page is found and the in-page warning cannot be
+								drawn.</td>
+						</tr>
+						<tr>
+							<td>Host access to <code>http://*/*</code> and <code>https://*/*</code></td>
+							<td>Automatic protection means checking a page as it loads, which requires access to the
+								pages you visit. What is read is listed above. It is sent nowhere.</td>
+						</tr>
+					</tbody>
+				</table>
+				<p style="color: var(--text-secondary); margin-top: 1.5rem;">
+					Threat-list checking adds <strong>no permission at all</strong>. The lists live in IndexedDB, which
+					needs none, and they refresh when the extension is already awake for a page load rather than on a
+					<code>chrome.alarms</code> schedule, which would have needed one.
+				</p>
+				<p style="color: var(--text-secondary); margin-top: 1rem;">
+					WebGuard requests no permission it does not use. The same table appears in the extension's own
+					settings page.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Your control</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">From the settings page you can:</p>
+				<ul class="policy-list">
+					<li>turn off website warnings, sensitive-data warnings, privacy analysis, the right-click menu, and
+						notifications;</li>
+					<li>turn online checks off, which stops all network activity;</li>
+					<li>turn history off and clear it;</li>
+					<li>remove trusted sites;</li>
+					<li>clear cached verdicts;</li>
+					<li>update or stop updating the threat lists, and remove a feed key;</li>
+					<li><strong>reset WebGuard</strong>, which deletes every piece of local WebGuard data, across both
+						the settings store and the threat database.</li>
+				</ul>
+				<p style="color: var(--text-secondary);">
+					Uninstalling the extension removes all of it too. There is nothing held anywhere else, so there is
+					nothing else to delete and no request to make of anyone.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Changes</h2>
+				<p style="color: var(--text-secondary);">
+					Any change to this policy will accompany a version update, and any change that introduces a network
+					request or a new stored field will be called out in the extension's release notes.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Contact</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					Questions about this policy go to
+					<a href="mailto:elevven11studio@gmail.com" style="color: var(--accent-gold);">elevven11studio@gmail.com</a>,
+					or message us on
+					<a href="https://wa.me/2349120925909" target="_blank" rel="noopener"
+						style="color: var(--accent-gold);">WhatsApp</a>.
+					Bug reports and feature requests are welcome through the
+					<a href="/contact/?topic=extension-bug#message-us" style="color: var(--accent-gold);">contact
+						form</a>.
+				</p>
+				<p style="color: var(--text-muted); font-size: 0.9rem;">
+					This policy covers the WebGuard extension only. The
+					<a href="/privacy/" style="color: var(--accent-gold);">studio privacy policy</a> covers this
+					website and the enquiries you send through it, and each of our
+					<a href="/extensions/" style="color: var(--accent-gold);">other extensions</a> publishes its own.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	</main>
+
+	<footer>
+		<div class="container">
+			<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
+			<p><a href="/agents/">Referral Agents</a> <span class="footer-sep">&middot;</span> <a
+					href="/contact/">Contact</a> <span class="footer-sep">&middot;</span> <a href="/extensions/">Extensions</a> <span class="footer-sep">&middot;</span> <a href="/terms/">Terms</a> <span class="footer-sep">&middot;</span> <a href="/privacy/">Privacy</a> <span class="footer-sep">&middot;</span> <a href="/support/">Support</a>
+			</p>
+			<div class="footer-social">
+				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
+				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+				<a href="https://www.instagram.com/elevven11studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/main.js" defer></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+	</script>
+</body>
+
+</html>

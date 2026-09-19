@@ -36,6 +36,29 @@
 	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
 
 	<style>
+		/* ---------------------------------------------------------------
+		   WebInspect takes its own accent. WebInspect's magnifier is violet. The studio
+		   wordmark keeps --gradient-brand and stays green: the product owns
+		   the page, not the brand in the corner.
+		
+		   --accent-rgb feeds every tint, border and glow in style.css, so
+		   these few lines repaint the whole page rather than one element at
+		   a time. The light shade is darker than the icon because the site
+		   sets headings and links in the accent, and the icon colour on a
+		   cream ground does not clear 4.5:1.
+		   --------------------------------------------------------------- */
+		:root {
+			--accent-gold: #a78bfa;
+			--accent-orange: #8b5cf6;
+			--accent-rgb: 167, 139, 250;
+		}
+
+		:root[data-theme="light"] {
+			--accent-gold: #6d28d9;
+			--accent-orange: #5b21b6;
+			/* style.css pins the light glow to a literal, so it is restated here. */
+			--glow-gold: 0 0 15px rgba(109, 40, 217, 0.22);
+		}
 		/* The product mark, shown at its native 128px so the icon stays crisp. */
 		.wi-mark {
 			width: 88px;
@@ -51,8 +74,8 @@
 			display: inline-flex;
 			align-items: center;
 			gap: 0.6rem;
-			background: rgba(134, 239, 172, 0.08);
-			border: 1px solid rgba(134, 239, 172, 0.3);
+			background: rgba(var(--accent-rgb), 0.08);
+			border: 1px solid rgba(var(--accent-rgb), 0.3);
 			color: var(--text-primary);
 			padding: 0.6rem 1.2rem;
 			border-radius: 22px;
@@ -94,7 +117,7 @@
 		}
 
 		.wi-outcomes li {
-			background: rgba(134, 239, 172, 0.06);
+			background: rgba(var(--accent-rgb), 0.06);
 			border: var(--border-subtle);
 			border-radius: 18px;
 			padding: 0.45rem 1rem;
@@ -108,9 +131,9 @@
 		.wi-shortcut {
 			font-family: inherit;
 			font-weight: 700;
-			background: rgba(134, 239, 172, 0.1);
+			background: rgba(var(--accent-rgb), 0.1);
 			color: var(--accent-gold);
-			border: 1px solid rgba(134, 239, 172, 0.25);
+			border: 1px solid rgba(var(--accent-rgb), 0.25);
 			border-radius: 6px;
 			padding: 0.15rem 0.5rem;
 			font-size: 0.92em;
@@ -132,6 +155,12 @@
 	    {
 	      "@type": "ListItem",
 	      "position": 2,
+	      "name": "Extensions",
+	      "item": "https://elevven11studio.github.io/extensions/"
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 3,
 	      "name": "WebInspect",
 	      "item": "https://elevven11studio.github.io/webinspect/"
 	    }
@@ -181,14 +210,14 @@
 		<div class="hero-content container">
 			<img class="wi-mark" src="/assets/webinspect/icon-128.png" width="128" height="128"
 				alt="" />
-			<div class="hero-eyebrow">Chrome Extension</div>
+			<div class="hero-eyebrow"><a href="/extensions/" style="color: inherit;">Extensions</a> / Chrome Extension</div>
 			<h1 class="hero-title">Understand any website <strong>at a glance.</strong></h1>
 			<p class="hero-tagline">Open a site, press one key, and get a practical report on its technology, SEO,
 				accessibility, performance, mobile readiness and security. Every check runs in your browser. No
 				account, no server, nothing uploaded.</p>
 			<div class="wi-status">Coming soon to the Chrome Web Store</div>
 			<div class="btn-group">
-				<a href="/contact/" class="btn btn-primary">Tell me when it launches</a>
+				<a href="/contact/?topic=extension-launch#message-us" class="btn btn-primary">Tell me when it launches</a>
 				<a href="#report" class="btn btn-secondary">See what it checks</a>
 			</div>
 		</div>
@@ -445,6 +474,10 @@
 						not read unless you explicitly ask for it once.</p>
 				</details>
 			</div>
+
+			<p class="section-subtitle" style="margin-top: 2.5rem;">Not answered here?
+				<a href="/extensions/support/" style="color: var(--accent-gold);">Extension support</a> has the
+				troubleshooting for WebInspect, and what to include if you need to report a bug.</p>
 		</div>
 	</section>
 
@@ -457,7 +490,7 @@
 				the websites WebInspect is designed to check.
 			</p>
 			<div class="btn-group">
-				<a href="/contact/" class="btn btn-primary">Tell me when it launches</a>
+				<a href="/contact/?topic=extension-launch#message-us" class="btn btn-primary">Tell me when it launches</a>
 				<a href="/pricing/" class="btn btn-secondary">See our website packages</a>
 			</div>
 		</div>
@@ -469,7 +502,7 @@
 		<div class="container">
 			<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
 			<p><a href="/agents/">Referral Agents</a> <span class="footer-sep">&middot;</span> <a
-					href="/contact/">Contact</a> <span class="footer-sep">&middot;</span> <a href="/webinspect/">WebInspect</a> <span class="footer-sep">&middot;</span> <a href="/terms/">Terms</a> <span class="footer-sep">&middot;</span> <a href="/privacy/">Privacy</a> <span class="footer-sep">&middot;</span> <a href="/support/">Support</a>
+					href="/contact/">Contact</a> <span class="footer-sep">&middot;</span> <a href="/extensions/">Extensions</a> <span class="footer-sep">&middot;</span> <a href="/terms/">Terms</a> <span class="footer-sep">&middot;</span> <a href="/privacy/">Privacy</a> <span class="footer-sep">&middot;</span> <a href="/support/">Support</a>
 			</p>
 			<div class="footer-social">
 				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
