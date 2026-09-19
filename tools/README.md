@@ -105,6 +105,75 @@ parameters and the code gets much sparser.
 Run `npm run verify-qr` after moving anything on those promos — it decodes the
 QR back out of the finished PNG and fails loudly if it broke.
 
+### `flyers` — promotion flyers
+
+Sixteen flyers in `promo/flyers/`: four subjects across two editions and two
+shapes.
+
+| | Nigeria-facing | International |
+| --- | --- | --- |
+| The website offer | `main.png` | `main-intl.png` |
+| Referral programme | `agents.png` | `agents-intl.png` |
+| Template library | `examples.png` | `examples-intl.png` |
+| Support page | `support.png` | `support-intl.png` |
+
+Each also gets a `-square` file, so `main-intl-square.png` is the international
+edition of the main flyer at 1080x1080.
+
+**Why these exist next to `promo/*.png`,** which cover the same four subjects: a
+promo is a single message, a flyer answers the questions that come after it.
+Prices, what is actually included, and a number to message. The promo earns the
+glance; the flyer is what gets forwarded afterwards.
+
+**Two shapes.** 1080x1350 by default - 4:5 is the tallest a feed will show
+without cropping, and the most readable shape for this much text on an upright
+phone. `-square` is 1080x1080, for the places that want a square: an Instagram
+grid that has to stay uniform, a WhatsApp display picture, a LinkedIn post.
+
+The square is **a different layout, not a crop**. It carries three of the five
+included lines rather than all five, a tighter type scale, and less air between
+blocks, and the rate footnote moves above the price cells because there is no
+room under them. Cropping the tall one would have cut off the contact bar, which
+is the part that matters. Each subject picks its own three lines in `short` - on
+the agents flyer, taking the first three would have dropped the line about when
+the commission is actually paid.
+
+All of it is driven by the `FORMATS` table at the top of the script, so a third
+shape is a block of numbers rather than a second layout function.
+
+**The two editions.** The plain file is Naira, a local mobile number, and
+"in Nigeria" in the eyebrow. The `-intl` file is Dollars, the number in
+international form, and the Nigeria framing dropped. This is the same split the
+site makes at runtime through `detectCountryCode()` - a PNG cannot ask where you
+are, so there are two and you pick which to post.
+
+**Dollar figures are converted at build time** from the live rate, using the
+same providers and the same rounding as `getNgnPerUsd()` in `assets/main.js`, so
+a flyer and the page it links to never quote different numbers. The rate and the
+date are printed on the flyer itself, along with the fact that NGN is what is
+actually charged. A flyer gets forwarded for months, so being honest about when
+it was priced is the best it can do. If no rate provider is reachable the script
+warns loudly and falls back to a constant - do not ship that run.
+
+Prices are duplicated in the `AMOUNTS` map at the bottom of the script and are
+not read from anywhere, so **re-run this when prices change** or the flyers keep
+quoting the old figures.
+
+**QR codes** point at the matching page, tagged `utm_source=flyer`, so flyer
+scans separate from the square promos in GA4.
+
+All sixteen decode down to a **540px render**, and thirteen of them down to
+360px - the three that do not are the ones with the longest URLs, where the
+symbol needs a denser version. 540px is comfortably past any real use: a flyer
+on a phone screen rasterises well above that. This is also why the tracking
+parameters are as short as they are, and why the contact bar is sized around the
+QR rather than the other way round. At the 138px the bar first used, nothing
+resolved below 540px at all.
+
+Run `npm run verify-qr` after moving anything in the contact bar - it decodes
+the code back out of the finished PNG at five sizes and prints where each one
+stops.
+
 ### `slides` — picture sliders
 
 Builds the 29 slider images used on the agents, how-it-works, faq and contact

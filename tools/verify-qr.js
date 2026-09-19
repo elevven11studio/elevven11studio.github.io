@@ -33,6 +33,26 @@ const EXPECTED = [
   // they are the ones people scan. Encoded lossless, but check them rather than
   // assume it - a re-encode is exactly the kind of change that quietly softens
   // the module edges.
+  // Both editions of every flyer. These are the codes a stranger scans off a
+  // phone screen, so they matter as much as the promo ones above.
+  { file: 'promo/flyers/main.png', mustContain: 'github.io/?' },
+  { file: 'promo/flyers/main-intl.png', mustContain: 'github.io/?' },
+  { file: 'promo/flyers/agents.png', mustContain: 'github.io/agents/?' },
+  { file: 'promo/flyers/agents-intl.png', mustContain: 'github.io/agents/?' },
+  { file: 'promo/flyers/examples.png', mustContain: 'github.io/examples/?' },
+  { file: 'promo/flyers/examples-intl.png', mustContain: 'github.io/examples/?' },
+  { file: 'promo/flyers/support.png', mustContain: 'github.io/support/?' },
+  { file: 'promo/flyers/support-intl.png', mustContain: 'github.io/support/?' },
+
+  { file: 'promo/flyers/main-square.png', mustContain: 'github.io/?' },
+  { file: 'promo/flyers/main-intl-square.png', mustContain: 'github.io/?' },
+  { file: 'promo/flyers/agents-square.png', mustContain: 'github.io/agents/?' },
+  { file: 'promo/flyers/agents-intl-square.png', mustContain: 'github.io/agents/?' },
+  { file: 'promo/flyers/examples-square.png', mustContain: 'github.io/examples/?' },
+  { file: 'promo/flyers/examples-intl-square.png', mustContain: 'github.io/examples/?' },
+  { file: 'promo/flyers/support-square.png', mustContain: 'github.io/support/?' },
+  { file: 'promo/flyers/support-intl-square.png', mustContain: 'github.io/support/?' },
+
   { file: 'assets/qr/site.webp', mustContain: 'github.io/?' },
   { file: 'assets/qr/agents.webp', mustContain: 'github.io/agents/?' },
   { file: 'assets/qr/get-started.webp', mustContain: 'github.io/get-started/?' },
@@ -62,7 +82,7 @@ async function decodeAt(file, width) {
     }
 
     const okTarget = full.data.includes(item.mustContain);
-    const okUtm = /utm_source=(promo|site)&utm_medium=qr&utm_campaign=/.test(full.data);
+    const okUtm = /utm_source=(promo|site|flyer)&utm_medium=qr&utm_campaign=/.test(full.data);
 
     const results = [];
     for (const w of SCALES) {
