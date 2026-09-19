@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>WebInspect - Chrome Extension by Elevven11 Studio</title>
+	<meta name="description" content="Understand any website at a glance. A free Chrome extension reporting technology, SEO, accessibility, performance, mobile readiness and security. Every check runs in your browser." />
+	<link rel="canonical" href="https://elevven11studio.github.io/webinspect/" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta name="theme-color" content="#0b0a10" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:locale" content="en_NG" />
+	<meta property="og:title" content="WebInspect - Chrome Extension by Elevven11 Studio" />
+	<meta property="og:description" content="Understand any website at a glance. A free Chrome extension reporting technology, SEO, accessibility, performance, mobile readiness and security. Every check runs in your browser." />
+	<meta property="og:url" content="https://elevven11studio.github.io/webinspect/" />
+	<!-- Uses the studio card until WebInspect has share artwork of its own.
+	     tools/generate-og-cards.js is where a webinspect case would go. -->
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og-image.png" />
+	<meta property="og:image:alt" content="Elevven11 Studio" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="WebInspect - Chrome Extension by Elevven11 Studio" />
+	<meta name="twitter:description" content="Understand any website at a glance. A free Chrome extension reporting technology, SEO, accessibility, performance, mobile readiness and security." />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og-image.png" />
+	<meta name="twitter:image:alt" content="Elevven11 Studio" />
+
+	<!-- Fonts. Linked here rather than @import-ed from style.css so the browser
+	     can start the font request immediately, in parallel with the stylesheet,
+	     instead of waiting for style.css to download and parse first. -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" />
+	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+
+	<style>
+		/* The product mark, shown at its native 128px so the icon stays crisp. */
+		.wi-mark {
+			width: 88px;
+			height: 88px;
+			margin: 0 auto 1.5rem;
+			display: block;
+			border-radius: 20px;
+		}
+
+		/* Says where the extension is in the launch process. A button would
+		   promise a click that has nowhere to go until the listing is live. */
+		.wi-status {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.6rem;
+			background: rgba(134, 239, 172, 0.08);
+			border: 1px solid rgba(134, 239, 172, 0.3);
+			color: var(--text-primary);
+			padding: 0.6rem 1.2rem;
+			border-radius: 22px;
+			font-size: 0.92rem;
+			font-weight: 600;
+			margin-bottom: 1.75rem;
+		}
+
+		.wi-status::before {
+			content: '';
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: var(--accent-gold);
+			box-shadow: var(--glow-gold);
+			flex-shrink: 0;
+		}
+
+		/* A category card carries a short label above its list of checks. */
+		.wi-report-card h3 {
+			color: var(--accent-gold);
+			margin-bottom: 0.6rem;
+			font-size: 1.1rem;
+		}
+
+		.wi-report-card p {
+			color: var(--text-secondary);
+			font-size: 0.95rem;
+		}
+
+		/* The five outcomes, as a legend rather than prose. */
+		.wi-outcomes {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.6rem;
+			margin: 1.25rem 0 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		.wi-outcomes li {
+			background: rgba(134, 239, 172, 0.06);
+			border: var(--border-subtle);
+			border-radius: 18px;
+			padding: 0.45rem 1rem;
+			font-size: 0.88rem;
+			font-weight: 600;
+			color: var(--text-secondary);
+		}
+
+		.wi-keys { white-space: nowrap; }
+
+		.wi-shortcut {
+			font-family: inherit;
+			font-weight: 700;
+			background: rgba(134, 239, 172, 0.1);
+			color: var(--accent-gold);
+			border: 1px solid rgba(134, 239, 172, 0.25);
+			border-radius: 6px;
+			padding: 0.15rem 0.5rem;
+			font-size: 0.92em;
+			white-space: nowrap;
+		}
+	</style>
+
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "BreadcrumbList",
+	  "itemListElement": [
+	    {
+	      "@type": "ListItem",
+	      "position": 1,
+	      "name": "Home",
+	      "item": "https://elevven11studio.github.io/"
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 2,
+	      "name": "WebInspect",
+	      "item": "https://elevven11studio.github.io/webinspect/"
+	    }
+	  ]
+	}
+	</script>
+	<script>
+		// Applied before paint so a light-mode visitor never sees a dark flash.
+		(function () {
+			try {
+				if (localStorage.getItem('e11-theme') === 'light') {
+					document.documentElement.setAttribute('data-theme', 'light');
+				}
+			} catch (e) { /* private mode: stay on the dark default */ }
+		})();
+	</script>
+</head>
+
+<body>
+
+	<a class="skip-link" href="#main">Skip to main content</a>
+
+	<header>
+		<div class="container navbar">
+			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+			<ul class="nav-links">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
+				<li class="nav-item"><a href="/examples/">Examples</a></li>
+				<li class="nav-item"><a href="/agents/">Agents</a></li>
+				<li class="nav-item"><a href="/faq/">FAQ</a></li>
+				<li class="nav-item"><a href="/contact/">Contact</a></li>
+				<li class="nav-item"><a class="nav-cta" href="/get-started/">Get Your Website</a></li>
+			</ul>
+			<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+				<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+				<svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>
+			</button>
+			<div class="hamburger"><span></span><span></span><span></span></div>
+		</div>
+	</header>
+
+	<main id="main">
+
+	<section class="hero">
+		<div class="hero-content container">
+			<img class="wi-mark" src="/assets/webinspect/icon-128.png" width="128" height="128"
+				alt="" />
+			<div class="hero-eyebrow">Chrome Extension</div>
+			<h1 class="hero-title">Understand any website <strong>at a glance.</strong></h1>
+			<p class="hero-tagline">Open a site, press one key, and get a practical report on its technology, SEO,
+				accessibility, performance, mobile readiness and security. Every check runs in your browser. No
+				account, no server, nothing uploaded.</p>
+			<div class="wi-status">Coming soon to the Chrome Web Store</div>
+			<div class="btn-group">
+				<a href="/contact/" class="btn btn-primary">Tell me when it launches</a>
+				<a href="#report" class="btn btn-secondary">See what it checks</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- What the report covers -->
+	<section id="report">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">The Report</div>
+			<h2 class="section-title">Eight sections, one click</h2>
+			<p class="section-subtitle">Every finding shows the evidence behind it, so you can disagree with
+				WebInspect when WebInspect is wrong.</p>
+
+			<div class="grid-3">
+				<div class="glass-card wi-report-card">
+					<h3>Overview</h3>
+					<p>URL, title, language, encoding, HTTPS, canonical, robots and viewport, with counts for words,
+						images, links, scripts, styles, requests and transferred bytes.</p>
+				</div>
+				<div class="glass-card wi-report-card">
+					<h3>Technology</h3>
+					<p>Frameworks, CMS, ecommerce platforms, CSS frameworks, JavaScript libraries, analytics, payment
+						providers, infrastructure and fonts. Each rated detected, likely or possible rather than
+						asserted as fact.</p>
+				</div>
+				<div class="glass-card wi-report-card">
+					<h3>SEO</h3>
+					<p>Title, meta description, heading outline, canonical, robots, Open Graph and Twitter tags with a
+						card preview, structured data types and URL shape.</p>
+				</div>
+				<div class="glass-card wi-report-card">
+					<h3>Accessibility</h3>
+					<p>Alt text, form labels, link and button names, page language, landmarks, duplicate ids, ARIA
+						references, roles, tabindex, iframe titles, video captions, focus indicators and colour
+						contrast against WCAG AA.</p>
+				</div>
+				<div class="glass-card wi-report-card">
+					<h3>Performance</h3>
+					<p>Resource counts and sizes by type, the largest and slowest resources, render-blocking scripts,
+						cache hits, first paint and DOM ready.</p>
+				</div>
+				<div class="glass-card wi-report-card">
+					<h3>Mobile</h3>
+					<p>Viewport declaration, zoom locks, horizontal overflow, fixed pixel widths, touch target sizes
+						and small text.</p>
+				</div>
+				<div class="glass-card wi-report-card">
+					<h3>Security configuration</h3>
+					<p>HTTPS, mixed content, Subresource Integrity, form submission targets, iframe sandboxing and
+						insecure links.</p>
+				</div>
+				<div class="glass-card wi-report-card">
+					<h3>Content and links</h3>
+					<p>Words, paragraphs, reading time, link classification, and where the external links actually
+						go.</p>
+				</div>
+			</div>
+
+			<!-- Outside the grid: the eight cards above are the report's sections,
+			     and a ninth would make the heading a lie. -->
+			<div class="glass-card wi-report-card" style="margin-top: 2rem; text-align: center;">
+				<h3>And what you can do with it</h3>
+				<p style="max-width: 640px; margin: 0 auto;">Highlight any finding directly on the page, export the
+					whole report as JSON or CSV, copy a plain summary, and optionally check whether the page's links
+					still resolve.</p>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- How it works -->
+	<section class="section-tinted">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">How It Works</div>
+			<h2 class="section-title">Four steps, no setup</h2>
+
+			<div class="steps-list steps-list-4">
+				<div class="step-item">
+					<div class="step-number">1</div>
+					<h3>Open any page</h3>
+					<p>The site you are building, auditing, or just curious about.</p>
+				</div>
+				<div class="step-item">
+					<div class="step-number">2</div>
+					<h3>Ask for a report</h3>
+					<p>Click the toolbar button, right-click the page, or press
+						<span class="wi-keys"><span class="wi-shortcut">Ctrl</span> <span class="wi-shortcut">Shift</span> <span class="wi-shortcut">U</span></span>.</p>
+				</div>
+				<div class="step-item">
+					<div class="step-number">3</div>
+					<h3>Read the score</h3>
+					<p>An overall score, a breakdown by category, and every issue with its evidence.</p>
+				</div>
+				<div class="step-item">
+					<div class="step-number">4</div>
+					<h3>Act on it</h3>
+					<p>Highlight a finding on the page, or export the report as JSON or CSV.</p>
+				</div>
+			</div>
+
+			<p class="section-subtitle" style="margin-top: 2.5rem;">Chrome reserves
+				<span class="wi-keys"><span class="wi-shortcut">Ctrl</span> <span class="wi-shortcut">Shift</span> <span class="wi-shortcut">I</span></span> for DevTools, so that one is not available to extensions. The
+				shortcut can be changed at <code>chrome://extensions/shortcuts</code>.</p>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- The honesty angle -->
+	<section>
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">Built To Be Honest</div>
+			<h2 class="section-title">A check that could not run is not a failure</h2>
+			<p class="section-subtitle">Most audit tools round everything down to a number. WebInspect tells you
+				which parts it could not measure, and takes them out of the score rather than counting them against
+				you.</p>
+
+			<div class="grid-2" style="max-width: 900px; margin: 0 auto;">
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Five outcomes, not two</h3>
+					<p style="color: var(--text-secondary);">A page Chrome will not let it read has not failed
+						anything.</p>
+					<ul class="wi-outcomes">
+						<li>Passed</li>
+						<li>Issue</li>
+						<li>Not found</li>
+						<li>Could not check</li>
+						<li>Not applicable</li>
+					</ul>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Nothing to measure scores nothing
+					</h3>
+					<p style="color: var(--text-secondary);">A category with nothing to measure scores null rather
+						than zero, and its weight is shared across the rest. Colour contrast returns no ratio rather
+						than a wrong one.</p>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">No compliance claims</h3>
+					<p style="color: var(--text-secondary);">Accessibility results are described as "automated checks
+						found", never as compliance. Automated testing catches missing alt text, unlabelled fields and
+						insufficient contrast. It cannot tell you whether a page works with a screen reader.</p>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Evidence, always</h3>
+					<p style="color: var(--text-secondary);">Every finding carries the selector and the markup behind
+						it, and can be highlighted on the page. Detection is rated detected, likely or possible rather
+						than asserted.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- Privacy -->
+	<section class="section-tinted">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">Privacy</div>
+			<h2 class="section-title">There is nowhere to upload anything to</h2>
+			<p class="section-subtitle">WebInspect has no servers, no account and no telemetry. Nobody at Elevven11
+				Studio can see what you browse, what you inspect, or what WebInspect finds.</p>
+
+			<div class="grid-3">
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Not on the page until you ask</h3>
+					<p style="color: var(--text-secondary);">There is no content script in the manifest, so nothing of
+						WebInspect exists on a page until you ask for a report on that page.</p>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">522 sites it will not read</h3>
+					<p style="color: var(--text-secondary);">Large platforms, where a report is not actionable, and
+						pages that routinely hold personal information: AI chats, webmail, cloud storage, banking,
+						health and government. The check runs before the page reader is injected, so a skipped page is
+						never read.</p>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Counted, never stored</h3>
+					<p style="color: var(--text-secondary);">Page text is counted and the number leaves the page; the
+						words do not. Form structure is read, form values never are. No browsing history is kept.</p>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">No permissions at install</h3>
+					<p style="color: var(--text-secondary);">Host permissions are asked for only if you turn on
+						automatic inspection or link checking, and can be withdrawn from the settings page at any
+						time.</p>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">One network feature, off by default
+					</h3>
+					<p style="color: var(--text-secondary);">The link checker is the only thing that touches the
+						network, it needs a permission you grant explicitly, and it only runs when you press "Check
+						links". Nothing else makes a request.</p>
+				</div>
+				<div class="glass-card">
+					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Yours to delete</h3>
+					<p style="color: var(--text-secondary);">Everything WebInspect holds is one store on your device.
+						"Reset WebInspect" in settings empties it. There is nothing held anywhere else.</p>
+				</div>
+			</div>
+
+			<div style="text-align:center; margin-top: 2.5rem;">
+				<a href="/webinspect/privacy/" class="btn btn-secondary">Read the full privacy policy</a>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- FAQ -->
+	<section>
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">FAQ</div>
+			<h2 class="section-title">Common questions</h2>
+
+			<div style="max-width: 760px; margin: 0 auto;">
+				<details class="faq-item">
+					<summary>What does it cost?</summary>
+					<p>Nothing, and it stays that way. WebInspect carries one house advertisement for the studio's own
+						work at the foot of the popup, labelled "Ad", served from a list that ships inside the
+						extension. Opening the popup makes no request and tells nobody it was opened. One click turns
+						it off permanently.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Which browsers does it work in?</summary>
+					<p>Chrome 116 and later, and the Chromium browsers that install Chrome extensions, such as Edge,
+						Brave and Opera. It is a Manifest V3 extension.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Is this a replacement for DevTools or Lighthouse?</summary>
+					<p>No. It answers a different question. Lighthouse runs a page in a controlled environment and
+						scores it; WebInspect reads the page in front of you and tells you what it is made of and what
+						is wrong with it, in the time it takes to open a popup. They are useful together.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Why will it not inspect the page I am on?</summary>
+					<p>It is probably on the skip list: a large platform, or a kind of page that routinely holds
+						personal information. The popup says which site it is and why, and offers both ways out:
+						inspect it once, or turn the skipping off in settings. Platforms where users control their own
+						markup are never skipped, so GitHub Pages, Vercel, Netlify, Shopify, Substack and WordPress.com
+						sites stay inspectable.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Can I trust the accessibility score?</summary>
+					<p>Trust it for what it measures. Automated checks reliably catch missing alt text, unlabelled
+						fields and insufficient contrast. They cannot tell you whether a page is usable with a screen
+						reader, and WebInspect says so rather than implying a clean run means compliance.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Does it work on a page behind a login?</summary>
+					<p>Yes, on any page Chrome lets an extension read, and the report never leaves your device. Sites
+						that routinely hold personal information are on the skip list, so a webmail or banking page is
+						not read unless you explicitly ask for it once.</p>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<!-- Final CTA -->
+	<section id="final-cta">
+		<div class="container" style="text-align: center;">
+			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Want it the day it lands?</h2>
+			<p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem;">
+				Send us a message and we'll tell you when the listing goes live. While you are here: we also build
+				the websites WebInspect is designed to check.
+			</p>
+			<div class="btn-group">
+				<a href="/contact/" class="btn btn-primary">Tell me when it launches</a>
+				<a href="/pricing/" class="btn btn-secondary">See our website packages</a>
+			</div>
+		</div>
+	</section>
+
+	</main>
+
+	<footer>
+		<div class="container">
+			<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
+			<p><a href="/agents/">Referral Agents</a> <span class="footer-sep">&middot;</span> <a
+					href="/contact/">Contact</a> <span class="footer-sep">&middot;</span> <a href="/webinspect/">WebInspect</a> <span class="footer-sep">&middot;</span> <a href="/terms/">Terms</a> <span class="footer-sep">&middot;</span> <a href="/privacy/">Privacy</a> <span class="footer-sep">&middot;</span> <a href="/support/">Support</a>
+			</p>
+			<div class="footer-social">
+				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
+				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+				<a href="https://www.instagram.com/elevven11studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/main.js" defer></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+	</script>
+</body>
+
+</html>
