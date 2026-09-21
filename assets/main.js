@@ -1001,6 +1001,12 @@ function initGetStartedForm() {
     // display - no manual country field/dropdown on the form.
     const country = sessionStorage.getItem('e11_country');
 
+    // Website is still the common case, so it stays the default. An app
+    // enquiry arriving as "I would like to get a website built" reads as a
+    // mis-sent message, and the subject line is what sorts the inbox.
+    const wantsApp = /\bapp\b/i.test(packageText);
+    const noun = wantsApp ? 'mobile app' : 'website';
+
     // Read straight from the checkboxes rather than recomputing prices here -
     // initAddonCheckout already rendered the total in the visitor's currency,
     // so reuse that text instead of duplicating its currency-detection logic.
@@ -1009,7 +1015,7 @@ function initGetStartedForm() {
     const totalText = totalEl ? totalEl.textContent.trim() : '';
 
     const lines = [
-      'Hi Elevven11 Studio, I would like to get a website built.',
+      `Hi Elevven11 Studio, I would like to get a ${noun} built.`,
       `Name: ${get('name')}`,
       get('business') ? `Business/Person name: ${get('business')}` : null,
       `Phone: ${get('phone')}`,
@@ -1030,7 +1036,8 @@ function initGetStartedForm() {
     return {
       body: lines.join('\n'),
       fields: {
-        subject: `Website request: ${get('name')}${get('referral') ? ` (ref ${get('referral')})` : ''}`,
+        subject: `${wantsApp ? 'App' : 'Website'} request: ${get('name')}` +
+          (get('referral') ? ` (ref ${get('referral')})` : ''),
         from_name: 'Elevven11 Get Started form',
         name: get('name'),
         business: get('business'),
@@ -1050,8 +1057,8 @@ function initGetStartedForm() {
         terms_agreed: get('agreeTerms') ? 'yes' : 'no',
       },
       summary: {
-        subtitle: 'Website Request Summary',
-        filename: 'elevven11-website-request.png',
+        subtitle: wantsApp ? 'App Request Summary' : 'Website Request Summary',
+        filename: wantsApp ? 'elevven11-app-request.png' : 'elevven11-website-request.png',
         rows: [
           { label: 'Name', value: get('name') },
           { label: 'Business/Person name', value: get('business') },
@@ -1131,7 +1138,7 @@ function initGetStartedForm() {
       // programmatic mailto: navigation, and a popup leaves a blank tab.
       const a = document.createElement('a');
       a.href = 'mailto:elevven11studio@gmail.com'
-        + '?subject=' + encodeURIComponent('Website request: ' + get('name'))
+        + '?subject=' + encodeURIComponent(composed.fields.subject)
         + '&body=' + encodeURIComponent(body);
       a.style.display = 'none';
       document.body.appendChild(a);
@@ -1332,6 +1339,12 @@ function initAddonCheckout(form) {
     const pkgAmount = opt ? parseInt(opt.getAttribute('data-ngn'), 10) : NaN;
     const pkgIsEstimate = !!(opt && opt.getAttribute('data-suffix') === '+');
     const pkgLabel = opt && opt.value ? (opt.getAttribute('data-label') || opt.value) : '';
+    // An option with no data-ngn is quoted per project (app work, "Not sure
+    // yet"). Add-ons still carry fixed prices, but totalling those on their own
+    // would present a 15,000 add-on as if it were the price of the whole
+    // project, so a quote-only selection deliberately gets no total at all -
+    // compose() then leaves the "Estimated total" line out of the message.
+    const pkgIsQuoteOnly = !!pkgLabel && isNaN(pkgAmount);
 
     const rows = [];
     let total = 0;
@@ -1354,13 +1367,18 @@ function initAddonCheckout(form) {
     summaryLines.innerHTML = rows.length
       ? rows.join('')
       : '<p style="color: var(--text-muted); margin: 0;">Select a package to see your total.</p>';
-    summaryTotal.textContent = hasAmount ? fmt(total) + (pkgIsEstimate ? '+' : '') : '—';
+    summaryTotal.textContent = hasAmount && !pkgIsQuoteOnly
+      ? fmt(total) + (pkgIsEstimate ? '+' : '')
+      : '—';
 
     if (summaryNote) {
-      summaryNote.style.display = pkgIsEstimate ? 'block' : 'none';
-      summaryNote.textContent = pkgIsEstimate
-        ? 'Custom packages are quoted separately - this total is an estimate based on the starting price, plus your chosen add-ons.'
-        : '';
+      const noteText = pkgIsQuoteOnly
+        ? 'This one is quoted per project, so there is no total to show yet. Any add-ons you picked are listed above at their fixed price.'
+        : pkgIsEstimate
+          ? 'Custom packages are quoted separately - this total is an estimate based on the starting price, plus your chosen add-ons.'
+          : '';
+      summaryNote.style.display = noteText ? 'block' : 'none';
+      summaryNote.textContent = noteText;
     }
   }
 
@@ -2120,7 +2138,7 @@ const PAYSTACK_PAGE = 'https://paystack.shop/pay/-q3x9ac71x';
 // produce a straight-faced offer to charge NGN 100,000,000,000,000,000,000.
 // Anyone genuinely giving more than this should talk to us instead.
 const DONATION_PRESETS = {
-  NGN: { amounts: [10000, 30000, 50000], min: 500, max: 10000000, step: 500 },
+  NGN: { amounts: [10000, 30000, 50000], min: 1000, max: 10000000, step: 500 },
   USD: { amounts: [10, 25, 50], min: 1, max: 10000, step: 1 },
 };
 

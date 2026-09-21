@@ -213,6 +213,11 @@ const PAGES = {
     sub: 'Hosting, pricing, updates, domains, and delivery.',
     pills: ['No monthly hosting fee', 'Free update period', 'Custom domains ok'] },
 
+  'app-development': { page: 'app-development/index.html', alt: 'Elevven11 Studio Flutter mobile app development - quoted per project',
+    eyebrow: 'MOBILE APPS', lines: ['One Codebase.', 'Both App Stores.'],
+    sub: 'Flutter apps for Android and iPhone, quoted per project.',
+    pills: ['Android + iOS', 'Scoped before quoted', 'No monthly fee to us'] },
+
   'contact': { page: 'contact/index.html', alt: 'Contact Elevven11 Studio about your website project',
     eyebrow: 'CONTACT', lines: ["Let's Talk About", 'Your Website.'],
     sub: 'Reach us on WhatsApp or by email. We reply quickly.',

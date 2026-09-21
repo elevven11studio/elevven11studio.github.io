@@ -1659,9 +1659,12 @@ footer a:hover { color: var(--accent-gold); }
 
 /* Responsive */
 
-/* The nav has 7 links plus a CTA button - that doesn't fit a desktop navbar
-   below ~1080px, so the mobile menu kicks in earlier than other breakpoints. */
-@media (max-width: 1080px) {
+/* The nav has 8 links plus a CTA button - that doesn't fit a desktop navbar
+   below ~1150px, so the mobile menu kicks in earlier than other breakpoints.
+   Adding the Apps link took the row 65px wider, which overflowed the header
+   between 1080 and 1145; raise this and the matching query further down
+   together, they both describe the same "nav has gone vertical" state. */
+@media (max-width: 1150px) {
   .navbar { height: 70px; }
   .hamburger { display: flex; }
 
@@ -2021,6 +2024,16 @@ footer a:hover { color: var(--accent-gold); }
   }
 }
 
+/* Quote-only services put words where the other cards put a figure. The base
+   .pricing-price is 2.5rem and nowrap, which is right for "NGN 50,000" and
+   overflows the card for "Quoted per project", so the text variant drops to a
+   size that wraps inside the card on a phone. */
+.pricing-price-quote {
+  font-size: 1.6rem;
+  white-space: normal;
+  line-height: 1.2;
+}
+
 /* Multi-line button labels aligned left because .btn is a flex container:
    justify-content centres the text block, but the lines inside it still follow
    text-align, which was inheriting start. */
@@ -2078,8 +2091,10 @@ footer a:hover { color: var(--accent-gold); }
    space splits either side of it and it strands in the middle of the bar.
 
    This MUST come after the base .theme-toggle rule above: same specificity, so
-   source order decides, and placing it earlier in the file silently loses. */
-@media (max-width: 1080px) {
+   source order decides, and placing it earlier in the file silently loses.
+
+   Keep this width in step with the nav breakpoint above. */
+@media (max-width: 1150px) {
   .theme-toggle { margin-left: auto; }
 }
 

@@ -116,6 +116,12 @@
 			flex-shrink: 0;
 		}
 
+		.ext-state-live {
+			background: rgba(134, 239, 172, 0.18);
+			border: 1px solid rgba(134, 239, 172, 0.55);
+			color: var(--accent-gold);
+		}
+
 		.ext-state-soon {
 			background: rgba(134, 239, 172, 0.1);
 			border: 1px solid rgba(134, 239, 172, 0.3);
@@ -186,6 +192,7 @@
 			<ul class="nav-links">
 				<li class="nav-item"><a href="/">Home</a></li>
 				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/app-development/">Apps</a></li>
 				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
 				<li class="nav-item"><a href="/examples/">Examples</a></li>
 				<li class="nav-item"><a href="/agents/">Agents</a></li>
@@ -221,16 +228,18 @@
 				</div>
 				<div class="ext-body">
 					<h2><a href="/webinspect/">WebInspect</a>
-						<span class="ext-state ext-state-soon">Coming soon</span>
+						<span class="ext-state ext-state-live">Available now</span>
 					</h2>
 					<p class="ext-pitch">Understand any website at a glance. Technology, SEO, accessibility,
 						performance, mobile readiness and security, with the evidence behind every finding.</p>
 					<p class="ext-meta">Chrome 116+ &middot; Free &middot;
+						<a href="/webinspect/" style="color: var(--accent-gold);">What it checks</a> &middot;
 						<a href="/webinspect/privacy/" style="color: var(--accent-gold);">Privacy policy</a>
 					</p>
 				</div>
 				<div>
-					<a href="/webinspect/" class="btn btn-secondary">Learn more</a>
+					<a href="https://chromewebstore.google.com/detail/webinspect-by-elevven11/mpeiggffhbfefciphcnabijnmiajcljk" target="_blank" rel="noopener"
+						class="btn btn-primary">Add to Chrome</a>
 				</div>
 			</div>
 
@@ -330,10 +339,10 @@
 	<!-- Final CTA -->
 	<section id="final-cta">
 		<div class="container" style="text-align: center;">
-			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Want to know when one launches?</h2>
+			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Want to know when the next one launches?</h2>
 			<p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem;">
-				Send us a message and we'll tell you when a listing goes live. While you are here: we also build the
-				websites these tools are designed to check.
+				WebInspect is out. Send us a message and we'll tell you when the others go live. While you are
+				here: we also build the websites these tools are designed to check.
 			</p>
 			<div class="btn-group">
 				<a href="/contact/?topic=extension-launch#message-us" class="btn btn-primary">Tell me when they launch</a>
@@ -351,7 +360,7 @@
 	<footer>
 		<div class="container">
 			<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
-			<p><a href="/agents/">Referral Agents</a> <span class="footer-sep">&middot;</span> <a
+			<p><a href="/app-development/">App Development</a> <span class="footer-sep">&middot;</span> <a href="/agents/">Referral Agents</a> <span class="footer-sep">&middot;</span> <a
 					href="/contact/">Contact</a> <span class="footer-sep">&middot;</span> <a href="/extensions/">Extensions</a> <span class="footer-sep">&middot;</span> <a href="/terms/">Terms</a> <span class="footer-sep">&middot;</span> <a href="/privacy/">Privacy</a> <span class="footer-sep">&middot;</span> <a href="/support/">Support</a>
 			</p>
 			<div class="footer-social">

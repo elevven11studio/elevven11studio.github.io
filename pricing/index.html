@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Pricing - Elevven11 Studio</title>
-	<meta name="description" content="Elevven11 Studio pricing: Starter, Plus, and Custom website packages, plus add-ons like custom domains, logos, and QR codes." />
+	<meta name="description" content="Elevven11 Studio pricing: Starter, Plus, and Custom website packages, add-ons like custom domains and QR codes, and Flutter mobile apps quoted per project." />
 	<link rel="canonical" href="https://elevven11studio.github.io/pricing/" />
 	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 	<meta name="theme-color" content="#0b0a10" />
@@ -14,7 +14,7 @@
 	<meta property="og:site_name" content="Elevven11 Studio" />
 	<meta property="og:locale" content="en_NG" />
 	<meta property="og:title" content="Pricing - Elevven11 Studio" />
-	<meta property="og:description" content="Elevven11 Studio pricing: Starter, Plus, and Custom website packages, plus add-ons like custom domains, logos, and QR codes." />
+	<meta property="og:description" content="Elevven11 Studio pricing: Starter, Plus, and Custom website packages, add-ons like custom domains and QR codes, and Flutter mobile apps quoted per project." />
 	<meta property="og:url" content="https://elevven11studio.github.io/pricing/" />
 	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/pricing.png" />
 	<meta property="og:image:width" content="1200" />
@@ -29,7 +29,7 @@
 	<meta property="og:image:alt" content="Elevven11 Studio pricing - Starter, Plus and Custom packages" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Pricing - Elevven11 Studio" />
-	<meta name="twitter:description" content="Elevven11 Studio pricing: Starter, Plus, and Custom website packages, plus add-ons like custom domains, logos, and QR codes." />
+	<meta name="twitter:description" content="Elevven11 Studio pricing: Starter, Plus, and Custom website packages, add-ons like custom domains and QR codes, and Flutter mobile apps quoted per project." />
 	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og/pricing.png" />
 	<meta name="twitter:image:alt" content="Elevven11 Studio pricing - Starter, Plus and Custom packages" />
 
@@ -141,6 +141,14 @@
 	      "priceCurrency": "NGN",
 	      "url": "https://elevven11studio.github.io/pricing/",
 	      "availability": "https://schema.org/InStock"
+	    },
+	    {
+	      "@type": "Offer",
+	      "name": "Flutter mobile app development",
+	      "description": "Android and iOS app built from a single Flutter codebase, including store submission. Scoped and quoted per project.",
+	      "priceCurrency": "NGN",
+	      "url": "https://elevven11studio.github.io/pricing/",
+	      "availability": "https://schema.org/InStock"
 	    }
 	  ]
 	}
@@ -187,6 +195,7 @@
 			<ul class="nav-links">
 				<li class="nav-item"><a href="/">Home</a></li>
 				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/app-development/">Apps</a></li>
 				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
 				<li class="nav-item"><a href="/examples/">Examples</a></li>
 				<li class="nav-item"><a href="/agents/">Agents</a></li>
@@ -406,6 +415,46 @@
 		</div>
 	</section>
 
+	<hr class="styled-hr" />
+
+	<!-- App development sits apart from the website packages on purpose: none of
+	     the pitch above it applies. There is no free GitHub Pages hosting for a
+	     mobile app, no one-page/multi-page split, and no flat price we can put
+	     on a card honestly, because scope is the whole cost. -->
+	<section class="section-tinted">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">App Development</div>
+			<h2 class="section-title">Flutter mobile apps</h2>
+			<p style="text-align:center; color: var(--text-muted); max-width: 640px; margin: 0 auto 2rem;">
+				Android and iOS from a single codebase. App work is scoped and quoted per project, so there
+				is no fixed package price here. Tell us what the app needs to do and we will put a number on it.
+			</p>
+
+			<div class="glass-card pricing-card" style="max-width: 620px; margin: 0 auto;">
+				<div class="pricing-name">Flutter app</div>
+				<!-- No data-ngn: initGeoLocalization only rewrites numeric prices,
+				     so this text is left alone for overseas visitors, which is
+				     what we want - a quote has no currency yet. -->
+				<div class="pricing-price pricing-price-quote">Quoted per project</div>
+				<div class="pricing-note">Priced after we scope what you need</div>
+				<ul class="pricing-features">
+					<li>One Flutter codebase for both Android and iOS</li>
+					<li>Screens designed around your brand</li>
+					<li>Connection to your existing site or API if you have one</li>
+					<li>Play Store and App Store submission</li>
+					<li>Test build you can install before launch</li>
+					<li>1 month of free fixes after launch</li>
+				</ul>
+				<div class="pricing-commission">Referral commission: <strong>Agreed based on project value</strong></div>
+				<a href="/app-development/" class="btn btn-primary">See app development</a>
+				<a href="/get-started/?package=Flutter+app" class="btn btn-secondary" style="margin-top: 0.75rem;">Discuss an app</a>
+			</div>
+			<p style="text-align:center; color: var(--text-muted); font-size: 0.85rem; margin-top: 1.5rem;">
+				Google Play and Apple developer account fees are billed separately at cost.
+			</p>
+		</div>
+	</section>
+
 	<section>
 		<div class="container" style="text-align: center;">
 			<h2 style="font-size: 2rem; margin-bottom: 1.25rem;">Ready to get started?</h2>
@@ -421,7 +470,7 @@
 	<footer>
 		<div class="container">
 			<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
-			<p><a href="/agents/">Referral Agents</a> <span class="footer-sep">&middot;</span> <a
+			<p><a href="/app-development/">App Development</a> <span class="footer-sep">&middot;</span> <a href="/agents/">Referral Agents</a> <span class="footer-sep">&middot;</span> <a
 					href="/contact/">Contact</a> <span class="footer-sep">&middot;</span> <a href="/extensions/">Extensions</a> <span class="footer-sep">&middot;</span> <a href="/terms/">Terms</a> <span class="footer-sep">&middot;</span> <a href="/privacy/">Privacy</a> <span class="footer-sep">&middot;</span> <a href="/support/">Support</a></p>
 			<div class="footer-social">
 				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
