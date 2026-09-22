@@ -28,6 +28,8 @@ const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&
 // ~12.2px per glyph, plus 52px of horizontal padding.
 const pillW = t => Math.round(t.length * 12.2 + 52);
 
+const PILL_H = 56;
+
 function card({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
   const grad = accent === 'gold'
     ? '<stop offset="0%" stop-color="#f0c866"/><stop offset="100%" stop-color="#c99a2e"/>'
@@ -42,7 +44,7 @@ function card({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
   let x = 80;
   const pillSvg = pills.map(p => {
     const w = pillW(p);
-    const g = `<g><rect x="${x}" y="${pillY}" width="${w}" height="56" rx="28" fill="rgba(247,243,236,0.06)" stroke="rgba(247,243,236,0.16)"/>` +
+    const g = `<g><rect x="${x}" y="${pillY}" width="${w}" height="${PILL_H}" rx="28" fill="rgba(247,243,236,0.06)" stroke="rgba(247,243,236,0.16)"/>` +
               `<text x="${x + w / 2}" y="${pillY + 36}" fill="#f7f3ec" font-size="24" text-anchor="middle">${esc(p)}</text></g>`;
     x += w + 20;
     return g;
@@ -103,8 +105,9 @@ function squareCard({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
   const BAR_TO_HEAD = 86; // accent bar to first headline baseline
   const LINE_H = 76;      // headline line height (square runs a touch tighter than landscape)
   const HEAD_TO_SUB = 66;
-  const SUB_TO_PILLS = 46;
-  const PILL_ROW_H = 68;  // pill row pitch (56 tall + 12 gap)
+  const SUB_TO_PILLS = 28; // sub BASELINE to pill top: must clear the sub's
+                           // descenders (font-size 26, so ~7px below baseline)
+  const PILL_ROW_H = PILL_H + 12; // pill row pitch
 
   // Pills wrap onto multiple rows here (square is narrower than the landscape
   // card), computed up front so the total block height - and therefore the
@@ -119,9 +122,11 @@ function squareCard({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
   });
   const hasPills = pills.length > 0;
 
+  // Measured from the logo baseline to the bottom edge of the last pill row, so
+  // a card with no pills centres on its sub line rather than on phantom space.
   const headlineBlockH = (lines.length - 1) * LINE_H;
-  const blockH = LOGO_H + EYEBROW_H + BAR_TO_HEAD + headlineBlockH + HEAD_TO_SUB + SUB_TO_PILLS
-    + (hasPills ? pillRows.length * PILL_ROW_H : 0);
+  const blockH = LOGO_H + EYEBROW_H + BAR_TO_HEAD + headlineBlockH + HEAD_TO_SUB
+    + (hasPills ? SUB_TO_PILLS + (pillRows.length - 1) * PILL_ROW_H + PILL_H : 0);
   let y = Math.round((SIZE - blockH) / 2);
 
   const logoY = y; y += LOGO_H;
@@ -129,7 +134,7 @@ function squareCard({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
   const barY = y - 16; y += BAR_TO_HEAD - 16;
   const headStartY = y; y += headlineBlockH;
   const subY = y + HEAD_TO_SUB;
-  const firstPillTop = subY + SUB_TO_PILLS - 40;
+  const firstPillTop = subY + SUB_TO_PILLS;
 
   const headline = lines.map((l, i) =>
     `<text x="${PAD}" y="${headStartY + i * LINE_H}" fill="${i === lines.length - 1 ? 'url(#accent)' : '#f7f3ec'}" font-size="60" font-weight="700" letter-spacing="-1">${esc(l)}</text>`
@@ -140,7 +145,7 @@ function squareCard({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
     const rowTop = firstPillTop + i * PILL_ROW_H;
     let x = PAD;
     row.forEach(({ text, w }) => {
-      pillSvg += `<g><rect x="${x}" y="${rowTop}" width="${w}" height="56" rx="28" fill="rgba(247,243,236,0.06)" stroke="rgba(247,243,236,0.16)"/>` +
+      pillSvg += `<g><rect x="${x}" y="${rowTop}" width="${w}" height="${PILL_H}" rx="28" fill="rgba(247,243,236,0.06)" stroke="rgba(247,243,236,0.16)"/>` +
         `<text x="${x + w / 2}" y="${rowTop + 36}" fill="#f7f3ec" font-size="24" text-anchor="middle">${esc(text)}</text></g>`;
       x += w + 20;
     });
@@ -234,7 +239,37 @@ const PAGES = {
 
   'privacy': { page: 'privacy/index.html', alt: 'Elevven11 Studio privacy policy',
     eyebrow: 'PRIVACY', lines: ['Privacy Policy.'],
-    sub: 'How Elevven11 Studio handles the information you share.' }
+    sub: 'How Elevven11 Studio handles the information you share.' },
+
+  'extensions': { page: 'extensions/index.html', alt: 'Free browser extensions by Elevven11 Studio that run entirely in your browser',
+    eyebrow: 'BROWSER EXTENSIONS', lines: ['Small Tools That', 'Stay On Your Machine.'],
+    sub: 'Free extensions built alongside the websites we make.',
+    pills: ['No account', 'No server', 'Nothing uploaded'] },
+
+  'webguard': { page: 'webguard/index.html', alt: 'WebGuard, a free Chrome extension by Elevven11 Studio that checks pages for phishing',
+    eyebrow: 'WEBGUARD / CHROME', accent: 'gold', lines: ['Spot The Fake', 'Before You Type.'],
+    sub: 'Phishing checks that run on your device, not a server.',
+    pills: ['Runs on device', 'Online checks off', 'Free'] },
+
+  'webinspect': { page: 'webinspect/index.html', alt: 'WebInspect, a free Chrome extension by Elevven11 Studio that reports on any website',
+    eyebrow: 'WEBINSPECT / CHROME', lines: ['Understand Any', 'Site At A Glance.'],
+    sub: 'Tech, SEO, accessibility, performance and security.',
+    pills: ['One keypress', 'Runs in browser', 'Free on Chrome'] },
+
+  'extensions-support': { page: 'extensions/support/index.html', alt: 'Support for the Elevven11 Studio browser extensions',
+    eyebrow: 'EXTENSIONS / SUPPORT', accent: 'gold', lines: ['No Support Inbox.', 'A Person Reads It.'],
+    sub: 'Troubleshooting, bug reports, and resetting your data.',
+    pills: ['No account needed', 'WebInspect', 'WebGuard'] },
+
+  'webguard-privacy': { page: 'webguard/privacy/index.html', alt: 'WebGuard privacy policy: no servers, no account, no telemetry',
+    eyebrow: 'WEBGUARD / PRIVACY', accent: 'gold', lines: ['No Servers.', 'No Telemetry.'],
+    sub: 'Online checks are off by default, and off means silent.',
+    pills: ['No account', 'Nothing uploaded', 'Passwords stay put'] },
+
+  'webinspect-privacy': { page: 'webinspect/privacy/index.html', alt: 'WebInspect privacy policy: no servers, no account, no analytics',
+    eyebrow: 'WEBINSPECT / PRIVACY', lines: ['No Servers.', 'No Analytics.'],
+    sub: 'Every check runs in your browser. Nothing is uploaded.',
+    pills: ['No account', 'No telemetry', 'Nothing uploaded'] }
 };
 
 (async () => {

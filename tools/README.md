@@ -58,9 +58,10 @@ only commits to JPG/PNG/GIF.
 
 ### `og-cards` — per-page social cards
 
-Builds the ten 1200×630 cards in `branding/og/`, one per main page, plus a
-1080×1080 square variant of each (20 files in total), from the
-brand tokens in `assets/style.css`. Page copy lives in the `PAGES` map at the
+Builds a 1200×630 card in `branding/og/` for every indexable page, plus a
+1080×1080 square variant of each, from the brand tokens in `assets/style.css`.
+The set is whatever the `PAGES` map holds, so it stays in step with the site
+rather than with a number written down here. Page copy lives in that map at the
 bottom of the script — edit it there, not in the SVG.
 
 Prices are baked into the card pills, so **re-run this whenever prices change**

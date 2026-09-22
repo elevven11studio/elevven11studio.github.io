@@ -3,8 +3,14 @@
   Only canonical, indexable pages are listed here. The /examples/*/ template
   demos are intentionally excluded: they carry <meta name="robots" content="noindex, follow">
   because they exist to be shown to prospects by direct link, not to be found in search.
+
+  The <image:image> entries cover images the page genuinely displays. Most are
+  CSS background-image, which a crawler will not find on its own, so declaring
+  them here is what gets them into Image Search. Only <image:loc> is used:
+  Google dropped the caption, title, geo_location and license child tags in 2022.
 -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://elevven11studio.github.io/</loc>
     <lastmod>2026-08-16</lastmod>
@@ -34,30 +40,243 @@
     <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/barber-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/barber-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/barber.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/church-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/church-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/church.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/consultant-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/consultant-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/consultant.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/events-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/events-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/events.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/fashion-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/fashion-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/fashion.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/fitness-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/fitness-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/fitness.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/freelancer-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/freelancer-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/freelancer.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/logistics-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/logistics-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/logistics.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/photographer-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/photographer-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/photographer.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/portfolio-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/portfolio-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/portfolio.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/real-estate-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/real-estate-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/real-estate.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/restaurant-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/restaurant-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/restaurant.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/school-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/school-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/school.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/small-business-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/small-business-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/previews/small-business.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://elevven11studio.github.io/how-it-works/</loc>
     <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/how-it-works/1.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/how-it-works/10.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/how-it-works/2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/how-it-works/3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/how-it-works/4.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/how-it-works/5.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/how-it-works/6.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/how-it-works/7.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/how-it-works/8.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/how-it-works/9.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://elevven11studio.github.io/agents/</loc>
     <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/agents/1.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/agents/2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/agents/3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/agents/4.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/agents/5.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://elevven11studio.github.io/faq/</loc>
     <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/faq/1.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/faq/2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/faq/3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/faq/4.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/faq/5.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/faq/6.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/faq/7.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/faq/8.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://elevven11studio.github.io/contact/</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/contact/1.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/contact/2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/contact/3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/contact/4.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/contact/5.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://elevven11studio.github.io/assets/slides/contact/6.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://elevven11studio.github.io/terms/</loc>
@@ -79,7 +298,7 @@
   </url>
   <url>
     <loc>https://elevven11studio.github.io/extensions/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <lastmod>2026-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -91,7 +310,7 @@
   </url>
   <url>
     <loc>https://elevven11studio.github.io/webguard/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <lastmod>2026-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -103,7 +322,7 @@
   </url>
   <url>
     <loc>https://elevven11studio.github.io/webinspect/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <lastmod>2026-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
