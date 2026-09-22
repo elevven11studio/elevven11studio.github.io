@@ -9,8 +9,8 @@
   them here is what gets them into Image Search. Only <image:loc> is used:
   Google dropped the caption, title, geo_location and license child tags in 2022.
 -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="https://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://elevven11studio.github.io/</loc>
     <lastmod>2026-08-16</lastmod>
