@@ -129,6 +129,54 @@
 			gap: 1.5rem;
 		}
 
+		/* The other Chromium browsers. A labelled strip rather than a sentence:
+		   the address is what somebody came for, and prose buries it among the
+		   two it does not want. */
+		.sup-browsers {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.85rem;
+			margin-top: 1.25rem;
+		}
+
+		.sup-browser {
+			/* Grows to share the row, wraps to full width below ~3 across. */
+			flex: 1 1 210px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 0.75rem;
+			background: rgba(var(--accent-rgb), 0.05);
+			border: var(--border-subtle);
+			border-radius: 12px;
+			padding: 0.9rem 1.1rem;
+		}
+
+		.sup-browser .who {
+			font-weight: 700;
+			color: var(--text-primary);
+			font-size: 0.95rem;
+		}
+
+		/* An aside, not a step. It is a caveat about an awkward moment in
+		   Chrome's own uninstall flow, and reads as noise inside the instructions
+		   it followed. */
+		.sup-note {
+			margin-top: 2.5rem;
+			border-left: 3px solid var(--accent-gold);
+			padding: 0.15rem 0 0.15rem 1.5rem;
+		}
+
+		.sup-note h3 {
+			font-size: 1.05rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.sup-note p {
+			color: var(--text-secondary);
+			font-size: 0.95rem;
+		}
+
 		.sup-path {
 			font-weight: 700;
 			background: rgba(var(--accent-rgb), 0.1);
@@ -349,13 +397,31 @@
 
 			</div>
 
-			<p class="section-subtitle" style="margin-top: 2.5rem;">Edge, Brave and Opera install Chrome
-				extensions and work the same way, at <code>edge://extensions</code>,
-				<code>brave://extensions</code> and <code>opera://extensions</code>. The uninstall prompt may
-				offer to report the extension as abusive on the way out; that is Chrome asking, not us, and it
-				is optional. We would rather you
-				<a href="/contact/?topic=extension#message-us" style="color: var(--accent-gold);">told us what
-					went wrong</a>.</p>
+			<p class="section-subtitle" style="margin: 2.5rem auto 0;">Edge, Brave and Opera install Chrome
+				extensions and work exactly the same way. Only the address changes.</p>
+
+			<div class="sup-browsers">
+				<div class="sup-browser">
+					<span class="who">Edge</span>
+					<span class="sup-path">edge://extensions</span>
+				</div>
+				<div class="sup-browser">
+					<span class="who">Brave</span>
+					<span class="sup-path">brave://extensions</span>
+				</div>
+				<div class="sup-browser">
+					<span class="who">Opera</span>
+					<span class="sup-path">opera://extensions</span>
+				</div>
+			</div>
+
+			<div class="sup-note">
+				<h3>One thing on the way out</h3>
+				<p>Chrome's uninstall prompt may offer to report the extension as abusive. That is Chrome
+					asking, not us, and it is optional. We would much rather you
+					<a href="/contact/?topic=extension#message-us" style="color: var(--accent-gold);">told us what
+						went wrong</a>: we cannot fix what we never hear about.</p>
+			</div>
 		</div>
 	</section>
 
