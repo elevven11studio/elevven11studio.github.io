@@ -30,11 +30,31 @@ const pillW = t => Math.round(t.length * 12.2 + 52);
 
 const PILL_H = 56;
 
+// Accent palettes. `from`/`to` drive the headline gradient and the eyebrow;
+// `glow` tints the bottom-right corner wash.
+//
+// sky and violet mirror the --accent-gold/--accent-orange overrides that
+// webguard/ and webinspect/ set in their own <style> blocks, so each card
+// carries the colour of the page it links to. Those two also carry their own
+// glow instead of the studio teal, which clashed against blue and purple.
+const ACCENTS = {
+  neon:   { from: '#86efac', to: '#22c55e', glow: '#2dd4bf' },
+  gold:   { from: '#f0c866', to: '#c99a2e', glow: '#2dd4bf' },
+  sky:    { from: '#38bdf8', to: '#0ea5e9', glow: '#0ea5e9' },
+  violet: { from: '#a78bfa', to: '#8b5cf6', glow: '#8b5cf6' }
+};
+
+const palette = (accent) => {
+  const p = ACCENTS[accent];
+  if (!p) throw new Error('unknown accent "' + accent + '" (have: ' + Object.keys(ACCENTS).join(', ') + ')');
+  return p;
+};
+
 function card({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
-  const grad = accent === 'gold'
-    ? '<stop offset="0%" stop-color="#f0c866"/><stop offset="100%" stop-color="#c99a2e"/>'
-    : '<stop offset="0%" stop-color="#86efac"/><stop offset="100%" stop-color="#22c55e"/>';
-  const eyebrowFill = accent === 'gold' ? '#f0c866' : '#86efac';
+  const pal = palette(accent);
+  const grad = `<stop offset="0%" stop-color="${pal.from}"/><stop offset="100%" stop-color="${pal.to}"/>`;
+  const eyebrowFill = pal.from;
+  const glowFill = pal.glow;
 
   // Pills follow the sub-line rather than sitting at a fixed y: the display
   // type grew, and a hardcoded row collided with the text on two-line cards.
@@ -62,8 +82,8 @@ function card({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
       <stop offset="100%" stop-color="${eyebrowFill}" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="glow2" cx="95%" cy="95%" r="60%">
-      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.14"/>
-      <stop offset="100%" stop-color="#2dd4bf" stop-opacity="0"/>
+      <stop offset="0%" stop-color="${glowFill}" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="${glowFill}" stop-opacity="0"/>
     </radialGradient>
     <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
       <circle cx="2" cy="2" r="2" fill="rgba(247,243,236,0.10)"/>
@@ -95,10 +115,10 @@ function squareCard({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
   const SIZE = 1080;
   const PAD = 72;
   const MAXW = SIZE - PAD * 2;
-  const grad = accent === 'gold'
-    ? '<stop offset="0%" stop-color="#f0c866"/><stop offset="100%" stop-color="#c99a2e"/>'
-    : '<stop offset="0%" stop-color="#86efac"/><stop offset="100%" stop-color="#22c55e"/>';
-  const eyebrowFill = accent === 'gold' ? '#f0c866' : '#86efac';
+  const pal = palette(accent);
+  const grad = `<stop offset="0%" stop-color="${pal.from}"/><stop offset="100%" stop-color="${pal.to}"/>`;
+  const eyebrowFill = pal.from;
+  const glowFill = pal.glow;
 
   const LOGO_H = 56;      // logo baseline to eyebrow baseline
   const EYEBROW_H = 40;   // eyebrow baseline to accent bar
@@ -159,8 +179,8 @@ function squareCard({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
       <stop offset="100%" stop-color="${eyebrowFill}" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="glow2" cx="90%" cy="96%" r="55%">
-      <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.16"/>
-      <stop offset="100%" stop-color="#2dd4bf" stop-opacity="0"/>
+      <stop offset="0%" stop-color="${glowFill}" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="${glowFill}" stop-opacity="0"/>
     </radialGradient>
     <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
       <circle cx="2" cy="2" r="2" fill="rgba(247,243,236,0.10)"/>
@@ -247,27 +267,27 @@ const PAGES = {
     pills: ['No account', 'No server', 'Nothing uploaded'] },
 
   'webguard': { page: 'webguard/index.html', alt: 'WebGuard, a free Chrome extension by Elevven11 Studio that checks pages for phishing',
-    eyebrow: 'WEBGUARD / CHROME', accent: 'gold', lines: ['Spot The Fake', 'Before You Type.'],
+    eyebrow: 'WEBGUARD / CHROME', accent: 'sky', lines: ['Spot The Fake', 'Before You Type.'],
     sub: 'Phishing checks that run on your device, not a server.',
     pills: ['Runs on device', 'Online checks off', 'Free'] },
 
   'webinspect': { page: 'webinspect/index.html', alt: 'WebInspect, a free Chrome extension by Elevven11 Studio that reports on any website',
-    eyebrow: 'WEBINSPECT / CHROME', lines: ['Understand Any', 'Site At A Glance.'],
+    eyebrow: 'WEBINSPECT / CHROME', accent: 'violet', lines: ['Understand Any', 'Site At A Glance.'],
     sub: 'Tech, SEO, accessibility, performance and security.',
     pills: ['One keypress', 'Runs in browser', 'Free on Chrome'] },
 
   'extensions-support': { page: 'extensions/support/index.html', alt: 'Support for the Elevven11 Studio browser extensions',
-    eyebrow: 'EXTENSIONS / SUPPORT', accent: 'gold', lines: ['No Support Inbox.', 'A Person Reads It.'],
+    eyebrow: 'EXTENSIONS / SUPPORT', accent: 'neon', lines: ['No Support Inbox.', 'A Person Reads It.'],
     sub: 'Troubleshooting, bug reports, and resetting your data.',
     pills: ['No account needed', 'WebInspect', 'WebGuard'] },
 
   'webguard-privacy': { page: 'webguard/privacy/index.html', alt: 'WebGuard privacy policy: no servers, no account, no telemetry',
-    eyebrow: 'WEBGUARD / PRIVACY', accent: 'gold', lines: ['No Servers.', 'No Telemetry.'],
+    eyebrow: 'WEBGUARD / PRIVACY', accent: 'sky', lines: ['No Servers.', 'No Telemetry.'],
     sub: 'Online checks are off by default, and off means silent.',
     pills: ['No account', 'Nothing uploaded', 'Passwords stay put'] },
 
   'webinspect-privacy': { page: 'webinspect/privacy/index.html', alt: 'WebInspect privacy policy: no servers, no account, no analytics',
-    eyebrow: 'WEBINSPECT / PRIVACY', lines: ['No Servers.', 'No Analytics.'],
+    eyebrow: 'WEBINSPECT / PRIVACY', accent: 'violet', lines: ['No Servers.', 'No Analytics.'],
     sub: 'Every check runs in your browser. Nothing is uploaded.',
     pills: ['No account', 'No telemetry', 'Nothing uploaded'] }
 };
