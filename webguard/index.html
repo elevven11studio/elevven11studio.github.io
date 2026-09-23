@@ -75,8 +75,9 @@
 			border-radius: 20px;
 		}
 
-		/* Says where the extension is in the launch process. A button would
-		   promise a click that has nowhere to go until the listing is live. */
+		/* Says where the extension is in the launch process. Now that the
+		   listing is live this sits beside a real install button rather than
+		   standing in for one. */
 		.wg-status {
 			display: inline-flex;
 			align-items: center;
@@ -180,6 +181,31 @@
 			white-space: nowrap;
 		}
 
+		/* A trailing note, not a second subtitle. It was set in .section-subtitle,
+		   which is the class the section opens with, so it carried the same weight
+		   as the lead paragraph while saying much less. */
+		.wg-footnote {
+			text-align: center;
+			max-width: 620px;
+			margin: 2.5rem auto 0;
+			color: var(--text-muted);
+			font-size: 0.92rem;
+			line-height: 1.6;
+		}
+
+		/* An address you paste, styled like the keys above it. Chrome refuses to
+		   open a chrome:// link from a page, so this must not look clickable. */
+		.wg-path {
+			font-weight: 700;
+			background: rgba(var(--accent-rgb), 0.1);
+			color: var(--accent-gold);
+			border: 1px solid rgba(var(--accent-rgb), 0.25);
+			border-radius: 6px;
+			padding: 0.1rem 0.45rem;
+			font-size: 0.95em;
+			white-space: nowrap;
+		}
+
 		/* The "this is not" block. Stated plainly rather than buried, because a
 		   security tool that oversells itself is worse than none. */
 		.wg-disclaimer {
@@ -263,10 +289,10 @@
 			<p class="hero-tagline">WebGuard checks the page you are on for the signs of phishing, and warns you
 				before you hand sensitive information to a site that should not have it. It runs on your device, and
 				online checks are off by default.</p>
-			<div class="wg-status">Coming soon to the Chrome Web Store</div>
+			<div class="wg-status">Live on the Chrome Web Store &middot; Free</div>
 			<div class="btn-group">
-				<a href="/contact/?topic=extension-launch#message-us" class="btn btn-primary">Tell me when it
-					launches</a>
+				<a href="https://chromewebstore.google.com/detail/webguard-by-elevven11/hgckccgcmbclkjhdccnphbpbljlcdimd" target="_blank" rel="noopener"
+					class="btn btn-primary">Add to Chrome</a>
 				<a href="#checks" class="btn btn-secondary">See what it checks</a>
 			</div>
 		</div>
@@ -398,8 +424,10 @@
 				</div>
 			</div>
 
-			<p class="section-subtitle" style="margin-top: 2.5rem;">Both shortcuts can be changed at
-				<code>chrome://extensions/shortcuts</code>.</p>
+			<p class="wg-footnote">Chrome gives a shortcut to one extension at a time, and quietly declines to
+				bind one another extension already holds. Paste
+				<span class="wg-path">chrome://extensions/shortcuts</span> into the address bar to see what is
+				actually assigned, and to set your own.</p>
 		</div>
 	</section>
 
@@ -543,14 +571,14 @@
 	<!-- Final CTA -->
 	<section id="final-cta">
 		<div class="container" style="text-align: center;">
-			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Want it the day it lands?</h2>
+			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Ready when you are</h2>
 			<p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem;">
-				Send us a message and we'll tell you when the listing goes live. While you are here: we also build
-				websites, and we have other extensions on the way.
+				It installs in a click and costs nothing. While you are here: we also build websites, and we
+				have more extensions on the way.
 			</p>
 			<div class="btn-group">
-				<a href="/contact/?topic=extension-launch#message-us" class="btn btn-primary">Tell me when it
-					launches</a>
+				<a href="https://chromewebstore.google.com/detail/webguard-by-elevven11/hgckccgcmbclkjhdccnphbpbljlcdimd" target="_blank" rel="noopener"
+					class="btn btn-primary">Add to Chrome</a>
 				<a href="/extensions/" class="btn btn-secondary">See all our extensions</a>
 			</div>
 		</div>
