@@ -9,13 +9,14 @@
     "covers": "node generate-covers.js",
     "promos": "node generate-promos.js",
     "flyers": "node generate-flyers.js",
-    "all": "node generate-previews.js && node generate-og-cards.js && node generate-covers.js && node generate-promos.js && node generate-slides.js && node generate-qr.js && node generate-promo-stories.js && node generate-carousels.js && node generate-flyers.js",
+    "all": "node generate-previews.js && node generate-og-cards.js && node generate-covers.js && node generate-promos.js && node generate-slides.js && node generate-qr.js && node generate-promo-stories.js && node generate-carousels.js && node generate-flyers.js && node generate-sitemap.js",
     "verify-qr": "node verify-qr.js",
     "slides": "node generate-slides.js",
     "qr": "node generate-qr.js",
     "stories": "node generate-promo-stories.js",
     "carousels": "node generate-carousels.js",
-    "enhance-demos": "node enhance-demos.js"
+    "enhance-demos": "node enhance-demos.js",
+    "sitemap": "node generate-sitemap.js"
   },
   "dependencies": {
     "qrcode": "^1.5.4",

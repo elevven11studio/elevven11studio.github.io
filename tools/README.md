@@ -25,6 +25,7 @@ finds them at the usual paths and falls over with a clear message if it can't.
 |---|---|---|
 | `npm run previews` | `assets/previews/` | After changing any template under `examples/` |
 | `npm run og-cards` | `branding/og/` | After changing page copy or prices |
+| `npm run sitemap` | `sitemap.xml` | After adding a page or changing page images |
 | `npm run covers` | `branding/cover-*.png` | After changing the tagline or headline stats |
 | `npm run promos` | `promo/*.png` + `promo/demos/` | After changing templates, prices, or the offer |
 | `npm run all` | everything | Before a big release |
@@ -55,6 +56,25 @@ design that no longer exists — this is the one that goes stale silently.
 
 JPEG for the `og:image` is deliberate: Facebook's crawler handles WebP, LinkedIn
 only commits to JPG/PNG/GIF.
+
+### `sitemap` — sitemap.xml
+
+Regenerates `sitemap.xml` from the `PAGES` list at the top of the script.
+Edit it there rather than editing the XML by hand.
+
+Two rules the generated file follows, both learned the hard way:
+
+1. **The `xmlns` values must stay `http://`.** An XML namespace is an opaque
+   identifier compared as an exact string, never fetched. Rewriting them to
+   `https://` to match the site leaves valid XML in which every element sits in
+   a namespace no parser recognises, and Search Console reports “Sitemap could
+   not be read”. The generator fails its self-check if this regresses.
+2. **Nothing goes before the root element.** Explanation belongs here in the
+   README, not in comments inside a file a parser has to read.
+
+`<image:image>` is emitted immediately after `<loc>`, matching Google's
+documented example. To drop image entries entirely, empty the `WITH_IMAGES`
+array; the pages themselves are unaffected.
 
 ### `og-cards` — per-page social cards
 
