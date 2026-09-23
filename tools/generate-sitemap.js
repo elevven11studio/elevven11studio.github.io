@@ -20,6 +20,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://elevven11studio.github.io';
 const OUT = path.join(ROOT, 'sitemap.xml');
+const OUT_TEXT = path.join(ROOT, 'sitemap.txt');
 
 // These two MUST be http://. An XML namespace is an opaque identifier compared
 // as an exact string, never fetched, so https:// is a DIFFERENT namespace and
@@ -111,6 +112,9 @@ lines.push('</urlset>');
 const xml = lines.join('\n') + '\n';
 fs.writeFileSync(OUT, xml, 'utf8');
 
+const text = PAGES.map(([pathname]) => BASE + pathname).join('\n') + '\n';
+fs.writeFileSync(OUT_TEXT, text, 'utf8');
+
 // ---- self-check: catch the regressions that actually happened ----
 const problems = [];
 if (xml.charCodeAt(0) !== 0x3c) problems.push('file does not start with "<" (BOM?)');
@@ -122,10 +126,13 @@ if (xml.includes('xmlns:image="https://')) problems.push('image namespace is htt
 if (/&(?!amp;|lt;|gt;|quot;|apos;|#)/.test(xml)) problems.push('unescaped ampersand');
 if (Buffer.byteLength(xml) > 50 * 1024 * 1024) problems.push('over the 50MB limit');
 if (missing.length) problems.push('images not on disk: ' + missing.join(', '));
+if (Buffer.byteLength(text) > 50 * 1024 * 1024) problems.push('text sitemap is over the 50MB limit');
+if (!text.endsWith('\n')) problems.push('text sitemap must end with a newline');
 
 console.log('pages:  ' + PAGES.length);
 console.log('images: ' + imageCount);
 console.log('bytes:  ' + Buffer.byteLength(xml));
+console.log('text:   ' + Buffer.byteLength(text));
 if (problems.length) {
   console.log('');
   problems.forEach(p => console.log('  PROBLEM: ' + p));

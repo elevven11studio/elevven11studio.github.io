@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://elevven11studio.github.io/sitemap.xml
+Sitemap: https://elevven11studio.github.io/sitemap.txt
