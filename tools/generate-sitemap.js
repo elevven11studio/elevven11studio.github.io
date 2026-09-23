@@ -55,7 +55,13 @@ const PAGES = [
 // Pages whose images are worth declaring. Most are CSS background-image, which
 // a crawler will not discover on its own. QR codes and the 128px extension
 // icons are skipped: neither makes a useful Image Search result.
-const WITH_IMAGES = ['/examples/', '/how-it-works/', '/agents/', '/faq/', '/contact/'];
+// Image entries are currently OFF. Search Console rejected the sitemap with
+// "Sitemap could not be read" while the image extension was present, and a
+// sitemap that is read without images beats one that is not read at all.
+// Restore the list below once the plain sitemap is confirmed reading; nothing
+// else needs to change, and the pages themselves are unaffected either way.
+const IMAGE_PAGES = ['/examples/', '/how-it-works/', '/agents/', '/faq/', '/contact/'];
+const WITH_IMAGES = [];  // <- set to IMAGE_PAGES to re-enable
 const SKIP_IMAGE = /\/qr\/|icon-\d+\.png|favicon/;
 
 const imagesFor = (pathname) => {
@@ -68,7 +74,13 @@ const imagesFor = (pathname) => {
 
 const lines = [];
 lines.push('<?xml version="1.0" encoding="UTF-8"?>');
-lines.push(`<urlset xmlns="${NS_SITEMAP}" xmlns:image="${NS_IMAGE}">`);
+// Declare the image namespace only when image entries are actually emitted.
+// An unused namespace declaration is legal, but this keeps a plain sitemap
+// byte-for-byte identical to the textbook example.
+const usesImages = WITH_IMAGES.length > 0;
+lines.push(usesImages
+  ? `<urlset xmlns="${NS_SITEMAP}" xmlns:image="${NS_IMAGE}">`
+  : `<urlset xmlns="${NS_SITEMAP}">`);
 
 let imageCount = 0;
 const missing = [];
