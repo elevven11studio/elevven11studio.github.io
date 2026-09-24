@@ -16,6 +16,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const BASE = 'https://elevven11studio.github.io';
@@ -29,28 +30,32 @@ const OUT_TEXT = path.join(ROOT, 'sitemap.txt');
 const NS_SITEMAP = 'http://www.sitemaps.org/schemas/sitemap/0.9';
 const NS_IMAGE = 'http://www.google.com/schemas/sitemap-image/1.1';
 
-// [pathname, lastmod, changefreq, priority]. Only canonical, indexable pages.
-// The /examples/*/ demos are excluded on purpose: they carry noindex because
-// they exist to be sent to prospects by link, not found in search.
+// [pathname, changefreq, priority]. Only canonical, indexable pages. The
+// /examples/*/ demos are excluded on purpose: they carry noindex because they
+// exist to be sent to prospects by link, not found in search.
+//
+// lastmod is NOT listed here. It was hand-typed and every single entry had
+// drifted by up to six weeks, and Google discounts a lastmod it does not
+// trust. It now comes from git, so it cannot go stale.
 const PAGES = [
-  ['/',                     '2026-08-16', 'weekly',  1.0],
-  ['/pricing/',             '2026-08-16', 'monthly', 0.9],
-  ['/app-development/',     '2026-09-20', 'monthly', 0.9],
-  ['/get-started/',         '2026-08-16', 'monthly', 0.9],
-  ['/examples/',            '2026-08-16', 'monthly', 0.9],
-  ['/how-it-works/',        '2026-08-16', 'monthly', 0.8],
-  ['/agents/',              '2026-08-16', 'monthly', 0.7],
-  ['/faq/',                 '2026-08-16', 'monthly', 0.7],
-  ['/contact/',             '2026-09-19', 'monthly', 0.7],
-  ['/terms/',               '2026-08-23', 'yearly',  0.3],
-  ['/privacy/',             '2026-08-16', 'yearly',  0.3],
-  ['/support/',             '2026-09-04', 'yearly',  0.3],
-  ['/extensions/',          '2026-09-21', 'monthly', 0.8],
-  ['/extensions/support/',  '2026-09-19', 'monthly', 0.6],
-  ['/webguard/',            '2026-09-21', 'monthly', 0.7],
-  ['/webguard/privacy/',    '2026-09-19', 'yearly',  0.3],
-  ['/webinspect/',          '2026-09-21', 'monthly', 0.7],
-  ['/webinspect/privacy/',  '2026-09-19', 'yearly',  0.3]
+  ['/',                      'weekly',   1.0],
+  ['/pricing/',              'monthly',  0.9],
+  ['/app-development/',      'monthly',  0.9],
+  ['/get-started/',          'monthly',  0.9],
+  ['/examples/',             'monthly',  0.9],
+  ['/how-it-works/',         'monthly',  0.8],
+  ['/agents/',               'monthly',  0.7],
+  ['/faq/',                  'monthly',  0.7],
+  ['/contact/',              'monthly',  0.7],
+  ['/terms/',                'yearly',   0.3],
+  ['/privacy/',              'yearly',   0.3],
+  ['/support/',              'yearly',   0.3],
+  ['/extensions/',           'monthly',  0.8],
+  ['/extensions/support/',   'monthly',  0.6],
+  ['/webguard/',             'monthly',  0.7],
+  ['/webguard/privacy/',     'yearly',   0.3],
+  ['/webinspect/',           'monthly',  0.7],
+  ['/webinspect/privacy/',   'yearly',   0.3]
 ];
 
 // Pages whose images are worth declaring. Most are CSS background-image, which
@@ -64,6 +69,19 @@ const PAGES = [
 const IMAGE_PAGES = ['/examples/', '/how-it-works/', '/agents/', '/faq/', '/contact/'];
 const WITH_IMAGES = [];  // <- set to IMAGE_PAGES to re-enable
 const SKIP_IMAGE = /\/qr\/|icon-\d+\.png|favicon/;
+
+// Last commit that touched the page, as YYYY-MM-DD. Falls back to the file's
+// mtime if git is unavailable (a shallow CI checkout, or a file not yet
+// committed), so the generator never emits an empty or invented date.
+const lastmodFor = (pathname) => {
+  const rel = path.posix.join(pathname, 'index.html').replace(/^\//, '');
+  try {
+    const out = execFileSync('git', ['log', '-1', '--format=%ad', '--date=short', '--', rel],
+      { cwd: ROOT, encoding: 'utf8' }).trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(out)) return out;
+  } catch (e) { /* fall through */ }
+  return new Date(fs.statSync(path.join(ROOT, rel)).mtime).toISOString().slice(0, 10);
+};
 
 const imagesFor = (pathname) => {
   const file = path.join(ROOT, pathname, 'index.html');
@@ -86,7 +104,8 @@ lines.push(usesImages
 let imageCount = 0;
 const missing = [];
 
-for (const [pathname, lastmod, changefreq, priority] of PAGES) {
+for (const [pathname, changefreq, priority] of PAGES) {
+  const lastmod = lastmodFor(pathname);
   lines.push('  <url>');
   lines.push(`    <loc>${BASE}${pathname}</loc>`);
 
@@ -103,7 +122,9 @@ for (const [pathname, lastmod, changefreq, priority] of PAGES) {
 
   lines.push(`    <lastmod>${lastmod}</lastmod>`);
   lines.push(`    <changefreq>${changefreq}</changefreq>`);
-  lines.push(`    <priority>${priority.toFixed(1)}</priority>`);
+    // String(), not toFixed(1): whole numbers render as <priority>1</priority>,
+  // matching the shortest legal form.
+  lines.push(`    <priority>${String(priority)}</priority>`);
   lines.push('  </url>');
 }
 
@@ -126,6 +147,9 @@ if (xml.includes('xmlns:image="https://')) problems.push('image namespace is htt
 if (/&(?!amp;|lt;|gt;|quot;|apos;|#)/.test(xml)) problems.push('unescaped ampersand');
 if (Buffer.byteLength(xml) > 50 * 1024 * 1024) problems.push('over the 50MB limit');
 if (missing.length) problems.push('images not on disk: ' + missing.join(', '));
+const badDates = (xml.match(/<lastmod>([^<]*)<\/lastmod>/g) || [])
+  .filter(t => !/^<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>$/.test(t));
+if (badDates.length) problems.push('malformed lastmod: ' + badDates.join(', '));
 if (Buffer.byteLength(text) > 50 * 1024 * 1024) problems.push('text sitemap is over the 50MB limit');
 if (!text.endsWith('\n')) problems.push('text sitemap must end with a newline');
 
