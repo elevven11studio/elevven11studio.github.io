@@ -191,7 +191,7 @@
 
 	<section>
 		<div class="container" style="max-width: 820px;">
-			<p style="color: var(--text-muted); margin-bottom: 2.5rem;">Last updated: 2 September 2026</p>
+			<p style="color: var(--text-muted); margin-bottom: 2.5rem;">Last updated: 26 September 2026</p>
 
 			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
 				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">In short</h2>
@@ -259,7 +259,7 @@
 				<ul class="policy-list">
 					<li>the page's address, from the browser rather than from the page, and its title, language and
 						encoding;</li>
-					<li>its meta tags, canonical link and structured data;</li>
+					<li>its meta tags, canonical link, language alternate links and structured data;</li>
 					<li>its heading outline: the level and the text of each heading;</li>
 					<li>its images: source, alt attribute, format, intrinsic and displayed size, loading attribute;
 					</li>
@@ -268,7 +268,8 @@
 						where the form submits to. Never the values;</li>
 					<li>its script and stylesheet elements, including integrity and loading attributes;</li>
 					<li>the resource timeline the page already exposes to itself: what was loaded, from where, how
-						large it was where the server discloses that, and how long it took;</li>
+						large it was where the server discloses that, and how long it took, and the paint and
+						layout-shift timings the browser has already recorded for it;</li>
 					<li>computed colours of text elements, to calculate contrast ratios;</li>
 					<li>measured geometry, to find horizontal overflow, fixed widths and small touch targets;</li>
 					<li>the <strong>names</strong> of cookies the page can see, because those are among the strongest
@@ -317,11 +318,15 @@
 					WebInspect keeps <strong>no history of the sites you have inspected</strong>. There is no such
 					list, and no setting to create one.
 				</p>
-				<p style="color: var(--text-secondary);">
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
 					An image address travels through <code>chrome.storage.session</code> when you use "Inspect this
 					image" from the right-click menu, so the popup knows which image you meant. That store lives in
 					memory for the life of the browser session, is never written to disk, and the entry is deleted the
 					moment the popup reads it.
+				</p>
+				<p style="color: var(--text-secondary);">
+					"Open printable report" hands the report to its tab the same way. The tab deletes the entry as
+					soon as it reads it and keeps its own copy only until the tab is closed.
 				</p>
 			</div>
 
@@ -348,8 +353,8 @@
 				</h2>
 				<p style="color: var(--text-secondary); margin-bottom: 1rem;">Nothing, unless you ask for it:</p>
 				<ul class="policy-list">
-					<li><strong>Export and copy</strong> build a file or a clipboard entry in your browser. Where it
-						goes next is up to you.</li>
+					<li><strong>Export, copy and the printable report</strong> build a file, a clipboard entry or a
+						page in your browser. Where it goes next is up to you.</li>
 					<li><strong>Link checking</strong> sends requests to the sites a page links to, as described
 						above.</li>
 				</ul>
