@@ -13,6 +13,8 @@ https://elevven11studio.github.io/support/
 https://elevven11studio.github.io/extensions/
 https://elevven11studio.github.io/extensions/support/
 https://elevven11studio.github.io/webguard/
+https://elevven11studio.github.io/webguard/try/
 https://elevven11studio.github.io/webguard/privacy/
 https://elevven11studio.github.io/webinspect/
+https://elevven11studio.github.io/webinspect/try/
 https://elevven11studio.github.io/webinspect/privacy/

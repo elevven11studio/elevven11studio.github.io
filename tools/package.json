@@ -16,13 +16,15 @@
     "stories": "node generate-promo-stories.js",
     "carousels": "node generate-carousels.js",
     "enhance-demos": "node enhance-demos.js",
-    "sitemap": "node generate-sitemap.js"
+    "sitemap": "node generate-sitemap.js",
+    "demos": "node build-demos.js"
   },
   "dependencies": {
     "qrcode": "^1.5.4",
     "sharp": "^0.33.0"
   },
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "jsqr": "^1.4.0"
   }
 }

@@ -1,0 +1,258 @@
+/* In-browser extension demos (/webguard/try/, /webinspect/try/). The page
+   sets the product accent; everything here keys off --accent-rgb. */
+
+.try-stack {
+	display: grid;
+	gap: 2rem;
+	max-width: 780px;
+	margin: 0 auto;
+}
+
+.try-card h2 {
+	font-size: 1.4rem;
+	margin-bottom: 0.4rem;
+}
+
+.try-card > p {
+	color: var(--text-secondary);
+	margin-bottom: 1.25rem;
+}
+
+.try-row {
+	display: flex;
+	gap: 0.75rem;
+}
+
+.try-row .form-input { flex: 1; min-width: 0; }
+.try-row .btn { flex-shrink: 0; }
+
+@media (max-width: 560px) {
+	.try-row { flex-direction: column; }
+}
+
+.try-result {
+	margin-top: 1.5rem;
+}
+
+.try-result[hidden] { display: none; }
+
+.try-verdict {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1rem 1.25rem;
+	border-radius: 12px;
+	border: 1px solid;
+	font-weight: 800;
+}
+
+.try-verdict .score {
+	font-weight: 600;
+	color: var(--text-secondary);
+	font-size: 0.92rem;
+}
+
+/* The same calm-to-alarming scale as the verdict ladder on /webguard/. */
+.try-verdict.low { border-color: rgba(74, 222, 128, 0.35); background: rgba(74, 222, 128, 0.07); color: #4ade80; }
+.try-verdict.suspicious { border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.07); color: #fbbf24; }
+.try-verdict.high { border-color: rgba(248, 113, 113, 0.4); background: rgba(248, 113, 113, 0.08); color: #f87171; }
+:root[data-theme="light"] .try-verdict.low { color: #166534; }
+:root[data-theme="light"] .try-verdict.suspicious { color: #854d0e; }
+:root[data-theme="light"] .try-verdict.high { color: #b91c1c; }
+
+.try-list {
+	list-style: none;
+	margin: 1rem 0 0;
+	padding: 0;
+	display: grid;
+	gap: 0.75rem;
+}
+
+.try-list li {
+	padding: 0.85rem 1rem;
+	border-radius: 10px;
+	background: rgba(var(--accent-rgb), 0.05);
+	border: 1px solid rgba(var(--accent-rgb), 0.15);
+}
+
+.try-list strong { display: block; margin-bottom: 0.2rem; }
+
+.try-list p,
+.try-list .detail {
+	color: var(--text-secondary);
+	font-size: 0.92rem;
+	margin: 0;
+}
+
+.try-list .detail {
+	font-family: ui-monospace, Consolas, monospace;
+	overflow-wrap: anywhere;
+	margin-top: 0.3rem;
+}
+
+.try-tag {
+	display: inline-block;
+	font-size: 0.72rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	margin-right: 0.4rem;
+	color: var(--text-muted);
+}
+
+/* Password meter: five segments, one per verdict. */
+.try-meter {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 0.35rem;
+	margin: 1.25rem 0 0.6rem;
+}
+
+.try-meter span {
+	height: 6px;
+	border-radius: 3px;
+	background: rgba(148, 163, 184, 0.25);
+}
+
+.try-meter[data-score="0"] span:nth-child(-n+1) { background: #f87171; }
+.try-meter[data-score="1"] span:nth-child(-n+2) { background: #fb923c; }
+.try-meter[data-score="2"] span:nth-child(-n+3) { background: #fbbf24; }
+.try-meter[data-score="3"] span:nth-child(-n+4) { background: #4ade80; }
+.try-meter[data-score="4"] span:nth-child(-n+5) { background: #22c55e; }
+
+.try-meter-label { font-weight: 700; }
+
+.try-note {
+	font-size: 0.85rem;
+	color: var(--text-muted);
+	margin-top: 0.75rem;
+}
+
+/* The pointer back to the extension, at the foot of each tool. */
+.try-more {
+	margin-top: 1.5rem;
+	padding-top: 1.25rem;
+	border-top: 1px solid rgba(var(--accent-rgb), 0.15);
+	font-size: 0.92rem;
+	color: var(--text-secondary);
+}
+
+.try-more a {
+	color: var(--accent-gold);
+	font-weight: 700;
+	white-space: nowrap;
+}
+
+/* Contrast preview and colour inputs. */
+.try-colors {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+}
+
+@media (max-width: 560px) {
+	.try-colors { grid-template-columns: 1fr; }
+}
+
+.try-color {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.try-color input[type="color"] {
+	width: 52px;
+	height: 52px;
+	padding: 0;
+	border: var(--border-subtle);
+	border-radius: var(--border-radius);
+	background: none;
+	cursor: pointer;
+	flex-shrink: 0;
+}
+
+.try-preview {
+	margin-top: 1.5rem;
+	border-radius: 12px;
+	padding: 1.5rem;
+	border: var(--border-subtle);
+}
+
+.try-preview .big { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.4rem; }
+
+.try-grades {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 0.75rem;
+	margin-top: 1rem;
+	text-align: center;
+}
+
+.try-grades div {
+	padding: 0.85rem 0.5rem;
+	border-radius: 10px;
+	background: rgba(var(--accent-rgb), 0.05);
+	border: 1px solid rgba(var(--accent-rgb), 0.15);
+}
+
+.try-grades .value { font-size: 1.3rem; font-weight: 800; display: block; }
+.try-grades .name { font-size: 0.8rem; color: var(--text-muted); }
+.try-grades .pass { color: #4ade80; }
+.try-grades .fail { color: #f87171; }
+:root[data-theme="light"] .try-grades .pass { color: #166534; }
+:root[data-theme="light"] .try-grades .fail { color: #b91c1c; }
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* WebInspect page report. Score bands follow scoreBand() in the extension. */
+.try-verdict.band-good { border-color: rgba(74, 222, 128, 0.35); background: rgba(74, 222, 128, 0.07); color: #4ade80; }
+.try-verdict.band-fair { border-color: rgba(163, 230, 53, 0.35); background: rgba(163, 230, 53, 0.07); color: #a3e635; }
+.try-verdict.band-weak { border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.07); color: #fbbf24; }
+.try-verdict.band-poor { border-color: rgba(248, 113, 113, 0.4); background: rgba(248, 113, 113, 0.08); color: #f87171; }
+.try-grades .band-good { color: #4ade80; }
+.try-grades .band-fair { color: #a3e635; }
+.try-grades .band-weak { color: #fbbf24; }
+.try-grades .band-poor { color: #f87171; }
+:root[data-theme="light"] .try-verdict.band-good,
+:root[data-theme="light"] .try-grades .band-good { color: #166534; }
+:root[data-theme="light"] .try-verdict.band-fair,
+:root[data-theme="light"] .try-grades .band-fair { color: #3f6212; }
+:root[data-theme="light"] .try-verdict.band-weak,
+:root[data-theme="light"] .try-grades .band-weak { color: #854d0e; }
+:root[data-theme="light"] .try-verdict.band-poor,
+:root[data-theme="light"] .try-grades .band-poor { color: #b91c1c; }
+
+.try-cats { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
+
+.try-chips {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.4rem;
+	margin-top: 1rem;
+}
+
+.try-chip {
+	font-size: 0.85rem;
+	font-weight: 600;
+	padding: 0.25rem 0.7rem;
+	border-radius: 999px;
+	background: rgba(var(--accent-rgb), 0.1);
+	border: 1px solid rgba(var(--accent-rgb), 0.25);
+}
+
+.try-list .try-fix {
+	color: var(--text-primary);
+	margin-top: 0.35rem;
+}

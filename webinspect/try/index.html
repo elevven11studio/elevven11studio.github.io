@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Try WebInspect in your browser - Elevven11 Studio</title>
+	<meta name="description" content="Get an SEO, accessibility and security report for any page, using the same code as the free WebInspect Chrome extension." />
+	<link rel="canonical" href="https://elevven11studio.github.io/webinspect/try/" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta name="theme-color" content="#0b0a10" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:locale" content="en_NG" />
+	<meta property="og:title" content="Try WebInspect in your browser - Elevven11 Studio" />
+	<meta property="og:description" content="Get an SEO, accessibility and security report for any page, using the same code as the free WebInspect Chrome extension." />
+	<meta property="og:url" content="https://elevven11studio.github.io/webinspect/try/" />
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/webinspect.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="WebInspect, a free Chrome extension by Elevven11 Studio that reports on any website" />
+	<!-- Square alternate: platforms whose share dialog lets you pick between
+	     linked images (Facebook, LinkedIn) can offer this one instead of a
+	     landscape crop for mobile-style posts. -->
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/webinspect-square.png" />
+	<meta property="og:image:width" content="1080" />
+	<meta property="og:image:height" content="1080" />
+	<meta property="og:image:alt" content="WebInspect, a free Chrome extension by Elevven11 Studio that reports on any website" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Try WebInspect in your browser - Elevven11 Studio" />
+	<meta name="twitter:description" content="Get an SEO, accessibility and security report for any page, using the same code as the free WebInspect Chrome extension." />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og/webinspect.png" />
+	<meta name="twitter:image:alt" content="WebInspect, a free Chrome extension by Elevven11 Studio that reports on any website" />
+
+	<!-- Fonts. Linked here rather than @import-ed from style.css so the browser
+	     can start the font request immediately, in parallel with the stylesheet,
+	     instead of waiting for style.css to download and parse first. -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" />
+	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/demos/try.css" />
+
+	<style>
+		/* ---------------------------------------------------------------
+		   WebInspect takes its own accent. WebInspect's magnifier is violet. The studio
+		   wordmark keeps --gradient-brand and stays green: the product owns
+		   the page, not the brand in the corner.
+		
+		   --accent-rgb feeds every tint, border and glow in style.css, so
+		   these few lines repaint the whole page rather than one element at
+		   a time. The light shade is darker than the icon because the site
+		   sets headings and links in the accent, and the icon colour on a
+		   cream ground does not clear 4.5:1.
+		   --------------------------------------------------------------- */
+		:root {
+			--accent-gold: #a78bfa;
+			--accent-orange: #8b5cf6;
+			--accent-rgb: 167, 139, 250;
+		}
+
+		:root[data-theme="light"] {
+			--accent-gold: #6d28d9;
+			--accent-orange: #5b21b6;
+			/* style.css pins the light glow to a literal, so it is restated here. */
+			--glow-gold: 0 0 15px rgba(109, 40, 217, 0.22);
+		}
+		/* The product mark, shown at its native 128px so the icon stays crisp. */
+		.wi-mark {
+			width: 88px;
+			height: 88px;
+			margin: 0 auto 1.5rem;
+			display: block;
+			border-radius: 20px;
+		}
+
+		/* Says where the extension is in the launch process. Now that the
+		   listing is live this sits beside a real install button rather than
+		   standing in for one. */
+		.wi-status {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.6rem;
+			background: rgba(var(--accent-rgb), 0.08);
+			border: 1px solid rgba(var(--accent-rgb), 0.3);
+			color: var(--text-primary);
+			padding: 0.6rem 1.2rem;
+			border-radius: 22px;
+			font-size: 0.92rem;
+			font-weight: 600;
+			margin-bottom: 1.75rem;
+		}
+
+		.wi-status::before {
+			content: '';
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: var(--accent-gold);
+			box-shadow: var(--glow-gold);
+			flex-shrink: 0;
+		}
+
+		/* A category card carries a short label above its list of checks. */
+		.wi-report-card h3 {
+			color: var(--accent-gold);
+			margin-bottom: 0.6rem;
+			font-size: 1.1rem;
+		}
+
+		.wi-report-card p {
+			color: var(--text-secondary);
+			font-size: 0.95rem;
+		}
+
+		/* The five outcomes, as a legend rather than prose. */
+		.wi-outcomes {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.6rem;
+			margin: 1.25rem 0 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		.wi-outcomes li {
+			background: rgba(var(--accent-rgb), 0.06);
+			border: var(--border-subtle);
+			border-radius: 18px;
+			padding: 0.45rem 1rem;
+			font-size: 0.88rem;
+			font-weight: 600;
+			color: var(--text-secondary);
+		}
+
+		.wi-keys { white-space: nowrap; }
+
+		.wi-shortcut {
+			font-family: inherit;
+			font-weight: 700;
+			background: rgba(var(--accent-rgb), 0.1);
+			color: var(--accent-gold);
+			border: 1px solid rgba(var(--accent-rgb), 0.25);
+			border-radius: 6px;
+			padding: 0.15rem 0.5rem;
+			font-size: 0.92em;
+			white-space: nowrap;
+		}
+	</style>
+
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "BreadcrumbList",
+	  "itemListElement": [
+	    {
+	      "@type": "ListItem",
+	      "position": 1,
+	      "name": "Home",
+	      "item": "https://elevven11studio.github.io/"
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 2,
+	      "name": "Extensions",
+	      "item": "https://elevven11studio.github.io/extensions/"
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 3,
+	      "name": "WebInspect",
+	      "item": "https://elevven11studio.github.io/webinspect/"
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 4,
+	      "name": "Try it",
+	      "item": "https://elevven11studio.github.io/webinspect/try/"
+	    }
+	  ]
+	}
+	</script>
+	<script>
+		// Applied before paint so a light-mode visitor never sees a dark flash.
+		(function () {
+			try {
+				if (localStorage.getItem('e11-theme') === 'light') {
+					document.documentElement.setAttribute('data-theme', 'light');
+				}
+			} catch (e) { /* private mode: stay on the dark default */ }
+		})();
+	</script>
+</head>
+
+<body>
+
+	<a class="skip-link" href="#main">Skip to main content</a>
+
+	<header>
+		<div class="container navbar">
+			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+			<ul class="nav-links">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/app-development/">Apps</a></li>
+				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
+				<li class="nav-item"><a href="/examples/">Examples</a></li>
+				<li class="nav-item"><a href="/agents/">Agents</a></li>
+				<li class="nav-item"><a href="/faq/">FAQ</a></li>
+				<li class="nav-item"><a href="/contact/">Contact</a></li>
+				<li class="nav-item"><a class="nav-cta" href="/get-started/">Get Your Website</a></li>
+			</ul>
+			<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+				<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+				<svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>
+			</button>
+			<div class="hamburger"><span></span><span></span><span></span></div>
+		</div>
+	</header>
+
+	<main id="main">
+
+	<section class="hero">
+		<div class="hero-content container">
+			<img class="wi-mark" src="/assets/webinspect/icon-128.png" width="128" height="128" alt="" />
+			<div class="hero-eyebrow"><a href="/webinspect/" style="color: inherit;">WebInspect</a> / Try it</div>
+			<h1 class="hero-title">Test WebInspect <strong>right here.</strong></h1>
+			<p class="hero-tagline">Paste a link for a site report, or check a colour pair. Both run the extension's own
+				code in this page.</p>
+		</div>
+	</section>
+
+	<section>
+		<div class="container">
+			<div class="try-stack">
+
+				<div class="glass-card try-card">
+					<h2>Inspect a page</h2>
+					<p>SEO, accessibility, mobile, security and the technology behind it.</p>
+					<form class="try-row" id="url-form">
+						<label class="sr-only" for="url-input">Page to inspect</label>
+						<input class="form-input" id="url-input" type="text" inputmode="url" autocomplete="off"
+							spellcheck="false" placeholder="example.com" required />
+						<button class="btn btn-primary" type="submit" id="url-submit">Inspect</button>
+					</form>
+					<div class="try-result" id="url-result" hidden aria-live="polite"></div>
+					<p class="try-note">Pages are fetched through <a href="https://jina.ai/reader/" target="_blank"
+							rel="noopener" style="color: var(--accent-gold);">Jina Reader</a> and measured at phone
+						width. Load speed needs the live page, so it is not scored here.</p>
+					<p class="try-more">The extension reads the page you have open, measures load speed, and highlights
+						each issue on the page itself. <a href="https://chromewebstore.google.com/detail/webinspect-by-elevven11/mpeiggffhbfefciphcnabijnmiajcljk?utm_source=elevven-web&amp;utm_medium=try&amp;utm_content=inspect"
+							target="_blank" rel="noopener">Add to Chrome</a></p>
+				</div>
+
+				<div class="glass-card try-card">
+					<h2>Check colour contrast</h2>
+					<p>Pick a text and background colour, or paste any CSS colour.</p>
+					<div class="try-colors">
+						<div>
+							<label class="form-label" for="fg-text">Text</label>
+							<div class="try-color">
+								<input type="color" id="fg-pick" value="#777777" aria-label="Pick text colour" />
+								<input class="form-input" id="fg-text" type="text" value="#777777" spellcheck="false" autocomplete="off" />
+							</div>
+						</div>
+						<div>
+							<label class="form-label" for="bg-text">Background</label>
+							<div class="try-color">
+								<input type="color" id="bg-pick" value="#ffffff" aria-label="Pick background colour" />
+								<input class="form-input" id="bg-text" type="text" value="#ffffff" spellcheck="false" autocomplete="off" />
+							</div>
+						</div>
+					</div>
+
+					<div class="try-preview" id="preview">
+						<div class="big">Large text sample</div>
+						<div>Body text at normal size, the kind most of a page is made of.</div>
+					</div>
+
+					<div aria-live="polite">
+						<div class="try-grades">
+							<div><span class="value" id="ratio">-</span><span class="name">Ratio</span></div>
+							<div><span class="value" id="normal">-</span><span class="name">Body text</span></div>
+							<div><span class="value" id="large">-</span><span class="name">Large text</span></div>
+						</div>
+						<p class="try-note" id="contrast-note"></p>
+					</div>
+
+					<p class="try-more">The extension checks every text element on a real page this way, alongside SEO,
+						accessibility, performance and security. <a href="https://chromewebstore.google.com/detail/webinspect-by-elevven11/mpeiggffhbfefciphcnabijnmiajcljk?utm_source=elevven-web&amp;utm_medium=try&amp;utm_content=contrast"
+							target="_blank" rel="noopener">Add to Chrome</a></p>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<section id="final-cta" class="section-tinted">
+		<div class="container" style="text-align: center;">
+			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Get the full report</h2>
+			<p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem;">
+				One key on any site. Free, and nothing leaves your browser.
+			</p>
+			<div class="btn-group">
+				<a href="https://chromewebstore.google.com/detail/webinspect-by-elevven11/mpeiggffhbfefciphcnabijnmiajcljk?utm_source=elevven-web&amp;utm_medium=try&amp;utm_content=footer" target="_blank" rel="noopener"
+					class="btn btn-primary">Add to Chrome</a>
+				<a href="/webinspect/" class="btn btn-secondary">About WebInspect</a>
+			</div>
+		</div>
+	</section>
+
+	</main>
+
+	<footer>
+		<div class="container">
+			<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
+			<p><a href="/app-development/">App Development</a> <span class="footer-sep">&middot;</span> <a href="/agents/">Referral Agents</a> <span class="footer-sep">&middot;</span> <a
+					href="/contact/">Contact</a> <span class="footer-sep">&middot;</span> <a href="/extensions/">Extensions</a> <span class="footer-sep">&middot;</span> <a href="/terms/">Terms</a> <span class="footer-sep">&middot;</span> <a href="/privacy/">Privacy</a> <span class="footer-sep">&middot;</span> <a href="/support/">Support</a>
+			</p>
+			<div class="footer-social">
+				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
+				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+				<a href="https://www.instagram.com/elevven11studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/main.js" defer></script>
+	<script src="/assets/demos/webinspect.js" defer></script>
+	<script src="/assets/demos/webinspect-try.js" defer></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+	</script>
+</body>
+
+</html>

@@ -53,8 +53,10 @@ const PAGES = [
   ['/extensions/',           'monthly',  0.8],
   ['/extensions/support/',   'monthly',  0.6],
   ['/webguard/',             'monthly',  0.7],
+  ['/webguard/try/',         'monthly',  0.6],
   ['/webguard/privacy/',     'yearly',   0.3],
   ['/webinspect/',           'monthly',  0.7],
+  ['/webinspect/try/',       'monthly',  0.6],
   ['/webinspect/privacy/',   'yearly',   0.3]
 ];
 
