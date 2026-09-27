@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Extension Support - Elevven11 Studio</title>
-	<meta name="description" content="Help with the Elevven11 Studio browser extensions. Troubleshooting for WebInspect and WebGuard, how to report a bug, and how to reset or remove your data." />
+	<meta name="description" content="Help with the Elevven11 Studio browser extensions. Troubleshooting for WebInspect, WebGuard, SiteExtract and ShopInspect, how to report a bug, and how to reset or remove your data." />
 	<link rel="canonical" href="https://elevven11studio.github.io/extensions/support/" />
 	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 	<meta name="theme-color" content="#0b0a10" />
@@ -14,7 +14,7 @@
 	<meta property="og:site_name" content="Elevven11 Studio" />
 	<meta property="og:locale" content="en_NG" />
 	<meta property="og:title" content="Extension Support - Elevven11 Studio" />
-	<meta property="og:description" content="Help with the Elevven11 Studio browser extensions. Troubleshooting for WebInspect and WebGuard, how to report a bug, and how to reset or remove your data." />
+	<meta property="og:description" content="Help with the Elevven11 Studio browser extensions. Troubleshooting for WebInspect, WebGuard, SiteExtract and ShopInspect, how to report a bug, and how to reset or remove your data." />
 	<meta property="og:url" content="https://elevven11studio.github.io/extensions/support/" />
 	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/extensions-support.png" />
 	<meta property="og:image:width" content="1200" />
@@ -288,8 +288,8 @@
 					<h2 style="color: var(--accent-gold); font-size: 1.15rem; margin-bottom: 0.75rem;">Waiting on a
 						launch</h2>
 					<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">WebInspect and WebGuard are on the
-						Chrome Web Store now. ShopInspect and Web Toolbox are not: say which one you are after and we
-						will tell you when its listing goes live.</p>
+						Chrome Web Store now. SiteExtract, ShopInspect and Web Toolbox are not: say which one you are
+						after and we will tell you when its listing goes live.</p>
 					<a href="/contact/?topic=extension-launch#message-us" class="btn btn-secondary">Tell me when</a>
 				</div>
 			</div>
@@ -359,7 +359,9 @@
 							want, so its icon sits on the toolbar from then on.</li>
 						<li>Click that icon to open it. WebInspect also answers
 							<span class="sup-path">Ctrl+Shift+U</span>, WebGuard
-							<span class="sup-path">Ctrl+Shift+W</span>.</li>
+							<span class="sup-path">Ctrl+Shift+W</span>, SiteExtract
+							<span class="sup-path">Ctrl+Shift+E</span>, ShopInspect
+							<span class="sup-path">Ctrl+Shift+Y</span>.</li>
 						<li>Right-clicking a page, an image or selected text offers the same thing from the
 							context menu.</li>
 					</ol>
@@ -391,8 +393,8 @@
 						<li>That deletes everything it stored on your device along with it. There is no account to
 							close and no server holding a copy, so nothing is left behind and there is nobody to
 							ask.</li>
-						<li>To clear the data but keep the extension, use its own reset instead: "Reset WebInspect"
-							or "Reset WebGuard" in its settings.</li>
+						<li>To clear the data but keep the extension, use its own reset instead: "Reset WebInspect",
+							"Reset WebGuard", "Reset SiteExtract" or "Reset ShopInspect" in its settings.</li>
 					</ol>
 				</div>
 
@@ -450,8 +452,8 @@
 			</details>
 			<details class="faq-item">
 				<summary>How do I delete everything an extension holds?</summary>
-				<p>Each settings page has a reset that empties its entire local store: "Reset WebInspect" and "Reset
-					WebGuard". Uninstalling removes it all too. Nothing is held on a server, because there is no
+				<p>Each settings page has a reset that empties its entire local store: "Reset WebInspect", "Reset
+					WebGuard", "Reset SiteExtract" and "Reset ShopInspect". Uninstalling removes it all too. Nothing is held on a server, because there is no
 					server, so there is nothing else to request and nobody to ask.</p>
 			</details>
 			<details class="faq-item">
@@ -469,8 +471,10 @@
 			<details class="faq-item">
 				<summary>Where is the privacy policy?</summary>
 				<p>Each extension publishes its own, saying exactly what that one reads and stores:
-					<a href="/webinspect/privacy/" style="color: var(--accent-gold);">WebInspect</a> and
-					<a href="/webguard/privacy/" style="color: var(--accent-gold);">WebGuard</a>. There is a link to
+					<a href="/webinspect/privacy/" style="color: var(--accent-gold);">WebInspect</a>,
+					<a href="/webguard/privacy/" style="color: var(--accent-gold);">WebGuard</a>,
+					<a href="/siteextract/privacy/" style="color: var(--accent-gold);">SiteExtract</a> and
+					<a href="/shopinspect/privacy/" style="color: var(--accent-gold);">ShopInspect</a>. There is a link to
 					it inside each settings page too.</p>
 			</details>
 
@@ -566,11 +570,76 @@
 					setting off stops new records.</p>
 			</details>
 
+			<div class="sup-product">
+				<img src="/assets/siteextract/icon-128.png" width="128" height="128" alt="" />
+				<div>
+					<h3>SiteExtract</h3>
+					<span class="tag">Starter projects</span>
+				</div>
+			</div>
+
+			<details class="faq-item">
+				<summary>It will not extract the page I am on</summary>
+				<p>It is on the block list: 522 well-known sites SiteExtract never reads. Large platforms, and pages
+					that routinely hold personal information such as webmail and banking. The popup names the site and
+					why. There is no override, because a snapshot writes the page as you see it into a file.</p>
+			</details>
+			<details class="faq-item">
+				<summary>Some images or fonts did not download</summary>
+				<p>Usually access to other domains was declined, so files on CDNs stayed remote. Grant it under
+					"Host access" in settings and extract again. Every file that failed is listed in
+					<code>report.json</code> with its reason, and it keeps its original URL, so the page still loads it
+					while online.</p>
+			</details>
+			<details class="faq-item">
+				<summary>Menus and sliders do not work in the project</summary>
+				<p>Snapshot mode removes every script, so the page is static and safe to edit. Switch the popup to
+					Source mode to keep the scripts, saved to <code>js/</code>. Apps that load their content at runtime may
+					still need to be online.</p>
+			</details>
+			<details class="faq-item">
+				<summary>Where did the ZIP go?</summary>
+				<p>Wherever your browser saves downloads. The extract tab also keeps a "Download ZIP" button until you
+					close it, in case the first download was blocked or missed.</p>
+			</details>
+
+			<div class="sup-product">
+				<img src="/assets/shopinspect/icon-128.png" width="128" height="128" alt="" />
+				<div>
+					<h3>ShopInspect</h3>
+					<span class="tag">Product listings</span>
+				</div>
+			</div>
+
+			<details class="faq-item">
+				<summary>It says the page is not a product page</summary>
+				<p>It reads one product at a time, so a search, category or basket page has nothing for it to
+					inspect. The popup lists the signals behind that judgement, because it is occasionally wrong. If it
+					is wrong on a real product page, send us the address.</p>
+			</details>
+			<details class="faq-item">
+				<summary>It read the wrong price</summary>
+				<p>The price section lists the runners-up, so check which figure it chose over which. Some stores draw
+					the price only after you pick a size or colour, and the &#8635; button reads the page again. If it is
+					still wrong, "Save page evidence" at the foot of the report writes a file we can fix it from.</p>
+			</details>
+			<details class="faq-item">
+				<summary>It says "Not Enough Information"</summary>
+				<p>That is an answer, not an error. The listing stated too little of what ShopInspect looks for, under
+					40%, so any verdict would be a guess. The report still shows what it did read.</p>
+			</details>
+			<details class="faq-item">
+				<summary>Why does it ask for access to every site?</summary>
+				<p>Only two features need it: automatic inspection, and reading a product from a listing page's grid,
+					which happens in a tab ShopInspect opened. Both ask when you use them and do nothing if you decline.
+					Withdraw it any time from settings.</p>
+			</details>
+
 			<div class="glass-card" style="margin-top: 3rem;">
-				<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">ShopInspect and Web Toolbox</h3>
-				<p style="color: var(--text-secondary);">Both are still in development and neither has been released,
-					so there is nothing to support yet. They will get their own sections here when they ship. See
-					<a href="/extensions/" style="color: var(--accent-gold);">all four extensions</a> for where each
+				<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Web Toolbox</h3>
+				<p style="color: var(--text-secondary);">Still in development and not released, so there is nothing to
+					support yet. It will get its own section here when it ships. See
+					<a href="/extensions/" style="color: var(--accent-gold);">all five extensions</a> for where each
 					one is.</p>
 			</div>
 		</div>

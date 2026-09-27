@@ -1,4 +1,4 @@
-/* In-browser extension demos (/webguard/try/, /webinspect/try/). The page
+/* In-browser extension demos (/shopinspect/try/, /siteextract/try/, /webguard/try/, /webinspect/try/). The page
    sets the product accent; everything here keys off --accent-rgb. */
 
 .try-stack {
@@ -255,4 +255,152 @@
 .try-list .try-fix {
 	color: var(--text-primary);
 	margin-top: 0.35rem;
+}
+
+/* SiteExtract: extract options, build progress, palette and the download. */
+.try-options {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 1.5rem;
+	margin-top: 1rem;
+}
+
+.try-options label {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	color: var(--text-secondary);
+	font-size: 0.95rem;
+	cursor: pointer;
+}
+
+.try-options input {
+	width: 18px;
+	height: 18px;
+	accent-color: var(--accent-gold);
+}
+
+.try-steps {
+	display: grid;
+	gap: 0.4rem;
+	margin-top: 0.75rem;
+}
+
+.try-step {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.55rem 0.9rem;
+	border-radius: 10px;
+	background: rgba(var(--accent-rgb), 0.05);
+	border: 1px solid rgba(var(--accent-rgb), 0.15);
+	font-size: 0.92rem;
+}
+
+.try-step .value { font-weight: 700; }
+.try-step[data-state="waiting"],
+.try-step[data-state="off"] { opacity: 0.55; }
+.try-step[data-state="failed"] .value { color: #f87171; }
+:root[data-theme="light"] .try-step[data-state="failed"] .value { color: #b91c1c; }
+
+.try-download {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1rem;
+	margin-top: 1.25rem;
+}
+
+.try-meta {
+	color: var(--text-secondary);
+	font-size: 0.92rem;
+	font-weight: 600;
+}
+
+.try-swatches {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+	gap: 0.6rem;
+	margin-top: 1.25rem;
+}
+
+.try-swatch {
+	display: grid;
+	gap: 0.3rem;
+	font-family: ui-monospace, Consolas, monospace;
+	font-size: 0.72rem;
+	color: var(--text-muted);
+	overflow-wrap: anywhere;
+}
+
+.try-swatch .color {
+	height: 44px;
+	border-radius: 10px;
+	border: var(--border-subtle);
+}
+
+.try-details {
+	margin-top: 1rem;
+}
+
+.try-details summary {
+	cursor: pointer;
+	font-weight: 700;
+	color: var(--accent-gold);
+	font-size: 0.95rem;
+}
+
+.try-code {
+	margin: 0.75rem 0 0;
+	max-height: 320px;
+	overflow: auto;
+	padding: 1rem;
+	border-radius: 10px;
+	background: rgba(var(--accent-rgb), 0.05);
+	border: 1px solid rgba(var(--accent-rgb), 0.15);
+	font-family: ui-monospace, Consolas, monospace;
+	font-size: 0.8rem;
+	line-height: 1.5;
+	white-space: pre;
+}
+
+fieldset.try-options {
+	border: 0;
+	padding: 0;
+	margin: 1rem 0 0;
+	min-width: 0;
+}
+
+/* ShopInspect: a withheld verdict is grey, never green, and the key figures
+   read as a short definition list. */
+.try-verdict.band-none { border-color: rgba(148, 163, 184, 0.35); background: rgba(148, 163, 184, 0.07); color: var(--text-secondary); }
+
+.try-facts {
+	display: grid;
+	gap: 0.4rem;
+	margin: 1rem 0 0;
+}
+
+.try-facts div {
+	display: grid;
+	grid-template-columns: 90px 1fr;
+	gap: 0.75rem;
+	font-size: 0.95rem;
+}
+
+.try-facts dt {
+	color: var(--text-muted);
+	font-weight: 600;
+}
+
+.try-facts dd {
+	margin: 0;
+	color: var(--text-primary);
+	overflow-wrap: anywhere;
+}
+
+.try-meaning {
+	margin-top: 0.75rem;
+	color: var(--text-secondary);
+	font-size: 0.95rem;
 }

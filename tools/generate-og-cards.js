@@ -33,15 +33,17 @@ const PILL_H = 56;
 // Accent palettes. `from`/`to` drive the headline gradient and the eyebrow;
 // `glow` tints the bottom-right corner wash.
 //
-// sky and violet mirror the --accent-gold/--accent-orange overrides that
-// webguard/ and webinspect/ set in their own <style> blocks, so each card
-// carries the colour of the page it links to. Those two also carry their own
-// glow instead of the studio teal, which clashed against blue and purple.
+// sky, violet, orange and teal mirror the --accent-gold/--accent-orange
+// overrides that webguard/, webinspect/, siteextract/ and shopinspect/ set in their own <style> blocks, so each card
+// carries the colour of the page it links to. They also carry their own glow
+// instead of the studio teal, which clashed against blue, purple and orange.
 const ACCENTS = {
   neon:   { from: '#86efac', to: '#22c55e', glow: '#2dd4bf' },
   gold:   { from: '#f0c866', to: '#c99a2e', glow: '#2dd4bf' },
   sky:    { from: '#38bdf8', to: '#0ea5e9', glow: '#0ea5e9' },
-  violet: { from: '#a78bfa', to: '#8b5cf6', glow: '#8b5cf6' }
+  violet: { from: '#a78bfa', to: '#8b5cf6', glow: '#8b5cf6' },
+  orange: { from: '#fb923c', to: '#f97316', glow: '#f97316' },
+  teal:   { from: '#2dd4bf', to: '#14b8a6', glow: '#14b8a6' }
 };
 
 const palette = (accent) => {
@@ -285,6 +287,26 @@ const PAGES = {
     eyebrow: 'WEBGUARD / PRIVACY', accent: 'sky', lines: ['No Servers.', 'No Telemetry.'],
     sub: 'Online checks are off by default, and off means silent.',
     pills: ['No account', 'Nothing uploaded', 'Passwords stay put'] },
+
+  'shopinspect': { page: 'shopinspect/index.html', alt: 'ShopInspect, a free Chrome extension by Elevven11 Studio that checks a product listing before you buy',
+    eyebrow: 'SHOPINSPECT / CHROME', accent: 'teal', lines: ['Inspect A Product', 'Before You Buy It.'],
+    sub: 'Price, reviews, seller and details, checked in your browser.',
+    pills: ['No account', 'No shopping history', 'Free'] },
+
+  'shopinspect-privacy': { page: 'shopinspect/privacy/index.html', alt: 'ShopInspect privacy policy: no servers, no account, no shopping history',
+    eyebrow: 'SHOPINSPECT / PRIVACY', accent: 'teal', lines: ['No Servers.', 'No Shopping History.'],
+    sub: 'What you shop for stays in your browser.',
+    pills: ['No account', 'Nothing uploaded', 'Ads disclosed'] },
+
+  'siteextract': { page: 'siteextract/index.html', alt: 'SiteExtract, a free Chrome extension by Elevven11 Studio that turns a web page into a starter project',
+    eyebrow: 'SITEEXTRACT / CHROME', accent: 'orange', lines: ['Any Web Page,', 'As A Starter Project.'],
+    sub: 'HTML, CSS, images, fonts and design tokens in one ZIP.',
+    pills: ['Runs on device', 'Nothing uploaded', 'Free'] },
+
+  'siteextract-privacy': { page: 'siteextract/privacy/index.html', alt: 'SiteExtract privacy policy: no servers, no account, no telemetry',
+    eyebrow: 'SITEEXTRACT / PRIVACY', accent: 'orange', lines: ['No Servers.', 'No Telemetry.'],
+    sub: 'Pages are built into a ZIP on your device. Nothing is uploaded.',
+    pills: ['No account', 'No history', 'Passwords never saved'] },
 
   'webinspect-privacy': { page: 'webinspect/privacy/index.html', alt: 'WebInspect privacy policy: no servers, no account, no analytics',
     eyebrow: 'WEBINSPECT / PRIVACY', accent: 'violet', lines: ['No Servers.', 'No Analytics.'],

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>ShopInspect Privacy Policy - Elevven11 Studio</title>
+	<meta name="description" content="ShopInspect has no servers, no account and no shopping history. What the extension reads from a product page, what it keeps, and the affiliate links it carries." />
+	<link rel="canonical" href="https://elevven11studio.github.io/shopinspect/privacy/" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta name="theme-color" content="#0b0a10" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:locale" content="en_NG" />
+	<meta property="og:title" content="ShopInspect Privacy Policy - Elevven11 Studio" />
+	<meta property="og:description" content="ShopInspect has no servers, no account and no shopping history. What the extension reads from a product page, what it keeps, and the affiliate links it carries." />
+	<meta property="og:url" content="https://elevven11studio.github.io/shopinspect/privacy/" />
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/shopinspect-privacy.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="ShopInspect privacy policy: no servers, no account, no shopping history" />
+	<!-- Square alternate: platforms whose share dialog lets you pick between
+	     linked images (Facebook, LinkedIn) can offer this one instead of a
+	     landscape crop for mobile-style posts. -->
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/shopinspect-privacy-square.png" />
+	<meta property="og:image:width" content="1080" />
+	<meta property="og:image:height" content="1080" />
+	<meta property="og:image:alt" content="ShopInspect privacy policy: no servers, no account, no shopping history" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="ShopInspect Privacy Policy - Elevven11 Studio" />
+	<meta name="twitter:description" content="ShopInspect has no servers, no account and no shopping history. What the extension reads from a product page, what it keeps, and the affiliate links it carries." />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og/shopinspect-privacy.png" />
+	<meta name="twitter:image:alt" content="ShopInspect privacy policy: no servers, no account, no shopping history" />
+
+	<!-- Fonts. Linked here rather than @import-ed from style.css so the browser
+	     can start the font request immediately, in parallel with the stylesheet,
+	     instead of waiting for style.css to download and parse first. -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" />
+	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+
+	<style>
+		/* ---------------------------------------------------------------
+		   ShopInspect takes its own accent, the teal of its icon. The studio
+		   wordmark keeps --gradient-brand and stays green: the product owns
+		   the page, not the brand in the corner.
+
+		   --accent-rgb feeds every tint, border and glow in style.css, so
+		   these few lines repaint the whole page. The light shade is the
+		   popup's own light accent, which clears 4.5:1 on the cream ground
+		   where the icon teal does not.
+		   --------------------------------------------------------------- */
+		:root {
+			--accent-gold: #2dd4bf;
+			--accent-orange: #14b8a6;
+			--accent-rgb: 45, 212, 191;
+		}
+
+		:root[data-theme="light"] {
+			--accent-gold: #0f766e;
+			--accent-orange: #115e59;
+			/* style.css pins the light glow to a literal, so it is restated here. */
+			--glow-gold: 0 0 15px rgba(15, 118, 110, 0.22);
+		}
+		/* A plain bullet list. The site's .pricing-features list marks every item
+		   with a green tick, which reads as approval - wrong on a list headed
+		   "what it never reads". */
+		.policy-list {
+			list-style: none;
+			margin: 0 0 1rem;
+			padding: 0;
+		}
+
+		.policy-list li {
+			position: relative;
+			padding-left: 1.35rem;
+			margin-bottom: 0.85rem;
+			color: var(--text-secondary);
+			font-size: 0.98rem;
+		}
+
+		.policy-list li::before {
+			content: '';
+			position: absolute;
+			left: 0.1rem;
+			top: 0.62em;
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: var(--accent-gold);
+		}
+
+		.policy-list li:last-child { margin-bottom: 0; }
+
+		.policy-card p code,
+		.policy-list code {
+			font-size: 0.9em;
+			padding: 0.1rem 0.35rem;
+			border-radius: 4px;
+			background: rgba(var(--accent-rgb), 0.1);
+			color: var(--accent-gold);
+		}
+
+		.policy-card strong { color: var(--text-primary); }
+	</style>
+
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "BreadcrumbList",
+	  "itemListElement": [
+	    {
+	      "@type": "ListItem",
+	      "position": 1,
+	      "name": "Home",
+	      "item": "https://elevven11studio.github.io/"
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 2,
+	      "name": "Extensions",
+	      "item": "https://elevven11studio.github.io/extensions/"
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 3,
+	      "name": "ShopInspect",
+	      "item": "https://elevven11studio.github.io/shopinspect/"
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 4,
+	      "name": "ShopInspect Privacy Policy",
+	      "item": "https://elevven11studio.github.io/shopinspect/privacy/"
+	    }
+	  ]
+	}
+	</script>
+	<script>
+		// Applied before paint so a light-mode visitor never sees a dark flash.
+		(function () {
+			try {
+				if (localStorage.getItem('e11-theme') === 'light') {
+					document.documentElement.setAttribute('data-theme', 'light');
+				}
+			} catch (e) { /* private mode: stay on the dark default */ }
+		})();
+	</script>
+</head>
+
+<body>
+
+	<a class="skip-link" href="#main">Skip to main content</a>
+
+	<header>
+		<div class="container navbar">
+			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+			<ul class="nav-links">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/app-development/">Apps</a></li>
+				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
+				<li class="nav-item"><a href="/examples/">Examples</a></li>
+				<li class="nav-item"><a href="/agents/">Agents</a></li>
+				<li class="nav-item"><a href="/faq/">FAQ</a></li>
+				<li class="nav-item"><a href="/contact/">Contact</a></li>
+				<li class="nav-item"><a class="nav-cta" href="/get-started/">Get Your Website</a></li>
+			</ul>
+			<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+				<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+				<svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>
+			</button>
+			<div class="hamburger"><span></span><span></span><span></span></div>
+		</div>
+	</header>
+
+	<main id="main">
+
+	<section class="hero" style="min-height: 40vh;">
+		<div class="hero-content container">
+			<h1 class="hero-title">ShopInspect Privacy</h1>
+			<p class="hero-tagline">ShopInspect has no servers. No account, no analytics, no shopping history,
+				nothing uploaded.</p>
+		</div>
+	</section>
+
+	<section>
+		<div class="container" style="max-width: 820px;">
+			<p style="color: var(--text-muted); margin-bottom: 2.5rem;">Last updated: 27 September 2026</p>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">In short</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					ShopInspect is a browser extension that analyses the product listing you are looking at and
+					reports on its price, reviews, seller, details and value.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					<strong>ShopInspect has no servers.</strong> There is no account, no login, no analytics and no
+					telemetry. Nobody at Elevven11 Studio can see what you browse, what you inspect, what you are
+					thinking of buying, or what ShopInspect finds.
+				</p>
+				<p style="color: var(--text-secondary);">
+					That last point deserves its own line. A shopping extension is in a position to learn what you
+					want and what you can afford, which is among the most commercially valuable things anybody could
+					know about you. The rest of this policy is about how ShopInspect is built so that it cannot.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">When ShopInspect runs
+				</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					By default, only when you ask it to: when you click the toolbar button, use the keyboard
+					shortcut, or choose ShopInspect from the right-click menu.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					There is deliberately <strong>no content script in the extension manifest</strong>. Nothing of
+					ShopInspect is loaded into a page until you ask for a report on that page, and it is not present
+					on any other page at all.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					Automatic inspection is an option you can turn on. It reads each product page as it finishes
+					loading so that a score can appear on the toolbar, and it needs permission to access the pages
+					you visit, which Chrome will ask you about separately. It is off until you turn it on, and the
+					permission can be withdrawn from the settings page at any time.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					<strong>Reading a product from a listing page</strong> is the other time it runs. On a search or
+					category page, ShopInspect names the products in the page's own grid, and asking for one of them
+					opens that product in a background tab and reads it there. It is a page you chose, read once, at
+					the moment you chose it, and it needs the same optional host access as automatic inspection,
+					because the tab is one ShopInspect opened rather than one you clicked into. Nothing about the
+					other products in the grid is read.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					<strong>While the popup is open</strong>, ShopInspect re-reads the one element the price came
+					from, about once a second and a half, for at most a minute. That is how it can tell you the shop
+					has changed the price under a report you are in the middle of reading. It compares the text with
+					what it read before and keeps neither: the comparison happens in the page, and the only thing
+					that ever leaves it is the fact that the two differ.
+				</p>
+				<p style="color: var(--text-secondary);">
+					<strong>A site cannot tell that you have ShopInspect installed.</strong> The two files the
+					in-page highlight needs, the font and the icon, are served under an address that changes every
+					session rather than a fixed one, so a page cannot quietly ask for them and learn which extensions
+					you use. A shop that could see this extension in its visitors could treat them differently, which
+					is the opposite of the point.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Pages it does not read
+				</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					ShopInspect reads one product at a time. Before anything else is collected, it checks whether the
+					page is a single product's page, from the store's own structured data, its sharing tags, whether
+					there is a visible add-to-basket control, whether the page shows a grid of product cards, and the
+					shape of the address.
+				</p>
+				<p style="color: var(--text-secondary);">
+					If it is not a product page, <strong>nothing further is read</strong>. A category listing, a
+					search results page, a basket and a checkout are never collected from, not even a count. That
+					check runs before the collectors, so such a page is never read and then discarded.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">What ShopInspect reads
+				</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">To analyse a product listing, it reads:
+				</p>
+				<ul class="policy-list">
+					<li>the page's address, from the browser rather than from the page, and its title;</li>
+					<li>the store's own structured product data (Schema.org JSON-LD, microdata and RDFa) and its meta
+						tags, including Open Graph;</li>
+					<li>candidate values from the page: the price, the was-price, any discount badge, the rating, the
+						review count, the availability, the seller name and the brand, together with where on the
+						page each was found;</li>
+					<li>the specification table: the label and value of each row;</li>
+					<li>the product images: source, alt attribute, intrinsic and displayed size;</li>
+					<li>sentences on the page that state a delivery, returns or warranty term;</li>
+					<li>the reviews visible on the page: the star rating, the body text, the date as written, whether
+						the store marks the review as a verified purchase, and the helpful-vote count. <strong>No
+						reviewer identity is read</strong>: not the name, not the avatar, not the profile link;</li>
+					<li>the fingerprints a store platform leaves in the markup (a body class, a stylesheet path, a
+						checkout token in a meta tag), so that a Shopify or WooCommerce store can be recognised. These
+						are names and paths only.</li>
+				</ul>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">What ShopInspect never
+					reads</h2>
+				<ul class="policy-list">
+					<li><strong>The values of any form field.</strong> No password, no card number, no address, no
+						search term, no message. Nothing in the codebase will accept one. Editable regions of a page,
+						the kind that behave like a text box, are skipped the same way.</li>
+					<li><strong>Anything on a checkout or basket page.</strong> Those are not product pages, so they
+						are not read at all.</li>
+					<li><strong>Cookies, tokens or credentials</strong> of any kind. ShopInspect reads no cookies, not
+						even their names.</li>
+					<li><strong>The page's own JavaScript variables.</strong> Unlike a technology detector,
+						ShopInspect has no reason to look at them, and there is no second injection into the page's
+						world. A store's globals would reveal the cart contents, the customer's session and the
+						analytics payload, and none of it would improve a product report.</li>
+					<li><strong>Any page you have not asked about.</strong></li>
+				</ul>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Review text</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					Review text is <strong>analysed, never kept</strong>, unless you save page evidence, which writes
+					the reviews read from the page into a file on your device.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					The collector caps each review's text hard and the analysis extracts themes and sentiment from it
+					in the browser. What reaches the report is the theme counts, the sentiment split, and a handful of
+					short quotes as evidence. The report is what the cache stores, so the cache never holds a review
+					section.
+				</p>
+				<p style="color: var(--text-secondary);">
+					Review analysis can also be switched off entirely in settings. With it off, the review list is
+					<strong>never read</strong>, rather than read and then ignored. The inspection gathers exactly
+					what the sections you have turned on actually need.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">What ShopInspect stores
+				</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					On your device, in <code>chrome.storage.local</code>, and nowhere else:
+				</p>
+				<ul class="policy-list">
+					<li><strong>your settings</strong>, including which sections run and your thresholds;</li>
+					<li><strong>the products you saved to compare</strong>, at most eight, each holding normalised
+						figures (name, price, rating, specifications, score) and never a copy of the page. Clearable
+						from settings or from the Compare screen;</li>
+					<li><strong>a cache of the last few reports</strong>, keyed by page address, which expires after
+						five minutes and holds at most twelve entries.</li>
+				</ul>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					That cache is what makes reopening the popup on the same product instant. It holds figures,
+					findings and the short evidence fragments already shown in the report. It is <strong>not a
+					shopping history</strong>: it holds the last few products you inspected, expires in minutes, and
+					can be cleared from the settings page.
+				</p>
+				<p style="color: var(--text-secondary);">
+					ShopInspect keeps <strong>no history of the products you have inspected</strong>. There is no
+					such list, and no setting to create one. The saved comparison is the one exception and it is
+					different in kind: you put each entry there by pressing a button, and you can empty it.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">The network</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					<strong>Nothing in ShopInspect makes a network request.</strong> There is no endpoint to send
+					anything to, and no feature that reaches one. Everything, from the extraction to the review
+					analysis and the scoring, happens in your browser.
+				</p>
+				<p style="color: var(--text-secondary);">
+					The fonts and icons the extension displays are bundled with it, so even the popup opens without
+					touching the network.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">What leaves your device
+				</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">Nothing, unless you ask for it:</p>
+				<ul class="policy-list">
+					<li><strong>Export and copy</strong> build a file or a clipboard entry in your browser. Where it
+						goes next is up to you.</li>
+					<li><strong>Save page evidence</strong> writes a cleaned copy of the page to a file on your
+						device, described <a href="#saving-page-evidence" style="color: var(--accent-gold);">below</a>.
+					</li>
+					<li><strong>Clicking a link in the popup</strong> opens that address in a new tab, which is your
+						browser going there rather than ShopInspect sending anything. The advert and the links that
+						carry tags are described under
+						<a href="#the-advert" style="color: var(--accent-gold);">the advert</a> below.</li>
+				</ul>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					Report exports contain the verdict, the figures, the findings, the evidence behind them, and the
+					confidence of each reading. They do not contain a copy of the listing or of anybody's reviews.
+				</p>
+				<p style="color: var(--text-secondary);">
+					<strong>Copy what was read</strong> puts the figures ShopInspect weighed on your clipboard: each
+					candidate's text, its score and why, and the page's address without its query string, which on
+					many shops carries a session.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" id="saving-page-evidence" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Saving page evidence
+				</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					<strong>Save page evidence</strong> exists so that a misreading can be fixed from the page itself
+					rather than from a description of it. It runs only when you press it, and it saves a file to your
+					device. Nothing is sent anywhere.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">The file holds:</p>
+				<ul class="policy-list">
+					<li>what ShopInspect read from the page, the same snapshot a report is built from, including
+						review text if review analysis is on;</li>
+					<li>a copy of the page, cleaned before it leaves the tab: scripts, styles and frames removed;
+						every form value, placeholder and editable region emptied; query strings taken off every
+						address; and the text of the header, the navigation, the footer, account and login areas and
+						review authors replaced with dots;</li>
+					<li>what ShopInspect concluded, and an empty space for what the store showed.</li>
+				</ul>
+				<p style="color: var(--text-secondary);">
+					The page text that remains can still say things about you, such as a delivery location a shop
+					prints beside the price. Open the file and check it before you send it to anyone.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem; overflow-x: auto;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Permissions, and why
+				</h2>
+				<table class="data-table">
+					<thead>
+						<tr>
+							<th>Permission</th>
+							<th>Why</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>activeTab</code></td>
+							<td>Reads the product page you are on, at the moment you ask. Granted by your click and
+								lapsing when you navigate away.</td>
+						</tr>
+						<tr>
+							<td><code>scripting</code></td>
+							<td>Runs the page reader in the tab being inspected.</td>
+						</tr>
+						<tr>
+							<td><code>storage</code></td>
+							<td>Keeps your settings, your saved comparison and the short-lived report cache, on this
+								device.</td>
+						</tr>
+						<tr>
+							<td><code>contextMenus</code></td>
+							<td>Adds the right-click entry for inspecting a product.</td>
+						</tr>
+						<tr>
+							<td>host permissions</td>
+							<td><strong>Optional and not granted at install.</strong> Asked for by two features only:
+								automatic inspection, and reading a product from a listing page's grid. Withdrawable
+								from settings.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="glass-card policy-card" id="the-advert" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">The advert, and the
+					affiliate links in it</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					The foot of the popup carries <strong>one advert</strong>, on one line, labelled <code>Ad</code>.
+					It is the only advertisement in the extension and you can turn it off for good from the cross
+					beside it.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">Everything about it is decided before
+					the extension ships:</p>
+				<ul class="policy-list">
+					<li>the list of adverts is <strong>bundled with the extension</strong>. Opening the popup reaches
+						no ad network, loads no third-party script and tells nobody that the popup was opened;</li>
+					<li>the adverts rotate on <strong>a counter</strong>, so each one gets an equal share. That
+						counter is the only thing written down, and it says nothing about you: not what you were
+						looking at, not what you clicked;</li>
+					<li><strong>nothing about you is used to choose one</strong>. There is no targeting, because there
+						is nothing to target with.</li>
+				</ul>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					<strong>Nine of the adverts are affiliate links.</strong> They point at Blender add-ons on
+					superhivemarket.com and they carry the founder's own <code>?ref=</code> tag, so if you follow one
+					and buy something there, the founder earns a commission. That is stated here because an extension
+					that advises on purchases while quietly earning from them is not a second opinion, and that is the
+					whole product.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					Superhive is also a store ShopInspect can read, so that relationship is stated twice rather than
+					once. The screen shown on a page with no product to inspect lists the marketplaces it knows as
+					links, and two of those links earn the founder something. Both are marked <code>Ad</code>.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					The <strong>Superhive</strong> chip opens a page inside the extension rather than the shop:
+					Superhive's plain address first, carrying nothing, then the founder's affiliate links under a line
+					saying a commission is paid on them. Somebody who wants the shop gets the shop.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					The <strong>Anvil Store</strong> chip carries the founder's referral code, <code>?ref=</code>, in
+					the address it opens. Following it and buying something credits the founder. That is the only
+					thing added to it, and the rest of the store list is each shop's own address with nothing on it at
+					all.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					Both shops can also be <em>inspected</em>, which is the other half of the arrangement and the
+					half that matters more. A report on a paid listing at either one says so where the verdict is,
+					marked <code>Ad</code>, and the same sentence travels with the summary and the JSON export,
+					because those are read by people who never saw the popup. It is not shown on a listing that costs
+					nothing, since no commission is paid on a free download. Nothing in the reading or the scoring
+					knows the relationship exists: both are read by the same adapter code, against the same
+					thresholds, as every other store.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">What the arrangement does
+					<strong>not</strong> touch:</p>
+				<ul class="policy-list">
+					<li><strong>the report.</strong> Superhive is read by the same adapter code as every other store,
+						scored by the same engine, against the same thresholds. Nothing in the extraction, the scoring
+						or the wording knows the relationship exists, and no listing is treated more kindly for being
+						on a shop that pays a commission;</li>
+					<li><strong>anything you buy elsewhere.</strong> No store ShopInspect reads is an affiliate
+						partner beyond those two, so there is no commission on a purchase from any listing it reports
+						on except a Superhive or Anvil Store one you reached through a link in the popup;</li>
+					<li><strong>the links on a page you visit.</strong> ShopInspect does not touch the store's own
+						links, and adds nothing to an address you follow from a page it inspected;</li>
+					<li><strong>the advert's place.</strong> It sits outside the report, on its own line, under the
+						word <code>Ad</code>, and an affiliate link anywhere else in the interface carries that word
+						too.</li>
+				</ul>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Tags on the links in
+					the popup</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					Links to Elevven11 Studio's own pages, the support page and the donation link included, carry
+					<code>utm_source=shopinspect</code> and which line you clicked. Every Elevven11 extension points
+					at one support page, and without those tags the studio cannot tell them apart.
+				</p>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					That is ordinary navigation and not data collection: you click, your browser goes there, and the
+					destination reads its own address. Nothing is sent from the extension, nothing about you is in
+					the tag, and nothing is recorded on this device.
+				</p>
+				<p style="color: var(--text-secondary);">
+					<strong>A link to somebody else's site is opened exactly as it was written.</strong> The nine
+					affiliate adverts carry the founder's <code>?ref=</code> tag, which is already in the address
+					that ships in the extension, and ShopInspect adds nothing to it. No other outbound link carries
+					anything at all, the store list included.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Children</h2>
+				<p style="color: var(--text-secondary);">
+					ShopInspect is a shopping tool with no accounts, no content and no communication features. It
+					collects nothing from anyone, of any age.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Deleting your data</h2>
+				<p style="color: var(--text-secondary);">
+					Everything ShopInspect holds is in one store on your device. "Reset ShopInspect" in the settings
+					page empties it: settings, saved products, cached reports. There is nothing held anywhere else,
+					so there is nothing else to request, export or delete.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card" style="margin-bottom: 2rem;">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Changes</h2>
+				<p style="color: var(--text-secondary);">
+					If this policy changes, the date at the top changes with it, and the change will be described in
+					the extension's release notes.
+				</p>
+			</div>
+
+			<div class="glass-card policy-card">
+				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Contact</h2>
+				<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					Questions about this policy go to
+					<a href="mailto:elevven11studio@gmail.com" style="color: var(--accent-gold);">elevven11studio@gmail.com</a>,
+					or message us on
+					<a href="https://wa.me/2349120925909" target="_blank" rel="noopener"
+						style="color: var(--accent-gold);">WhatsApp</a>.
+					Bug reports and feature requests are welcome through
+					<a href="/extensions/support/" style="color: var(--accent-gold);">extension support</a>.
+				</p>
+				<p style="color: var(--text-muted); font-size: 0.9rem;">
+					This policy covers the ShopInspect extension only. The
+					<a href="/privacy/" style="color: var(--accent-gold);">studio privacy policy</a> covers this
+					website and the enquiries you send through it.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	</main>
+
+	<footer>
+		<div class="container">
+			<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
+			<p><a href="/app-development/">App Development</a> <span class="footer-sep">&middot;</span> <a href="/agents/">Referral Agents</a> <span class="footer-sep">&middot;</span> <a
+					href="/contact/">Contact</a> <span class="footer-sep">&middot;</span> <a href="/extensions/">Extensions</a> <span class="footer-sep">&middot;</span> <a href="/terms/">Terms</a> <span class="footer-sep">&middot;</span> <a href="/privacy/">Privacy</a> <span class="footer-sep">&middot;</span> <a href="/support/">Support</a>
+			</p>
+			<div class="footer-social">
+				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
+				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+				<a href="https://www.instagram.com/elevven11studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/main.js" defer></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+	</script>
+</body>
+
+</html>

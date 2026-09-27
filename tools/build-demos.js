@@ -1,7 +1,7 @@
 /**
  * Bundles the in-browser extension demos from the extension repos, which are
  * expected to sit beside this one:
- *   ../Project-WebGuard   ../Project-WebInspect
+ *   ../Project-ShopInspect   ../Project-SiteExtract   ../Project-WebGuard   ../Project-WebInspect
  * Output goes to /assets/demos/, which the site serves as plain scripts.
  */
 const path = require('path');
@@ -11,6 +11,14 @@ const ROOT = path.resolve(__dirname, '..');
 const SIBLINGS = path.resolve(ROOT, '..');
 
 const demos = [
+  {
+    name: 'shopinspect',
+    repo: 'Project-ShopInspect',
+    global: 'ShopInspectDemo',
+    // Lets the extension's collectors read a sandboxed iframe.
+    inject: [path.join(__dirname, 'demos', 'shop-frame-shim.ts')],
+  },
+  { name: 'siteextract', repo: 'Project-SiteExtract', global: 'SiteExtractDemo' },
   { name: 'webguard', repo: 'Project-WebGuard', global: 'WebGuardDemo' },
   {
     name: 'webinspect',
