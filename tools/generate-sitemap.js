@@ -146,6 +146,31 @@ fs.writeFileSync(OUT_TEXT, text, 'utf8');
 
 // ---- self-check: catch the regressions that actually happened ----
 const problems = [];
+// ---- drift checks against the pages on disk ----
+// Every indexable page must be listed, and every listed page must be indexable
+// and canonical to its own URL. This catches a new page nobody added here, or a
+// noindex page that slipped into the sitemap.
+const tracked = execFileSync('git', ['ls-files', '*.html'], { cwd: ROOT, encoding: 'utf8' })
+  .split(/\r?\n/).filter(Boolean);
+const listed = new Set(PAGES.map(([p]) => p));
+const driftProblems = [];
+for (const rel of tracked) {
+  if (!rel.endsWith('/index.html') && rel !== 'index.html') continue;
+  const pathname = '/' + rel.replace(/index\.html$/, '');
+  const html = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+  const noindex = /<meta[^>]+name=["']robots["'][^>]*noindex/i.test(html);
+  if (!noindex && !listed.has(pathname)) driftProblems.push('indexable page not in PAGES: ' + pathname);
+  if (noindex && listed.has(pathname)) driftProblems.push('noindex page listed in PAGES: ' + pathname);
+  if (listed.has(pathname)) {
+    const m = html.match(/<link[^>]+rel=["']canonical["'][^>]*href=["']([^"']+)["']/i);
+    if (!m) driftProblems.push('no canonical: ' + pathname);
+    else if (m[1] !== BASE + pathname) driftProblems.push('canonical mismatch on ' + pathname + ': ' + m[1]);
+  }
+}
+for (const p of listed) {
+  if (!fs.existsSync(path.join(ROOT, p, 'index.html'))) driftProblems.push('listed page missing on disk: ' + p);
+}
+problems.push(...driftProblems);
 if (xml.charCodeAt(0) !== 0x3c) problems.push('file does not start with "<" (BOM?)');
 if (!xml.startsWith('<?xml')) problems.push('XML declaration is not first');
 if (xml.indexOf('<urlset') !== xml.indexOf('\n') + 1) problems.push('something sits between the declaration and <urlset>');

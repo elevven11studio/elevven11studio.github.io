@@ -7,7 +7,8 @@
 	<title>SiteExtract - Chrome Extension by Elevven11 Studio</title>
 	<meta name="description" content="Turn any web page into a clean, editable starter project: HTML, CSS, images, fonts and design tokens in one ZIP. A free Chrome extension that runs on your device." />
 	<link rel="canonical" href="https://elevven11studio.github.io/siteextract/" />
-	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<link rel="icon" type="image/png" sizes="128x128" href="/assets/siteextract/icon-128.png" />
+	<link rel="apple-touch-icon" href="/assets/siteextract/icon-128.png" />
 	<meta name="theme-color" content="#0b0a10" />
 
 	<meta property="og:type" content="website" />
@@ -184,24 +185,37 @@
 	{
 	  "@context": "https://schema.org",
 	  "@type": "BreadcrumbList",
+	  "name": "SiteExtract breadcrumb",
 	  "itemListElement": [
 	    {
 	      "@type": "ListItem",
 	      "position": 1,
 	      "name": "Home",
-	      "item": "https://elevven11studio.github.io/"
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/",
+	        "name": "Home"
+	      }
 	    },
 	    {
 	      "@type": "ListItem",
 	      "position": 2,
 	      "name": "Extensions",
-	      "item": "https://elevven11studio.github.io/extensions/"
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/extensions/",
+	        "name": "Extensions"
+	      }
 	    },
 	    {
 	      "@type": "ListItem",
 	      "position": 3,
 	      "name": "SiteExtract",
-	      "item": "https://elevven11studio.github.io/siteextract/"
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/siteextract/",
+	        "name": "SiteExtract"
+	      }
 	    }
 	  ]
 	}

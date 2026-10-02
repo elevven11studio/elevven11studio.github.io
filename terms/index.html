@@ -45,18 +45,27 @@
 	{
 	  "@context": "https://schema.org",
 	  "@type": "BreadcrumbList",
+	  "name": "Terms of Service breadcrumb",
 	  "itemListElement": [
 	    {
 	      "@type": "ListItem",
 	      "position": 1,
 	      "name": "Home",
-	      "item": "https://elevven11studio.github.io/"
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/",
+	        "name": "Home"
+	      }
 	    },
 	    {
 	      "@type": "ListItem",
 	      "position": 2,
 	      "name": "Terms of Service",
-	      "item": "https://elevven11studio.github.io/terms/"
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/terms/",
+	        "name": "Terms of Service"
+	      }
 	    }
 	  ]
 	}

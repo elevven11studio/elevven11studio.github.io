@@ -7,7 +7,8 @@
 	<title>Try WebInspect in your browser - Elevven11 Studio</title>
 	<meta name="description" content="Get an SEO, accessibility and security report for any page, using the same code as the free WebInspect Chrome extension." />
 	<link rel="canonical" href="https://elevven11studio.github.io/webinspect/try/" />
-	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<link rel="icon" type="image/png" sizes="128x128" href="/assets/webinspect/icon-128.png" />
+	<link rel="apple-touch-icon" href="/assets/webinspect/icon-128.png" />
 	<meta name="theme-color" content="#0b0a10" />
 
 	<meta property="og:type" content="website" />
@@ -154,30 +155,47 @@
 	{
 	  "@context": "https://schema.org",
 	  "@type": "BreadcrumbList",
+	  "name": "Try it breadcrumb",
 	  "itemListElement": [
 	    {
 	      "@type": "ListItem",
 	      "position": 1,
 	      "name": "Home",
-	      "item": "https://elevven11studio.github.io/"
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/",
+	        "name": "Home"
+	      }
 	    },
 	    {
 	      "@type": "ListItem",
 	      "position": 2,
 	      "name": "Extensions",
-	      "item": "https://elevven11studio.github.io/extensions/"
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/extensions/",
+	        "name": "Extensions"
+	      }
 	    },
 	    {
 	      "@type": "ListItem",
 	      "position": 3,
 	      "name": "WebInspect",
-	      "item": "https://elevven11studio.github.io/webinspect/"
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/webinspect/",
+	        "name": "WebInspect"
+	      }
 	    },
 	    {
 	      "@type": "ListItem",
 	      "position": 4,
 	      "name": "Try it",
-	      "item": "https://elevven11studio.github.io/webinspect/try/"
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/webinspect/try/",
+	        "name": "Try it"
+	      }
 	    }
 	  ]
 	}
