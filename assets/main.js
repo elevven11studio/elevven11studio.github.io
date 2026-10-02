@@ -565,11 +565,8 @@ function initCookieConsent() {
   banner.setAttribute('role', 'region');
   banner.setAttribute('aria-label', 'Cookie notice');
   banner.innerHTML = `
-    <p>We'd like to use a cookie to remember your Get Started form and referral code between
-      visits, so you don't have to start over. That's what Accept and Decline control here.
-      Separately, every page runs Google Analytics, which sets its own cookies — including
-      Google advertising audience cookies — whichever you choose. See our
-      <a href="/privacy/">privacy policy</a>.</p>
+    <p>We use one cookie to save your Get Started form and referral code. Google Analytics
+      sets its own cookies either way. <a href="/privacy/">Privacy policy</a></p>
     <div class="cookie-banner-actions">
       <button type="button" class="btn btn-secondary" data-cookie-decline>Decline</button>
       <button type="button" class="btn btn-primary" data-cookie-accept>Accept</button>

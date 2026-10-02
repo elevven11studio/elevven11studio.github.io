@@ -634,45 +634,90 @@ header.scrolled {
    in the same corner-ish area on mobile. */
 .cookie-banner {
   position: fixed;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 950;
-  max-width: 560px;
-  margin: 0 auto;
-  padding: 1.25rem 1.5rem;
-  background: var(--gradient-card);
-  backdrop-filter: blur(12px);
-  border: var(--border-subtle);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-main);
-  animation: fab-in 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s backwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--bg-secondary);
+  border-top: var(--border-subtle);
+  box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.25);
+  animation: fab-in 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) 1.5s backwards;
 }
 
 .cookie-banner p {
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 720px;
 }
 
 .cookie-banner p a { color: var(--accent-gold); }
 
 .cookie-banner-actions {
   display: flex;
-  gap: 0.75rem;
-  justify-content: flex-end;
+  gap: 0.6rem;
+  flex-shrink: 0;
 }
 
 .cookie-banner-actions .btn {
-  padding: 0.6rem 1.4rem;
-  font-size: 0.9rem;
+  padding: 0.45rem 1.1rem;
+  font-size: 0.85rem;
 }
 
-@media (max-width: 480px) {
-  .cookie-banner { left: 12px; right: 12px; bottom: 12px; padding: 1.1rem; }
-  .cookie-banner-actions { flex-direction: column-reverse; }
-  .cookie-banner-actions .btn { width: 100%; }
+/* Keep the floating contact button clear of the bar while it is showing. */
+body:has(.cookie-banner) .fab { bottom: 84px; }
+
+@media (max-width: 640px) {
+  .cookie-banner { flex-direction: column; align-items: stretch; gap: 0.6rem; padding: 0.75rem 1rem; }
+  .cookie-banner-actions .btn { flex: 1; }
+  body:has(.cookie-banner) .fab { bottom: 150px; }
 }
+
+/* Home: hero price line and example strip */
+.hero-price { margin-top: 1.25rem; color: var(--text-secondary); font-size: 0.95rem; }
+.hero-price strong { color: var(--text-primary); }
+
+.example-strip { padding: 3rem 0 0; }
+.example-strip .grid-3 { gap: 1.25rem; }
+.example-card {
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  border: var(--border-subtle);
+  border-radius: var(--border-radius);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: var(--transition-normal);
+}
+.example-card:hover { border-color: var(--accent-gold); transform: translateY(-3px); }
+.example-card img { display: block; width: 100%; height: auto; aspect-ratio: 800 / 420; object-fit: cover; }
+.example-card span { display: block; padding: 0.8rem 1rem; font-weight: 600; font-size: 0.95rem; }
+.example-strip .strip-link { text-align: center; margin-top: 1.5rem; }
+.example-strip .strip-link a { color: var(--accent-gold); font-weight: 600; }
+
+/* Extension pages: other extensions */
+.more-ext .grid-3 { gap: 1.25rem; }
+.more-ext-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.25rem;
+  border: var(--border-subtle);
+  border-radius: var(--border-radius);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  transition: var(--transition-normal);
+}
+.more-ext-card:hover { border-color: var(--accent-gold); }
+.more-ext-card img { width: 48px; height: 48px; flex-shrink: 0; }
+.more-ext-card strong { display: block; color: var(--text-primary); margin-bottom: 0.25rem; }
+.more-ext-card span { font-size: 0.9rem; line-height: 1.5; }
 
 /* Grids & Cards */
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
