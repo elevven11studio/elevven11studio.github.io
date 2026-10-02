@@ -1591,60 +1591,59 @@ header.scrolled {
 footer {
   background: var(--bg-primary);
   border-top: var(--border-subtle);
-  padding: 3rem 0;
-  text-align: center;
+  padding: 3.5rem 0 0;
   color: var(--text-muted);
   font-size: 0.875rem;
 }
 
-footer p { margin-bottom: 0.5rem; }
-/* display:inline-block + vertical padding brings the tap target up toward the
-   24px minimum (WCAG 2.5.8) without disturbing the middot-separated inline
-   flow these links sit in. */
-footer a { display: inline-block; padding: 0.35rem 0; color: var(--text-secondary); }
-footer a:hover { color: var(--accent-gold); }
-
-/* The row of five footer links cleared 24px in both directions but sat only
-   7px apart, which is fine under a mouse and not under a thumb: a tap landing
-   anywhere near a boundary got the neighbour instead. Margin rather than
-   padding, so the gap between targets opens up instead of the targets growing
-   into each other and swallowing the separator. The row wraps to two lines on
-   a narrow phone, which is the better shape for it anyway.
-
-   :has(a) keeps this off the copyright line above, which is a <p> with no
-   links in it. .footer-social is a <div>, so it is untouched too. */
-@media (max-width: 768px) {
-  /* The row wraps on a phone, and an inline separator stranded at the end of a
-     wrapped line reads as a typo. Flex and gap give the same separation with no
-     character left to strand, so the dots come out and the gap does the work.
-     Whitespace-only text between flex items is not rendered, so the spaces that
-     sat around each dot cost nothing here.
-
-     Above 768px the paragraph stays in normal inline flow and the dots render
-     exactly as they always did. */
-  footer p:has(a) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.35rem 1.25rem;
-  }
-
-  footer .footer-sep { display: none; }
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr repeat(3, 1fr);
+  gap: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
-.footer-social { display: flex; justify-content: center; gap: 0.9rem; margin-top: 1rem; }
+.footer-brand .logo { display: inline-block; font-size: 1.1rem; }
+.footer-brand p { margin: 0.9rem 0 0; max-width: 28ch; line-height: 1.6; }
+
+.footer-col h2 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.6rem;
+}
+.footer-col ul { list-style: none; margin: 0; padding: 0; }
+
+/* Vertical padding brings each link up to the 24px minimum tap target
+   (WCAG 2.5.8) while the list stays compact. */
+footer a { display: inline-block; padding: 0.3rem 0; color: var(--text-secondary); }
+footer a:hover { color: var(--accent-gold); }
+
+.footer-social { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
 .footer-social a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 34px;
   height: 34px;
+  padding: 0;
   border-radius: 50%;
   border: var(--border-subtle);
   color: var(--text-muted);
 }
 .footer-social a:hover { color: var(--accent-gold); border-color: var(--accent-gold); }
 .footer-social svg { width: 16px; height: 16px; fill: currentColor; }
+
+.footer-bottom {
+  border-top: var(--border-subtle);
+  padding: 1.25rem 0 1.5rem;
+}
+.footer-bottom p { margin: 0; }
+
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; }
+  .footer-brand { grid-column: 1 / -1; }
+}
 
 .internal-note {
   background: rgba(45, 212, 191, 0.08);
