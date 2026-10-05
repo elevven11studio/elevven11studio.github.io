@@ -43,7 +43,8 @@ const ACCENTS = {
   sky:    { from: '#38bdf8', to: '#0ea5e9', glow: '#0ea5e9' },
   violet: { from: '#a78bfa', to: '#8b5cf6', glow: '#8b5cf6' },
   orange: { from: '#fb923c', to: '#f97316', glow: '#f97316' },
-  teal:   { from: '#2dd4bf', to: '#14b8a6', glow: '#14b8a6' }
+  teal:   { from: '#2dd4bf', to: '#14b8a6', glow: '#14b8a6' },
+  blue:   { from: '#60a5fa', to: '#3b82f6', glow: '#3b82f6' }
 };
 
 const palette = (accent) => {
@@ -205,6 +206,16 @@ function squareCard({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
 }
 
 const PAGES = {
+  'counterbook': { page: 'counterbook/index.html', alt: 'Counterbook, a free point of sale app by Elevven11 Studio',
+    eyebrow: 'COUNTERBOOK / POINT OF SALE', accent: 'blue', lines: ['Run Your Shop', 'From One App.'],
+    sub: 'Sales, stock, customers and cash. No account needed.',
+    pills: ['Works offline', 'Windows + Android', 'Free'] },
+
+  'counterbook-docs': { page: 'counterbook/docs/index.html', alt: 'Counterbook docs and training',
+    eyebrow: 'COUNTERBOOK / DOCS', accent: 'blue', lines: ['Learn Counterbook.', 'Train Your Staff.'],
+    sub: 'Guide, training course, backup and security.',
+    pills: ['User guide', '10 training modules', 'Backup + security'] },
+
   'home': { page: 'index.html', alt: 'Elevven11 Studio - affordable website design in Nigeria',
     eyebrow: 'WEBSITE DESIGN IN NIGERIA', lines: ['Simple Websites.', 'No Monthly Hosting Fee.'],
     sub: 'Affordable sites for small businesses and freelancers.',
