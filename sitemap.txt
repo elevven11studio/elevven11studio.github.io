@@ -10,6 +10,8 @@ https://elevven11studio.github.io/contact/
 https://elevven11studio.github.io/terms/
 https://elevven11studio.github.io/privacy/
 https://elevven11studio.github.io/support/
+https://elevven11studio.github.io/counterbook/
+https://elevven11studio.github.io/counterbook/docs/
 https://elevven11studio.github.io/extensions/
 https://elevven11studio.github.io/extensions/support/
 https://elevven11studio.github.io/shopinspect/

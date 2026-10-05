@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Counterbook - Free Point of Sale App by Elevven11 Studio</title>
+	<meta name="description" content="A free point of sale app for shops. Sales, stock, customers, credit and cash on your own device, with no account and no internet needed. For Windows and Android." />
+	<link rel="canonical" href="https://elevven11studio.github.io/counterbook/" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta name="theme-color" content="#0b0a10" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:locale" content="en_NG" />
+	<meta property="og:title" content="Counterbook - Free Point of Sale App by Elevven11 Studio" />
+	<meta property="og:description" content="A free point of sale app for shops. Sales, stock, customers, credit and cash on your own device, with no account and no internet needed." />
+	<meta property="og:url" content="https://elevven11studio.github.io/counterbook/" />
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og-image.png" />
+	<meta property="og:image:alt" content="Counterbook, a free point of sale app by Elevven11 Studio" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Counterbook - Free Point of Sale App by Elevven11 Studio" />
+	<meta name="twitter:description" content="A free point of sale app for shops. Sales, stock, customers, credit and cash on your own device, with no account and no internet needed." />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og-image.png" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" />
+	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+
+	<style>
+		/* Counterbook takes its own blue. The studio wordmark keeps the brand
+		   gradient. --accent-rgb feeds every tint and glow in style.css. */
+		:root {
+			--accent-gold: #60a5fa;
+			--accent-orange: #3b82f6;
+			--accent-rgb: 96, 165, 250;
+		}
+
+		:root[data-theme="light"] {
+			--accent-gold: #1d4ed8;
+			--accent-orange: #1e40af;
+			--glow-gold: 0 0 15px rgba(29, 78, 216, 0.22);
+		}
+
+		.cb-status {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.6rem;
+			background: rgba(var(--accent-rgb), 0.08);
+			border: 1px solid rgba(var(--accent-rgb), 0.3);
+			color: var(--text-primary);
+			padding: 0.6rem 1.2rem;
+			border-radius: 22px;
+			font-size: 0.92rem;
+			font-weight: 600;
+			margin-bottom: 1.75rem;
+		}
+
+		.cb-status::before {
+			content: '';
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: var(--accent-gold);
+			box-shadow: var(--glow-gold);
+			flex-shrink: 0;
+		}
+
+		.cb-card h3 {
+			color: var(--accent-gold);
+			margin-bottom: 0.6rem;
+			font-size: 1.1rem;
+		}
+
+		.cb-card p,
+		.cb-card li {
+			color: var(--text-secondary);
+			font-size: 0.95rem;
+		}
+
+		.cb-card ul {
+			margin: 0;
+			padding-left: 1.1rem;
+		}
+
+		.cb-card code,
+		.section-subtitle code {
+			font-size: 0.9em;
+			padding: 0.1rem 0.35rem;
+			border-radius: 4px;
+			background: rgba(var(--accent-rgb), 0.1);
+			color: var(--accent-gold);
+		}
+
+		.cb-chips {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.45rem;
+			margin: 0.4rem 0 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		.cb-chips li {
+			font-size: 0.88rem;
+			font-weight: 600;
+			padding: 0.3rem 0.8rem;
+			border-radius: 999px;
+			background: rgba(var(--accent-rgb), 0.08);
+			border: 1px solid rgba(var(--accent-rgb), 0.22);
+			color: var(--text-primary);
+		}
+
+		.cb-table {
+			width: 100%;
+			max-width: 900px;
+			margin: 0 auto;
+			border-collapse: collapse;
+			font-size: 0.95rem;
+		}
+
+		.cb-table th,
+		.cb-table td {
+			text-align: left;
+			padding: 0.75rem 1rem;
+			border-bottom: 1px solid rgba(var(--accent-rgb), 0.18);
+			vertical-align: top;
+		}
+
+		.cb-table th {
+			color: var(--accent-gold);
+			font-weight: 700;
+			white-space: nowrap;
+		}
+
+		.cb-table td {
+			color: var(--text-secondary);
+		}
+
+		.cb-scroll {
+			overflow-x: auto;
+		}
+	</style>
+
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "BreadcrumbList",
+	  "name": "Counterbook breadcrumb",
+	  "itemListElement": [
+	    {
+	      "@type": "ListItem",
+	      "position": 1,
+	      "name": "Home",
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/",
+	        "name": "Home"
+	      }
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 2,
+	      "name": "Counterbook",
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/counterbook/",
+	        "name": "Counterbook"
+	      }
+	    }
+	  ]
+	}
+	</script>
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "SoftwareApplication",
+	  "name": "Counterbook",
+	  "applicationCategory": "BusinessApplication",
+	  "operatingSystem": "Windows, Android",
+	  "description": "A free point of sale app for shops. Sales, stock, customers, credit and cash on your own device, with no account and no internet needed.",
+	  "url": "https://elevven11studio.github.io/counterbook/",
+	  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "NGN" },
+	  "publisher": { "@type": "Organization", "name": "Elevven11 Studio", "url": "https://elevven11studio.github.io/" }
+	}
+	</script>
+	<script>
+		// Applied before paint so a light-mode visitor never sees a dark flash.
+		(function () {
+			try {
+				if (localStorage.getItem('e11-theme') === 'light') {
+					document.documentElement.setAttribute('data-theme', 'light');
+				}
+			} catch (e) { /* private mode: stay on the dark default */ }
+		})();
+	</script>
+</head>
+
+<body>
+
+	<a class="skip-link" href="#main">Skip to main content</a>
+
+	<header>
+		<div class="container navbar">
+			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+			<ul class="nav-links">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/app-development/">Apps</a></li>
+				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
+				<li class="nav-item"><a href="/examples/">Examples</a></li>
+				<li class="nav-item"><a href="/agents/">Agents</a></li>
+				<li class="nav-item"><a href="/faq/">FAQ</a></li>
+				<li class="nav-item"><a href="/contact/">Contact</a></li>
+				<li class="nav-item"><a class="nav-cta" href="/get-started/">Get Your Website</a></li>
+			</ul>
+			<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+				<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+				<svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>
+			</button>
+			<div class="hamburger"><span></span><span></span><span></span></div>
+		</div>
+	</header>
+
+	<main id="main">
+
+	<section class="hero">
+		<div class="hero-content container">
+			<div class="hero-eyebrow"><a href="/app-development/" style="color: inherit;">Apps</a> / Point of sale</div>
+			<h1 class="hero-title">Run your shop <strong>from one app.</strong></h1>
+			<p class="hero-tagline">Counterbook keeps your sales, stock, customers, cash and expenses on your own
+				device. It works with no internet and no account.</p>
+			<div class="cb-status">Free &middot; Windows and Android</div>
+			<div class="btn-group">
+				<a href="/contact/" class="btn btn-primary">Get Counterbook</a>
+				<a href="#features" class="btn btn-secondary">See what it does</a>
+				<a href="/counterbook/docs/" class="btn btn-secondary">Docs and training</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Features -->
+	<section id="features">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">What It Does</div>
+			<h2 class="section-title">Everything a shop counts</h2>
+
+			<div class="grid-3">
+				<div class="glass-card cb-card">
+					<h3>Selling</h3>
+					<p>Tap, search or scan. Split payments, held baskets, discounts, voids and refunds. Receipts on 58
+						mm or 80 mm paper, or as a PDF.</p>
+				</div>
+				<div class="glass-card cb-card">
+					<h3>Products and stock</h3>
+					<p>Variants, barcodes, units by weight or volume and low stock warnings. Stock only moves through
+						recorded entries, and profit uses your average cost.</p>
+				</div>
+				<div class="glass-card cb-card">
+					<h3>Customers and credit</h3>
+					<p>Credit limits, balances, payments and store credit. See at a glance who owes you and who you
+						owe.</p>
+				</div>
+				<div class="glass-card cb-card">
+					<h3>Suppliers and orders</h3>
+					<p>Raise purchase orders, receive goods at their real cost and track what you owe each supplier.</p>
+				</div>
+				<div class="glass-card cb-card">
+					<h3>Shifts and the drawer</h3>
+					<p>Open with a float, close with a count. Shortages and overages are recorded, not hidden.</p>
+				</div>
+				<div class="glass-card cb-card">
+					<h3>Reports</h3>
+					<p>Revenue, gross and net profit, sales by hour, stock value and rankings for products, staff and
+						payment methods.</p>
+				</div>
+			</div>
+
+			<div class="glass-card cb-card" style="margin-top: 2rem; text-align: center;">
+				<h3>Also included</h3>
+				<p style="max-width: 640px; margin: 0 auto;">Expenses, quotes and invoices, import from CSV or Excel,
+					export to Excel, CSV or JSON, ready-made products for nine kinds of shop, and light, dark and
+					custom colours.</p>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- Getting started -->
+	<section class="section-tinted">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">Getting Started</div>
+			<h2 class="section-title">Selling in minutes</h2>
+
+			<div class="steps-list steps-list-4">
+				<div class="step-item">
+					<div class="step-number">1</div>
+					<h3>Try the demo</h3>
+					<p>A made-up supermarket with 90 days of sales. Nothing in it touches your business.</p>
+				</div>
+				<div class="step-item">
+					<div class="step-number">2</div>
+					<h3>Set up your shop</h3>
+					<p>Name, currency, your PIN and tax. Only the first two steps are required.</p>
+				</div>
+				<div class="step-item">
+					<div class="step-number">3</div>
+					<h3>Save your phrase</h3>
+					<p>Write down the 24 recovery words. They are the way back into your data.</p>
+				</div>
+				<div class="step-item">
+					<div class="step-number">4</div>
+					<h3>Start selling</h3>
+					<p>Add products or pick starter lists for your kind of shop, then ring up the first sale.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- Staff -->
+	<section>
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">Staff</div>
+			<h2 class="section-title">Everyone sees what their job needs</h2>
+			<p class="section-subtitle">Each person gets their own PIN and a role. The activity log records who did
+				what, so nobody has to guess.</p>
+
+			<div class="cb-scroll">
+				<table class="cb-table">
+					<tbody>
+						<tr><th>Owner</th><td>Everything, including the recovery phrase and devices</td></tr>
+						<tr><th>Manager</th><td>Everything except owner-only powers</td></tr>
+						<tr><th>Cashier</th><td>Sell, take credit sales, manage customers, run their own shift</td></tr>
+						<tr><th>Sales Staff</th><td>Sell, hold and manage customers</td></tr>
+						<tr><th>Warehouse Staff</th><td>Products, receiving, counts and inventory reports</td></tr>
+						<tr><th>Accountant</th><td>Reports, expenses, export and the activity log</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- Catching mistakes -->
+	<section class="section-tinted">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">Activity Log</div>
+			<h2 class="section-title">Built to catch mistakes and theft</h2>
+
+			<div class="grid-2" style="max-width: 900px; margin: 0 auto;">
+				<div class="glass-card cb-card">
+					<h3>A watch list</h3>
+					<p>Voids, refunds, large discounts, price changes, stock losses, no-sale drawer opens, repeated
+						wrong PINs and receipt reprints.</p>
+				</div>
+				<div class="glass-card cb-card">
+					<h3>Tamper detection</h3>
+					<p>Entries are chained together, so changing or deleting an old one is detected and reported.
+						Entries cannot be edited in the app.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- Devices -->
+	<section>
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">More Than One Device</div>
+			<h2 class="section-title">One shop, several tills</h2>
+
+			<div class="grid-2" style="max-width: 900px; margin: 0 auto;">
+				<div class="glass-card cb-card">
+					<h3>Web till</h3>
+					<p>Turn on sharing and any phone, tablet or computer on the shop Wi-Fi can sell from a browser.
+						Each person signs in with their own PIN.</p>
+				</div>
+				<div class="glass-card cb-card">
+					<h3>Join a business</h3>
+					<p>Install Counterbook on a second device and pair it with a code. Devices catch up whenever they
+						reconnect, and offline changes are merged.</p>
+				</div>
+			</div>
+			<p class="section-subtitle" style="margin-top: 2rem;">Syncing works on one network. There is no cloud
+				service in between.</p>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- Security and backup -->
+	<section class="section-tinted">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">Security and Backup</div>
+			<h2 class="section-title">Your data stays yours</h2>
+			<p class="section-subtitle">Counterbook keeps everything on your device. Elevven11 holds no copy of your
+				data or keys.</p>
+
+			<div class="grid-3">
+				<div class="glass-card cb-card">
+					<h3>Encrypted on the device</h3>
+					<p>The business database is encrypted with SQLCipher (AES-256). The key sits in Windows Credential
+						Manager or the Android Keystore.</p>
+				</div>
+				<div class="glass-card cb-card">
+					<h3>PINs never stored</h3>
+					<p>Only a salted Argon2id hash is kept. Repeated wrong PINs lock the person out for longer each
+						time.</p>
+				</div>
+				<div class="glass-card cb-card">
+					<h3>Encrypted backups</h3>
+					<p>A <code>.cbbak</code> file holds everything, including staff logins. Back up on a schedule, to a
+						USB drive or your own Google Drive.</p>
+				</div>
+				<div class="glass-card cb-card">
+					<h3>Permissions enforced</h3>
+					<p>Every action is checked in the data layer, so a role without a permission is refused even if a
+						screen were reached.</p>
+				</div>
+				<div class="glass-card cb-card">
+					<h3>Safe exports</h3>
+					<p>Cells that start with <code>=</code>, <code>+</code>, <code>-</code> or <code>@</code> are
+						neutralised, so a spreadsheet cannot run them as formulas.</p>
+				</div>
+				<div class="glass-card cb-card">
+					<h3>No internet of its own</h3>
+					<p>The app makes no connections except to Google Drive, and only if you connect it.</p>
+				</div>
+			</div>
+
+			<div class="glass-card cb-card" style="margin-top: 2rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+				<h3>No reset link</h3>
+				<p>If the device and the recovery phrase are both lost and there is no password-protected backup, the
+					data cannot be recovered by anyone. Keep the phrase on paper, away from the device, and test a
+					restore once a month.</p>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- Fits -->
+	<section>
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">Who It Fits</div>
+			<h2 class="section-title">Any business with a price list</h2>
+			<p class="section-subtitle">Starter products add typical categories, items and expense headings. Prices are
+				rough shelf prices to edit.</p>
+
+			<div class="glass-card cb-card" style="max-width: 760px; margin: 0 auto;">
+				<ul class="cb-chips">
+					<li>Pharmacy</li>
+					<li>Supermarket</li>
+					<li>Provisions store</li>
+					<li>Mall store</li>
+					<li>Electronics</li>
+					<li>Hardware</li>
+					<li>Beauty</li>
+					<li>Restaurant</li>
+					<li>Stationery</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<!-- FAQ -->
+	<section class="section-tinted">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">FAQ</div>
+			<h2 class="section-title">Common questions</h2>
+
+			<div style="max-width: 760px; margin: 0 auto;">
+				<details class="faq-item">
+					<summary>Do I need an account or internet?</summary>
+					<p>No. Counterbook works fully offline. The internet is only used if you connect Google Drive for
+						backups.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Is it really free?</summary>
+					<p>Yes. It shows one small, labelled promotion at the foot of the More screen, never on the till,
+						and a setting turns it off.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Which devices does it run on?</summary>
+					<p>Windows and Android as apps, and any phone, tablet or computer on your shop Wi-Fi through the
+						web till.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Why does the profit look too high?</summary>
+					<p>Cost price is probably zero. Starter products start at zero cost, so enter the cost when you
+						receive stock.</p>
+				</details>
+				<details class="faq-item">
+					<summary>What if my laptop is stolen?</summary>
+					<p>Install Counterbook on a new device and restore your latest backup with the recovery phrase or
+						backup password. Staff logins come back with it.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Is there cloud sync over the internet?</summary>
+					<p>Not yet. For different places, move data with a backup file or Google Drive.</p>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<!-- Final CTA -->
+	<section id="final-cta">
+		<div class="container" style="text-align: center;">
+			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Ready for the first sale?</h2>
+			<p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem;">
+				Get in touch and we will point you to the right build. We also make websites and custom apps for
+				businesses.
+			</p>
+			<div class="btn-group">
+				<a href="/contact/" class="btn btn-primary">Get Counterbook</a>
+				<a href="/counterbook/docs/" class="btn btn-secondary">Docs and training</a>
+			</div>
+		</div>
+	</section>
+
+	</main>
+
+	<footer>
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+					<p>Websites, apps and free browser tools.</p>
+					<a href="https://wa.me/2349120925909" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					<div class="footer-social">
+				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
+				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+				<a href="https://www.instagram.com/elevven11studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+				<a href="https://www.facebook.com/share/g/1833ddCnFg/" target="_blank" rel="noopener" aria-label="Join the Elevven11 Studio community on Facebook"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></a>
+			</div>
+				</div>
+				<nav class="footer-col" aria-label="Services">
+					<h2>Services</h2>
+					<ul>
+						<li><a href="/pricing/">Pricing</a></li>
+						<li><a href="/app-development/">App Development</a></li>
+						<li><a href="/counterbook/">Counterbook</a></li>
+						<li><a href="/how-it-works/">How It Works</a></li>
+						<li><a href="/examples/">Examples</a></li>
+						<li><a href="/get-started/">Get Your Website</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Extensions">
+					<h2>Extensions</h2>
+					<ul>
+						<li><a href="/extensions/">All extensions</a></li>
+						<li><a href="/webinspect/">WebInspect</a></li>
+						<li><a href="/webguard/">WebGuard</a></li>
+						<li><a href="/siteextract/">SiteExtract</a></li>
+						<li><a href="/shopinspect/">ShopInspect</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Company">
+					<h2>Company</h2>
+					<ul>
+						<li><a href="/contact/">Contact</a></li>
+						<li><a href="/faq/">FAQ</a></li>
+						<li><a href="/agents/">Referral Agents</a></li>
+						<li><a href="/support/">Support</a></li>
+						<li><a href="/terms/">Terms</a></li>
+						<li><a href="/privacy/">Privacy</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="footer-bottom">
+				<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/main.js" defer></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+	</script>
+</body>
+
+</html>

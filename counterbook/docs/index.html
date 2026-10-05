@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Counterbook Docs and Training - Elevven11 Studio</title>
+	<meta name="description" content="Guides for running a shop with Counterbook: the user guide, a staff training course, backup and recovery, security and common questions." />
+	<link rel="canonical" href="https://elevven11studio.github.io/counterbook/docs/" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta name="theme-color" content="#0b0a10" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:locale" content="en_NG" />
+	<meta property="og:title" content="Counterbook Docs and Training - Elevven11 Studio" />
+	<meta property="og:description" content="Guides for running a shop with Counterbook: the user guide, a staff training course, backup and recovery, security and common questions." />
+	<meta property="og:url" content="https://elevven11studio.github.io/counterbook/docs/" />
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og-image.png" />
+	<meta property="og:image:alt" content="Counterbook docs and training" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Counterbook Docs and Training - Elevven11 Studio" />
+	<meta name="twitter:description" content="Guides for running a shop with Counterbook: the user guide, a staff training course, backup and recovery, security and common questions." />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og-image.png" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" />
+	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+
+	<style>
+		/* Counterbook takes its own blue. The studio wordmark keeps the brand
+		   gradient. --accent-rgb feeds every tint and glow in style.css. */
+		:root {
+			--accent-gold: #60a5fa;
+			--accent-orange: #3b82f6;
+			--accent-rgb: 96, 165, 250;
+		}
+
+		:root[data-theme="light"] {
+			--accent-gold: #1d4ed8;
+			--accent-orange: #1e40af;
+			--glow-gold: 0 0 15px rgba(29, 78, 216, 0.22);
+		}
+
+		.cb-status {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.6rem;
+			background: rgba(var(--accent-rgb), 0.08);
+			border: 1px solid rgba(var(--accent-rgb), 0.3);
+			color: var(--text-primary);
+			padding: 0.6rem 1.2rem;
+			border-radius: 22px;
+			font-size: 0.92rem;
+			font-weight: 600;
+			margin-bottom: 1.75rem;
+		}
+
+		.cb-status::before {
+			content: '';
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: var(--accent-gold);
+			box-shadow: var(--glow-gold);
+			flex-shrink: 0;
+		}
+
+		.cb-card h3 {
+			color: var(--accent-gold);
+			margin-bottom: 0.6rem;
+			font-size: 1.1rem;
+		}
+
+		.cb-card p,
+		.cb-card li {
+			color: var(--text-secondary);
+			font-size: 0.95rem;
+		}
+
+		.cb-card ul {
+			margin: 0;
+			padding-left: 1.1rem;
+		}
+
+		.cb-card code,
+		.section-subtitle code {
+			font-size: 0.9em;
+			padding: 0.1rem 0.35rem;
+			border-radius: 4px;
+			background: rgba(var(--accent-rgb), 0.1);
+			color: var(--accent-gold);
+		}
+
+		.cb-chips {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.45rem;
+			margin: 0.4rem 0 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		.cb-chips li {
+			font-size: 0.88rem;
+			font-weight: 600;
+			padding: 0.3rem 0.8rem;
+			border-radius: 999px;
+			background: rgba(var(--accent-rgb), 0.08);
+			border: 1px solid rgba(var(--accent-rgb), 0.22);
+			color: var(--text-primary);
+		}
+
+		.cb-table {
+			width: 100%;
+			max-width: 900px;
+			margin: 0 auto;
+			border-collapse: collapse;
+			font-size: 0.95rem;
+		}
+
+		.cb-table th,
+		.cb-table td {
+			text-align: left;
+			padding: 0.75rem 1rem;
+			border-bottom: 1px solid rgba(var(--accent-rgb), 0.18);
+			vertical-align: top;
+		}
+
+		.cb-table th {
+			color: var(--accent-gold);
+			font-weight: 700;
+			white-space: nowrap;
+		}
+
+		.cb-table td {
+			color: var(--text-secondary);
+		}
+
+		.cb-scroll {
+			overflow-x: auto;
+		}
+	
+		.doc-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin: 0 auto 2.5rem; padding: 0; list-style: none; }
+		.doc-nav a { display: block; padding: 0.5rem 1.1rem; border-radius: 999px; font-weight: 600; font-size: 0.92rem; color: var(--text-primary); border: 1px solid rgba(var(--accent-rgb), 0.3); background: rgba(var(--accent-rgb), 0.08); text-decoration: none; }
+		.doc-nav a:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+		.doc-body { max-width: 820px; margin: 0 auto; }
+		.doc-body h4 { color: var(--accent-gold); margin: 1.1rem 0 0.35rem; font-size: 0.95rem; }
+		.doc-body p, .doc-body li { color: var(--text-secondary); font-size: 0.95rem; }
+		.doc-body ul, .doc-body ol { padding-left: 1.2rem; margin: 0.4rem 0 0.8rem; }
+		.doc-body code { font-size: 0.9em; padding: 0.1rem 0.35rem; border-radius: 4px; background: rgba(var(--accent-rgb), 0.1); color: var(--accent-gold); }
+		.doc-body .cb-table { max-width: none; }
+		.doc-check { border-left: 3px solid var(--accent-gold); padding-left: 0.9rem; }
+		.faq-item .doc-inner { padding: 0 1.5rem 1.25rem; }
+	</style>
+
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "BreadcrumbList",
+	  "name": "Counterbook docs breadcrumb",
+	  "itemListElement": [
+	    {
+	      "@type": "ListItem",
+	      "position": 1,
+	      "name": "Home",
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/",
+	        "name": "Home"
+	      }
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 2,
+	      "name": "Counterbook",
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/counterbook/",
+	        "name": "Counterbook"
+	      }
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 3,
+	      "name": "Docs and training",
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/counterbook/docs/",
+	        "name": "Docs and training"
+	      }
+	    }
+	  ]
+	}
+	</script>
+	<script>
+		// Applied before paint so a light-mode visitor never sees a dark flash.
+		(function () {
+			try {
+				if (localStorage.getItem('e11-theme') === 'light') {
+					document.documentElement.setAttribute('data-theme', 'light');
+				}
+			} catch (e) { /* private mode: stay on the dark default */ }
+		})();
+	</script>
+</head>
+
+<body>
+
+	<a class="skip-link" href="#main">Skip to main content</a>
+
+	<header>
+		<div class="container navbar">
+			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+			<ul class="nav-links">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/app-development/">Apps</a></li>
+				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
+				<li class="nav-item"><a href="/examples/">Examples</a></li>
+				<li class="nav-item"><a href="/agents/">Agents</a></li>
+				<li class="nav-item"><a href="/faq/">FAQ</a></li>
+				<li class="nav-item"><a href="/contact/">Contact</a></li>
+				<li class="nav-item"><a class="nav-cta" href="/get-started/">Get Your Website</a></li>
+			</ul>
+			<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+				<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+				<svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>
+			</button>
+			<div class="hamburger"><span></span><span></span><span></span></div>
+		</div>
+	</header>
+
+	<main id="main">
+
+	<section class="hero" style="min-height: 40vh;">
+		<div class="hero-content container">
+			<div class="hero-eyebrow"><a href="/counterbook/" style="color: inherit;">Counterbook</a> / Docs</div>
+			<h1 class="hero-title">Docs and <strong>training.</strong></h1>
+			<p class="hero-tagline">Learn Counterbook, teach your staff and keep your data safe.</p>
+		</div>
+	</section>
+
+	<section style="padding-bottom: 0;">
+		<div class="container">
+			<ul class="doc-nav" aria-label="On this page">
+				<li><a href="#guide">User guide</a></li>
+				<li><a href="#training">Training course</a></li>
+				<li><a href="#backup">Backup and recovery</a></li>
+				<li><a href="#security">Security</a></li>
+				<li><a href="#faq">Questions</a></li>
+			</ul>
+		</div>
+	</section>
+
+	<section id="guide">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">User Guide</div>
+			<h2 class="section-title">From first start to closing the day</h2>
+			<div class="doc-body">
+				<details class="faq-item">
+					<summary>Starting out</summary>
+					<div class="doc-inner doc-body"><h4>The demo shop</h4><p>Choose <strong>Try the demo</strong> for a made-up supermarket with 90 days of sales. The staff PIN is <code>1234</code>. Nothing in the demo touches your business, and it is never backed up or synced.</p><h4>Setting up</h4><p>Choose <strong>Set up my business</strong>. Six short steps, and only the first two are required.</p><div class="cb-scroll"><table class="cb-table"><tbody><tr><th>Your business</th><td>Name, country and currency</td></tr><tr><th>You</th><td>Your name and a PIN. You are the owner</td></tr><tr><th>Tax</th><td>None, included in prices, or added on top</td></tr><tr><th>What you sell</th><td>Pick kinds of shop to add ready-made products</td></tr><tr><th>Receipts</th><td>Phone, address, paper width, footer line</td></tr><tr><th>Cash drawer</th><td>Your usual opening cash</td></tr></tbody></table></div><h4>Recovery phrase</h4><p>After setup the app shows 24 words. Write them on paper and keep them safe. They are the only way back into your data if the device is lost, damaged or reset.</p><h4>Starter products</h4><p>Prices are rough shelf prices to edit. Stock and cost start at zero, so add real cost when you receive stock or profit will look too high. Repeating a pack is safe, because items you already have are skipped.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Finding your way around</summary>
+					<div class="doc-inner doc-body"><p>Five tabs: <strong>Sell</strong>, <strong>Products</strong>, <strong>Customers</strong>, <strong>Reports</strong> and <strong>More</strong>. You only see what your role allows, so a cashier not seeing reports is by design.</p><ul><li>Choose your name and enter your PIN. Five wrong PINs lock that person out for 30 seconds, doubling each time up to 15 minutes.</li><li>The app locks after 5 minutes idle on the till and 15 minutes elsewhere.</li></ul></div>
+				</details>
+				<details class="faq-item">
+					<summary>Selling</summary>
+					<div class="doc-inner doc-body"><ol><li>Find the item: tap, search by name or SKU, or scan. A USB or Bluetooth scanner works like a keyboard. Press F1 to focus the search box.</li><li>Set the quantity. Items sold by weight or volume open a decimal keypad.</li><li>Tap a line to change its quantity, price or discount.</li><li>Tap <strong>Pay</strong>, choose the method and confirm.</li><li>Print or share the receipt.</li></ol><h4>Payment</h4><ul><li><strong>Cash</strong> shows change due.</li><li><strong>Transfer, card and mobile money</strong> record the method for reports.</li><li><strong>Split payment</strong>: add one method, then another for the rest.</li><li><strong>Credit</strong> puts the amount on a customer's account and respects their credit limit.</li></ul><h4>Voids and refunds</h4><p>A <strong>void</strong> cancels a sale that should not have happened. A <strong>refund</strong> returns money on a sale that did happen. Both need a reason and permission, and both are logged. Discounts, shipping and price changes also need permission.</p><h4>Holding a sale</h4><p><strong>Hold</strong> parks a basket so you can serve someone else.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Products and stock</summary>
+					<div class="doc-inner doc-body"><p>Go to <strong>Products > Add a product</strong>. Name and selling price are essential. Add cost to see profit, a category, barcodes, a unit and a low stock level.</p><p>For sizes or colours, add variants. Each has its own price, barcode and stock.</p><p>Stock only changes through recorded movements: opening, receive, sale or refund, adjust or count, and loss. Profit uses the average cost from what you paid at each receipt.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Customers and credit</summary>
+					<div class="doc-inner doc-body"><p>Add a customer with a name and optional phone, email and credit limit. The Customers tab shows <strong>Owed to you</strong> and <strong>You owe</strong>. Open a customer to see history, record a payment or adjust their balance. Anyone past their limit is flagged <strong>Over limit</strong>.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Suppliers and purchase orders</summary>
+					<div class="doc-inner doc-body"><p>Raise a purchase order, then receive it when goods arrive. Stock goes up at the cost you enter, and the supplier's balance goes up if you have not paid. Record payments from the supplier's page.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Expenses</summary>
+					<div class="doc-inner doc-body"><p><strong>More > Expenses > + Expense</strong>. Choose amount, category, how it was paid and who to. If a shift is open and you paid cash, mark it as taken from the till so the drawer count stays right.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Shifts and the cash drawer</summary>
+					<div class="doc-inner doc-body"><ol><li><strong>Open</strong> with the cash in the drawer.</li><li>Sell as normal. Cash sales, refunds, till expenses and pay-ins and pay-outs move the expected cash.</li><li><strong>Close</strong> by counting the drawer. Counterbook shows the expected amount and the difference.</li></ol><p>Shortages and overages are recorded, not hidden.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Invoices and quotes</summary>
+					<div class="doc-inner doc-body"><p>Turn on invoices in Settings to create quotes and invoices with terms and due dates, record payments against them and share a PDF. Open balances appear in Reports.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Reports</summary>
+					<div class="doc-inner doc-body"><p>Pick a period from today to 90 days. You get revenue, gross profit and net profit with the change against the previous period, a chart of sales by hour or by day, stock value, what customers owe, open invoices, discounts, refunds and tax, plus rankings for products, categories, payment methods, expenses and staff. Profit figures need the profit permission.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Staff and permissions</summary>
+					<div class="doc-inner doc-body"><p><strong>More > Staff</strong>. Give each person a name, a role and their own PIN. Never share one PIN. Deactivate people who leave rather than deleting them.</p><div class="cb-scroll"><table class="cb-table"><tbody><tr><th>Owner</th><td>Everything, including the recovery phrase and devices</td></tr><tr><th>Manager</th><td>Everything except owner-only powers</td></tr><tr><th>Cashier</th><td>Sell, hold, credit sales, reprint, manage customers, own shift, expenses</td></tr><tr><th>Sales Staff</th><td>Sell, hold, manage customers</td></tr><tr><th>Warehouse Staff</th><td>Products, receiving, adjusting and counting stock, inventory reports</td></tr><tr><th>Accountant</th><td>Read reports, expenses, export, activity log</td></tr></tbody></table></div></div>
+				</details>
+				<details class="faq-item">
+					<summary>The activity log</summary>
+					<div class="doc-inner doc-body"><p>For owners, managers and accountants: <strong>More > Activity log</strong>.</p><ul><li><strong>Watch list</strong>: voids, refunds, big discounts, price changes, stock losses, no-sale drawer opens, repeated wrong PINs and reprints.</li><li><strong>By person</strong>: who did how much of what.</li><li><strong>Log</strong>: every entry, filterable by period, action, person and text.</li><li><strong>Integrity check</strong>: entries are chained, so changing or deleting an old one is detected.</li></ul><p>Entries cannot be edited or deleted in the app.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Importing and exporting</summary>
+					<div class="doc-inner doc-body"><p><strong>More > Import</strong> brings in products, customers, suppliers or stock counts from CSV or Excel. You match columns, read a dry run, then confirm.</p><p><strong>More > Export data</strong> writes Excel, CSV (zipped with a checksum manifest) or JSON for a date range. Cells starting with <code>=</code>, <code>+</code>, <code>-</code> or <code>@</code> are neutralised.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>More than one device</summary>
+					<div class="doc-inner doc-body"><ul><li><strong>Web till</strong>: turn on sharing and any phone, tablet or computer on the same Wi-Fi can open the address or scan the QR code and sell from a browser.</li><li><strong>Join a business</strong>: install Counterbook on a second device, choose <strong>Join a business on this network</strong> and enter the hub's address and pairing code.</li></ul><p>Devices catch up when they reconnect, and offline changes are merged with the latest edit of each field winning. A device restored from a backup stops syncing and has to join again.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Settings and appearance</summary>
+					<div class="doc-inner doc-body"><p><strong>More > Settings</strong> holds business details, tax, receipts, invoice terms, low stock defaults, hardware and appearance. Choose Light, Dark or System and a colour for your business. The colour is kept on each device.</p><p>Counterbook is free and shows one small labelled promotion at the foot of More, never on the till. <strong>Show house ads</strong> turns it off.</p></div>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<section id="training" class="section-tinted">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">Training Course</div>
+			<h2 class="section-title">Teach staff in the demo shop first</h2>
+			<p class="section-subtitle">Open the demo with PIN <code>1234</code> so mistakes cost nothing. Each module ends with a check, and the trainee moves on only when it passes. A cashier is ready for the till after about 80 minutes.</p>
+			<div class="doc-body">
+<div class="cb-scroll"><table class="cb-table"><tbody><tr><th>Cashier or sales staff</th><td>Modules 1 to 4</td></tr><tr><th>Warehouse staff</th><td>Modules 1, 5, 6</td></tr><tr><th>Accountant</th><td>Modules 1, 7, 8</td></tr><tr><th>Manager</th><td>Modules 1 to 9</td></tr><tr><th>Owner</th><td>Modules 1 to 10</td></tr></tbody></table></div>
+				<div style="height:1.5rem"></div>
+				<details class="faq-item">
+					<summary>Module 1. Signing in and getting around (10 minutes)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> sign in, find each tab, lock the screen.</p><ol><li>Choose your name and enter the PIN.</li><li>Visit each tab. Missing entries for your role are correct.</li><li>Wait for the screen to lock, or sign out, then sign in again.</li><li>Enter a wrong PIN three times on purpose, then the right one.</li></ol><p class="doc-check"><strong>Check:</strong> the trainee signs in without help and names the five tabs.</p><p><strong>Rule to teach:</strong> your PIN is yours, lock when you step away, and five wrong PINs lock you out.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 2. Making a sale (20 minutes)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> complete a cash sale, a split payment and a held sale.</p><ol><li>Open a shift if asked.</li><li>Add three items by tapping, searching and scanning.</li><li>Change one quantity and remove one line.</li><li>Pay cash with a larger note and read the change aloud.</li><li>Make a second sale paid half by transfer, half cash.</li><li>Hold a third sale, serve a fourth, then resume the third.</li></ol><p class="doc-check"><strong>Check:</strong> three completed sales and one held sale picked up again, with correct change.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 3. Shifts and the cash drawer (15 minutes)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> open and close a shift and explain the difference.</p><ol><li>Open a shift with a float of 5,000.</li><li>Make two cash sales.</li><li>Pay a small expense from the till.</li><li>Close the shift and compare the count with the expected amount.</li><li>Close a second shift 500 short on purpose and read the report.</li></ol><p class="doc-check"><strong>Check:</strong> the trainee says why expected cash is not just float plus sales.</p><p><strong>Rule to teach:</strong> shortages are recorded under your name, so count honestly.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 4. Customers, credit, refunds and voids (20 minutes)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> sell on credit, take a payment and fix a mistake.</p><ol><li>Add a customer with a 20,000 credit limit.</li><li>Sell 8,000 of goods on credit.</li><li>Record a 3,000 payment and check the balance is 5,000.</li><li>Try to sell 30,000 on credit and read the refusal.</li><li>Refund one item and void a sale made by mistake.</li></ol><p class="doc-check"><strong>Check:</strong> the balance matches by hand, and the trainee explains void versus refund.</p><p><strong>Rule to teach:</strong> voids, refunds, discounts and reprints appear on the owner's watch list with your name.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 5. Products and variants (20 minutes)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> add and price products correctly.</p><ol><li>Add a product with name, price, cost, category, barcode and low stock level.</li><li>Add a product sold by the kilogram and sell 1.25 kg.</li><li>Add a product with sizes using variants.</li><li>Edit a price and find the change in the activity log.</li><li>Add a starter pack and see existing items skipped.</li></ol><p class="doc-check"><strong>Check:</strong> the trainee says what happens to profit if cost is left at zero.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 6. Receiving and counting stock (20 minutes)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> keep the numbers on screen equal to the shelf.</p><ol><li>Raise a purchase order for three products.</li><li>Receive it with real costs and read the stock history.</li><li>Count one shelf with a difference of two and read the adjustment.</li><li>Record a loss with a note.</li></ol><p class="doc-check"><strong>Check:</strong> every stock change has a reason, and the trainee says why that matters.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 7. Expenses and reading reports (20 minutes)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> record money going out and understand the reports.</p><ol><li>Add three expenses in different categories and one from the till.</li><li>Open Reports for this month and find revenue, gross profit and net profit.</li><li>Find the best selling product and the weakest category.</li><li>Compare today with yesterday using the percentage badges.</li></ol><p class="doc-check"><strong>Check:</strong> the trainee explains that net profit is gross profit minus expenses.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 8. Imports, exports and checking the books (20 minutes)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> move data in and out safely.</p><ol><li>Download the product template from More > Import, add two rows, import and read the dry run.</li><li>Export last month's sales as Excel.</li><li>Open the export and find the formula-protected cells.</li></ol><p class="doc-check"><strong>Check:</strong> the trainee says why the dry run matters.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 9. Staff, permissions and the activity log (30 minutes)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> give each person the right access and spot trouble.</p><ol><li>Add a cashier with their own PIN, sign in and note what is missing.</li><li>As manager, find yesterday's voids in the activity log.</li><li>Filter to one person and turn on Alerts only.</li><li>Run the integrity check.</li><li>Deactivate the test cashier.</li></ol><p class="doc-check"><strong>Check:</strong> the trainee names three suspicious patterns: many voids by one person, large discounts, repeated wrong PINs, frequent no-sale opens, or price changes just before a sale.</p><p><strong>Rule to teach:</strong> nobody should be able to hide what they did, and nobody gets more access than their job needs.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 10. Backups, recovery and new devices (30 minutes, owner)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> be certain that a lost device does not lose the business.</p><ol><li>Write down the recovery phrase and have a second person check it.</li><li>Run Back up now with a password and save a copy to USB.</li><li>Turn on daily automatic backup.</li><li>Restore from the file on a second device.</li><li>Sign in there with a staff PIN to prove logins came across.</li><li>Optional: connect Google Drive and upload a backup.</li></ol><p class="doc-check"><strong>Check:</strong> the owner sells one item from the restored device, then stores the phrase and USB drive safely.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Final test and teaching tips</summary>
+					<div class="doc-inner doc-body"><h4>Final practical test (30 minutes)</h4><p>The trainee completes this list without help: sign in, open a shift with a 10,000 float, sell five items for cash, one on credit and one with a split payment, refund one item, take a 2,000 payment on a credit account, pay a 1,500 expense from the till, close the shift and explain the difference, then find their own work in the sales history. Pass mark is everything correct with no coaching. Repeat failed modules and test again.</p><h4>Teaching tips</h4><ul><li>Let them make mistakes in the demo and show how to fix each one.</li><li>Teach the rules as much as the buttons.</li><li>Keep a one page cheat sheet at the till.</li><li>Run a ten minute refresher every month using real log examples with names removed.</li></ul></div>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<section id="backup">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">Backup and Recovery</div>
+			<h2 class="section-title">Do this on the day you start using real data</h2>
+			<div class="doc-body">
+				<details class="faq-item">
+					<summary>Backup and recovery guide</summary>
+					<div class="doc-inner doc-body"><h4>Three things to understand</h4><ul><li><strong>Recovery phrase</strong>: 24 words shown at setup. It unlocks your data and any phrase-protected backup.</li><li><strong>Backup file</strong> (<code>.cbbak</code>): an encrypted copy of everything, including staff and their PIN logins.</li><li><strong>Backup password</strong>: an alternative you choose when backing up, so the file opens on any device without the phrase.</li></ul><p>Elevven11 holds no copy of your data or keys, and there is no reset link.</p>
+<h4>Set up once (15 minutes)</h4><ol><li>Write the 24 words on paper and have someone read them back. Do not photograph them.</li><li>Keep the paper away from the device.</li><li>Open <strong>More > Backup and export > Back up now</strong> and pick phrase or password protection.</li><li>Save a copy to a USB drive.</li><li>Turn on <strong>Automatic backup</strong>: every 6 hours, daily or weekly. It runs while the app is open and always uses the phrase.</li><li>Optional: connect Google Drive for an off-site copy.</li></ol><p>Keep three copies, on two kinds of storage, with one away from the shop.</p>
+<h4>Google Drive</h4><p>Backups upload to a <strong>Counterbook backups</strong> folder in your own Drive. Counterbook asks only for the <code>drive.file</code> permission, so it sees just the files it created. Files are encrypted on your device first, so Google holds only ciphertext.</p>
+<h4>Restoring</h4><ul><li><strong>Same device</strong>: Backup and export > Backups on this device > Restore. A safety backup of current data is made first.</li><li><strong>New or reset device</strong>: install Counterbook, choose <strong>Restore from backup</strong>, pick the file, enter the password or phrase, then sign in with a staff PIN.</li></ul>
+<h4>Moving to a new device</h4><p>Make a password-protected backup, restore it on the new device, check a few sales and logins, then stop using the old one. Do not run both as separate copies. To use two devices together, use the web till or Join a business.</p>
+<h4>Test your backups</h4><p>Once a month, restore the latest backup on a spare device and confirm sales, stock and staff logins are present.</p>
+<h4>If something goes wrong</h4><div class="cb-scroll"><table class="cb-table"><tbody><tr><th>Lost device, have file and phrase or password</th><td>Restore on a new device</td></tr><tr><th>Have the phrase but no file</th><td>Check Drive, USB and other copies. The phrase alone cannot recreate data that was never copied</td></tr><tr><th>Have the file, lost phrase and password</th><td>The file cannot be opened by anyone, including us</td></tr><tr><th>Wrong password or phrase</th><td>Check spelling and word order. Phrase words are lowercase English words</td></tr><tr><th>Backup is from a newer version</th><td>Update Counterbook, then restore</td></tr><tr><th>Restore failed halfway</th><td>Your previous data is untouched. The safety backup is listed under Backups on this device</td></tr><tr><th>Owner forgot their PIN</th><td>There is no reset today. Keep it with the recovery phrase</td></tr></tbody></table></div></div>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<section id="security" class="section-tinted">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">Security</div>
+			<h2 class="section-title">Protecting your data and your till</h2>
+			<p class="section-subtitle">Written for owners and managers.</p>
+			<div class="doc-body">
+				<details class="faq-item">
+					<summary>Security guide</summary>
+					<div class="doc-inner doc-body"><h4>What Counterbook does for you</h4><div class="cb-scroll"><table class="cb-table"><tbody><tr><th>Data on the device</th><td>Encrypted with SQLCipher (AES-256). The key is in secure device storage</td></tr><tr><th>Staff PINs</th><td>Never stored. Only a salted Argon2id hash is kept</td></tr><tr><th>Wrong PINs</th><td>Lockout from 30 seconds up to 15 minutes, logged</td></tr><tr><th>Idle screens</th><td>Lock after 5 minutes on the till and 15 elsewhere</td></tr><tr><th>Backups</th><td>AES-256-GCM, with a key from your phrase or password through Argon2id</td></tr><tr><th>Permissions</th><td>Checked in the data layer, not just hidden on screen</td></tr><tr><th>Activity log</th><td>Who, when, which device. Chained with SHA-256 to detect edits</td></tr><tr><th>Web till and sync</th><td>HTTPS on your network, with a pairing code bound to the certificate fingerprint and per-device revocable tokens</td></tr><tr><th>Network</th><td>No internet connections except Google Drive, if connected</td></tr></tbody></table></div>
+<h4>What you need to do</h4><ul><li>Give every person their own PIN and the least access that does the job.</li><li>Deactivate people the day they leave, and rotate PINs you suspect are known.</li><li>Review the activity log weekly.</li><li>Use a Windows password or Android screen lock, keep the system updated, and enable disk encryption.</li><li>Keep the recovery phrase on paper, away from the device, and never type it into websites or chats.</li><li>Use a long, unique backup password.</li></ul>
+<h4>The web till</h4><ol><li>Turn it on only when needed.</li><li>Use a private network you control. Never public Wi-Fi.</li><li>Do not forward its port to the internet.</li><li>The first browser connection warns about the certificate, which is expected. Check that the fingerprint matches the Web till and devices screen.</li><li>Revoke devices you no longer use.</li><li>An unlocked browser tab is a signed-in till, so staff sign out when they leave.</li></ol>
+<h4>Known limits</h4><ul><li>Data is protected at rest and in backups, not against someone watching a signed-in screen or who knows a PIN.</li><li>The owner PIN cannot be reset from inside the app today.</li><li>Sync and web till work on one network only.</li><li>The wrong-PIN count resets when the app restarts.</li><li>A device with malware is out of scope.</li></ul>
+<h4>Reporting a problem</h4><p>Do not post security details publicly. Contact us through <strong>More > Support Counterbook</strong> and say it is a security report.</p></div>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<section id="faq">
+		<div class="container">
+			<div class="section-tag" style="display:block; text-align:center;">Questions</div>
+			<h2 class="section-title">Something went wrong or looks odd</h2>
+			<div class="doc-body">
+				<details class="faq-item">
+					<summary>I charged the wrong price. How do I fix it?</summary>
+					<div class="doc-inner doc-body"><p>Void the sale if it should not have happened, or refund part of it, then ring it up again. Both need permission and a reason.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Can I sell something that is out of stock?</summary>
+					<div class="doc-inner doc-body"><p>That depends on your settings. Stock can go negative and shows as low until you receive more.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Someone forgot their PIN.</summary>
+					<div class="doc-inner doc-body"><p>The owner or a manager sets a new one in Staff. If the owner forgets theirs there is no reset today.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>The till says "Too many attempts".</summary>
+					<div class="doc-inner doc-body"><p>Five wrong PINs lock that person out for 30 seconds, then longer. Wait, then enter it carefully.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>How do I know if someone is cheating?</summary>
+					<div class="doc-inner doc-body"><p>Check the activity log watch list and filter by person. The log shows what happened, not why, so ask before you accuse.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>I lost the recovery phrase.</summary>
+					<div class="doc-inner doc-body"><p>If the device still works, the owner can view it again in settings. Write it down now.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>I restored on a new device and the old one still works.</summary>
+					<div class="doc-inner doc-body"><p>They are now two separate copies. Keep one, or pair them with Join a business.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>The browser says the connection is not private.</summary>
+					<div class="doc-inner doc-body"><p>Expected, because the certificate is made on your device. Compare the fingerprint with the Web till and devices screen, then continue.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>A phone cannot reach the web till.</summary>
+					<div class="doc-inner doc-body"><p>Check both are on the same Wi-Fi, guest or isolated Wi-Fi is off, and the Windows firewall allowed Counterbook on private networks.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>The web till stopped when the Android screen went off.</summary>
+					<div class="doc-inner doc-body"><p>Keep Counterbook in the foreground notification, exclude it from battery saving and keep the phone plugged in.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>The app says the data is from a newer version.</summary>
+					<div class="doc-inner doc-body"><p>Update Counterbook on this device.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Something looks wrong.</summary>
+					<div class="doc-inner doc-body"><p>Make a backup first, note what you did and saw, then contact support from More > Support Counterbook.</p></div>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<section id="final-cta" class="section-tinted">
+		<div class="container" style="text-align: center;">
+			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Still stuck?</h2>
+			<p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem;">Make a backup first, then tell us what you did and what you saw.</p>
+			<div class="btn-group">
+				<a href="/contact/" class="btn btn-primary">Contact us</a>
+				<a href="/counterbook/" class="btn btn-secondary">Back to Counterbook</a>
+			</div>
+		</div>
+	</section>
+
+	</main>
+
+	<footer>
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+					<p>Websites, apps and free browser tools.</p>
+					<a href="https://wa.me/2349120925909" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					<div class="footer-social">
+				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
+				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+				<a href="https://www.instagram.com/elevven11studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+				<a href="https://www.facebook.com/share/g/1833ddCnFg/" target="_blank" rel="noopener" aria-label="Join the Elevven11 Studio community on Facebook"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></a>
+			</div>
+				</div>
+				<nav class="footer-col" aria-label="Services">
+					<h2>Services</h2>
+					<ul>
+						<li><a href="/pricing/">Pricing</a></li>
+						<li><a href="/app-development/">App Development</a></li>
+						<li><a href="/counterbook/">Counterbook</a></li>
+						<li><a href="/how-it-works/">How It Works</a></li>
+						<li><a href="/examples/">Examples</a></li>
+						<li><a href="/get-started/">Get Your Website</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Extensions">
+					<h2>Extensions</h2>
+					<ul>
+						<li><a href="/extensions/">All extensions</a></li>
+						<li><a href="/webinspect/">WebInspect</a></li>
+						<li><a href="/webguard/">WebGuard</a></li>
+						<li><a href="/siteextract/">SiteExtract</a></li>
+						<li><a href="/shopinspect/">ShopInspect</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Company">
+					<h2>Company</h2>
+					<ul>
+						<li><a href="/contact/">Contact</a></li>
+						<li><a href="/faq/">FAQ</a></li>
+						<li><a href="/agents/">Referral Agents</a></li>
+						<li><a href="/support/">Support</a></li>
+						<li><a href="/terms/">Terms</a></li>
+						<li><a href="/privacy/">Privacy</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="footer-bottom">
+				<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/main.js" defer></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+	</script>
+</body>
+
+</html>
