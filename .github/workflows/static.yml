@@ -58,6 +58,14 @@ jobs:
           echo "repo:      $(du -sh --exclude=.git --exclude=_site . | cut -f1)"
           echo "published: $(du -sh _site | cut -f1)"
 
+      # Minify the two shared assets in the staged copy only. The repo keeps
+      # readable source, so there is nothing to rebuild or forget to commit.
+      - name: Minify CSS and JS
+        run: |
+          npx --yes esbuild@0.28 _site/assets/style.css --minify --allow-overwrite --outfile=_site/assets/style.css
+          npx --yes esbuild@0.28 _site/assets/main.js --minify --allow-overwrite --outfile=_site/assets/main.js
+          ls -l _site/assets/style.css _site/assets/main.js
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

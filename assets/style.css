@@ -8,6 +8,18 @@
    An @import cannot start downloading until this file has been fetched and
    parsed, which put the fonts a full round trip behind the stylesheet. */
 
+/* Stand-in for Outfit while it downloads, sized to Outfit's metrics so the
+   swap does not move the text (layout shift). Measured: Outfit runs about 3%
+   narrower than Arial at the weights used, with a taller ascent and descent. */
+@font-face {
+  font-family: 'Outfit Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Helvetica');
+  size-adjust: 97%;
+  ascent-override: 103%;
+  descent-override: 27%;
+  line-gap-override: 0%;
+}
+
 :root {
   color-scheme: dark;
 
@@ -154,7 +166,7 @@ html {
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Outfit', 'Outfit Fallback', sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
@@ -718,6 +730,26 @@ body:has(.cookie-banner) .fab { bottom: 84px; }
 .more-ext-card img { width: 48px; height: 48px; flex-shrink: 0; }
 .more-ext-card strong { display: block; color: var(--text-primary); margin-bottom: 0.25rem; }
 .more-ext-card span { font-size: 0.9rem; line-height: 1.5; }
+
+/* Get Started: website / app switch */
+.type-switch { border: 0; padding: 0; margin: 0 0 1.5rem; min-width: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.type-switch legend { width: 100%; padding: 0; margin-bottom: 0.5rem; }
+.type-option { flex: 1 1 140px; cursor: pointer; }
+.type-option input { position: absolute; opacity: 0; pointer-events: none; }
+.type-option span {
+  display: block;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  border: var(--border-subtle);
+  border-radius: var(--border-radius);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-weight: 600;
+  transition: var(--transition-normal);
+}
+.type-option input:checked + span { border-color: var(--accent-gold); color: var(--text-primary); background: rgba(var(--accent-rgb), 0.1); }
+.type-option input:focus-visible + span { outline: 2px solid var(--accent-gold); outline-offset: 2px; }
+[data-for][hidden] { display: none; }
 
 /* Grids & Cards */
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
@@ -2191,3 +2223,19 @@ footer > * {
 /* The hero carries the texture too. Its background is soft radial glows rather
    than a photograph, which is exactly the ground the promo cards use, so the
    dots sit on it the same way they do there. */
+
+[data-for="app"] .addon-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.5rem; }
+
+/* Utilities replacing the most repeated inline styles. !important keeps the
+   exact precedence the inline style had over component rules. */
+.u-text-1 { color: var(--text-primary) !important; }
+.u-text-2 { color: var(--text-secondary) !important; }
+.u-gold { color: var(--accent-gold) !important; }
+.u-inherit { color: inherit !important; }
+.u-mb-1 { margin-bottom: 1rem !important; }
+.u-mb-2 { margin-bottom: 2rem !important; }
+.u-mb-15 { margin-bottom: 1.5rem !important; }
+.u-mb-075 { margin-bottom: 0.75rem !important; }
+.u-h-sm { font-size: 1.3rem !important; }
+.u-center { text-align: center !important; }
+.u-block-center { display: block !important; text-align: center !important; }

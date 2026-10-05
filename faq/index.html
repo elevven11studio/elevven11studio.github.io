@@ -193,7 +193,7 @@
 	     initSliders() in main.js adds the arrows, dots and caption on top. -->
 	<section>
 		<div class="container" style="max-width: 900px;">
-			<div class="section-tag" style="display:block; text-align:center;">Quick Answers</div>
+			<div class="section-tag u-block-center">Quick Answers</div>
 			<h2 class="section-title">The questions we get most</h2>
 			<div class="slider" data-slider="Frequently asked questions">
 				<div class="slider-track">
@@ -274,7 +274,7 @@
 			</details>
 			<details class="faq-item">
 				<summary>Can I refer people and earn money?</summary>
-				<p>Yes. See the <a href="/agents/" style="color: var(--accent-gold);">Referral
+				<p>Yes. See the <a class="u-gold" href="/agents/">Referral
 						Agents page</a> for commission rates and how it works.</p>
 			</details>
 			<details class="faq-item">
@@ -286,7 +286,7 @@
 	</section>
 
 	<section>
-		<div class="container" style="text-align: center;">
+		<div class="container u-center">
 			<h2 style="font-size: 1.75rem; margin-bottom: 1.25rem;">Still have a question?</h2>
 			<div class="btn-group">
 				<a href="/contact/" class="btn btn-secondary">Contact Us</a>
@@ -353,12 +353,28 @@
 	<script src="/assets/main.js" defer></script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics stays off until the visitor accepts the cookie banner.
+		var granted = /(?:^|; )e11_consent=accepted/.test(document.cookie) ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: granted, ad_storage: granted, ad_user_data: granted, ad_personalization: granted });
 		gtag('js', new Date());
 		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
 	</script>
 </body>
 

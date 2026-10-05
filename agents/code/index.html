@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Your Referral Code - Elevven11 Studio</title>
 
-	<meta name="description" content="Your personal Elevven11 Studio referral code and link." />
+	<meta name="description" content="Your personal Elevven11 Studio referral code and link, ready to copy and share with the people you refer." />
 	<!-- Only meaningful with a personal ?name=&code= URL sent to one agent, so
 	     it has nothing to offer a searcher and would be a dead end if indexed.
 	     Kept out of sitemap.xml for the same reason. -->
@@ -114,8 +114,8 @@
 
 	<section data-code-empty>
 		<div class="container" style="max-width: 640px; text-align: center;">
-			<p style="color: var(--text-secondary);">
-				Looking to become an agent? <a href="/agents/" style="color: var(--accent-gold);">Apply
+			<p class="u-text-2">
+				Looking to become an agent? <a class="u-gold" href="/agents/">Apply
 					here</a>.
 			</p>
 		</div>
@@ -179,12 +179,28 @@
 	<script src="/assets/main.js" defer></script>
 
 	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics stays off until the visitor accepts the cookie banner.
+		var granted = /(?:^|; )e11_consent=accepted/.test(document.cookie) ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: granted, ad_storage: granted, ad_user_data: granted, ad_personalization: granted });
 		gtag('js', new Date());
 		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
 	</script>
 </body>
 

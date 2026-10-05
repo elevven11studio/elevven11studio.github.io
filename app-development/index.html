@@ -205,25 +205,25 @@
 
 	<section>
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">What You Get</div>
+			<div class="section-tag u-block-center">What You Get</div>
 			<h2 class="section-title">One build, both stores</h2>
 
 			<div class="grid-3">
 				<div class="glass-card">
 					<h3 style="color: var(--accent-gold); margin-bottom: 1rem;">One codebase</h3>
-					<p style="color: var(--text-secondary);">Flutter builds Android and iOS from the same source, so
+					<p class="u-text-2">Flutter builds Android and iOS from the same source, so
 						you pay for one app rather than two. A change you ask for later lands on both phones at
 						once instead of being done twice.</p>
 				</div>
 				<div class="glass-card">
 					<h3 style="color: var(--accent-gold); margin-bottom: 1rem;">Built around your brand</h3>
-					<p style="color: var(--text-secondary);">Screens, colours and icon follow your existing
+					<p class="u-text-2">Screens, colours and icon follow your existing
 						branding. If we already built your website, we start from that instead of asking you for
 						everything again.</p>
 				</div>
 				<div class="glass-card">
 					<h3 style="color: var(--accent-gold); margin-bottom: 1rem;">Published under your name</h3>
-					<p style="color: var(--text-secondary);">We submit to Google Play and the App Store using store
+					<p class="u-text-2">We submit to Google Play and the App Store using store
 						accounts in your business name, so the listing and the app stay yours. We handle the
 						submission paperwork.</p>
 				</div>
@@ -235,7 +235,7 @@
 
 	<section class="section-tinted" id="what-it-costs">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">Pricing</div>
+			<div class="section-tag u-block-center">Pricing</div>
 			<h2 class="section-title">Why there is no price on this page</h2>
 
 			<div class="glass-card" style="max-width: 800px; margin: 0 auto 2.5rem;">
@@ -245,7 +245,7 @@
 					where customers make accounts, pay inside the app and get notifications, and putting a single
 					number on both would mean overcharging one of them.
 				</p>
-				<p style="color: var(--text-secondary);">
+				<p class="u-text-2">
 					So we scope first and price second. Tell us what the app needs to do, we come back with a
 					fixed price and a timeline in writing, and that price does not move once you have agreed to
 					it. If the answer is that an app is the wrong tool and a website would serve you better, we
@@ -289,7 +289,7 @@
 
 	<section>
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">The Process</div>
+			<div class="section-tag u-block-center">The Process</div>
 			<h2 class="section-title">From idea to the store</h2>
 
 			<div class="steps-list">
@@ -326,7 +326,7 @@
 
 	<section class="section-tinted">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">The Fine Print</div>
+			<div class="section-tag u-block-center">The Fine Print</div>
 			<h2 class="section-title">What's in, and what's billed separately</h2>
 
 			<div class="grid-2" style="max-width: 900px; margin: 0 auto;">
@@ -363,8 +363,8 @@
 	<hr class="styled-hr" />
 
 	<section class="section-tinted">
-		<div class="container" style="text-align: center;">
-			<div class="section-tag" style="display:block; text-align:center;">Our Own App</div>
+		<div class="container u-center">
+			<div class="section-tag u-block-center">Our Own App</div>
 			<h2 class="section-title">Counterbook</h2>
 			<p class="section-subtitle">Coming soon: a free point of sale app for shops that runs offline on Windows and Android.</p>
 			<a href="/counterbook/" class="btn btn-secondary">See Counterbook</a>
@@ -375,7 +375,7 @@
 
 	<section>
 		<div class="container" style="max-width: 800px;">
-			<div class="section-tag" style="display:block; text-align:center;">Questions</div>
+			<div class="section-tag u-block-center">Questions</div>
 			<h2 class="section-title">Before you ask</h2>
 
 			<details class="faq-item">
@@ -421,7 +421,7 @@
 	</section>
 
 	<section>
-		<div class="container" style="text-align: center;">
+		<div class="container u-center">
 			<h2 style="font-size: 2rem; margin-bottom: 1.25rem;">Got an app in mind?</h2>
 			<p style="color: var(--text-secondary); max-width: 560px; margin: 0 auto 1.75rem;">
 				Describe it in plain words. We will tell you what it would take and what it would cost, with no
@@ -492,12 +492,28 @@
 	<script src="/assets/main.js" defer></script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics stays off until the visitor accepts the cookie banner.
+		var granted = /(?:^|; )e11_consent=accepted/.test(document.cookie) ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: granted, ad_storage: granted, ad_user_data: granted, ad_personalization: granted });
 		gtag('js', new Date());
 		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
 	</script>
 </body>
 

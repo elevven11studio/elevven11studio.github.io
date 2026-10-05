@@ -81,18 +81,18 @@
 		<div class="container">
 			<div class="grid-3">
 				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Pricing</h3>
-					<p style="color: var(--text-secondary);">One-time packages with a free update period and no monthly
+					<h3 class="u-gold u-mb-075">Pricing</h3>
+					<p class="u-text-2">One-time packages with a free update period and no monthly
 						hosting fee. <a href="/pricing/">See pricing</a>.</p>
 				</div>
 				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">How It Works</h3>
-					<p style="color: var(--text-secondary);">The five steps from your first message to a live website. <a
+					<h3 class="u-gold u-mb-075">How It Works</h3>
+					<p class="u-text-2">The five steps from your first message to a live website. <a
 							href="/how-it-works/">Read the breakdown</a>.</p>
 				</div>
 				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Get In Touch</h3>
-					<p style="color: var(--text-secondary);">Tell us what you need and we'll take it from there. <a
+					<h3 class="u-gold u-mb-075">Get In Touch</h3>
+					<p class="u-text-2">Tell us what you need and we'll take it from there. <a
 							href="/contact/">Contact us</a>.</p>
 				</div>
 			</div>
@@ -157,12 +157,28 @@
 	<script src="/assets/main.js" defer></script>
 
 	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics stays off until the visitor accepts the cookie banner.
+		var granted = /(?:^|; )e11_consent=accepted/.test(document.cookie) ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: granted, ad_storage: granted, ad_user_data: granted, ad_personalization: granted });
 		gtag('js', new Date());
 		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
 	</script>
 </body>
 

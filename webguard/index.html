@@ -218,6 +218,29 @@
 	<script type="application/ld+json">
 	{
 	  "@context": "https://schema.org",
+	  "@type": "SoftwareApplication",
+	  "name": "WebGuard by Elevven11",
+	  "applicationCategory": "SecurityApplication",
+	  "operatingSystem": "Chrome 116 or later",
+	  "description": "Spot suspicious websites before you hand over sensitive information. A free Chrome extension that checks for phishing on your own device.",
+	  "url": "https://elevven11studio.github.io/webguard/",
+	  "installUrl": "https://chromewebstore.google.com/detail/webguard-by-elevven11/hgckccgcmbclkjhdccnphbpbljlcdimd",
+	  "image": "https://elevven11studio.github.io/assets/webguard/icon-128.png",
+	  "offers": {
+	    "@type": "Offer",
+	    "price": "0",
+	    "priceCurrency": "USD"
+	  },
+	  "publisher": {
+	    "@type": "Organization",
+	    "name": "Elevven11 Studio",
+	    "url": "https://elevven11studio.github.io/"
+	  }
+	}
+	</script>
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
 	  "@type": "BreadcrumbList",
 	  "name": "WebGuard breadcrumb",
 	  "itemListElement": [
@@ -297,7 +320,7 @@
 	<section class="hero">
 		<div class="hero-content container">
 			<img class="wg-mark" src="/assets/webguard/icon-128.png" width="128" height="128" alt="" />
-			<div class="hero-eyebrow"><a href="/extensions/" style="color: inherit;">Extensions</a> / Chrome
+			<div class="hero-eyebrow"><a class="u-inherit" href="/extensions/">Extensions</a> / Chrome
 				Extension</div>
 			<h1 class="hero-title">Spot the fake <strong>before you type.</strong></h1>
 			<p class="hero-tagline">WebGuard checks the page you are on for the signs of phishing, and warns you
@@ -315,7 +338,7 @@
 	<!-- What it checks -->
 	<section id="checks">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">What It Checks</div>
+			<div class="section-tag u-block-center">What It Checks</div>
 			<h2 class="section-title">Eight kinds of trouble</h2>
 			<p class="section-subtitle">No single weak signal can produce a warning. Risk is the sum of several
 				observations, each scaled by confidence, because a warning you learn to click through protects
@@ -373,7 +396,7 @@
 	<!-- How it reports -->
 	<section class="section-tinted">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">How It Reports</div>
+			<div class="section-tag u-block-center">How It Reports</div>
 			<h2 class="section-title">Four verdicts. Never "safe".</h2>
 			<p class="section-subtitle">A blocklist miss is not evidence of safety. WebGuard reports how much of a
 				check it was actually able to complete, rather than presenting an empty database as a clean
@@ -405,7 +428,7 @@
 	<!-- How you use it -->
 	<section>
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">How You Use It</div>
+			<div class="section-tag u-block-center">How You Use It</div>
 			<h2 class="section-title">Mostly, you don't</h2>
 			<p class="section-subtitle">Protection runs as pages load. The rest is there when you want to ask
 				something specific.</p>
@@ -450,46 +473,46 @@
 	<!-- Privacy -->
 	<section class="section-tinted">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">Privacy</div>
+			<div class="section-tag u-block-center">Privacy</div>
 			<h2 class="section-title">Nothing about the pages you visit leaves your browser</h2>
 			<p class="section-subtitle">A tool that reads every page you open has to be worth trusting with that.
 				Here is exactly what WebGuard does with it.</p>
 
 			<div class="grid-3">
 				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Online checks are off by default
+					<h3 class="u-gold u-mb-075">Online checks are off by default
 					</h3>
-					<p style="color: var(--text-secondary);">With them off, WebGuard makes no network requests at all
+					<p class="u-text-2">With them off, WebGuard makes no network requests at all
 						and every check runs on your device. Turning them on is your decision, made in settings.</p>
 				</div>
 				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Passwords are never transmitted</h3>
-					<p style="color: var(--text-secondary);">The breach check hashes the password on your device and
+					<h3 class="u-gold u-mb-075">Passwords are never transmitted</h3>
+					<p class="u-text-2">The breach check hashes the password on your device and
 						sends the first five characters of that hash, which returns a bucket of several hundred
 						candidates to compare locally. The service cannot learn the password, or even its full
 						hash.</p>
 				</div>
 				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Password fields are never read</h3>
-					<p style="color: var(--text-secondary);">The input monitor skips them entirely. Their values are
+					<h3 class="u-gold u-mb-075">Password fields are never read</h3>
+					<p class="u-text-2">The input monitor skips them entirely. Their values are
 						not read, not scanned, and not counted.</p>
 				</div>
 				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Secrets are never stored</h3>
-					<p style="color: var(--text-secondary);">The sensitive-data scanner returns a label, a confidence,
+					<h3 class="u-gold u-mb-075">Secrets are never stored</h3>
+					<p class="u-text-2">The sensitive-data scanner returns a label, a confidence,
 						an offset and a mask. There is no field in the result for the matched value, so nothing
 						downstream of it can display, keep or send a credential even by accident.</p>
 				</div>
 				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Threat lists are downloaded, not
+					<h3 class="u-gold u-mb-075">Threat lists are downloaded, not
 						queried</h3>
-					<p style="color: var(--text-secondary);">Matching happens on your device against synced hash
+					<p class="u-text-2">Matching happens on your device against synced hash
 						prefixes. The only request derived from a page carries four bytes of a hash, which a great many
 						addresses share.</p>
 				</div>
 				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">History is off by default</h3>
-					<p style="color: var(--text-secondary);">Turned on, a record holds a hostname, a verdict, a score
+					<h3 class="u-gold u-mb-075">History is off by default</h3>
+					<p class="u-text-2">Turned on, a record holds a hostname, a verdict, a score
 						and a time, and nothing else fits in it. Pages you merely visit are never recorded. Settings
 						has a reset that clears every piece of local data.</p>
 				</div>
@@ -509,12 +532,12 @@
 			<div class="glass-card">
 				<div class="wg-disclaimer">
 					<h2 style="font-size: 1.5rem; margin-bottom: 1rem;">What WebGuard is not</h2>
-					<p style="color: var(--text-secondary); margin-bottom: 1rem;">
+					<p class="u-text-2 u-mb-1">
 						It is not an antivirus, not a password manager, and not a guarantee. It helps you make a safer
 						decision with better information. It does not replace security software, and it cannot promise
 						a site is safe.
 					</p>
-					<p style="color: var(--text-secondary);">
+					<p class="u-text-2">
 						That is why there is no "safe" verdict. The most WebGuard will say is that the checks it was
 						able to run found nothing.
 					</p>
@@ -528,7 +551,7 @@
 	<!-- FAQ -->
 	<section class="section-tinted">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">FAQ</div>
+			<div class="section-tag u-block-center">FAQ</div>
 			<h2 class="section-title">Common questions</h2>
 
 			<div style="max-width: 760px; margin: 0 auto;">
@@ -543,7 +566,7 @@
 					<p>Because checking a page after you have already typed your password into it is no use. Automatic
 						protection means reading each page as it loads, and Chrome asks for that access at install.
 						What gets read is listed in full in the
-						<a href="/webguard/privacy/" style="color: var(--accent-gold);">privacy policy</a>: the
+						<a class="u-gold" href="/webguard/privacy/">privacy policy</a>: the
 						address, the shape of the forms, resource hostnames, counts and the title. It is sent
 						nowhere.</p>
 				</details>
@@ -577,7 +600,7 @@
 			</div>
 
 			<p class="section-subtitle" style="margin-top: 2.5rem;">Not answered here?
-				<a href="/extensions/support/" style="color: var(--accent-gold);">Extension support</a> has the
+				<a class="u-gold" href="/extensions/support/">Extension support</a> has the
 				troubleshooting for WebGuard, and what to include if you need to report a bug.</p>
 		</div>
 	</section>
@@ -595,7 +618,7 @@
 	</section>
 
 	<section id="final-cta">
-		<div class="container" style="text-align: center;">
+		<div class="container u-center">
 			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Ready when you are</h2>
 			<p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem;">
 				It installs in a click and costs nothing. While you are here: we also build websites, and we
@@ -667,12 +690,28 @@
 	<script src="/assets/main.js" defer></script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics stays off until the visitor accepts the cookie banner.
+		var granted = /(?:^|; )e11_consent=accepted/.test(document.cookie) ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: granted, ad_storage: granted, ad_user_data: granted, ad_personalization: granted });
 		gtag('js', new Date());
 		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
 	</script>
 </body>
 

@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Thank You - Elevven11 Studio</title>
 
-	<meta name="description" content="Your request has reached Elevven11 Studio. Here's what happens next." />
+	<meta name="description" content="Your request has reached Elevven11 Studio. Here is what happens next, including payment and how we collect your content." />
 	<!-- Reached only by redirect after a successful send, so it has nothing to
 	     offer a searcher and would be a dead end if indexed. Kept out of
 	     sitemap.xml for the same reason. -->
@@ -86,8 +86,8 @@
 
 	<section style="padding-top: 0;">
 		<div class="container" style="max-width: 760px;">
-			<div class="glass-card" style="margin-bottom: 2rem;">
-				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">What happens next</h2>
+			<div class="glass-card u-mb-2">
+				<h2 class="u-gold u-mb-1 u-h-sm">What happens next</h2>
 				<ol style="color: var(--text-secondary); padding-left: 1.2rem; display: grid; gap: 0.85rem;">
 					<li>We read your request and reply, usually within a day.</li>
 					<li data-thanks-step-2>We confirm the details, the package and the timeline with you.</li>
@@ -96,8 +96,8 @@
 			</div>
 
 			<div class="glass-card">
-				<h2 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">In a hurry?</h2>
-				<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+				<h2 class="u-gold u-mb-1 u-h-sm">In a hurry?</h2>
+				<p class="u-text-2 u-mb-15">
 					Message us on WhatsApp and we'll pick it up straight away. No need to repeat yourself &mdash;
 					just say you've sent the form.
 				</p>
@@ -107,8 +107,8 @@
 			</div>
 
 			<p style="text-align:center; margin-top: 2rem;">
-				<a href="/examples/" style="color: var(--accent-gold);">Browse the example sites</a>
-				while you wait, or <a href="/" style="color: var(--accent-gold);">head back home</a>.
+				<a class="u-gold" href="/examples/">Browse the example sites</a>
+				while you wait, or <a class="u-gold" href="/">head back home</a>.
 			</p>
 		</div>
 	</section>
@@ -171,12 +171,28 @@
 	<script src="/assets/main.js" defer></script>
 
 	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics stays off until the visitor accepts the cookie banner.
+		var granted = /(?:^|; )e11_consent=accepted/.test(document.cookie) ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: granted, ad_storage: granted, ad_user_data: granted, ad_personalization: granted });
 		gtag('js', new Date());
 		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
 	</script>
 </body>
 

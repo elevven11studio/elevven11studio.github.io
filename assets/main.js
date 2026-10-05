@@ -525,14 +525,11 @@ function directSendFeedback(form, mainBtn) {
  * closed tab). The consent choice itself is stored in a cookie too, since
  * that's what has to persist to avoid re-asking on every page.
  *
- * Note what this banner does NOT cover: the gtag.js snippet is hardcoded into
- * every page's HTML and runs before this ever executes, so Google Analytics
- * cookies (and, because Google Signals is on for the property, the
- * ads/ga-audiences pixel) are set regardless of the choice made here. The
- * banner copy says so explicitly rather than implying otherwise. To actually
- * put Decline in charge of those, the fix is Consent Mode v2 - gtag('consent',
- * 'default', {analytics_storage: 'denied', ad_storage: 'denied'}) ahead of the
- * config call, then a 'update' to 'granted' in the accept handler below.
+ * Google Analytics runs under Consent Mode v2. Each page's inline gtag
+ * snippet sets every consent signal to 'denied' unless the consent cookie
+ * already says 'accepted', and the accept handler below flips them to
+ * 'granted'. Until then Google may receive cookieless pings but sets no
+ * Analytics or advertising cookies.
  */
 const CONSENT_COOKIE = 'e11_consent';
 const REFERRAL_COOKIE = 'e11_ref';
@@ -565,8 +562,8 @@ function initCookieConsent() {
   banner.setAttribute('role', 'region');
   banner.setAttribute('aria-label', 'Cookie notice');
   banner.innerHTML = `
-    <p>We use one cookie to save your Get Started form and referral code. Google Analytics
-      sets its own cookies either way. <a href="/privacy/">Privacy policy</a></p>
+    <p>We use a cookie to save your Get Started form and referral code, and Google Analytics
+      to count visits. Accept turns both on. <a href="/privacy/">Privacy policy</a></p>
     <div class="cookie-banner-actions">
       <button type="button" class="btn btn-secondary" data-cookie-decline>Decline</button>
       <button type="button" class="btn btn-primary" data-cookie-accept>Accept</button>
@@ -577,6 +574,9 @@ function initCookieConsent() {
   banner.querySelector('[data-cookie-accept]').addEventListener('click', () => {
     setCookie(CONSENT_COOKIE, 'accepted', 365);
     banner.remove();
+    if (typeof gtag === 'function') {
+      gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
+    }
 
     // Promote whatever this tab already holds in sessionStorage into the
     // new cookies immediately, rather than waiting for the next edit/visit.
@@ -958,6 +958,7 @@ function initGetStartedForm() {
   wireFormAutosave(form);
   wireClearSavedInfo(form);
   initAddonCheckout(form);
+  initProjectType(form);
 
   const packageSelect = document.getElementById('gs-package');
 
@@ -1003,11 +1004,12 @@ function initGetStartedForm() {
     // mis-sent message, and the subject line is what sorts the inbox.
     const wantsApp = /\bapp\b/i.test(packageText);
     const noun = wantsApp ? 'mobile app' : 'website';
+    const appFeatures = Array.from(form.querySelectorAll('input[name="appFeatures"]:checked')).map((el) => el.value);
 
     // Read straight from the checkboxes rather than recomputing prices here -
     // initAddonCheckout already rendered the total in the visitor's currency,
     // so reuse that text instead of duplicating its currency-detection logic.
-    const addonNames = Array.from(form.querySelectorAll('input[name="addons"]:checked')).map((el) => el.value);
+    const addonNames = wantsApp ? [] : Array.from(form.querySelectorAll('input[name="addons"]:checked')).map((el) => el.value);
     const totalEl = document.querySelector('[data-summary-total]');
     const totalText = totalEl ? totalEl.textContent.trim() : '';
 
@@ -1021,11 +1023,16 @@ function initGetStartedForm() {
       `Package: ${packageText}`,
       addonNames.length ? `Add-ons: ${addonNames.join(', ')}` : null,
       addonNames.length && totalText && totalText !== '—' ? `Estimated total: ${totalText}` : null,
-      get('exampleType') ? `Interested in example style: ${get('exampleType')}` : null,
-      get('description') ? `About the business: ${get('description')}` : null,
-      get('styleMood') ? `Style vibe: ${get('styleMood')}` : null,
-      get('colors') ? `Preferred colors: ${get('colors')}` : null,
-      get('colorsNotes') ? `More on colors/style: ${get('colorsNotes')}` : null,
+      !wantsApp && get('exampleType') ? `Interested in example style: ${get('exampleType')}` : null,
+      get('description') ? `${wantsApp ? 'About the app' : 'About the business'}: ${get('description')}` : null,
+      wantsApp && get('appPlatform') ? `Platforms: ${get('appPlatform')}` : null,
+      wantsApp && get('appStage') ? `Stage: ${get('appStage')}` : null,
+      wantsApp && appFeatures.length ? `Needs: ${appFeatures.join(', ')}` : null,
+      wantsApp && get('appTimeline') ? `Timeline: ${get('appTimeline')}` : null,
+      wantsApp && get('appRef') ? `Reference: ${get('appRef')}` : null,
+      !wantsApp && get('styleMood') ? `Style vibe: ${get('styleMood')}` : null,
+      !wantsApp && get('colors') ? `Preferred colors: ${get('colors')}` : null,
+      !wantsApp && get('colorsNotes') ? `More on colors/style: ${get('colorsNotes')}` : null,
       country ? `Detected country: ${country}` : null,
       get('referral') ? `Referral code: ${get('referral')}` : null,
     ].filter(Boolean);
@@ -1044,11 +1051,16 @@ function initGetStartedForm() {
         package: packageText,
         addons: addonNames.join(', '),
         estimated_total: addonNames.length ? totalText : '',
-        example_style: get('exampleType'),
+        example_style: wantsApp ? '' : get('exampleType'),
         about: get('description'),
-        style_vibe: get('styleMood'),
-        colors: get('colors'),
-        colors_notes: get('colorsNotes'),
+        style_vibe: wantsApp ? '' : get('styleMood'),
+        colors: wantsApp ? '' : get('colors'),
+        colors_notes: wantsApp ? '' : get('colorsNotes'),
+        app_platform: wantsApp ? get('appPlatform') : '',
+        app_stage: wantsApp ? get('appStage') : '',
+        app_features: wantsApp ? appFeatures.join(', ') : '',
+        app_timeline: wantsApp ? get('appTimeline') : '',
+        app_reference: wantsApp ? get('appRef') : '',
         detected_country: country || '',
         referral_code: get('referral'),
         terms_agreed: get('agreeTerms') ? 'yes' : 'no',
@@ -1065,11 +1077,16 @@ function initGetStartedForm() {
           { label: 'Package', value: packageText },
           { label: 'Add-ons', value: addonNames.join(', ') },
           { label: 'Estimated total', value: addonNames.length ? totalText : '' },
-          { label: 'Example style', value: get('exampleType') },
-          { label: 'About the business', value: get('description') },
-          { label: 'Style vibe', value: get('styleMood') },
-          { label: 'Preferred colors', value: get('colors') },
-          { label: 'More on colors/style', value: get('colorsNotes') },
+          { label: 'Example style', value: wantsApp ? '' : get('exampleType') },
+          { label: wantsApp ? 'About the app' : 'About the business', value: get('description') },
+          { label: 'Platforms', value: wantsApp ? get('appPlatform') : '' },
+          { label: 'Stage', value: wantsApp ? get('appStage') : '' },
+          { label: 'Needs', value: wantsApp ? appFeatures.join(', ') : '' },
+          { label: 'Timeline', value: wantsApp ? get('appTimeline') : '' },
+          { label: 'Reference', value: wantsApp ? get('appRef') : '' },
+          { label: 'Style vibe', value: wantsApp ? '' : get('styleMood') },
+          { label: 'Preferred colors', value: wantsApp ? '' : get('colors') },
+          { label: 'More on colors/style', value: wantsApp ? '' : get('colorsNotes') },
         ],
       },
     };
@@ -1170,11 +1187,57 @@ function initGetStartedForm() {
   });
 }
 
+/**
+ * Website / mobile app switch on the Get Started form. The package select
+ * stays the single source of truth (an app is the "Flutter app" option), so
+ * the switch is derived from it and everything downstream keeps working.
+ * Website-only groups carry data-for="website", app-only ones data-for="app".
+ */
+function initProjectType(form) {
+  const radios = Array.from(form.querySelectorAll('input[name="projectType"]'));
+  const pkg = document.getElementById('gs-package');
+  if (!radios.length || !pkg) return;
+  const appOption = Array.from(pkg.options).find((o) => /\bapp\b/i.test(o.value));
+
+  function apply(type) {
+    const isApp = type === 'app';
+    form.querySelectorAll('[data-for]').forEach((el) => {
+      // The add-on panel is opened by its own toggle, so only ever force it shut.
+      if (el.hasAttribute('data-addon-panel')) { if (isApp) el.hidden = true; return; }
+      el.hidden = el.getAttribute('data-for') !== type;
+    });
+    if (isApp) {
+      const toggle = form.querySelector('[data-addon-toggle]');
+      if (toggle && toggle.checked) { toggle.checked = false; toggle.dispatchEvent(new Event('change', { bubbles: true })); }
+      form.querySelectorAll('input[name="addons"]').forEach((el) => { el.checked = false; });
+      if (appOption) pkg.value = appOption.value;
+    } else if (appOption && pkg.value === appOption.value) {
+      pkg.value = '';
+    }
+    if (appOption) appOption.hidden = !isApp;
+    form.querySelectorAll('[data-label-' + type + ']').forEach((el) => { el.textContent = el.getAttribute('data-label-' + type); });
+    form.querySelectorAll('[data-placeholder-' + type + ']').forEach((el) => { el.placeholder = el.getAttribute('data-placeholder-' + type); });
+    const hero = document.querySelector('.hero-title strong');
+    if (hero) hero.textContent = isApp ? 'App' : 'Website';
+  }
+
+  radios.forEach((r) => r.addEventListener('change', () => { if (r.checked) { apply(r.value); saveFormDataCookie(form); } }));
+  pkg.addEventListener('change', () => {
+    const type = appOption && pkg.value === appOption.value ? 'app' : 'website';
+    radios.forEach((r) => { r.checked = r.value === type; });
+    apply(type);
+  });
+
+  const start = appOption && pkg.value === appOption.value ? 'app' : 'website';
+  radios.forEach((r) => { r.checked = r.value === start; });
+  apply(start);
+}
+
 // Fields snapshotted into FORM_DATA_COOKIE. Deliberately excludes the
 // referral field - that has its own cookie/sessionStorage path above, since
 // it needs to be captured before the form even exists (a ?ref= link can
 // land on any page, not just Get Started).
-const AUTOSAVE_FIELDS = ['name', 'business', 'phone', 'email', 'location', 'package', 'exampleType', 'description', 'styleMood', 'colors', 'colorsNotes'];
+const AUTOSAVE_FIELDS = ['name', 'business', 'phone', 'email', 'location', 'package', 'exampleType', 'description', 'styleMood', 'colors', 'colorsNotes', 'appPlatform', 'appStage', 'appTimeline', 'appRef'];
 
 function saveFormDataCookie(form) {
   if (!hasCookieConsent()) return;
@@ -1188,6 +1251,8 @@ function saveFormDataCookie(form) {
   // capture them - collect the checked ones into their own array instead.
   const addons = Array.from(form.querySelectorAll('input[name="addons"]:checked')).map((el) => el.value);
   if (addons.length) data.addons = addons;
+  const appFeatures = Array.from(form.querySelectorAll('input[name="appFeatures"]:checked')).map((el) => el.value);
+  if (appFeatures.length) data.appFeatures = appFeatures;
 
   setCookie(FORM_DATA_COOKIE, JSON.stringify(data), COOKIE_DAYS);
 }
@@ -1201,7 +1266,7 @@ function restoreFormDataCookie(form) {
   try { data = JSON.parse(raw); } catch (e) { return; }
 
   Object.keys(data).forEach((name) => {
-    if (name === 'addons') return; // handled separately below - it's an array, not a single value
+    if (name === 'addons' || name === 'appFeatures') return; // handled separately below - it's an array, not a single value
     const field = form.querySelector(`[name="${name}"]`);
     if (!field || field.value) return;
     field.value = data[name];
@@ -1215,6 +1280,13 @@ function restoreFormDataCookie(form) {
       chip.classList.add('selected');
       chip.setAttribute('aria-pressed', 'true');
     }
+  }
+
+  if (Array.isArray(data.appFeatures)) {
+    data.appFeatures.forEach((value) => {
+      const input = form.querySelector(`input[name="appFeatures"][value="${CSS.escape(value)}"]`);
+      if (input) input.checked = true;
+    });
   }
 
   if (Array.isArray(data.addons)) {

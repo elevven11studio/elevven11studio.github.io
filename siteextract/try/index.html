@@ -170,7 +170,7 @@
 	<section class="hero">
 		<div class="hero-content container">
 			<img class="se-mark" src="/assets/siteextract/icon-128.png" width="128" height="128" alt="" />
-			<div class="hero-eyebrow"><a href="/siteextract/" style="color: inherit;">SiteExtract</a> / Try it</div>
+			<div class="hero-eyebrow"><a class="u-inherit" href="/siteextract/">SiteExtract</a> / Try it</div>
 			<h1 class="hero-title">Test SiteExtract <strong>right here.</strong></h1>
 			<p class="hero-tagline">Paste a link and get the page back as a starter project. It runs the extension's
 				own code in this page.</p>
@@ -199,8 +199,8 @@
 						</fieldset>
 					</form>
 					<div class="try-result" id="extract-result" hidden aria-live="polite"></div>
-					<p class="try-note">The page is rendered by <a href="https://jina.ai/reader/" target="_blank"
-							rel="noopener" style="color: var(--accent-gold);">Jina Reader</a>. Its files are then
+					<p class="try-note">The page is rendered by <a class="u-gold" href="https://jina.ai/reader/" target="_blank"
+							rel="noopener">Jina Reader</a>. Its files are then
 						requested straight from your browser, without cookies. Files up to 5 MB can be saved here, where
 						their servers allow it.</p>
 					<p class="try-more">The extension reads the tab you have open, signed-in pages included, downloads
@@ -214,7 +214,7 @@
 	</section>
 
 	<section id="final-cta" class="section-tinted">
-		<div class="container" style="text-align: center;">
+		<div class="container u-center">
 			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Get the full extension</h2>
 			<p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem;">
 				On the Chrome Web Store now. Free, and nothing leaves your browser.
@@ -287,12 +287,28 @@
 	<script src="/assets/demos/siteextract-try.js" defer></script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics stays off until the visitor accepts the cookie banner.
+		var granted = /(?:^|; )e11_consent=accepted/.test(document.cookie) ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: granted, ad_storage: granted, ad_user_data: granted, ad_personalization: granted });
 		gtag('js', new Date());
 		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
 	</script>
 </body>
 

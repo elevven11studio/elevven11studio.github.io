@@ -166,24 +166,24 @@
 	<!-- Why Elevven11 Studio -->
 	<section id="why">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">Why Elevven11 Studio?</div>
+			<div class="section-tag u-block-center">Why Elevven11 Studio?</div>
 			<h2 class="section-title">A simple product, done well</h2>
 			<p class="section-subtitle">No bloated features you don't need. Just a clean, working website, fast.</p>
 
 			<div class="grid-3">
 				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Affordable & Simple</h3>
-					<p style="color: var(--text-secondary);">One-time pricing, straightforward packages, and a process
+					<h3 class="u-gold u-mb-075">Affordable & Simple</h3>
+					<p class="u-text-2">One-time pricing, straightforward packages, and a process
 						built for people who have never set up a website before.</p>
 				</div>
 				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">No Monthly Hosting Fee</h3>
-					<p style="color: var(--text-secondary);">Eligible static websites are hosted on GitHub Pages, so we
+					<h3 class="u-gold u-mb-075">No Monthly Hosting Fee</h3>
+					<p class="u-text-2">Eligible static websites are hosted on GitHub Pages, so we
 						can skip charging a recurring hosting fee.</p>
 				</div>
 				<div class="glass-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Mobile Friendly & Fast</h3>
-					<p style="color: var(--text-secondary);">Every website is built responsive from the start and
+					<h3 class="u-gold u-mb-075">Mobile Friendly & Fast</h3>
+					<p class="u-text-2">Every website is built responsive from the start and
 						delivered quickly using reusable templates.</p>
 				</div>
 			</div>
@@ -203,7 +203,7 @@
 	<!-- Packages Preview -->
 	<section id="packages">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">Packages</div>
+			<div class="section-tag u-block-center">Packages</div>
 			<h2 class="section-title">Pick a starting point</h2>
 			<p class="section-subtitle">Every package includes a free update period. Full details on the pricing page.</p>
 
@@ -263,7 +263,7 @@
 	     package, decides the price. -->
 	<section id="app-development">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">App Development</div>
+			<div class="section-tag u-block-center">App Development</div>
 			<h2 class="section-title">Need an app, not a website?</h2>
 			<p class="section-subtitle">We build mobile apps with Flutter: Android and iPhone from one codebase,
 				scoped and quoted per project.</p>
@@ -271,7 +271,7 @@
 			<div class="glass-card" style="max-width: 900px; margin: 0 auto;">
 				<div class="grid-2" style="gap: 2.5rem; align-items: center;">
 					<div>
-						<h3 style="color: var(--accent-gold); margin-bottom: 1rem; font-size: 1.3rem;">Why there's no
+						<h3 class="u-gold u-mb-1 u-h-sm">Why there's no
 							price here</h3>
 						<p style="color: var(--text-secondary); margin-bottom: 1.75rem;">An app that shows your
 							opening hours is a different job from one with accounts, payments and notifications.
@@ -297,7 +297,7 @@
 	<!-- How it works -->
 	<section id="how-it-works" class="section-tinted">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">How It Works</div>
+			<div class="section-tag u-block-center">How It Works</div>
 			<h2 class="section-title">From idea to live website</h2>
 
 			<div class="steps-list">
@@ -384,7 +384,7 @@
 	<!-- FAQ preview -->
 	<section id="faq" class="section-tinted">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">FAQ</div>
+			<div class="section-tag u-block-center">FAQ</div>
 			<h2 class="section-title">Common questions</h2>
 
 			<div style="max-width: 760px; margin: 0 auto;">
@@ -414,7 +414,7 @@
 
 	<!-- Final CTA -->
 	<section id="final-cta">
-		<div class="container" style="text-align: center;">
+		<div class="container u-center">
 			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Ready to get your website online?</h2>
 			<p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto 2rem;">
 				Tell us what you need and we'll take it from there.
@@ -485,12 +485,28 @@
 	<script src="/assets/main.js" defer></script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics stays off until the visitor accepts the cookie banner.
+		var granted = /(?:^|; )e11_consent=accepted/.test(document.cookie) ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: granted, ad_storage: granted, ad_user_data: granted, ad_personalization: granted });
 		gtag('js', new Date());
 		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
 	</script>
 </body>
 

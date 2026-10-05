@@ -243,7 +243,7 @@
 	<section class="hero">
 		<div class="hero-content container">
 			<img class="wi-mark" src="/assets/webinspect/icon-128.png" width="128" height="128" alt="" />
-			<div class="hero-eyebrow"><a href="/webinspect/" style="color: inherit;">WebInspect</a> / Try it</div>
+			<div class="hero-eyebrow"><a class="u-inherit" href="/webinspect/">WebInspect</a> / Try it</div>
 			<h1 class="hero-title">Test WebInspect <strong>right here.</strong></h1>
 			<p class="hero-tagline">Paste a link for a site report, or check a colour pair. Both run the extension's own
 				code in this page.</p>
@@ -264,8 +264,8 @@
 						<button class="btn btn-primary" type="submit" id="url-submit">Inspect</button>
 					</form>
 					<div class="try-result" id="url-result" hidden aria-live="polite"></div>
-					<p class="try-note">Pages are fetched through <a href="https://jina.ai/reader/" target="_blank"
-							rel="noopener" style="color: var(--accent-gold);">Jina Reader</a> and measured at phone
+					<p class="try-note">Pages are fetched through <a class="u-gold" href="https://jina.ai/reader/" target="_blank"
+							rel="noopener">Jina Reader</a> and measured at phone
 						width. Load speed needs the live page, so it is not scored here.</p>
 					<p class="try-more">The extension reads the page you have open, measures load speed, and highlights
 						each issue on the page itself. <a href="https://chromewebstore.google.com/detail/webinspect-by-elevven11/mpeiggffhbfefciphcnabijnmiajcljk?utm_source=elevven-web&amp;utm_medium=try&amp;utm_content=inspect"
@@ -316,7 +316,7 @@
 	</section>
 
 	<section id="final-cta" class="section-tinted">
-		<div class="container" style="text-align: center;">
+		<div class="container u-center">
 			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Get the full report</h2>
 			<p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem;">
 				One key on any site. Free, and nothing leaves your browser.
@@ -389,12 +389,28 @@
 	<script src="/assets/demos/webinspect-try.js" defer></script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics stays off until the visitor accepts the cookie banner.
+		var granted = /(?:^|; )e11_consent=accepted/.test(document.cookie) ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: granted, ad_storage: granted, ad_user_data: granted, ad_personalization: granted });
 		gtag('js', new Date());
 		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
 	</script>
 </body>
 

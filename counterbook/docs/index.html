@@ -243,7 +243,7 @@
 
 	<section class="hero" style="min-height: 40vh;">
 		<div class="hero-content container">
-			<div class="hero-eyebrow"><a href="/counterbook/" style="color: inherit;">Counterbook</a> / Docs</div>
+			<div class="hero-eyebrow"><a class="u-inherit" href="/counterbook/">Counterbook</a> / Docs</div>
 			<h1 class="hero-title">Docs and <strong>training.</strong></h1>
 			<p class="hero-tagline">Learn Counterbook, teach your staff and keep your data safe. Counterbook launches soon.</p>
 		</div>
@@ -263,7 +263,7 @@
 
 	<section id="guide">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">User Guide</div>
+			<div class="section-tag u-block-center">User Guide</div>
 			<h2 class="section-title">From first start to closing the day</h2>
 			<div class="doc-body">
 				<details class="faq-item">
@@ -334,7 +334,7 @@
 
 	<section id="training" class="section-tinted">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">Training Course</div>
+			<div class="section-tag u-block-center">Training Course</div>
 			<h2 class="section-title">Teach staff in the demo shop first</h2>
 			<p class="section-subtitle">Open the demo with PIN <code>1234</code> so mistakes cost nothing. Each module ends with a check, and the trainee moves on only when it passes. A cashier is ready for the till after about 80 minutes.</p>
 			<div class="doc-body">
@@ -392,7 +392,7 @@
 
 	<section id="backup">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">Backup and Recovery</div>
+			<div class="section-tag u-block-center">Backup and Recovery</div>
 			<h2 class="section-title">Do this on the day you start using real data</h2>
 			<div class="doc-body">
 				<details class="faq-item">
@@ -413,7 +413,7 @@
 
 	<section id="security" class="section-tinted">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">Security</div>
+			<div class="section-tag u-block-center">Security</div>
 			<h2 class="section-title">Protecting your data and your till</h2>
 			<p class="section-subtitle">Written for owners and managers.</p>
 			<div class="doc-body">
@@ -433,7 +433,7 @@
 
 	<section id="faq">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">Questions</div>
+			<div class="section-tag u-block-center">Questions</div>
 			<h2 class="section-title">Something went wrong or looks odd</h2>
 			<div class="doc-body">
 				<details class="faq-item">
@@ -499,14 +499,14 @@
 	<hr class="styled-hr" />
 
 	<section id="final-cta" class="section-tinted">
-		<div class="container" style="text-align: center;">
+		<div class="container u-center">
 			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Still stuck?</h2>
 			<p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem;">Make a backup first, then tell us what you did and what you saw.</p>
 			<div class="btn-group">
 				<a href="/contact/" class="btn btn-primary">Contact us</a>
 				<a href="/counterbook/" class="btn btn-secondary">Back to Counterbook</a>
 			</div>
-			<p style="margin-top: 1.5rem; font-size: 0.9rem;"><a href="/counterbook/privacy/" style="color: var(--accent-gold);">Privacy policy</a> &middot; <a href="/counterbook/terms/" style="color: var(--accent-gold);">Terms of use</a></p>
+			<p style="margin-top: 1.5rem; font-size: 0.9rem;"><a class="u-gold" href="/counterbook/privacy/">Privacy policy</a> &middot; <a class="u-gold" href="/counterbook/terms/">Terms of use</a></p>
 		</div>
 	</section>
 
@@ -568,12 +568,28 @@
 	<script src="/assets/main.js" defer></script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics stays off until the visitor accepts the cookie banner.
+		var granted = /(?:^|; )e11_consent=accepted/.test(document.cookie) ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: granted, ad_storage: granted, ad_user_data: granted, ad_personalization: granted });
 		gtag('js', new Date());
 		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
 	</script>
 </body>
 

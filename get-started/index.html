@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Get Started - Elevven11 Studio</title>
-	<meta name="description" content="Tell Elevven11 Studio what you need and we'll start your website. Send your details by WhatsApp or Google Form. Packages from NGN 50,000, one-time." />
+	<meta name="description" content="Tell Elevven11 Studio what you need and we'll start your website or mobile app. Websites from NGN 50,000, one-time. Apps are quoted per project." />
 	<link rel="canonical" href="https://elevven11studio.github.io/get-started/" />
 	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 	<meta name="theme-color" content="#0b0a10" />
@@ -143,7 +143,7 @@
 	     would mean losing them. -->
 	<section style="padding-bottom: 0;">
 		<div class="container" style="max-width: 760px;">
-			<div class="section-tag" style="display:block; text-align:center;">Two ways to reach us</div>
+			<div class="section-tag u-block-center">Two ways to reach us</div>
 			<h2 class="section-title" style="margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
 				Pick whichever suits you
 				<code id="request-form-link" hidden>https://elevven11studio.github.io/get-started/#request-form</code>
@@ -161,15 +161,15 @@
 
 			<div class="grid-2 choice-grid">
 				<div class="glass-card choice-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Use the form below</h3>
-					<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Fill it in and press Send request
+					<h3 class="u-gold u-mb-075">Use the form below</h3>
+					<p class="u-text-2 u-mb-15">Fill it in and press Send request
 						&mdash; it comes straight to us and there's nothing else to do. Prefer to talk on WhatsApp
 						instead? That's the arrow beside the button, and you keep a copy of the conversation.</p>
 					<a href="#request-form" class="btn btn-whatsapp" style="width: 100%;">Fill in the form below</a>
 				</div>
 				<div class="glass-card choice-card">
-					<h3 style="color: var(--accent-gold); margin-bottom: 0.75rem;">Use our Google Form</h3>
-					<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Don't use WhatsApp, or would rather
+					<h3 class="u-gold u-mb-075">Use our Google Form</h3>
+					<p class="u-text-2 u-mb-15">Don't use WhatsApp, or would rather
 						not share your number yet? Send the same details through our Google Form and we'll reply by
 						email.</p>
 					<a href="https://forms.gle/VggZeMopx6bf2dLW9" target="_blank" rel="noopener"
@@ -192,6 +192,12 @@
 				<form class="get-started-form">
 					<input type="hidden" id="referral-code" name="referral" />
 
+					<fieldset class="form-group type-switch">
+						<legend class="form-label">What are you building?</legend>
+						<label class="type-option"><input type="radio" name="projectType" value="website" checked /><span>Website</span></label>
+						<label class="type-option"><input type="radio" name="projectType" value="app" /><span>Mobile app</span></label>
+					</fieldset>
+
 					<div class="form-group">
 						<label class="form-label" for="gs-name">Your Name *</label>
 						<input class="form-input" id="gs-name" name="name" type="text" autocomplete="name"
@@ -201,7 +207,7 @@
 					<div class="form-group">
 						<label class="form-label" for="gs-business">Business / Person Name</label>
 						<input class="form-input" id="gs-business" name="business" type="text"
-							autocomplete="organization" placeholder="What should the website be named after?" />
+							autocomplete="organization" placeholder="Who is this for?" />
 					</div>
 
 					<div class="grid-2">
@@ -223,7 +229,7 @@
 							autocomplete="address-level2" placeholder="City, State" />
 					</div>
 
-					<div class="form-group">
+					<div class="form-group" data-for="website">
 						<label class="form-label" for="gs-package">Package *</label>
 						<select class="form-select" id="gs-package" name="package" required>
 							<option value="">Select a package</option>
@@ -237,7 +243,7 @@
 						</select>
 					</div>
 
-					<div class="form-group">
+					<div class="form-group" data-for="website">
 						<label class="form-label" for="gs-example-type">Which example style do you like? (optional)</label>
 						<select class="form-select" id="gs-example-type" name="exampleType">
 							<option value="">No preference / not sure</option>
@@ -256,16 +262,72 @@
 							<option value="Fitness / Gym Coach">Fitness / Gym Coach</option>
 							<option value="Logistics / Delivery">Logistics / Delivery</option>
 						</select>
-						<p class="form-hint">Browse the <a href="/examples/" style="color: var(--accent-gold);">examples gallery</a> for ideas.</p>
+						<p class="form-hint">Browse the <a class="u-gold" href="/examples/">examples gallery</a> for ideas.</p>
 					</div>
 
 					<div class="form-group">
-						<label class="form-label" for="gs-description">Tell us about your business/website</label>
+						<label class="form-label" for="gs-description" data-label-website="Tell us about your business/website" data-label-app="What should the app do?">Tell us about your business/website</label>
 						<textarea class="form-textarea" id="gs-description" name="description"
-							placeholder="What do you do? What should the website say about you?"></textarea>
+							placeholder="What do you do? What should the website say about you?"
+							data-placeholder-website="What do you do? What should the website say about you?"
+							data-placeholder-app="Who is it for, and what problem does it solve? A few sentences is enough."></textarea>
 					</div>
 
-					<div class="form-group">
+					<div data-for="app" hidden>
+						<div class="grid-2">
+							<div class="form-group">
+								<label class="form-label" for="gs-app-platform">Platforms</label>
+								<select class="form-select" id="gs-app-platform" name="appPlatform">
+									<option value="">Not sure yet</option>
+									<option value="Android and iOS">Android and iOS</option>
+									<option value="Android only">Android only</option>
+									<option value="iOS only">iOS only</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="form-label" for="gs-app-stage">Where are you now?</label>
+								<select class="form-select" id="gs-app-stage" name="appStage">
+									<option value="">Choose one</option>
+									<option value="Just an idea">Just an idea</option>
+									<option value="Have designs or wireframes">I have designs or wireframes</option>
+									<option value="Have a website to match">I have a website to match</option>
+									<option value="Existing app needs rework">An existing app needs rework</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<span class="form-label" id="gs-app-features-label">What does it need? (tick any)</span>
+							<div class="addon-list" role="group" aria-labelledby="gs-app-features-label">
+								<label class="addon-item"><input type="checkbox" name="appFeatures" value="Accounts and login" /><span class="addon-item-name">Accounts and login</span></label>
+								<label class="addon-item"><input type="checkbox" name="appFeatures" value="Payments" /><span class="addon-item-name">Payments</span></label>
+								<label class="addon-item"><input type="checkbox" name="appFeatures" value="Push notifications" /><span class="addon-item-name">Push notifications</span></label>
+								<label class="addon-item"><input type="checkbox" name="appFeatures" value="Admin dashboard" /><span class="addon-item-name">Admin dashboard</span></label>
+								<label class="addon-item"><input type="checkbox" name="appFeatures" value="Maps or location" /><span class="addon-item-name">Maps or location</span></label>
+								<label class="addon-item"><input type="checkbox" name="appFeatures" value="Chat or messaging" /><span class="addon-item-name">Chat or messaging</span></label>
+								<label class="addon-item"><input type="checkbox" name="appFeatures" value="Works offline" /><span class="addon-item-name">Works offline</span></label>
+							</div>
+						</div>
+
+						<div class="grid-2">
+							<div class="form-group">
+								<label class="form-label" for="gs-app-timeline">When do you need it?</label>
+								<select class="form-select" id="gs-app-timeline" name="appTimeline">
+									<option value="">Flexible</option>
+									<option value="As soon as possible">As soon as possible</option>
+									<option value="Within 1 to 3 months">Within 1 to 3 months</option>
+									<option value="3 months or later">3 months or later</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="form-label" for="gs-app-ref">Link to a similar app or your site (optional)</label>
+								<input class="form-input" id="gs-app-ref" name="appRef" type="text" placeholder="https://" />
+							</div>
+						</div>
+						<p class="form-hint">Apps are quoted per project. See <a class="u-gold" href="/app-development/">how app pricing works</a>.</p>
+					</div>
+
+					<div class="form-group" data-for="website">
 						<label class="form-label" for="gs-style-mood">Overall style (optional)</label>
 						<select class="form-select" id="gs-style-mood" name="styleMood">
 							<option value="">Not sure yet</option>
@@ -278,7 +340,7 @@
 						</select>
 					</div>
 
-					<div class="form-group">
+					<div class="form-group" data-for="website">
 						<label class="form-label">Preferred color palette (optional &mdash; pick one)</label>
 						<div class="color-chip-grid">
 							<button type="button" class="color-chip" data-color="Black &amp; Gold">
@@ -317,20 +379,20 @@
 						<input type="hidden" id="gs-colors" name="colors" />
 					</div>
 
-					<div class="form-group">
+					<div class="form-group" data-for="website">
 						<label class="form-label" for="gs-colors-notes">Anything else about colors/style? (optional)</label>
 						<input class="form-input" id="gs-colors-notes" name="colorsNotes" type="text"
 							placeholder="e.g. I like purple, or match my existing logo" />
 					</div>
 
-					<div class="form-group">
+					<div class="form-group" data-for="website">
 						<label class="addon-item">
 							<input type="checkbox" data-addon-toggle />
 							<span class="addon-item-name">Add optional extras? <span style="color: var(--text-muted); font-weight: 400;">(domain, QR code, Google Business Profile, and more)</span></span>
 						</label>
 					</div>
 
-					<div data-addon-panel hidden>
+					<div data-addon-panel data-for="website" hidden>
 						<div class="form-group">
 							<label class="form-label">Add-ons</label>
 							<div class="addon-list">
@@ -365,7 +427,7 @@
 									<span class="addon-item-price" data-ngn="15000">NGN 15,000</span>
 								</label>
 							</div>
-							<p class="form-hint">See the <a href="/pricing/" style="color: var(--accent-gold);">pricing page</a> for what each add-on includes.</p>
+							<p class="form-hint">See the <a class="u-gold" href="/pricing/">pricing page</a> for what each add-on includes.</p>
 						</div>
 
 						<div class="glass-card" data-order-summary style="background: var(--bg-secondary);">
@@ -385,7 +447,7 @@
 						<label style="display: flex; align-items: flex-start; gap: 0.6rem; cursor: pointer;">
 							<input type="checkbox" name="agreeTerms" required style="margin-top: 0.2rem;" />
 							<span class="form-hint" style="margin-top: 0;">I agree to the
-								<a href="/terms/" style="color: var(--accent-gold);">Elevven11 Studio Terms of Service</a>,
+								<a class="u-gold" href="/terms/">Elevven11 Studio Terms of Service</a>,
 								including pricing, payment, and the free update period.</span>
 						</label>
 					</div>
@@ -441,13 +503,13 @@
 
 			<p style="text-align:center; color: var(--text-muted); margin-top: 1.5rem; font-size: 0.9rem;">
 				Rather not use WhatsApp? Send the same details through our
-				<a href="https://forms.gle/VggZeMopx6bf2dLW9" target="_blank" rel="noopener"
+				<a class="u-gold" href="https://forms.gle/VggZeMopx6bf2dLW9" target="_blank" rel="noopener"
 					data-lead-channel="google-form-website-footer" data-form-prefill
 					data-form-base="https://docs.google.com/forms/d/e/1FAIpQLScd4YflwSDiVhnrz2cmARjF8Ppf4t-An_brrLlFKGNd3lxZtQ/viewform?usp=pp_url" data-form-ref-entry="entry.1389768165"
 					data-form-referred-entry="entry.609798369"
-					style="color: var(--accent-gold);">Google Form</a>,
+				>Google Form</a>,
 				or write to
-				<a href="mailto:elevven11studio@gmail.com" style="color: var(--accent-gold);">elevven11studio@gmail.com</a>.
+				<a class="u-gold" href="mailto:elevven11studio@gmail.com">elevven11studio@gmail.com</a>.
 			</p>
 		</div>
 	</section>
@@ -510,12 +572,28 @@
 	<script src="/assets/main.js" defer></script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics stays off until the visitor accepts the cookie banner.
+		var granted = /(?:^|; )e11_consent=accepted/.test(document.cookie) ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: granted, ad_storage: granted, ad_user_data: granted, ad_personalization: granted });
 		gtag('js', new Date());
 		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
 	</script>
 	<script>
 		// Pre-select package from ?package= query param (e.g. from the pricing page CTAs).

@@ -184,6 +184,29 @@
 	<script type="application/ld+json">
 	{
 	  "@context": "https://schema.org",
+	  "@type": "SoftwareApplication",
+	  "name": "SiteExtract by Elevven11",
+	  "applicationCategory": "DeveloperApplication",
+	  "operatingSystem": "Chrome 116 or later",
+	  "description": "Turn any web page into a clean, editable starter project: HTML, CSS, images, fonts and design tokens in one ZIP. A free Chrome extension that runs on your device.",
+	  "url": "https://elevven11studio.github.io/siteextract/",
+	  "installUrl": "https://chromewebstore.google.com/detail/siteextract-by-elevven11/napeljfpcmnpphenaajmjpblidjnghfb",
+	  "image": "https://elevven11studio.github.io/assets/siteextract/icon-128.png",
+	  "offers": {
+	    "@type": "Offer",
+	    "price": "0",
+	    "priceCurrency": "USD"
+	  },
+	  "publisher": {
+	    "@type": "Organization",
+	    "name": "Elevven11 Studio",
+	    "url": "https://elevven11studio.github.io/"
+	  }
+	}
+	</script>
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
 	  "@type": "BreadcrumbList",
 	  "name": "SiteExtract breadcrumb",
 	  "itemListElement": [
@@ -263,7 +286,7 @@
 	<section class="hero">
 		<div class="hero-content container">
 			<img class="se-mark" src="/assets/siteextract/icon-128.png" width="128" height="128" alt="" />
-			<div class="hero-eyebrow"><a href="/extensions/" style="color: inherit;">Extensions</a> / Chrome Extension</div>
+			<div class="hero-eyebrow"><a class="u-inherit" href="/extensions/">Extensions</a> / Chrome Extension</div>
 			<h1 class="hero-title">Any web page, as a <strong>starter project.</strong></h1>
 			<p class="hero-tagline">SiteExtract saves the page you are viewing as clean HTML, CSS, images, fonts and
 				design tokens, in one ZIP you can open and edit. Everything runs in your browser.</p>
@@ -279,7 +302,7 @@
 	<!-- What the ZIP holds -->
 	<section id="project">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">The Project</div>
+			<div class="section-tag u-block-center">The Project</div>
 			<h2 class="section-title">One ZIP, ready to open</h2>
 			<p class="section-subtitle">Every reference is rewritten to a local path, so <code>index.html</code>
 				opens straight from your disk. No build step.</p>
@@ -329,7 +352,7 @@
 	<!-- Modes -->
 	<section class="section-tinted">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">Two Modes</div>
+			<div class="section-tag u-block-center">Two Modes</div>
 			<h2 class="section-title">The page you see, or the page as written</h2>
 
 			<div class="grid-2" style="max-width: 900px; margin: 0 auto;">
@@ -352,7 +375,7 @@
 	<!-- How it works -->
 	<section>
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">How It Works</div>
+			<div class="section-tag u-block-center">How It Works</div>
 			<h2 class="section-title">Four steps, no setup</h2>
 
 			<div class="steps-list steps-list-4">
@@ -386,7 +409,7 @@
 	<!-- Honesty -->
 	<section class="section-tinted">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">Built To Be Honest</div>
+			<div class="section-tag u-block-center">Built To Be Honest</div>
 			<h2 class="section-title">It tells you what it missed</h2>
 
 			<div class="grid-2" style="max-width: 900px; margin: 0 auto;">
@@ -420,7 +443,7 @@
 	<!-- Privacy -->
 	<section>
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">Privacy</div>
+			<div class="section-tag u-block-center">Privacy</div>
 			<h2 class="section-title">There is nowhere to upload anything to</h2>
 			<p class="section-subtitle">SiteExtract has no servers, no account and no telemetry. The project is
 				built in your browser and saved only to your downloads.</p>
@@ -469,7 +492,7 @@
 	<!-- FAQ -->
 	<section class="section-tinted">
 		<div class="container">
-			<div class="section-tag" style="display:block; text-align:center;">FAQ</div>
+			<div class="section-tag u-block-center">FAQ</div>
 			<h2 class="section-title">Common questions</h2>
 
 			<div style="max-width: 760px; margin: 0 auto;">
@@ -505,7 +528,7 @@
 			</div>
 
 			<p class="section-subtitle" style="margin-top: 2.5rem;">Not answered here?
-				<a href="/extensions/support/" style="color: var(--accent-gold);">Extension support</a> has the
+				<a class="u-gold" href="/extensions/support/">Extension support</a> has the
 				troubleshooting, and what to include in a bug report.</p>
 		</div>
 	</section>
@@ -523,7 +546,7 @@
 	</section>
 
 	<section id="final-cta">
-		<div class="container" style="text-align: center;">
+		<div class="container u-center">
 			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Ready when you are</h2>
 			<p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem;">
 				It installs in a click and costs nothing. While you are here: we also build websites, and we
@@ -595,12 +618,28 @@
 	<script src="/assets/main.js" defer></script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics stays off until the visitor accepts the cookie banner.
+		var granted = /(?:^|; )e11_consent=accepted/.test(document.cookie) ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: granted, ad_storage: granted, ad_user_data: granted, ad_personalization: granted });
 		gtag('js', new Date());
 		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
 	</script>
 </body>
 
