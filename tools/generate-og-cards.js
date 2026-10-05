@@ -209,7 +209,7 @@ const PAGES = {
   'counterbook': { page: 'counterbook/index.html', alt: 'Counterbook, a free point of sale app by Elevven11 Studio',
     eyebrow: 'COUNTERBOOK / POINT OF SALE', accent: 'blue', lines: ['Run Your Shop', 'From One App.'],
     sub: 'Sales, stock, customers and cash. No account needed.',
-    pills: ['Works offline', 'Windows + Android', 'Free'] },
+    pills: ['Coming soon', 'Works offline', 'Windows + Android'] },
 
   'counterbook-docs': { page: 'counterbook/docs/index.html', alt: 'Counterbook docs and training',
     eyebrow: 'COUNTERBOOK / DOCS', accent: 'blue', lines: ['Learn Counterbook.', 'Train Your Staff.'],

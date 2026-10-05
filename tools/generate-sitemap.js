@@ -52,6 +52,8 @@ const PAGES = [
   ['/support/',              'yearly',   0.3],
   ['/counterbook/',          'monthly',  0.8],
   ['/counterbook/docs/',     'monthly',  0.7],
+  ['/counterbook/privacy/',  'yearly',   0.4],
+  ['/counterbook/terms/',    'yearly',   0.4],
   ['/extensions/',           'monthly',  0.8],
   ['/extensions/support/',   'monthly',  0.6],
   ['/shopinspect/',          'monthly',  0.7],
