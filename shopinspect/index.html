@@ -39,8 +39,11 @@
 	     instead of waiting for style.css to download and parse first. -->
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" />
+	<link rel="preconnect" href="https://ipwho.is" />
+	<link rel="preconnect" href="https://open.er-api.com" />
+	<!-- Font CSS loads without blocking first paint; the fallback face in style.css is sized to match. -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'" />
+	<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" /></noscript>
 	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
 
 	<style>
@@ -586,9 +589,9 @@
 		<div class="container">
 			<h2 style="font-size: 1.6rem; margin-bottom: 1.25rem; text-align: center;">More free extensions</h2>
 			<div class="grid-3">
-				<a class="more-ext-card" href="/webinspect/"><img src="/assets/webinspect/icon-128.png" width="128" height="128" alt="" /><div><strong>WebInspect</strong><span>Understand any website at a glance.</span></div></a>
-				<a class="more-ext-card" href="/webguard/"><img src="/assets/webguard/icon-128.png" width="128" height="128" alt="" /><div><strong>WebGuard</strong><span>Spot the fake before you type.</span></div></a>
-				<a class="more-ext-card" href="/siteextract/"><img src="/assets/siteextract/icon-128.png" width="128" height="128" alt="" /><div><strong>SiteExtract</strong><span>Turn a page into an editable starter project.</span></div></a>
+				<a class="more-ext-card" href="/webinspect/"><img src="/assets/webinspect/icon-112.png" width="112" height="112" alt="" /><div><strong>WebInspect</strong><span>Understand any website at a glance.</span></div></a>
+				<a class="more-ext-card" href="/webguard/"><img src="/assets/webguard/icon-112.png" width="112" height="112" alt="" /><div><strong>WebGuard</strong><span>Spot the fake before you type.</span></div></a>
+				<a class="more-ext-card" href="/siteextract/"><img src="/assets/siteextract/icon-112.png" width="112" height="112" alt="" /><div><strong>SiteExtract</strong><span>Turn a page into an editable starter project.</span></div></a>
 			</div>
 		</div>
 	</section>

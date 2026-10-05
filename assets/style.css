@@ -454,12 +454,10 @@ header.scrolled {
   cursor: pointer;
   transition: var(--transition-normal);
   border: none;
-  outline: none;
 }
 
-/* The outline:none above drops the default focus ring for every .btn
-   sitewide (primary/secondary/whatsapp CTAs) - replace it rather than just
-   removing it, so keyboard users still see where focus is. */
+/* Keyboard focus ring for every .btn (primary/secondary/whatsapp CTAs). The
+   browser default is not removed, so there is no state without a ring. */
 .btn:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
@@ -711,7 +709,7 @@ body:has(.cookie-banner) .fab { bottom: 84px; }
 .example-card img { display: block; width: 100%; height: auto; aspect-ratio: 800 / 420; object-fit: cover; }
 .example-card span { display: block; padding: 0.8rem 1rem; font-weight: 600; font-size: 0.95rem; }
 .example-strip .strip-link { text-align: center; margin-top: 1.5rem; }
-.example-strip .strip-link a { color: var(--accent-gold); font-weight: 600; }
+.example-strip .strip-link a { display: inline-block; padding: 0.65rem 0.5rem; color: var(--accent-gold); font-weight: 600; }
 
 /* Extension pages: other extensions */
 .more-ext .grid-3 { gap: 1.25rem; }

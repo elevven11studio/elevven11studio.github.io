@@ -31,8 +31,11 @@
 
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" />
+	<link rel="preconnect" href="https://ipwho.is" />
+	<link rel="preconnect" href="https://open.er-api.com" />
+	<!-- Font CSS loads without blocking first paint; the fallback face in style.css is sized to match. -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'" />
+	<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" /></noscript>
 	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
 
 	<style>
