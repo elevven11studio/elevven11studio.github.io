@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="light dark">
+<title>Your receipt</title>
+<style>
+  /* Same tokens as the studio site, inlined because the CSP blocks outside styles. */
+  :root { --bg:#0b0a10; --card:#131019; --card2:#1c1826; --ink:#f7f3ec; --muted:#a79f95; --line:rgba(247,243,236,.14); --accent:#60a5fa; --accent2:#3b82f6; --accent-rgb:96,165,250; --on-accent:#0b0a10; --warn:#fbbf24; --dot:rgba(247,243,236,.07); --shadow:0 8px 32px rgba(0,0,0,.37); }
+  :root[data-theme="light"] { --bg:#f7f3ec; --card:#ffffff; --card2:#efe9dd; --ink:#1a1625; --muted:#5e564c; --line:rgba(26,22,37,.16); --accent:#1d4ed8; --accent2:#1e40af; --accent-rgb:29,78,216; --on-accent:#ffffff; --warn:#b45309; --dot:rgba(26,22,37,.07); --shadow:0 8px 28px rgba(26,22,37,.12); }
+  * { box-sizing: border-box; }
+  body { margin:0; min-height:100vh; display:flex; flex-direction:column; background:var(--bg); background-image:radial-gradient(circle, var(--dot) 1.5px, transparent 1.5px), radial-gradient(ellipse at 8% 0%, rgba(var(--accent-rgb),.14), transparent 55%); background-size:28px 28px, auto; color:var(--ink); font:16px/1.5 "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { padding:18px 16px; }
+  .bar { max-width:440px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+  .logo { font-weight:800; letter-spacing:.18em; font-size:14px; color:var(--ink); text-decoration:none; }
+  .pill { font-size:12.5px; font-weight:600; padding:3px 12px; border-radius:999px; color:var(--accent); background:rgba(var(--accent-rgb),.1); border:1px solid rgba(var(--accent-rgb),.3); }
+  main { flex:1; width:100%; max-width:440px; margin:0 auto; padding:8px 16px 40px; }
+  .paper { background:linear-gradient(145deg, var(--card), var(--card2)); border:1px solid var(--line); border-radius:16px; padding:24px 20px; box-shadow:var(--shadow); }
+  h1 { font-size:22px; margin:0; text-align:center; font-weight:700; }
+  .sub { text-align:center; color:var(--muted); font-size:14px; margin-top:4px; }
+  .meta { display:flex; justify-content:space-between; gap:12px; margin:16px 0 4px; font-size:13.5px; color:var(--muted); }
+  .meta b { color:var(--ink); }
+  hr { border:0; border-top:1px dashed var(--line); margin:14px 0; }
+  .item { display:flex; justify-content:space-between; gap:12px; padding:5px 0; }
+  .item .name { min-width:0; }
+  .item .calc { color:var(--muted); font-size:13px; }
+  .num { font-variant-numeric: tabular-nums; white-space:nowrap; text-align:right; }
+  .row { display:flex; justify-content:space-between; gap:12px; padding:3px 0; }
+  .row.total { font-size:20px; font-weight:700; padding-top:10px; color:var(--accent); }
+  .tag { display:inline-block; margin:10px auto 0; padding:2px 10px; border-radius:999px; border:1px solid var(--warn); color:var(--warn); font-size:12.5px; font-weight:600; }
+  .center { text-align:center; }
+  .foot { margin-top:14px; text-align:center; color:var(--muted); font-size:13.5px; }
+  .actions { display:flex; gap:10px; margin-top:16px; }
+  button { flex:1; padding:13px 16px; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--ink); font-weight:700; font-size:15px; font-family:inherit; cursor:pointer; }
+  button.primary { background:linear-gradient(135deg, var(--accent), var(--accent2)); border-color:transparent; color:var(--on-accent); }
+  button:focus-visible, a:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  .note { margin-top:22px; text-align:center; color:var(--muted); font-size:13px; }
+  a { color:var(--accent); }
+  footer { padding:18px 16px 26px; text-align:center; color:var(--muted); font-size:12.5px; }
+  @media print { body { background:#fff; color:#000; } header, footer, .actions, .note { display:none; } .paper { background:#fff; box-shadow:none; border:0; } .row.total { color:#000; } .item .calc, .sub, .meta, .foot { color:#444; } }
+</style>
+<script>try{if(localStorage.getItem('e11-theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="logo" href="https://elevven11studio.github.io/">ELEVVEN11 STUDIO</a>
+    <span class="pill">Receipt</span>
+  </div>
+</header>
+<main>
+  <div class="paper" id="paper" aria-live="polite">Opening your receipt…</div>
+  <div class="actions" id="actions" hidden>
+    <button class="primary" id="print" type="button">Print or save as PDF</button>
+  </div>
+  <p class="note">Read in your browser from the code on the receipt. Nothing is stored online.<br>
+    Made with <a href="https://elevven11studio.github.io/counterbook/">Counterbook</a>, a free till for small shops.</p>
+</main>
+<footer>&copy; 2026 Elevven11 Studio</footer>
+<script>
+(function () {
+  var paper = document.getElementById('paper');
+  var actions = document.getElementById('actions');
+  document.getElementById('print').addEventListener('click', function () { window.print(); });
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text !== undefined && text !== null) e.textContent = text;
+    return e;
+  }
+  function clear() { while (paper.firstChild) paper.removeChild(paper.firstChild); }
+  function message(title, body) {
+    clear();
+    paper.appendChild(el('h1', null, title));
+    if (body) paper.appendChild(el('p', 'sub', body));
+  }
+
+  async function inflate(b64url) {
+    var b64 = b64url.replace(/-/g, '+').replace(/_/g, '/');
+    while (b64.length % 4) b64 += '=';
+    var bin = atob(b64);
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    var stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
+    return JSON.parse(await new Response(stream).text());
+  }
+
+  function render(r) {
+    var d = typeof r.d === 'number' ? r.d : 2;
+    var sym = typeof r.s === 'string' ? r.s : '';
+    function money(n) {
+      var v = (Number(n) || 0) / Math.pow(10, d);
+      return (v < 0 ? '-' : '') + sym + Math.abs(v).toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d });
+    }
+    function qty(q) { return String(Math.round((Number(q) || 0)) / 1000); }
+    function row(label, value, cls) {
+      var e = el('div', 'row' + (cls ? ' ' + cls : ''));
+      e.appendChild(el('span', null, label));
+      e.appendChild(el('span', 'num', value));
+      return e;
+    }
+
+    clear();
+    paper.appendChild(el('h1', null, String(r.b || 'Receipt')));
+    if (r.p) paper.appendChild(el('div', 'sub', String(r.p)));
+
+    var meta = el('div', 'meta');
+    var left = el('span'); left.appendChild(document.createTextNode('Receipt ')); left.appendChild(el('b', null, String(r.n || '')));
+    meta.appendChild(left);
+    if (r.t) meta.appendChild(el('span', null, new Date(Number(r.t) * 1000).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })));
+    paper.appendChild(meta);
+
+    if (r.st && r.st !== 'completed') {
+      var words = { voided: 'Voided', refunded: 'Refunded', partiallyRefunded: 'Part refunded' };
+      var c = el('div', 'center'); c.appendChild(el('span', 'tag', words[r.st] || String(r.st)));
+      paper.appendChild(c);
+    }
+    paper.appendChild(el('hr'));
+
+    if (Array.isArray(r.it)) {
+      r.it.forEach(function (i) {
+        var line = el('div', 'item');
+        var name = el('div', 'name');
+        name.appendChild(el('div', null, String(i[0])));
+        name.appendChild(el('div', 'calc', qty(i[1]) + ' x ' + money(i[2])));
+        line.appendChild(name);
+        line.appendChild(el('div', 'num', money(i[3])));
+        paper.appendChild(line);
+      });
+      paper.appendChild(el('hr'));
+    }
+    if (r.sub !== undefined) paper.appendChild(row('Subtotal', money(r.sub)));
+    if (r.dis) paper.appendChild(row('Discount', '-' + money(r.dis)));
+    if (r.tax) paper.appendChild(row('Tax', money(r.tax)));
+    if (r.shp) paper.appendChild(row('Shipping', money(r.shp)));
+    if (r.rnd) paper.appendChild(row('Rounding', money(r.rnd)));
+    paper.appendChild(row('Total', money(r.tot), 'total'));
+    (r.pay || []).forEach(function (p) { paper.appendChild(row(String(p[0]), money(p[1]))); });
+    if (r.chg) paper.appendChild(row('Change', money(r.chg)));
+    if (!Array.isArray(r.it)) paper.appendChild(el('p', 'foot', 'The items on this sale are too many to fit in the code. Ask the shop for the full list.'));
+    if (r.f) paper.appendChild(el('div', 'foot', String(r.f)));
+    actions.hidden = false;
+    document.title = 'Receipt ' + (r.n || '') + (r.b ? ' · ' + r.b : '');
+  }
+
+  async function open() {
+    var hash = location.hash.slice(1);
+    if (!hash) return message('Scan a receipt', 'Open this page by scanning the code printed on a Counterbook receipt.');
+    var cut = hash.indexOf('~');
+    if (cut < 0) return message('This receipt is kept at the shop', 'The code only holds a reference. Ask the shop to find it and quote: ' + hash.slice(0, 40));
+    if (typeof DecompressionStream === 'undefined') return message('Please update your browser', 'This browser cannot open the receipt. Try a recent Chrome, Safari, Firefox or Edge.');
+    try {
+      render(await inflate(hash.slice(cut + 1)));
+    } catch (e) {
+      message('This code could not be read', 'It may be cut short or damaged. Try scanning the receipt again.');
+    }
+  }
+  open();
+  window.addEventListener('hashchange', open);
+})();
+</script>
+</body>
+</html>
