@@ -2,64 +2,151 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
-<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#0b0a10">
 <title>Your receipt</title>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="/assets/style.css">
 <style>
-  /* Same tokens as the studio site, inlined because the CSP blocks outside styles. */
-  :root { --bg:#0b0a10; --card:#131019; --card2:#1c1826; --ink:#f7f3ec; --muted:#a79f95; --line:rgba(247,243,236,.14); --accent:#60a5fa; --accent2:#3b82f6; --accent-rgb:96,165,250; --on-accent:#0b0a10; --warn:#fbbf24; --dot:rgba(247,243,236,.07); --shadow:0 8px 32px rgba(0,0,0,.37); }
-  :root[data-theme="light"] { --bg:#f7f3ec; --card:#ffffff; --card2:#efe9dd; --ink:#1a1625; --muted:#5e564c; --line:rgba(26,22,37,.16); --accent:#1d4ed8; --accent2:#1e40af; --accent-rgb:29,78,216; --on-accent:#ffffff; --warn:#b45309; --dot:rgba(26,22,37,.07); --shadow:0 8px 28px rgba(26,22,37,.12); }
-  * { box-sizing: border-box; }
-  body { margin:0; min-height:100vh; display:flex; flex-direction:column; background:var(--bg); background-image:radial-gradient(circle, var(--dot) 1.5px, transparent 1.5px), radial-gradient(ellipse at 8% 0%, rgba(var(--accent-rgb),.14), transparent 55%); background-size:28px 28px, auto; color:var(--ink); font:16px/1.5 "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  header { padding:18px 16px; }
-  .bar { max-width:440px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
-  .logo { font-weight:800; letter-spacing:.18em; font-size:14px; color:var(--ink); text-decoration:none; }
-  .pill { font-size:12.5px; font-weight:600; padding:3px 12px; border-radius:999px; color:var(--accent); background:rgba(var(--accent-rgb),.1); border:1px solid rgba(var(--accent-rgb),.3); }
-  main { flex:1; width:100%; max-width:440px; margin:0 auto; padding:8px 16px 40px; }
-  .paper { background:linear-gradient(145deg, var(--card), var(--card2)); border:1px solid var(--line); border-radius:16px; padding:24px 20px; box-shadow:var(--shadow); }
-  h1 { font-size:22px; margin:0; text-align:center; font-weight:700; }
-  .sub { text-align:center; color:var(--muted); font-size:14px; margin-top:4px; }
-  .meta { display:flex; justify-content:space-between; gap:12px; margin:16px 0 4px; font-size:13.5px; color:var(--muted); }
-  .meta b { color:var(--ink); }
-  hr { border:0; border-top:1px dashed var(--line); margin:14px 0; }
-  .item { display:flex; justify-content:space-between; gap:12px; padding:5px 0; }
-  .item .name { min-width:0; }
-  .item .calc { color:var(--muted); font-size:13px; }
-  .num { font-variant-numeric: tabular-nums; white-space:nowrap; text-align:right; }
-  .row { display:flex; justify-content:space-between; gap:12px; padding:3px 0; }
-  .row.total { font-size:20px; font-weight:700; padding-top:10px; color:var(--accent); }
-  .tag { display:inline-block; margin:10px auto 0; padding:2px 10px; border-radius:999px; border:1px solid var(--warn); color:var(--warn); font-size:12.5px; font-weight:600; }
+  /* Counterbook blue, as on the product page. */
+  :root { --accent-gold:#60a5fa; --accent-orange:#3b82f6; --accent-rgb:96,165,250; }
+  :root[data-theme="light"] { --accent-gold:#1d4ed8; --accent-orange:#1e40af; --glow-gold:0 0 15px rgba(29,78,216,.22); }
+  .rc-wrap { max-width:460px; margin:0 auto; padding:3rem 1rem 4rem; }
+  .paper { position:relative; padding:1.75rem 1.5rem; border:1px solid var(--hairline); border-radius:16px; background:var(--gradient-card); box-shadow:var(--shadow-main); }
+  .paper h1 { font-size:1.6rem; line-height:1.2; margin:0; text-align:center; word-break:break-word; }
+  .paper .sub { text-align:center; color:var(--text-secondary); font-size:.95rem; margin-top:.25rem; }
+  .meta { display:flex; justify-content:space-between; gap:12px; margin:1.25rem 0 0; padding:.7rem 0; border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline); font-size:.88rem; color:var(--text-secondary); }
+  .meta b { color:var(--text-primary); }
+  .paper hr { border:0; border-top:1px dashed var(--hairline); margin:1rem 0; }
+  .item { display:flex; justify-content:space-between; gap:14px; padding:.4rem 0; }
+  .item .name { min-width:0; font-weight:600; word-break:break-word; }
+  .item .calc { color:var(--text-secondary); font-size:.85rem; font-weight:400; }
+  .num { font-variant-numeric:tabular-nums; white-space:nowrap; text-align:right; }
+  .row { display:flex; justify-content:space-between; gap:12px; padding:.2rem 0; color:var(--text-secondary); }
+  .row .num { color:var(--text-primary); }
+  .row.total { margin:.7rem 0 .25rem; padding:.9rem 0; border-top:2px solid var(--text-primary); border-bottom:1px solid var(--hairline); color:var(--text-primary); font-size:1.4rem; font-weight:800; }
+  .row.total .num { color:var(--accent-gold); }
+  .tag { display:inline-block; margin:.75rem auto 0; padding:.15rem .8rem; border-radius:999px; border:1px solid var(--accent-champagne); color:var(--accent-champagne); font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
   .center { text-align:center; }
-  .foot { margin-top:14px; text-align:center; color:var(--muted); font-size:13.5px; }
-  .actions { display:flex; gap:10px; margin-top:16px; }
-  button { flex:1; padding:13px 16px; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--ink); font-weight:700; font-size:15px; font-family:inherit; cursor:pointer; }
-  button.primary { background:linear-gradient(135deg, var(--accent), var(--accent2)); border-color:transparent; color:var(--on-accent); }
-  button:focus-visible, a:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
-  .note { margin-top:22px; text-align:center; color:var(--muted); font-size:13px; }
-  a { color:var(--accent); }
-  footer { padding:18px 16px 26px; text-align:center; color:var(--muted); font-size:12.5px; }
-  @media print { body { background:#fff; color:#000; } header, footer, .actions, .note { display:none; } .paper { background:#fff; box-shadow:none; border:0; } .row.total { color:#000; } .item .calc, .sub, .meta, .foot { color:#444; } }
+  .foot { margin-top:1.1rem; text-align:center; color:var(--text-secondary); font-size:.92rem; }
+  .actions { margin-top:1.5rem; }
+  .actions .btn { width:100%; }
+  .note { margin:1.5rem 0 0; text-align:center; color:var(--text-muted); font-size:.82rem; }
+  @media print {
+    header, footer, .actions, .note { display:none !important; }
+    body { background:#fff !important; color:#000 !important; }
+    .rc-wrap { padding:0; } .paper { background:#fff; border:0; box-shadow:none; padding:0; }
+    .paper * { color:#000 !important; }
+  }
 </style>
 <script>try{if(localStorage.getItem('e11-theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
 </head>
 <body>
+
 <header>
-  <div class="bar">
-    <a class="logo" href="https://elevven11studio.github.io/">ELEVVEN11 STUDIO</a>
-    <span class="pill">Receipt</span>
+		<div class="container navbar">
+			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+			<ul class="nav-links">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/app-development/">Apps</a></li>
+				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
+				<li class="nav-item"><a href="/examples/">Examples</a></li>
+				<li class="nav-item"><a href="/agents/">Agents</a></li>
+				<li class="nav-item"><a href="/faq/">FAQ</a></li>
+				<li class="nav-item"><a href="/contact/">Contact</a></li>
+				<li class="nav-item"><a class="nav-cta" href="/get-started/">Get Your Website</a></li>
+			</ul>
+			<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+				<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+				<svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>
+			</button>
+			<div class="hamburger"><span></span><span></span><span></span></div>
+		</div>
+	</header>
+
+<main id="main">
+  <div class="rc-wrap">
+    <div class="paper" id="paper" aria-live="polite">Opening your receipt…</div>
+    <div class="actions" id="actions" hidden>
+      <button class="btn btn-primary" id="print" type="button">Print or save as PDF</button>
+    </div>
+    <p class="note">Read in your browser from the code on the receipt. Nothing is stored online.</p>
   </div>
-</header>
-<main>
-  <div class="paper" id="paper" aria-live="polite">Opening your receipt…</div>
-  <div class="actions" id="actions" hidden>
-    <button class="primary" id="print" type="button">Print or save as PDF</button>
-  </div>
-  <p class="note">Read in your browser from the code on the receipt. Nothing is stored online.<br>
-    Made with <a href="https://elevven11studio.github.io/counterbook/">Counterbook</a>, a free till for small shops.</p>
 </main>
-<footer>&copy; 2026 Elevven11 Studio</footer>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo">ELEVVEN11 STUDIO</a>
+        <p>Websites, apps and free browser tools.</p>
+        <a href="https://wa.me/2349120925909" target="_blank" rel="noopener">Chat on WhatsApp</a>
+        <div class="footer-social">
+				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
+				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+				<a href="https://www.instagram.com/elevven11studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+				<a href="https://www.facebook.com/share/g/1833ddCnFg/" target="_blank" rel="noopener" aria-label="Join the Elevven11 Studio community on Facebook"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></a>
+			</div>
+      </div>
+      <nav class="footer-col" aria-label="Counterbook">
+        <h2>Counterbook</h2>
+        <ul>
+          <li><a href="/counterbook/">About</a></li>
+          <li><a href="/counterbook/docs/">Docs and training</a></li>
+          <li><a href="/contact/?topic=counterbook-help#message-us">Get help</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Company">
+        <h2>Company</h2>
+        <ul>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/terms/">Terms</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Navigation and theme only. The site script is left out on purpose: it
+  // carries analytics, a cookie banner and a location lookup, none of which
+  // belong on a page whose address holds a customer's receipt.
+  var root = document.documentElement, KEY = 'e11-theme';
+  var cur = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  function label() {
+    document.querySelectorAll('.theme-toggle').forEach(function (b) {
+      b.setAttribute('aria-label', cur === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
+    });
+  }
+  label();
+  document.querySelectorAll('.theme-toggle').forEach(function (b) {
+    b.addEventListener('click', function () {
+      cur = cur === 'light' ? 'dark' : 'light';
+      if (cur === 'light') root.setAttribute('data-theme', 'light'); else root.removeAttribute('data-theme');
+      label();
+      try { localStorage.setItem(KEY, cur); } catch (e) { /* private mode */ }
+    });
+  });
+  var h = document.querySelector('header'), burger = document.querySelector('.hamburger'), links = document.querySelector('.nav-links');
+  window.addEventListener('scroll', function () { h.classList.toggle('scrolled', window.scrollY > 50); });
+  if (burger && links) {
+    burger.addEventListener('click', function () { links.classList.toggle('active'); burger.classList.toggle('active'); });
+    links.addEventListener('click', function (e) { if (e.target.tagName === 'A') { links.classList.remove('active'); burger.classList.remove('active'); } });
+  }
+})();
+</script>
 <script>
 (function () {
   var paper = document.getElementById('paper');
