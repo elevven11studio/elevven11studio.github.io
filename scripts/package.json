@@ -17,6 +17,7 @@
     "carousels": "node generate-carousels.js",
     "enhance-demos": "node enhance-demos.js",
     "sitemap": "node generate-sitemap.js",
+    "store-files": "node generate-store-files.js",
     "demos": "node build-demos.js"
   },
   "dependencies": {

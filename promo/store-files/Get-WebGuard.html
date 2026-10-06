@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WebGuard by Elevven11 Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap">
+<style>
+:root{color-scheme:dark;--bg:#0b0a10;--bg2:#131019;--text:#f7f3ec;--muted:#a79f95;--line:rgba(247,243,236,.1);--dots:rgba(247,243,236,.09);--accent:#86efac;--accent2:#22c55e;--rgb:134,239,172;--on:#0b0a10;--card:linear-gradient(145deg,rgba(19,16,25,.8),rgba(28,24,38,.5));--shadow:0 8px 32px rgba(0,0,0,.37);--link:var(--accent)}
+@media (prefers-color-scheme:light){:root{color-scheme:light;--bg:#f4f1ea;--bg2:#eae6db;--text:#14121a;--muted:#5d564b;--line:rgba(20,18,26,.12);--dots:rgba(20,18,26,.07);--card:linear-gradient(145deg,rgba(255,255,255,.85),rgba(234,230,219,.6));--shadow:0 8px 32px rgba(20,18,26,.1);--link:#14121a}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 20px;background:var(--bg);background-image:radial-gradient(var(--dots) 1.5px,transparent 1.5px);background-size:28px 28px;color:var(--text);font:16px/1.6 Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{width:100%;max-width:560px}
+.brand{display:block;text-align:center;margin:8px 0 28px;font-size:1.25rem;font-weight:800;letter-spacing:.5px;text-decoration:none;background:linear-gradient(135deg,#86efac,#22c55e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px;box-shadow:var(--shadow);overflow:hidden}
+.card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.card+.card{margin-top:20px}
+.tag{display:inline-block;margin-bottom:16px;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--link)}
+.row{display:flex;gap:16px;align-items:center;margin-bottom:12px}
+img{width:64px;height:64px;flex-shrink:0;border-radius:14px}
+h1,h2{font-weight:800;line-height:1.2}
+h1{font-size:1.9rem}
+h2{font-size:1.4rem}
+p{color:var(--muted)}
+.lead{margin:0 0 24px}
+.btn{display:inline-block;padding:14px 28px;border-radius:30px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--on);font-weight:700;text-decoration:none;box-shadow:0 0 15px rgba(var(--rgb),.35);transition:transform .2s ease,box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 25px rgba(var(--rgb),.6)}
+a:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+.meta{margin-top:20px;font-size:.9rem;color:var(--muted)}
+.meta a{color:var(--text);text-decoration-color:rgba(var(--rgb),.7);text-underline-offset:3px}
+.foot{margin-top:28px;text-align:center;font-size:.85rem;color:var(--muted)}
+.foot a{color:var(--text)}
+@media (max-width:480px){.card{padding:24px}h1{font-size:1.6rem}.btn{display:block;text-align:center}}
+</style>
+</head>
+<body style="--accent:#38bdf8;--accent2:#0ea5e9;--rgb:56, 189, 248;">
+<div class="wrap">
+<a class="brand" href="https://elevven11studio.github.io/">ELEVVEN11 STUDIO</a>
+<main class="card">
+<span class="tag">Chrome extension</span>
+<div class="row"><img src="data:image/png;base64,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" alt="" width="64" height="64"><h1>WebGuard</h1></div>
+<p class="lead">Spot the fake before you type. Checks the page you are on for the signs of phishing and warns you before you share sensitive details.</p>
+<a class="btn" href="https://chromewebstore.google.com/detail/webguard-by-elevven11/hgckccgcmbclkjhdccnphbpbljlcdimd?utm_source=anvilstore">Add to Chrome</a>
+<p class="meta"><a href="https://elevven11studio.github.io/webguard/">Learn more</a> &nbsp;·&nbsp; <a href="https://elevven11studio.github.io/webguard/privacy/">Privacy</a></p>
+</main>
+<p class="foot">Free. Works in Chrome, Edge, Brave and Opera.</p>
+</div>
+</body>
+</html>

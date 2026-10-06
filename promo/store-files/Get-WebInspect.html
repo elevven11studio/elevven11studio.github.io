@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WebInspect by Elevven11 Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap">
+<style>
+:root{color-scheme:dark;--bg:#0b0a10;--bg2:#131019;--text:#f7f3ec;--muted:#a79f95;--line:rgba(247,243,236,.1);--dots:rgba(247,243,236,.09);--accent:#86efac;--accent2:#22c55e;--rgb:134,239,172;--on:#0b0a10;--card:linear-gradient(145deg,rgba(19,16,25,.8),rgba(28,24,38,.5));--shadow:0 8px 32px rgba(0,0,0,.37);--link:var(--accent)}
+@media (prefers-color-scheme:light){:root{color-scheme:light;--bg:#f4f1ea;--bg2:#eae6db;--text:#14121a;--muted:#5d564b;--line:rgba(20,18,26,.12);--dots:rgba(20,18,26,.07);--card:linear-gradient(145deg,rgba(255,255,255,.85),rgba(234,230,219,.6));--shadow:0 8px 32px rgba(20,18,26,.1);--link:#14121a}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 20px;background:var(--bg);background-image:radial-gradient(var(--dots) 1.5px,transparent 1.5px);background-size:28px 28px;color:var(--text);font:16px/1.6 Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{width:100%;max-width:560px}
+.brand{display:block;text-align:center;margin:8px 0 28px;font-size:1.25rem;font-weight:800;letter-spacing:.5px;text-decoration:none;background:linear-gradient(135deg,#86efac,#22c55e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px;box-shadow:var(--shadow);overflow:hidden}
+.card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.card+.card{margin-top:20px}
+.tag{display:inline-block;margin-bottom:16px;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--link)}
+.row{display:flex;gap:16px;align-items:center;margin-bottom:12px}
+img{width:64px;height:64px;flex-shrink:0;border-radius:14px}
+h1,h2{font-weight:800;line-height:1.2}
+h1{font-size:1.9rem}
+h2{font-size:1.4rem}
+p{color:var(--muted)}
+.lead{margin:0 0 24px}
+.btn{display:inline-block;padding:14px 28px;border-radius:30px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--on);font-weight:700;text-decoration:none;box-shadow:0 0 15px rgba(var(--rgb),.35);transition:transform .2s ease,box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 25px rgba(var(--rgb),.6)}
+a:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+.meta{margin-top:20px;font-size:.9rem;color:var(--muted)}
+.meta a{color:var(--text);text-decoration-color:rgba(var(--rgb),.7);text-underline-offset:3px}
+.foot{margin-top:28px;text-align:center;font-size:.85rem;color:var(--muted)}
+.foot a{color:var(--text)}
+@media (max-width:480px){.card{padding:24px}h1{font-size:1.6rem}.btn{display:block;text-align:center}}
+</style>
+</head>
+<body style="--accent:#a78bfa;--accent2:#8b5cf6;--rgb:167, 139, 250;">
+<div class="wrap">
+<a class="brand" href="https://elevven11studio.github.io/">ELEVVEN11 STUDIO</a>
+<main class="card">
+<span class="tag">Chrome extension</span>
+<div class="row"><img src="data:image/png;base64,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" alt="" width="64" height="64"><h1>WebInspect</h1></div>
+<p class="lead">Understand any website at a glance. Technology, SEO, accessibility, performance, mobile readiness and security, all checked in your browser.</p>
+<a class="btn" href="https://chromewebstore.google.com/detail/webinspect-by-elevven11/mpeiggffhbfefciphcnabijnmiajcljk?utm_source=anvilstore">Add to Chrome</a>
+<p class="meta"><a href="https://elevven11studio.github.io/webinspect/">Learn more</a> &nbsp;·&nbsp; <a href="https://elevven11studio.github.io/webinspect/privacy/">Privacy</a></p>
+</main>
+<p class="foot">Free. Works in Chrome, Edge, Brave and Opera.</p>
+</div>
+</body>
+</html>
