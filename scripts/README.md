@@ -4,13 +4,13 @@ Scripts that rebuild the site's generated images. Nothing here is deployed — i
 only writes files into `assets/`, `branding/` and `promo/`.
 
 "Not deployed" is enforced, not just intended: the Pages workflow excludes
-`tools/` from the published artifact. See the Deployment section of the root
+`scripts/` from the published artifact. See the Deployment section of the root
 [README](../README.md).
 
 ## Setup
 
 ```bash
-cd tools
+cd scripts
 npm install
 ```
 
@@ -35,6 +35,8 @@ finds them at the usual paths and falls over with a clear message if it can't.
 | `npm run carousels` | `promo/carousel/` | Same triggers as `promos` |
 | `npm run enhance-demos` | `examples/<slug>/index.html` | After adding a demo template |
 | `npm run verify-qr` | nothing (read-only check) | After any promo or QR change |
+| `npm run tools` | `tools/**/index.html`, the homepage tools strip | After editing anything in `tools-src/` |
+| `npm run test-tools` | nothing (read-only check) | After touching `tools/assets/calc.js` or `qr.js` |
 
 `npm run enhance-demos` edits HTML rather than images — it's the odd one out in
 this folder. Check its diff carefully.
@@ -56,6 +58,27 @@ design that no longer exists — this is the one that goes stale silently.
 
 JPEG for the `og:image` is deliberate: Facebook's crawler handles WebP, LinkedIn
 only commits to JPG/PNG/GIF.
+
+### `tools` — Elevven11 Tools pages
+
+Builds `tools/index.html` and one page per tool from `tools-src/`. The output is
+committed like any other page, so crawlers get full HTML. Header, footer and
+analytics are copied from `pricing/index.html`, so a shell change reaches the
+tool pages on the next run. It also rewrites the block between the
+`tools:start` and `tools:end` markers in `index.html`.
+
+To add a tool:
+
+1. Copy a file in `tools-src/` (`profit-calculator.js` for a calculator,
+   `word-counter.js` for a custom tool) and fill in the copy, FAQ and `body()`.
+2. Add its script at `tools/assets/t/<id>.js`. Calculators only need a call to
+   `E11T.calculator`; any new formula belongs in `tools/assets/calc.js` with a
+   test in `test-tools.js`.
+3. Add the id to `IDS` in `tools-src/registry.js`, then run `npm run tools`
+   and `npm run sitemap`.
+
+The browser code in `tools/assets/` is plain JavaScript with no dependencies.
+`test-tools.js` checks the maths and decodes the QR output with `jsqr`.
 
 ### `sitemap` — sitemap.xml
 

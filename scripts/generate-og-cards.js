@@ -10,7 +10,8 @@
  *
  * Edit the PAGES map below when page copy or prices change, then:
  *
- *   cd tools && npm install && npm run og-cards
+ *   cd scripts && npm install && npm run og-cards
+ *   node generate-og-cards.js tools      (only the named slugs)
  *
  * The page <meta> tags already point at these filenames, so re-running is
  * enough - no HTML edits needed unless you add a page.
@@ -226,6 +227,11 @@ const PAGES = {
     sub: 'Every package includes a free update period.',
     pills: ['Starter NGN 50,000', 'Plus NGN 80,000', 'Custom NGN 120,000+'] },
 
+  'tools': { page: 'tools/index.html', alt: 'Elevven11 Tools, free calculators and utilities that run in your browser',
+    eyebrow: 'ELEVVEN11 TOOLS', lines: ['Free Tools For Work', 'And Everyday Life.'],
+    sub: 'Calculators and utilities that run in your browser.',
+    pills: ['No account', 'Nothing uploaded', 'Free'] },
+
   'agents': { page: 'agents/index.html', alt: 'Become an Elevven11 Studio referral agent and earn commission',
     eyebrow: 'REFERRAL PROGRAMME', accent: 'gold', lines: ['Refer Someone.', 'Earn a Commission.'],
     sub: 'No website skills needed. Get paid when they buy.',
@@ -325,9 +331,21 @@ const PAGES = {
     pills: ['No account', 'No telemetry', 'Nothing uploaded'] }
 };
 
+// One card per tool, from the tool registry.
+for (const t of require('./tools-src/registry').tools) {
+  PAGES['tools-' + t.id] = {
+    page: 'tools' + t.path.slice('/tools'.length) + 'index.html',
+    alt: t.name + ', a free tool by Elevven11 Studio that runs in your browser',
+    eyebrow: 'TOOLS / ' + t.name.toUpperCase(), lines: t.og.lines, sub: t.og.sub,
+    pills: ['Free', 'No account', 'Nothing uploaded']
+  };
+}
+
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
+  const only = process.argv.slice(2);
   for (const [slug, cfg] of Object.entries(PAGES)) {
+    if (only.length && !only.includes(slug)) continue;
     const file = path.join(OUT, slug + '.png');
     await sharp(Buffer.from(card(cfg))).png({ compressionLevel: 9 }).toFile(file);
     console.log(slug.padEnd(14), (fs.statSync(file).size / 1024).toFixed(0) + 'K');

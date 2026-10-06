@@ -11,7 +11,7 @@
  *
  * Post all five together as a single carousel/multi-image post.
  *
- *   cd tools && npm install && npm run carousels
+ *   cd scripts && npm install && npm run carousels
  */
 
 const fs = require('fs');

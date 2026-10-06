@@ -15,7 +15,7 @@
  * background scans far less reliably. Each is tagged utm_medium=qr so scans are
  * separable from ordinary traffic in GA4.
  *
- *   cd tools && npm install && npm run qr
+ *   cd scripts && npm install && npm run qr
  */
 
 const fs = require('fs');

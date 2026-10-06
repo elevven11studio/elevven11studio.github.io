@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Free Invoice Generator | Elevven11 Tools</title>
+	<meta name="description" content="Create a professional invoice with items, discount and tax, then print it or save it as a PDF. No account. Your details stay on your device." />
+	<link rel="canonical" href="https://elevven11studio.github.io/tools/invoice-generator/" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta name="theme-color" content="#0b0a10" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:locale" content="en_NG" />
+	<meta property="og:title" content="Free Invoice Generator | Elevven11 Tools" />
+	<meta property="og:description" content="Create a professional invoice with items, discount and tax, then print it or save it as a PDF. No account. Your details stay on your device." />
+	<meta property="og:url" content="https://elevven11studio.github.io/tools/invoice-generator/" />
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/tools-invoice-generator.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="Invoice Generator, a free tool by Elevven11 Studio" />
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/tools-invoice-generator-square.png" />
+	<meta property="og:image:width" content="1080" />
+	<meta property="og:image:height" content="1080" />
+	<meta property="og:image:alt" content="Invoice Generator, a free tool by Elevven11 Studio" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Free Invoice Generator | Elevven11 Tools" />
+	<meta name="twitter:description" content="Create a professional invoice with items, discount and tax, then print it or save it as a PDF. No account. Your details stay on your device." />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og/tools-invoice-generator.png" />
+	<meta name="twitter:image:alt" content="Invoice Generator, a free tool by Elevven11 Studio" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<!-- Font CSS loads without blocking first paint; the fallback face in style.css is sized to match. -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'" />
+	<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" /></noscript>
+	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+	<link rel="stylesheet" type="text/css" href="/tools/assets/tools.css" />
+	<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://elevven11studio.github.io/tools/invoice-generator/#app",
+  "name": "Invoice Generator",
+  "url": "https://elevven11studio.github.io/tools/invoice-generator/",
+  "description": "Create a professional invoice with items, discount and tax, then print it or save it as a PDF. No account. Your details stay on your device.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "publisher": {
+    "@id": "https://elevven11studio.github.io/#organization"
+  }
+}
+	</script>
+	<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I get a PDF?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Choose Print or save as PDF, then pick \"Save as PDF\" as the printer in the print window. Turn off headers and footers for a clean page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my invoice stored anywhere?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Only in this browser on this device, so you can resume a draft. Nothing is sent to us. Clear removes it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I add my logo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not yet. Put your business name and details at the top, which is what the invoice header shows."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this a legal tax invoice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It shows the information most invoices need. Rules differ by country, so check what your tax authority requires, such as a tax number."
+      }
+    }
+  ]
+}
+	</script>
+	<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://elevven11studio.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tools",
+      "item": "https://elevven11studio.github.io/tools/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Invoice Generator",
+      "item": "https://elevven11studio.github.io/tools/invoice-generator/"
+    }
+  ]
+}
+	</script>
+	<script>
+		// Applied before paint so a light-mode visitor never sees a dark flash.
+		(function () {
+			try {
+				if (localStorage.getItem('e11-theme') === 'light') {
+					document.documentElement.setAttribute('data-theme', 'light');
+				}
+			} catch (e) { /* private mode: stay on the dark default */ }
+		})();
+	</script>
+</head>
+
+<body class="tools-page" data-tool="invoice-generator">
+
+	<a class="skip-link" href="#main">Skip to main content</a>
+
+	<header>
+		<div class="container navbar">
+			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+			<ul class="nav-links">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/app-development/">Apps</a></li>
+				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
+				<li class="nav-item"><a href="/examples/">Examples</a></li>
+				<li class="nav-item"><a href="/tools/">Tools</a></li>
+				<li class="nav-item"><a href="/agents/">Agents</a></li>
+				<li class="nav-item"><a href="/faq/">FAQ</a></li>
+				<li class="nav-item"><a href="/contact/">Contact</a></li>
+				<li class="nav-item"><a class="nav-cta" href="/get-started/">Get Your Website</a></li>
+			</ul>
+			<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+				<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+				<svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>
+			</button>
+			<div class="hamburger"><span></span><span></span><span></span></div>
+		</div>
+	</header>
+
+	<main id="main">
+
+	<section class="tool-head">
+		<div class="container">
+			<div class="tool-head-text">
+				<nav class="crumbs" aria-label="Breadcrumb"><ol>
+					<li><a href="/">Home</a></li>
+					<li><a href="/tools/">Tools</a></li>
+					<li aria-current="page">Invoice Generator</li>
+				</ol></nav>
+				<h1>Invoice Generator</h1>
+				<p class="lead">Fill in the details and watch the invoice build beside you.</p>
+			</div>
+			<button class="t-btn t-btn-quiet t-no-print" type="button" data-share><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/></svg>Share</button>
+		</div>
+	</section>
+
+	<section id="tool">
+		<div class="container">
+			<noscript><p class="t-noscript">This tool needs JavaScript. Turn it on in your browser settings to use it.</p></noscript>
+			<div class="t-panel">
+  <div class="t-top"><span></span><div><label for="currency">Currency</label><select class="form-select" id="currency" data-currency>
+      <option value="NGN">NGN, Naira</option><option value="USD">USD, US dollar</option><option value="GBP">GBP, Pound</option><option value="EUR">EUR, Euro</option>
+      <option value="GHS">GHS, Cedi</option><option value="KES">KES, Shilling</option><option value="ZAR">ZAR, Rand</option><option value="NONE">No symbol</option>
+    </select></div></div>
+  <div class="t-layout">
+    <div class="t-form-col t-no-print">
+      <div class="form-group"><label class="form-label" for="from-name">Your business name</label><input class="form-input" id="from-name" type="text" placeholder="Elevven11 Studio" autocomplete="off"  /></div>
+      <div class="form-group"><label class="form-label" for="from-details">Your details</label><textarea class="form-textarea" id="from-details" rows="3" placeholder="Address, phone, email" style="min-height:0"></textarea></div>
+      <div class="form-group"><label class="form-label" for="to-name">Bill to</label><input class="form-input" id="to-name" type="text" placeholder="Customer name" autocomplete="off"  /></div>
+      <div class="form-group"><label class="form-label" for="to-details">Customer details</label><textarea class="form-textarea" id="to-details" rows="3" placeholder="Address, phone, email" style="min-height:0"></textarea></div>
+      <div class="t-pair">
+        <div class="form-group"><label class="form-label" for="inv-no">Invoice number</label><input class="form-input" id="inv-no" type="text" placeholder="INV-001" autocomplete="off"  /></div>
+        <div class="form-group"><label class="form-label" for="inv-date">Invoice date</label><input class="form-input" id="inv-date" type="date" /></div>
+      </div>
+      <div class="form-group"><label class="form-label" for="inv-due">Due date (optional)</label><input class="form-input" id="inv-due" type="date" /></div>
+      <div class="form-label" id="items-label">Items</div>
+      <div class="inv-head" aria-hidden="true"><span>Description</span><span>Qty</span><span>Price</span><span></span></div>
+      <div class="inv-items" id="items" role="group" aria-labelledby="items-label"></div>
+      <button class="t-btn t-btn-quiet" type="button" id="add-item">Add item</button>
+      <div class="t-pair" style="margin-top:1.1rem">
+        <div class="form-group"><label class="form-label" for="inv-disc">Discount (%)</label><input class="form-input" id="inv-disc" type="number" inputmode="decimal" step="any" min="0" max="100" placeholder="0" /></div>
+        <div class="form-group"><label class="form-label" for="inv-tax">Tax (%)</label><input class="form-input" id="inv-tax" type="number" inputmode="decimal" step="any" min="0" placeholder="0" /></div>
+      </div>
+      <div class="t-error" id="inv-error" role="alert" hidden></div>
+      <div class="form-group"><label class="form-label" for="inv-notes">Notes</label><textarea class="form-textarea" id="inv-notes" rows="3" placeholder="Payment details, thank you note, terms" style="min-height:0"></textarea></div>
+      <div class="t-actions">
+        <button class="t-btn t-btn-primary" type="button" id="print">Print or save as PDF</button>
+        <button class="t-btn t-btn-quiet" type="button" id="clear">Clear</button>
+      </div>
+      <p class="inv-saved" id="saved" aria-live="polite"></p>
+    </div>
+    <div>
+      <div class="inv-sheet" id="invoice-preview" aria-label="Invoice preview"></div>
+    </div>
+  </div>
+</div>
+		</div>
+	</section>
+
+	<section class="t-below">
+		<div class="container">
+			<div class="t-prose">
+				<h2>How to use this tool</h2>
+				<ol>
+					<li>Enter your details, the customer and the invoice number and dates.</li>
+					<li>Add each item with a quantity and price. Add a discount or tax percentage if needed.</li>
+					<li>Choose Print or save as PDF. In the print window, pick &quot;Save as PDF&quot; as the destination.</li>
+				</ol>
+				<h2>How it works</h2>
+				<p>Each line is quantity times price, rounded to the nearest cent. The discount comes off the subtotal, and tax is charged on what remains after the discount.</p>
+				<p>Your draft is saved in this browser so you can come back to it. It is never uploaded, and clearing the invoice removes the saved copy.</p>
+				<div class="t-formula" tabindex="0" role="region" aria-label="Formula">Subtotal = sum of (quantity x price)
+Discount = subtotal x discount % / 100
+Tax = (subtotal - discount) x tax % / 100
+Total = subtotal - discount + tax</div>
+				<p><strong>Example.</strong> Two items worth 1,000 and 500 give a subtotal of 1,500. A 10% discount takes off 150, and 7.5% tax on 1,350 adds 101.25, so the total is 1,451.25.</p>
+				
+				<h2>Frequently asked questions</h2>
+				<details class="faq-item">
+					<summary>How do I get a PDF?</summary>
+					<p>Choose Print or save as PDF, then pick &quot;Save as PDF&quot; as the printer in the print window. Turn off headers and footers for a clean page.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Is my invoice stored anywhere?</summary>
+					<p>Only in this browser on this device, so you can resume a draft. Nothing is sent to us. Clear removes it.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Can I add my logo?</summary>
+					<p>Not yet. Put your business name and details at the top, which is what the invoice header shows.</p>
+				</details>
+				<details class="faq-item">
+					<summary>Is this a legal tax invoice?</summary>
+					<p>It shows the information most invoices need. Rules differ by country, so check what your tax authority requires, such as a tax number.</p>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<section class="t-below">
+		<div class="container">
+			<div class="t-section-head"><h2>Related tools</h2></div>
+			<div class="t-related">
+				<a class="t-card" href="/tools/profit-calculator/" data-cat="business" data-search="profit calculator work out revenue, profit, margin and markup from cost and selling price. business ">
+				<span class="t-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/></svg></span>
+				<h3>Profit Calculator</h3>
+				<p>Work out revenue, profit, margin and markup from cost and selling price.</p>
+				<span class="t-cat">Business</span>
+			</a>
+				<a class="t-card" href="/tools/discount-calculator/" data-cat="business" data-search="discount calculator see the sale price and amount saved after a percentage discount. business ">
+				<span class="t-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1"/></svg></span>
+				<h3>Discount Calculator</h3>
+				<p>See the sale price and amount saved after a percentage discount.</p>
+				<span class="t-cat">Business</span>
+			</a>
+				<a class="t-card" href="/tools/percentage-calculator/" data-cat="everyday" data-search="percentage calculator percent of a number, percent change, and increase or decrease by a percent. everyday ">
+				<span class="t-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></svg></span>
+				<h3>Percentage Calculator</h3>
+				<p>Percent of a number, percent change, and increase or decrease by a percent.</p>
+				<span class="t-cat">Everyday</span>
+			</a>
+				<a class="t-card" href="/tools/vat-calculator/" data-cat="finance" data-search="vat calculator add vat to a price or take it out. starts at the nigerian rate of 7.5%. finance vat tax nigeria 7.5">
+				<span class="t-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span>
+				<h3>VAT Calculator</h3>
+				<p>Add VAT to a price or take it out. Starts at the Nigerian rate of 7.5%.</p>
+				<span class="t-cat">Finance</span>
+			</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="t-below">
+		<div class="container">
+			<div class="t-cta">
+				<h2>Need a website for your business?</h2>
+				<p>We build simple, mobile-friendly websites.</p>
+				<a href="/get-started/" class="btn btn-primary">Get Your Website</a>
+			</div>
+		</div>
+	</section>
+
+	</main>
+
+	<footer>
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+					<p>Websites, apps and free browser tools.</p>
+					<a href="https://wa.me/2349120925909" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					<div class="footer-social">
+				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
+				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+				<a href="https://www.instagram.com/elevven11studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+				<a href="https://www.facebook.com/share/g/1833ddCnFg/" target="_blank" rel="noopener" aria-label="Join the Elevven11 Studio community on Facebook"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></a>
+			</div>
+				</div>
+				<nav class="footer-col" aria-label="Services">
+					<h2>Services</h2>
+					<ul>
+						<li><a href="/pricing/">Pricing</a></li>
+						<li><a href="/app-development/">App Development</a></li>
+						<li><a href="/counterbook/">Counterbook</a></li>
+						<li><a href="/how-it-works/">How It Works</a></li>
+						<li><a href="/examples/">Examples</a></li>
+						<li><a href="/tools/">Free Tools</a></li>
+						<li><a href="/get-started/">Get Your Website</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Extensions">
+					<h2>Extensions</h2>
+					<ul>
+						<li><a href="/extensions/">All extensions</a></li>
+						<li><a href="/webinspect/">WebInspect</a></li>
+						<li><a href="/webguard/">WebGuard</a></li>
+						<li><a href="/siteextract/">SiteExtract</a></li>
+						<li><a href="/shopinspect/">ShopInspect</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Company">
+					<h2>Company</h2>
+					<ul>
+						<li><a href="/contact/">Contact</a></li>
+						<li><a href="/faq/">FAQ</a></li>
+						<li><a href="/agents/">Referral Agents</a></li>
+						<li><a href="/support/">Support</a></li>
+						<li><a href="/terms/">Terms</a></li>
+						<li><a href="/privacy/">Privacy</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="footer-bottom">
+				<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/main.js" defer></script>
+	<script src="/tools/assets/calc.js" defer></script>
+	<script src="/tools/assets/shared.js" defer></script>
+	<script src="/tools/assets/t/invoice-generator.js" defer></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics stays off until the visitor accepts the cookie banner.
+		var granted = /(?:^|; )e11_consent=accepted/.test(document.cookie) ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: granted, ad_storage: granted, ad_user_data: granted, ad_personalization: granted });
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
+	</script>
+</body>
+
+</html>

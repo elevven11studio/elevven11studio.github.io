@@ -11,7 +11,7 @@
  * roughly the top and bottom 250px, and WhatsApp Status puts the caption and
  * reply box there too.
  *
- *   cd tools && npm install && npm run stories
+ *   cd scripts && npm install && npm run stories
  */
 
 const fs = require('fs');

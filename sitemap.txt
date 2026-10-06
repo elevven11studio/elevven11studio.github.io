@@ -10,6 +10,7 @@ https://elevven11studio.github.io/contact/
 https://elevven11studio.github.io/terms/
 https://elevven11studio.github.io/privacy/
 https://elevven11studio.github.io/support/
+https://elevven11studio.github.io/tools/
 https://elevven11studio.github.io/counterbook/
 https://elevven11studio.github.io/counterbook/docs/
 https://elevven11studio.github.io/counterbook/privacy/
@@ -28,3 +29,13 @@ https://elevven11studio.github.io/webguard/privacy/
 https://elevven11studio.github.io/webinspect/
 https://elevven11studio.github.io/webinspect/try/
 https://elevven11studio.github.io/webinspect/privacy/
+https://elevven11studio.github.io/tools/profit-calculator/
+https://elevven11studio.github.io/tools/markup-calculator/
+https://elevven11studio.github.io/tools/discount-calculator/
+https://elevven11studio.github.io/tools/break-even-calculator/
+https://elevven11studio.github.io/tools/vat-calculator/
+https://elevven11studio.github.io/tools/invoice-generator/
+https://elevven11studio.github.io/tools/percentage-calculator/
+https://elevven11studio.github.io/tools/word-counter/
+https://elevven11studio.github.io/tools/qr-code-generator/
+https://elevven11studio.github.io/tools/json-formatter/

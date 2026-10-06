@@ -7,7 +7,7 @@
  * large enough to sit in front of the root element. Generating it removes both
  * classes of mistake.
  *
- *   cd tools && npm run sitemap
+ *   cd scripts && npm run sitemap
  *
  * The output is deliberately plain: no comments, no blank lines, nothing before
  * the XML declaration, and <image:image> placed immediately after <loc> the way
@@ -50,6 +50,7 @@ const PAGES = [
   ['/terms/',                'yearly',   0.3],
   ['/privacy/',              'yearly',   0.3],
   ['/support/',              'yearly',   0.3],
+  ['/tools/',                'weekly',   0.9],
   ['/counterbook/',          'monthly',  0.8],
   ['/counterbook/docs/',     'monthly',  0.7],
   ['/counterbook/privacy/',  'yearly',   0.4],
@@ -69,6 +70,10 @@ const PAGES = [
   ['/webinspect/try/',       'monthly',  0.6],
   ['/webinspect/privacy/',   'yearly',   0.3]
 ];
+
+// Every tool page comes from the registry, so a new tool is listed without
+// touching this file.
+for (const t of require('./tools-src/registry').tools) PAGES.push([t.path, 'monthly', 0.8]);
 
 // Pages whose images are worth declaring. Most are CSS background-image, which
 // a crawler will not discover on its own. QR codes and the 128px extension

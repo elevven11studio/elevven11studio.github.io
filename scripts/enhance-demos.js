@@ -12,7 +12,7 @@
  * template's palette instead of imposing one. --card only exists in 22 of them,
  * so it is always used with a fallback.
  *
- *   cd tools && npm run enhance-demos
+ *   cd scripts && npm run enhance-demos
  */
 
 const fs = require('fs');

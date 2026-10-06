@@ -7,7 +7,7 @@
  * longer scans. This reads the composited PNG, not the source buffer, so it
  * tests what people actually scan.
  *
- *   cd tools && npm install && npm run verify-qr
+ *   cd scripts && npm install && npm run verify-qr
  *
  * Needs the devDependency jsqr.
  */

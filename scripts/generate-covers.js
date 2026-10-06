@@ -12,7 +12,7 @@
  * shifted down 116px (half of the extra 232px of height) so it stays
  * vertically centred rather than just padding the bottom.
  *
- *   cd tools && npm install && npm run covers
+ *   cd scripts && npm install && npm run covers
  */
 const sharp = require('sharp');
 const fs = require('fs');

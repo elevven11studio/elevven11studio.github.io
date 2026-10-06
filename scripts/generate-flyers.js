@@ -25,7 +25,7 @@
  * after it - what it costs, what is included, and how to reach a human. The
  * promo earns the glance; this is what gets forwarded afterwards.
  *
- *   cd tools && npm install && npm run flyers
+ *   cd scripts && npm install && npm run flyers
  */
 
 const fs = require('fs');

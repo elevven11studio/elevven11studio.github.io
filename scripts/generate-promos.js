@@ -23,7 +23,7 @@
  *   for a dark ground and is close to illegible on cream, so the light theme
  *   uses a darker green and a deeper gold.
  *
- *   cd tools && npm install && npm run promos
+ *   cd scripts && npm install && npm run promos
  */
 
 const fs = require('fs');

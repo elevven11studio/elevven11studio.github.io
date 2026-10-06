@@ -13,7 +13,7 @@
  * Run this after changing any template - otherwise the previews go stale and
  * advertise a design that no longer exists.
  *
- *   cd tools && npm install && npm run previews
+ *   cd scripts && npm install && npm run previews
  *
  * No dev server needed; a throwaway static server is started on a free port.
  */

@@ -17,7 +17,7 @@
  * signup journey is a narrative that is not written out step-by-step on the
  * page itself.
  *
- *   cd tools && npm install && npm run slides
+ *   cd scripts && npm install && npm run slides
  */
 
 const fs = require('fs');

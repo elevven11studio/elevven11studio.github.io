@@ -4,7 +4,7 @@
  * that can only deliver a file. Output goes to promo/store-files/, which the
  * deploy workflow does not publish, and nothing on the site links to it.
  *
- *   cd tools && npm run store-files
+ *   cd scripts && npm run store-files
  */
 const fs=require('fs'),path=require('path');
 const ROOT=path.resolve(__dirname,'..');

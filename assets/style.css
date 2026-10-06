@@ -2172,6 +2172,15 @@ footer a:hover { color: var(--accent-gold); }
   .theme-toggle { margin-left: auto; }
 }
 
+/* The nav has ten items. Just above the hamburger breakpoint the container is
+   narrower than the full row at its normal spacing, which wrapped the logo onto
+   two lines. Tighter gaps keep it on one line until the container reaches its
+   full 1200px width. */
+@media (min-width: 1151px) and (max-width: 1250px) {
+  .nav-links { gap: 1rem; }
+  .nav-item a.nav-cta { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+
 /* The pricing grid stays 3-across down to 768px, so between there and the point
    the container stops growing (1200px) each card is narrow enough that a fixed
    2.5rem figure overflows - '₦120,000+' is the worst case. Scale the figure
@@ -2237,3 +2246,25 @@ footer > * {
 .u-h-sm { font-size: 1.3rem !important; }
 .u-center { text-align: center !important; }
 .u-block-center { display: block !important; text-align: center !important; }
+
+/* Homepage tools strip: a row of plain links under the heading. The tool pages
+   have their own sheet (tools/assets/tools.css); this is the only piece of it
+   the rest of the site needs. */
+.tool-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0 auto 2rem;
+  max-width: 640px;
+}
+.tool-links a {
+  display: inline-block;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--hairline);
+  border-radius: 30px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.tool-links a:hover { color: var(--text-primary); border-color: var(--accent-gold); }
