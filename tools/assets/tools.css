@@ -5,10 +5,10 @@
 
 .tools-page [hidden] { display: none !important; }
 .tools-page section { padding: 2.5rem 0; }
-.tools-page .container { max-width: 1080px; }
+.tools-page main .container { max-width: 1080px; }
 
 /* ---- page head ---- */
-.tool-head { padding-top: 7.5rem; padding-bottom: 1rem; }
+.tools-page .tool-head { padding-top: 7.5rem; padding-bottom: 1rem; }
 .tool-head .container { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem 2rem; }
 .tool-head-text { flex: 1 1 420px; min-width: 0; }
 .tool-head h1 { font-size: 2.4rem; margin: 0.35rem 0 0.6rem; letter-spacing: -0.5px; }
@@ -76,7 +76,8 @@
 .t-row.is-main dd { font-size: 1.6rem; color: var(--accent-gold); }
 .t-note { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.75rem; }
 
-.t-split { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.t-split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 1.5rem; }
+.t-split > *, .t-layout > *, .t-pair > * { min-width: 0; }
 .t-split .t-panel + .t-panel { margin-top: 0; }
 .t-sub { font-size: 1rem; margin-bottom: 0.25rem; }
 .t-sub-note { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem; }
@@ -124,7 +125,7 @@
 .t-card[hidden] { display: none; }
 
 /* ---- landing ---- */
-.tools-hero { padding-top: 8rem; padding-bottom: 1.5rem; text-align: center; }
+.tools-page .tools-hero { padding-top: 8rem; padding-bottom: 1.5rem; text-align: center; }
 .tools-hero h1 { font-size: 3rem; letter-spacing: -1px; margin-bottom: 1rem; }
 .tools-hero p { color: var(--text-secondary); font-size: 1.15rem; max-width: 560px; margin: 0 auto 2rem; }
 .t-search { position: relative; max-width: 520px; margin: 0 auto; }
@@ -201,14 +202,14 @@
 
 /* ---- invoice ---- */
 .inv-items { display: grid; gap: 0.75rem; margin-bottom: 0.75rem; }
-.inv-item { display: grid; grid-template-columns: 1fr 80px 110px 36px; gap: 0.5rem; align-items: center; }
+.inv-item { display: grid; grid-template-columns: minmax(0, 1fr) 80px 110px 36px; gap: 0.5rem; align-items: center; }
 .inv-item .form-input { padding: 0.75rem 0.9rem; }
 .inv-del { width: 36px; height: 44px; border: 0; background: transparent; color: var(--text-muted); cursor: pointer; font-size: 1.3rem; border-radius: 8px; }
 .inv-del:hover { color: var(--accent-danger); }
 .inv-del:focus-visible { outline: 2px solid var(--focus-ring); }
-.inv-head { display: grid; grid-template-columns: 1fr 80px 110px 36px; gap: 0.5rem; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+.inv-head { display: grid; grid-template-columns: minmax(0, 1fr) 80px 110px 36px; gap: 0.5rem; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem; }
 
-.inv-sheet { background: #fff; color: #14121a; border-radius: 10px; padding: 2rem; font-size: 0.92rem; line-height: 1.5; box-shadow: var(--shadow-main); }
+.inv-sheet { overflow-x: auto; background: #fff; color: #14121a; border-radius: 10px; padding: 2rem; font-size: 0.92rem; line-height: 1.5; box-shadow: var(--shadow-main); }
 .inv-sheet h3 { font-size: 1.9rem; letter-spacing: 1px; color: #14121a; }
 .inv-sheet .inv-top { display: flex; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
 .inv-sheet .inv-meta { text-align: right; font-size: 0.88rem; color: #4b4a55; }
@@ -235,10 +236,14 @@
   .t-panel { padding: 1.25rem; }
 }
 @media (max-width: 520px) {
-  .tools-page .container { padding: 0 1rem; }
+  .tools-page main .container { padding: 0 1rem; }
   .t-pair { grid-template-columns: 1fr; }
-  .inv-item { grid-template-columns: 1fr 64px 92px 32px; }
-  .inv-head { grid-template-columns: 1fr 64px 92px 32px; }
+  .inv-item, .inv-head { grid-template-columns: minmax(0, 1fr) 56px 84px 28px; gap: 0.35rem; }
+  .inv-item .form-input { padding: 0.75rem 0.5rem; min-width: 0; }
+  .inv-del { width: 28px; }
+  .inv-sheet table { font-size: 0.85rem; }
+  .inv-sheet th, .inv-sheet td { padding-left: 0.25rem; padding-right: 0.25rem; }
+  .t-split .t-panel { padding: 1rem; }
   .inv-sheet { padding: 1.1rem; }
   .inv-sheet .inv-party { grid-template-columns: 1fr; }
   .t-row.is-main dd { font-size: 1.35rem; }
@@ -256,7 +261,7 @@
   body.tools-page { background: #fff !important; }
   .tools-page section { padding: 0; }
   .tools-page section::before { display: none; }
-  .tools-page .container { max-width: none; padding: 0; }
+  .tools-page main .container { max-width: none; padding: 0; }
   .t-panel { background: none; border: 0; box-shadow: none; padding: 0; }
   .t-layout { display: block; }
   .inv-sheet { box-shadow: none; border-radius: 0; padding: 0; }
