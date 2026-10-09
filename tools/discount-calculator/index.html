@@ -193,7 +193,7 @@
     <label class="form-label" for="f-pct">Discount (%)</label>
     <input class="form-input" id="f-pct" type="number" inputmode="decimal" step="any" data-name="pct" data-label="a discount" data-rule="pct100" placeholder="10" autocomplete="off" />
   </div>
-      <div class="t-results" aria-live="polite"><h3>Results</h3><dl><div class="t-row is-main"><dt>Final price</dt><dd data-out="final"></dd></div><div class="t-row"><dt>Amount saved</dt><dd data-out="saved"></dd></div></dl></div>
+      <div class="t-results" aria-live="polite"><p class="t-results-title">Results</p><dl><div class="t-row is-main"><dt>Final price</dt><dd data-out="final"></dd></div><div class="t-row"><dt>Amount saved</dt><dd data-out="saved"></dd></div></dl></div>
       <div class="t-actions"><button class="t-btn t-btn-quiet" type="button" data-reset>Reset</button></div>
     </form>
     <form class="t-panel" data-calc="reverse" novalidate>
@@ -207,7 +207,7 @@
     <label class="form-label" for="r-sale">Sale price</label>
     <input class="form-input" id="r-sale" type="number" inputmode="decimal" step="any" data-name="sale" data-label="a sale price" data-rule="gte0" placeholder="0.00" autocomplete="off" />
   </div>
-      <div class="t-results" aria-live="polite"><h3>Results</h3><dl><div class="t-row is-main"><dt>Discount</dt><dd data-out="pct"></dd></div><div class="t-row"><dt>Amount saved</dt><dd data-out="saved"></dd></div></dl></div>
+      <div class="t-results" aria-live="polite"><p class="t-results-title">Results</p><dl><div class="t-row is-main"><dt>Discount</dt><dd data-out="pct"></dd></div><div class="t-row"><dt>Amount saved</dt><dd data-out="saved"></dd></div></dl></div>
       <div class="t-actions"><button class="t-btn t-btn-quiet" type="button" data-reset>Reset</button></div>
     </form>
   </div>
@@ -347,7 +347,7 @@ Discount = (original - sale) / original x 100</div>
 		</div>
 	</footer>
 
-	<script src="/assets/main.js" defer></script>
+	<script src="/assets/shell.js" defer></script>
 	<script src="/tools/assets/calc.js" defer></script>
 	<script src="/tools/assets/shared.js" defer></script>
 	<script src="/tools/assets/t/discount-calculator.js" defer></script>

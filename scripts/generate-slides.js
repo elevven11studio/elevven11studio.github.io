@@ -339,7 +339,7 @@ const AGENTS = [
     fs.writeFileSync(path.join(dir, 'manifest.json'), JSON.stringify(slides.map((s) => ({
       index: s.index,
       src: '/assets/slides/' + name + '/' + s.index + '.webp',
-      alt: s.eyebrow + ': ' + s.title + ' — ' + s.body.join(' ').replace(/…$/, ''),
+      alt: s.eyebrow + ': ' + s.title + (/[.?!]$/.test(s.title) ? ' ' : '. ') + s.body.join(' ').replace(/…$/, ''),
     })), null, 2) + '\n', 'utf8');
     // One combined PNG per set, so the whole sequence can be shared as a single
     // image (WhatsApp, print) rather than N separate files. Single column for

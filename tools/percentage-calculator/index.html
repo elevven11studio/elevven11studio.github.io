@@ -188,7 +188,7 @@
     <label class="form-label" for="a-y">Of</label>
     <input class="form-input" id="a-y" type="number" inputmode="decimal" step="any" data-name="y" data-label="a number" data-rule="any" placeholder="200" autocomplete="off" />
   </div>
-      <div class="t-results" aria-live="polite"><h3>Results</h3><dl><div class="t-row is-main"><dt>Answer</dt><dd data-out="value"></dd></div></dl></div>
+      <div class="t-results" aria-live="polite"><p class="t-results-title">Results</p><dl><div class="t-row is-main"><dt>Answer</dt><dd data-out="value"></dd></div></dl></div>
       <div class="t-actions"><button class="t-btn t-btn-quiet" type="button" data-reset>Reset</button></div>
     </form>
     <form class="t-panel" data-calc="what" novalidate>
@@ -202,7 +202,7 @@
     <label class="form-label" for="b-y">Out of</label>
     <input class="form-input" id="b-y" type="number" inputmode="decimal" step="any" data-name="y" data-label="a total" data-rule="any" placeholder="200" autocomplete="off" />
   </div>
-      <div class="t-results" aria-live="polite"><h3>Results</h3><dl><div class="t-row is-main"><dt>Answer</dt><dd data-out="pct"></dd></div></dl></div>
+      <div class="t-results" aria-live="polite"><p class="t-results-title">Results</p><dl><div class="t-row is-main"><dt>Answer</dt><dd data-out="pct"></dd></div></dl></div>
       <div class="t-actions"><button class="t-btn t-btn-quiet" type="button" data-reset>Reset</button></div>
     </form>
     <form class="t-panel" data-calc="change" novalidate>
@@ -216,7 +216,7 @@
     <label class="form-label" for="c-to">To</label>
     <input class="form-input" id="c-to" type="number" inputmode="decimal" step="any" data-name="to" data-label="an ending value" data-rule="any" placeholder="75" autocomplete="off" />
   </div>
-      <div class="t-results" aria-live="polite"><h3>Results</h3><dl><div class="t-row is-main"><dt data-out="dir" data-default="Change">Change</dt><dd data-out="pct"></dd></div><div class="t-row"><dt>Difference</dt><dd data-out="diff"></dd></div></dl></div>
+      <div class="t-results" aria-live="polite"><p class="t-results-title">Results</p><dl><div class="t-row is-main"><dt data-out="dir" data-default="Change">Change</dt><dd data-out="pct"></dd></div><div class="t-row"><dt>Difference</dt><dd data-out="diff"></dd></div></dl></div>
       <div class="t-actions"><button class="t-btn t-btn-quiet" type="button" data-reset>Reset</button></div>
     </form>
     <form class="t-panel" data-calc="apply" novalidate>
@@ -230,7 +230,7 @@
     <label class="form-label" for="d-pct">Percent</label>
     <input class="form-input" id="d-pct" type="number" inputmode="decimal" step="any" data-name="pct" data-label="a percentage" data-rule="any" placeholder="10" autocomplete="off" />
   </div>
-      <div class="t-results" aria-live="polite"><h3>Results</h3><dl><div class="t-row is-main"><dt>Increased by percent</dt><dd data-out="up"></dd></div><div class="t-row is-main"><dt>Decreased by percent</dt><dd data-out="down"></dd></div></dl></div>
+      <div class="t-results" aria-live="polite"><p class="t-results-title">Results</p><dl><div class="t-row is-main"><dt>Increased by percent</dt><dd data-out="up"></dd></div><div class="t-row is-main"><dt>Decreased by percent</dt><dd data-out="down"></dd></div></dl></div>
       <div class="t-actions"><button class="t-btn t-btn-quiet" type="button" data-reset>Reset</button></div>
     </form>
   </div>
@@ -369,7 +369,7 @@ Increase by P% = value x (1 + P / 100)</div>
 		</div>
 	</footer>
 
-	<script src="/assets/main.js" defer></script>
+	<script src="/assets/shell.js" defer></script>
 	<script src="/tools/assets/calc.js" defer></script>
 	<script src="/tools/assets/shared.js" defer></script>
 	<script src="/tools/assets/t/percentage-calculator.js" defer></script>

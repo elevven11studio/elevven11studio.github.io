@@ -216,7 +216,7 @@ ${head({
 
 	${FOOTER}
 
-	<script src="/assets/main.js" defer></script>
+	<script src="/assets/shell.js" defer></script>
 	${libs}
 	<script src="/tools/assets/shared.js" defer></script>
 	<script src="/tools/assets/t/${t.id}.js" defer></script>
@@ -330,7 +330,7 @@ ${head({ title, description, url, ld: [collection, breadcrumbLd([['Home', '/'], 
 
 	${FOOTER}
 
-	<script src="/assets/main.js" defer></script>
+	<script src="/assets/shell.js" defer></script>
 	<script src="/tools/assets/shared.js" defer></script>
 	<script src="/tools/assets/landing.js" defer></script>
 

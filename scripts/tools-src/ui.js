@@ -17,7 +17,7 @@ const row = (label, key, { main = false, dynamicLabel = '' } = {}) =>
   `<div class="t-row${main ? ' is-main' : ''}"><dt${dynamicLabel ? ` data-out="${dynamicLabel}" data-default="${esc(label)}"` : ''}>${esc(label)}</dt><dd data-out="${key}"></dd></div>`;
 
 const results = (rows, note = '') =>
-  `<div class="t-results" aria-live="polite"><h3>Results</h3><dl>${rows.join('')}</dl>${note ? `<p class="t-note">${esc(note)}</p>` : ''}</div>`;
+  `<div class="t-results" aria-live="polite"><p class="t-results-title">Results</p><dl>${rows.join('')}</dl>${note ? `<p class="t-note">${esc(note)}</p>` : ''}</div>`;
 
 const resetBtn = (label = 'Reset') => `<div class="t-actions"><button class="t-btn t-btn-quiet" type="button" data-reset>${esc(label)}</button></div>`;
 

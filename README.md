@@ -43,7 +43,7 @@ All internal links are root-relative (`/pricing/`, `/assets/style.css`, etc.),
 since the site is served from the domain root.
 
 The demo pages under `examples/` are deliberately standalone: they don't load
-`assets/style.css` or `assets/main.js`, so nothing on the studio's own site
+`assets/style.css`, `assets/shell.js` or `assets/main.js`, so nothing on the studio's own site
 (the floating contact button, the cookie banner) leaks into a client mockup.
 They also carry `noindex` — they exist to be shown by direct link, not found in
 search — which is why they're absent from `sitemap.xml`.
@@ -88,7 +88,7 @@ an ads audience pixel fires too. The banner copy and
 
 If you want Decline to actually cover Google's cookies, the change is Consent
 Mode v2 — there's a note recording exactly what that takes above
-`initCookieConsent` in [assets/main.js](assets/main.js).
+`initCookieConsent` in [assets/shell.js](assets/shell.js).
 
 ## Local development
 

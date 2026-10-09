@@ -64,7 +64,7 @@
 
 /* ---- results ---- */
 .t-results { background: var(--bg-secondary); border: var(--border-subtle); border-radius: var(--border-radius); padding: 1.25rem 1.4rem; }
-.t-results h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 700; }
+.t-results .t-results-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 700; }
 .t-results dl { margin: 0; }
 .t-row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--hairline); }
 .t-row:last-child { border-bottom: 0; }

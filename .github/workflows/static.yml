@@ -55,18 +55,20 @@ jobs:
             --exclude '_site' \
             --exclude 'scripts' \
             --exclude 'promo' \
+            --exclude 'assets/previews/mobile' \
             --exclude 'assets/slides/singles' \
             --exclude 'assets/slides/*-all.png'
           echo "repo:      $(du -sh --exclude=.git --exclude=_site . | cut -f1)"
           echo "published: $(du -sh _site | cut -f1)"
 
-      # Minify the two shared assets in the staged copy only. The repo keeps
+      # Minify the shared assets in the staged copy only. The repo keeps
       # readable source, so there is nothing to rebuild or forget to commit.
       - name: Minify CSS and JS
         run: |
           npx --yes esbuild@0.28 _site/assets/style.css --minify --allow-overwrite --outfile=_site/assets/style.css
           npx --yes esbuild@0.28 _site/assets/main.js --minify --allow-overwrite --outfile=_site/assets/main.js
-          ls -l _site/assets/style.css _site/assets/main.js
+          npx --yes esbuild@0.28 _site/assets/shell.js --minify --allow-overwrite --outfile=_site/assets/shell.js
+          ls -l _site/assets/style.css _site/assets/main.js _site/assets/shell.js
 
       # Same for the Tools section: shared files first, then the per-tool
       # scripts, each written back to its own folder.

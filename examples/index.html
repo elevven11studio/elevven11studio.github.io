@@ -134,10 +134,15 @@
 		.sw-logistics-2 { background-image: url('/assets/previews/logistics-2.webp'); }
 		.sw-logistics-3 { background-image: url('/assets/previews/logistics-3.webp'); }
 
+		/* Previews load as they near the screen instead of all 42 at once. The
+		   class is added by script, so without JavaScript every preview still loads. */
+		.lazy-previews .template-swatch:not(.on) { background-image: none !important; background-color: var(--bg-secondary); }
+
 		@media (max-width: 768px) {
 			.category-block .grid-3 { grid-template-columns: 1fr; }
 		}
 	</style>
+	<script>document.documentElement.classList.add('lazy-previews');</script>
 	<script type="application/ld+json">
 	{
 	  "@context": "https://schema.org",
@@ -219,9 +224,9 @@
 	<section>
 		<div class="container">
 			<div class="internal-note">
-				These are live template demos you can click through — not real customer sites yet. Every real
+				These are live template demos you can click through. They are not real customer sites yet. Every real
 				project is customized with the client's own branding, content, and photos. Each category shows 3
-				style directions — pick a vibe, or use it as a starting point for something custom.
+				style directions. Pick a vibe, or use it as a starting point for something custom.
 			</div>
 
 			<!-- Personal Portfolio -->
@@ -237,7 +242,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style A</span>
 							<h3>Ada Okoro</h3>
-							<p>UI/UX Designer — bold coral minimal.</p>
+							<p>UI/UX Designer, bold coral minimal.</p>
 							<a href="/examples/portfolio/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -246,7 +251,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style B</span>
 							<h3>Kelechi Obi</h3>
-							<p>3D/Motion Designer — vibrant duotone.</p>
+							<p>3D/Motion Designer, vibrant duotone.</p>
 							<a href="/examples/portfolio-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -255,7 +260,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style C</span>
 							<h3>Ngozi Umeh</h3>
-							<p>Writer — warm editorial serif.</p>
+							<p>Writer, warm editorial serif.</p>
 							<a href="/examples/portfolio-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -275,7 +280,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style A</span>
 							<h3>Chidi Eze</h3>
-							<p>Copywriter & Marketer — clean corporate blue.</p>
+							<p>Copywriter & Marketer, clean corporate blue.</p>
 							<a href="/examples/freelancer/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -284,7 +289,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style B</span>
 							<h3>Blessing Nwosu</h3>
-							<p>Graphic Designer — bold playful pop.</p>
+							<p>Graphic Designer, bold playful pop.</p>
 							<a href="/examples/freelancer-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -293,7 +298,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style C</span>
 							<h3>Tarela Efe</h3>
-							<p>Video Editor — dark cinematic.</p>
+							<p>Video Editor, dark cinematic.</p>
 							<a href="/examples/freelancer-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -313,7 +318,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style A</span>
 							<h3>GreenLeaf Mart</h3>
-							<p>Grocery store — warm cream & green.</p>
+							<p>Grocery store, warm cream & green.</p>
 							<a href="/examples/small-business/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -322,7 +327,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style B</span>
 							<h3>Bright Spark Electronics</h3>
-							<p>Phone shop & repairs — clean tech blue.</p>
+							<p>Phone shop & repairs, clean tech blue.</p>
 							<a href="/examples/small-business-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -331,7 +336,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style C</span>
 							<h3>Cornerstone Hardware</h3>
-							<p>Building materials — industrial amber.</p>
+							<p>Building materials, industrial amber.</p>
 							<a href="/examples/small-business-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -351,7 +356,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style A</span>
 							<h3>Mama Bisi's Kitchen</h3>
-							<p>Home-style Nigerian — warm dark & orange.</p>
+							<p>Home-style Nigerian, warm dark & orange.</p>
 							<a href="/examples/restaurant/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -360,7 +365,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style B</span>
 							<h3>Café Aroma</h3>
-							<p>Coffee & pastries — cozy cream tones.</p>
+							<p>Coffee & pastries, cozy cream tones.</p>
 							<a href="/examples/restaurant-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -369,7 +374,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style C</span>
 							<h3>Ocean Grill & Lounge</h3>
-							<p>Seafood & cocktails — dark elegant teal.</p>
+							<p>Seafood & cocktails, dark elegant teal.</p>
 							<a href="/examples/restaurant-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -389,7 +394,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style A</span>
 							<h3>Tunde Lens</h3>
-							<p>Portrait & event — black & white minimal.</p>
+							<p>Portrait & event, black & white minimal.</p>
 							<a href="/examples/photographer/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -398,7 +403,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style B</span>
 							<h3>Amaka Frames</h3>
-							<p>Wedding photography — soft romantic blush.</p>
+							<p>Wedding photography, soft romantic blush.</p>
 							<a href="/examples/photographer-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -407,7 +412,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style C</span>
 							<h3>Kayfoto Studios</h3>
-							<p>Product & fashion — bold high-contrast.</p>
+							<p>Product & fashion, bold high-contrast.</p>
 							<a href="/examples/photographer-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -427,7 +432,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style A</span>
 							<h3>Zaria Couture</h3>
-							<p>Ready-to-wear — elegant black & gold.</p>
+							<p>Ready-to-wear, elegant black & gold.</p>
 							<a href="/examples/fashion/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -436,7 +441,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style B</span>
 							<h3>Lumo Streetwear</h3>
-							<p>Streetwear label — loud neon energy.</p>
+							<p>Streetwear label, loud neon energy.</p>
 							<a href="/examples/fashion-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -445,7 +450,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style C</span>
 							<h3>Ivory & Lace</h3>
-							<p>Bridal wear — soft white & blush.</p>
+							<p>Bridal wear, soft white & blush.</p>
 							<a href="/examples/fashion-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -465,7 +470,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style A</span>
 							<h3>Fade Kings Barbershop</h3>
-							<p>Barbershop — masculine black & gold.</p>
+							<p>Barbershop, masculine black & gold.</p>
 							<a href="/examples/barber/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -474,7 +479,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style B</span>
 							<h3>Glow Beauty Lounge</h3>
-							<p>Nails, lashes & makeup — soft rose pink.</p>
+							<p>Nails, lashes & makeup, soft rose pink.</p>
 							<a href="/examples/barber-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -483,7 +488,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style C</span>
 							<h3>Sharp Edge Salon</h3>
-							<p>Unisex salon — clean modern teal.</p>
+							<p>Unisex salon, clean modern teal.</p>
 							<a href="/examples/barber-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -503,7 +508,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style A</span>
 							<h3>Grace Events Co.</h3>
-							<p>Weddings & parties — elegant blush.</p>
+							<p>Weddings & parties, elegant blush.</p>
 							<a href="/examples/events/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -512,7 +517,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style B</span>
 							<h3>Prime Conferences</h3>
-							<p>Corporate events — professional navy & gold.</p>
+							<p>Corporate events, professional navy & gold.</p>
 							<a href="/examples/events-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -521,7 +526,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style C</span>
 							<h3>Lil Stars Party Planners</h3>
-							<p>Kids birthdays — bright playful colors.</p>
+							<p>Kids birthdays, bright playful colors.</p>
 							<a href="/examples/events-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -541,7 +546,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style A</span>
 							<h3>Femi Balogun</h3>
-							<p>Business consultant — professional navy.</p>
+							<p>Business consultant, professional navy.</p>
 							<a href="/examples/consultant/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -550,7 +555,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style B</span>
 							<h3>Adaeze Nwankwo</h3>
-							<p>Career coach — warm coral & teal.</p>
+							<p>Career coach, warm coral & teal.</p>
 							<a href="/examples/consultant-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -559,7 +564,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style C</span>
 							<h3>TaxWise Advisory</h3>
-							<p>Financial consultant — trustworthy green & gold.</p>
+							<p>Financial consultant, trustworthy green & gold.</p>
 							<a href="/examples/consultant-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -579,7 +584,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style A</span>
 							<h3>Prime Realty Advisors</h3>
-							<p>Residential & commercial — warm gold on dark.</p>
+							<p>Residential & commercial, warm gold on dark.</p>
 							<a href="/examples/real-estate/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -588,7 +593,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style B</span>
 							<h3>Halima Yusuf Properties</h3>
-							<p>Luxury listings — elegant black & gold.</p>
+							<p>Luxury listings, elegant black & gold.</p>
 							<a href="/examples/real-estate-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -597,7 +602,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style C</span>
 							<h3>UrbanNest Realty</h3>
-							<p>Modern listings — clean sky blue.</p>
+							<p>Modern listings, clean sky blue.</p>
 							<a href="/examples/real-estate-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -617,7 +622,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style A</span>
 							<h3>Grace Covenant Chapel</h3>
-							<p>Church — warm bronze on dark.</p>
+							<p>Church, warm bronze on dark.</p>
 							<a href="/examples/church/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -626,7 +631,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style B</span>
 							<h3>Hope Relief Foundation</h3>
-							<p>NGO / nonprofit — fresh green.</p>
+							<p>NGO / nonprofit, fresh green.</p>
 							<a href="/examples/church-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -635,7 +640,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style C</span>
 							<h3>Living Word International</h3>
-							<p>Media-forward ministry — cool blue.</p>
+							<p>Media-forward ministry, cool blue.</p>
 							<a href="/examples/church-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -655,7 +660,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style A</span>
 							<h3>Brightpath Tutorial Centre</h3>
-							<p>Exam prep — warm amber & cream.</p>
+							<p>Exam prep, warm amber & cream.</p>
 							<a href="/examples/school/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -664,7 +669,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style B</span>
 							<h3>Kiddies Corner</h3>
-							<p>Nursery & primary — playful pink & blue.</p>
+							<p>Nursery & primary, playful pink & blue.</p>
 							<a href="/examples/school-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -673,7 +678,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style C</span>
 							<h3>TechSkills Academy</h3>
-							<p>Coding bootcamp — modern indigo.</p>
+							<p>Coding bootcamp, modern indigo.</p>
 							<a href="/examples/school-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -693,7 +698,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style A</span>
 							<h3>Kelvin Okoye Fitness</h3>
-							<p>Personal trainer — bold red on black.</p>
+							<p>Personal trainer, bold red on black.</p>
 							<a href="/examples/fitness/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -702,7 +707,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style B</span>
 							<h3>IronCore Gym</h3>
-							<p>24-hour gym — bold amber on charcoal.</p>
+							<p>24-hour gym, bold amber on charcoal.</p>
 							<a href="/examples/fitness-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -711,7 +716,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style C</span>
 							<h3>FlexFit Studio</h3>
-							<p>Yoga & pilates — calm sage & cream.</p>
+							<p>Yoga & pilates, calm sage & cream.</p>
 							<a href="/examples/fitness-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -731,7 +736,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style A</span>
 							<h3>SwiftDrop Logistics</h3>
-							<p>Same-day delivery — bold orange on navy.</p>
+							<p>Same-day delivery, bold orange on navy.</p>
 							<a href="/examples/logistics/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -740,7 +745,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style B</span>
 							<h3>CargoLink Nigeria</h3>
-							<p>Freight & haulage — industrial amber.</p>
+							<p>Freight & haulage, industrial amber.</p>
 							<a href="/examples/logistics-2/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -749,7 +754,7 @@
 						<div class="template-body">
 							<span class="style-tag">Style C</span>
 							<h3>QuickErrand</h3>
-							<p>Errand & dispatch — clean green on white.</p>
+							<p>Errand & dispatch, clean green on white.</p>
 							<a href="/examples/logistics-3/" target="_blank" rel="noopener" class="btn btn-secondary">View Demo</a>
 						</div>
 					</div>
@@ -826,7 +831,27 @@
 		</div>
 	</footer>
 
+	<script src="/assets/shell.js" defer></script>
 	<script src="/assets/main.js" defer></script>
+
+	<!-- Lazy preview images: a swatch gets .on (and so its background) a screen or so before it scrolls into view. -->
+	<script>
+		(function () {
+			var swatches = document.querySelectorAll('.template-swatch');
+			if (!('IntersectionObserver' in window)) {
+				swatches.forEach(function (s) { s.classList.add('on'); });
+				return;
+			}
+			var io = new IntersectionObserver(function (entries) {
+				entries.forEach(function (e) {
+					if (!e.isIntersecting) return;
+					e.target.classList.add('on');
+					io.unobserve(e.target);
+				});
+			}, { rootMargin: '600px 0px' });
+			swatches.forEach(function (s) { io.observe(s); });
+		})();
+	</script>
 
 	<!-- Per-category "copy link" buttons: lets someone share a direct link to one template category -->
 	<script>
