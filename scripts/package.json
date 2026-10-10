@@ -21,6 +21,7 @@
     "demos": "node build-demos.js",
     "tools": "node generate-tools.js",
     "test-tools": "node test-tools.js",
+    "check-site": "node check-site.js",
     "tool-promos": "node generate-tool-promos.js",
     "extension-promos": "node generate-extension-promos.js"
   },

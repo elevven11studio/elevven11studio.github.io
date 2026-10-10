@@ -80,15 +80,17 @@ Details worth knowing before editing `initGetStartedForm` / `initContactForm` in
 
 ## Analytics and consent
 
-Google Analytics (`G-5H0KC31NYJ`) is hardcoded into every page and runs
-regardless of the cookie banner — the banner governs only the site's own
-form-memory and referral cookies. Google Signals is enabled on the property, so
-an ads audience pixel fires too. The banner copy and
-[privacy policy](privacy/index.html) both say this explicitly.
+Google Analytics (`G-5H0KC31NYJ`) runs under Consent Mode v2 on every page,
+including the demos. Each page's inline gtag snippet defaults every consent
+signal to `denied` unless the `e11_consent` cookie says `accepted`, and the
+banner's Accept handler in [assets/shell.js](assets/shell.js) flips them to
+`granted`. Until then Google sets no cookies and may only receive cookieless
+pings. Google Signals is enabled on the property, so after Accept an ads
+audience pixel fires too. The banner copy and
+[privacy policy](privacy/index.html) both say this.
 
-If you want Decline to actually cover Google's cookies, the change is Consent
-Mode v2 — there's a note recording exactly what that takes above
-`initCookieConsent` in [assets/shell.js](assets/shell.js).
+Country detection (`ipwho.is`) is skipped for crawlers, so search engines
+index the Nigeria copy and Naira prices rather than the US version.
 
 ## Local development
 
@@ -115,11 +117,20 @@ first and excludes what the site never serves:
 | `promo/` | Instagram/WhatsApp graphics, ~30 MB, referenced by no page |
 | `assets/slides/singles/` | Individual slide exports for sharing, not used on site |
 | `assets/slides/*-all.png` | Combined contact sheets, same |
+| `assets/slides/*/*.png` | PNG copies of slider images; pages load the `.webp` |
+| `assets/previews/mobile/` | Mobile preview exports, referenced by no page |
+| `assets/qr/get-started.*` | QR code for print, not used on site |
+| `branding/` covers, profile pictures, logo concepts | Uploaded to social accounts by hand |
 | `scripts/` | Generator scripts, never served |
 | `.github/` | The workflow itself |
 
-That takes the published tree from ~45 MB to ~11 MB. Nothing is deleted — the
+That takes the published tree from ~45 MB to ~11 MB. Nothing is deleted, the
 files stay in the repo, they're just not uploaded.
+
+Before staging, the workflow runs `scripts/check-site.js` (broken links, sitemap
+drift, missing titles, descriptions, canonicals and share images) and
+`scripts/test-tools.js`. Either failing blocks the deploy. Run them locally with
+`node scripts/check-site.js` and `cd scripts && npm run test-tools`.
 
 **Two traps if you add an exclusion.** `assets/slides/` as a whole is *not*
 excludable: its numbered subfolders (`agents/`, `contact/`, `faq/`,

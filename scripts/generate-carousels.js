@@ -36,14 +36,24 @@ const THEMES = {
   dark: {
     bg: '#0b0a10', text: '#f7f3ec', muted: '#a79f95', faint: '#7a7268',
     dot: 'rgba(247,243,236,0.10)', line: 'rgba(247,243,236,0.16)',
-    green: ['#86efac', '#22c55e'], gold: ['#f0c866', '#c99a2e'],
+    green: ['#86efac', '#22c55e'], gold: ['#f0c866', '#c99a2e'], blue: ['#60a5fa', '#3b82f6'],
   },
   light: {
     bg: '#f4f1ea', text: '#14121a', muted: '#5d564b', faint: '#8a8175',
     dot: 'rgba(20,18,26,0.10)', line: 'rgba(20,18,26,0.18)',
-    green: ['#1f9d55', '#137a40'], gold: ['#9a6f16', '#7a560f'],
+    green: ['#1f9d55', '#137a40'], gold: ['#9a6f16', '#7a560f'], blue: ['#1d4ed8', '#1e40af'],
   },
 };
+
+function wrapText(text, max) {
+  const lines = [];
+  let line = '';
+  for (const w of String(text).split(' ')) {
+    if ((line + ' ' + w).trim().length > max) { lines.push(line); line = w; } else line = (line + ' ' + w).trim();
+  }
+  if (line) lines.push(line);
+  return lines;
+}
 
 function fit(text, maxWidth, start, min = 30) {
   let size = start;
@@ -52,7 +62,7 @@ function fit(text, maxWidth, start, min = 30) {
 }
 
 function defs(t, accent) {
-  const ramp = accent === 'gold' ? t.gold : t.green;
+  const ramp = t[accent] || t.green;
   return '<defs>'
     + '<linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">'
     + '<stop offset="0%" stop-color="' + ramp[0] + '"/><stop offset="100%" stop-color="' + ramp[1] + '"/>'
@@ -82,12 +92,17 @@ function progress(t, index, total) {
 
 function frame(o, body) {
   const t = THEMES[o.theme];
-  const ramp = o.accent === 'gold' ? t.gold : t.green;
+  const ramp = t[o.accent] || t.green;
   return '<svg xmlns="http://www.w3.org/2000/svg" width="' + S + '" height="' + S + '" viewBox="0 0 '
     + S + ' ' + S + '">' + defs(t, o.accent)
     + '<rect width="' + S + '" height="' + S + '" fill="' + t.bg + '"/>'
     + '<rect width="' + S + '" height="' + S + '" fill="url(#dots)"/>'
     + '<rect width="' + S + '" height="' + S + '" fill="url(#glow)"/>'
+    + '<g transform="translate(540 500) scale(0.9)" opacity="0.06" font-family="Segoe UI, Arial, sans-serif">'
+    + '<rect x="6" y="6" width="500" height="500" rx="110" fill="none" stroke="url(#accent)" stroke-width="12"/>'
+    + '<text x="226" y="324" text-anchor="end" font-weight="800" font-size="171" fill="url(#accent)">11</text>'
+    + '<text x="286" y="324" font-weight="800" font-size="171" fill="url(#accent)">11</text>'
+    + '<circle cx="256" cy="209" r="13" fill="url(#accent)"/><circle cx="256" cy="303" r="13" fill="url(#accent)"/></g>'
     + '<g font-family="Segoe UI, Arial, sans-serif">'
     + '<text x="80" y="96" fill="' + t.text + '" font-size="24" font-weight="700" letter-spacing="5" '
     + 'opacity="0.9">ELEVVEN11 STUDIO</text>'
@@ -171,7 +186,113 @@ const SETS = {
   },
 };
 
+SETS.pricing = {
+  accent: 'neon', peek: true,
+  slides: [
+    { theme: 'dark', head: ['What does a', 'website really', 'cost?'],
+      sub: 'Most quotes hide a monthly fee. Ours do not.' },
+    { theme: 'light', head: ['Starter.', NAIRA + '50,000.'],
+      sub: 'A clean, mobile-friendly site for one business.',
+      chips: ['One-time', 'Free updates'] },
+    { theme: 'dark', head: ['Plus.', NAIRA + '80,000.'],
+      sub: 'More pages and more room to grow.',
+      chips: ['One-time', 'Free updates'] },
+    { theme: 'light', head: ['Custom.', 'From ' + NAIRA + '120,000.'],
+      sub: 'Built around what your business needs.', chips: ['Quoted first', 'No surprises'] },
+    { theme: 'dark', head: ['Pay once.', 'Own the site.'],
+      sub: 'See every package and what it includes.',
+      qr: SITE + '/pricing/?' + utm('carousel-pricing'), qrCaption: 'Scan to see pricing' },
+  ],
+};
+
+SETS.process = {
+  accent: 'neon', peek: true,
+  slides: [
+    { theme: 'dark', head: ['Getting a website', 'is simpler', 'than you think.'],
+      sub: 'Ten clear steps, from first message to live website.' },
+    { theme: 'light', head: ['1. Choose', 'a package.'],
+      sub: 'Starter, Plus or Custom, based on what you need.' },
+    { theme: 'dark', head: ['2. We build it.'],
+      sub: 'You send your details and content. We build the site from our template system.' },
+    { theme: 'light', head: ['3. You review,', 'then go live.'],
+      sub: 'Request revisions. We publish it and your free update period begins.' },
+    { theme: 'dark', head: ['Ready', 'when you are.'],
+      sub: 'Tell us what you need and we take it from there.',
+      qr: SITE + '/get-started/?' + utm('carousel-process'), qrCaption: 'Scan to start' },
+  ],
+};
+
+SETS.tools = {
+  accent: 'neon', peek: false,
+  slides: [
+    { theme: 'dark', head: ['Free tools', 'for work and', 'everyday life.'],
+      sub: 'They run in your browser. Nothing is uploaded.',
+      chips: ['No account', 'Free'] },
+    { theme: 'light', head: ['Pricing and', 'profit.'],
+      sub: 'Work out margins before you quote.',
+      chips: ['Profit', 'Markup', 'Discount'] },
+    { theme: 'dark', head: ['Tax and', 'break-even.'],
+      sub: 'Know your numbers before you commit.',
+      chips: ['VAT', 'Break-even', 'Percentage'] },
+    { theme: 'light', head: ['Documents', 'and text.'],
+      sub: 'Make an invoice, count words, format JSON.',
+      chips: ['Invoice', 'Words', 'JSON'] },
+    { theme: 'dark', head: ['Try them', 'free.'],
+      sub: 'Ten tools. No sign-up.',
+      qr: SITE + '/tools/?' + utm('carousel-tools'), qrCaption: 'Scan to open' },
+  ],
+};
+
+SETS.extensions = {
+  accent: 'neon', peek: false,
+  slides: [
+    { theme: 'dark', head: ['Small tools', 'that stay on', 'your machine.'],
+      sub: 'Free Chrome extensions from Elevven11 Studio.',
+      chips: ['No account', 'No server'] },
+    { theme: 'light', head: ['WebGuard.', 'Spot the fake.'],
+      sub: 'Phishing checks that run on your device.', chips: ['Phishing', 'Passwords'] },
+    { theme: 'dark', head: ['WebInspect.', 'Understand any site.'],
+      sub: 'Tech, SEO, accessibility, performance and security.', chips: ['One keypress'] },
+    { theme: 'light', head: ['ShopInspect.', 'Check before', 'you buy.'],
+      sub: 'Price, reviews and seller, checked in your browser.', chips: ['No shopping history'] },
+    { theme: 'dark', head: ['Add them', 'to Chrome.'],
+      sub: 'Free, and nothing leaves your browser.',
+      qr: SITE + '/extensions/?' + utm('carousel-extensions'), qrCaption: 'Scan to browse' },
+  ],
+};
+
+Object.assign(SETS, require('./carousel-sets-extra'));
+
 const QR = { x: 760, y: 690, size: 200, pad: 22 };
+
+// Slides with no grid or QR used to leave the lower half empty. They now show
+// the tops of four real phone renders, fading out toward the footer.
+const PEEK = { x: 80, y: 650, w: 210, h: 270, gap: 20, n: 4 };
+const MOBILE = path.join(PREVIEWS, 'mobile');
+const PEEK_POOL = ['barber', 'fashion', 'church', 'restaurant', 'photographer', 'fitness', 'consultant', 'events',
+  'real-estate', 'logistics', 'freelancer', 'salon'];
+
+async function peekLayers(seed) {
+  const pool = PEEK_POOL.filter((n) => fs.existsSync(path.join(MOBILE, n + '.jpg')));
+  const layers = [];
+  for (let k = 0; k < PEEK.n; k++) {
+    const slug = pool[(seed * 3 + k) % pool.length];
+    const m = await sharp(path.join(MOBILE, slug + '.jpg')).metadata();
+    const crop = await sharp(path.join(MOBILE, slug + '.jpg'))
+      .extract({ left: 0, top: 92, width: m.width, height: Math.round(PEEK.h * m.width / PEEK.w) })
+      .resize(PEEK.w, PEEK.h).png().toBuffer();
+    const mask = Buffer.from('<svg width="' + PEEK.w + '" height="' + PEEK.h + '">'
+      + '<defs><linearGradient id="f" x1="0" y1="0" x2="0" y2="1">'
+      + '<stop offset="0.45" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>'
+      + '<path d="M0 ' + PEEK.h + ' V28 a28 28 0 0 1 28 -28 H' + (PEEK.w - 28) + ' a28 28 0 0 1 28 28 V' + PEEK.h
+      + ' Z" fill="url(#f)"/></svg>');
+    layers.push({
+      input: await sharp(crop).composite([{ input: mask, blend: 'dest-in' }]).png().toBuffer(),
+      left: PEEK.x + k * (PEEK.w + PEEK.gap), top: PEEK.y,
+    });
+  }
+  return layers;
+}
 
 (async () => {
   const gridPicks = ['restaurant', 'fashion', 'barber', 'real-estate', 'church', 'photographer'];
@@ -193,13 +314,15 @@ const QR = { x: 760, y: 690, size: 200, pad: 22 };
           + (j === sl.head.length - 1 ? 'url(#accent)' : t.text) + '" font-size="' + size
           + '" font-weight="700" letter-spacing="-1">' + esc(l) + '</text>').join('');
         const subY = 286 + sl.head.length * 104 + 6;
-        out += '<text x="80" y="' + subY + '" fill="' + t.muted + '" font-size="31">' + esc(sl.sub) + '</text>';
-        if (sl.sub2) {
-          out += '<text x="80" y="' + (subY + 44) + '" fill="' + t.muted + '" font-size="31">'
-            + esc(sl.sub2) + '</text>';
-        }
+        // Long subtitles wrap at ~50 characters; everything below shifts down with them.
+        const subLines = wrapText(sl.sub, 50).concat(sl.sub2 ? [sl.sub2] : []);
+        subLines.forEach((line, j) => {
+          out += '<text x="80" y="' + (subY + j * 44) + '" fill="' + t.muted + '" font-size="31">' + esc(line) + '</text>';
+        });
+        const belowY = subY + (subLines.length - 1) * 44 + 40;
+        if (sl.chips) out += chips(t, sl.chips, belowY, false);
         if (sl.visual === 'commission') {
-          out += chips(t, ['Starter ' + NAIRA + '10,000', 'Plus ' + NAIRA + '15,000'], subY + 40, true);
+          out += chips(t, ['Starter ' + NAIRA + '10,000', 'Plus ' + NAIRA + '15,000'], belowY, true);
         }
         if (sl.qr) {
           out += '<rect x="' + QR.x + '" y="' + QR.y + '" width="' + QR.size + '" height="' + QR.size
@@ -213,9 +336,11 @@ const QR = { x: 760, y: 690, size: 200, pad: 22 };
       const layers = [];
 
       if (sl.visual === 'grid') {
-        const gw = 268, gh = 141, gap = 18, gx = 80, gy = 610;
-        for (let k = 0; k < gridPicks.length; k++) {
-          const src = path.join(PREVIEWS, gridPicks[k] + '-og.jpg');
+        const picks = sl.picks || gridPicks;
+        const wide = picks.length <= 3;
+        const gw = wide ? 284 : 268, gh = wide ? 330 : 141, gap = wide ? 24 : 18, gx = 80, gy = wide ? 520 : 610;
+        for (let k = 0; k < picks.length; k++) {
+          const src = path.join(PREVIEWS, picks[k] + '-og.jpg');
           if (!fs.existsSync(src)) continue;
           // og jpgs are cropped ribbon-free at capture time now.
           const buf = await sharp(src)
@@ -228,6 +353,8 @@ const QR = { x: 760, y: 690, size: 200, pad: 22 };
           layers.push({ input: rounded, left: gx + (k % 3) * (gw + gap), top: gy + Math.floor(k / 3) * (gh + gap) });
         }
       }
+
+      if (set.peek !== false && !sl.visual && !sl.qr && !sl.sub2 && !sl.chips) layers.push(...await peekLayers(index + name.length));
 
       if (sl.qr) {
         layers.push({

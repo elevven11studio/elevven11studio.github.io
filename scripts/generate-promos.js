@@ -176,22 +176,74 @@ async function qrLayer(url) {
   };
 }
 
+/* ---------------- page promo visuals ---------------- */
+
+// Three staggered phone tops, fading out toward the bottom, to the right of
+// the text column, which is held to about 540px wide when a visual is present.
+const FAN = { x: 672, w: 150, gap: 28, ys: [500, 410] };
+
+async function phoneFan(slugs) {
+  const layers = [];
+  for (const [k, slug] of slugs.slice(0, 2).entries()) {
+    const w = FAN.w, bz = 8;
+    const shot = path.join(MOBILE, slug + '.jpg');
+    const m = await sharp(shot).metadata();
+    const sw = w - bz * 2;
+    const sh = Math.round(sw * (m.height - RIBBON_M) / m.width);
+    const h = sh + bz * 2;
+    // Full width, scaled to fit the screen, then cut to height: 'cover' would crop the sides.
+    const scaled = await sharp(shot)
+      .extract({ left: 0, top: RIBBON_M, width: m.width, height: m.height - RIBBON_M })
+      .resize({ width: sw, height: sh }).png().toBuffer();
+    const screen = scaled;
+    const body = Buffer.from('<svg width="' + w + '" height="' + h + '"><rect x="1" y="1" width="' + (w - 2)
+      + '" height="' + (h + 40) + '" rx="26" fill="#0a0910" stroke="rgba(247,243,236,0.25)" stroke-width="1.5"/></svg>');
+    const fade = Buffer.from('<svg width="' + w + '" height="' + h + '"><defs><linearGradient id="f" x1="0" y1="0" x2="0" y2="1">'
+      + '<stop offset="0.5" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>'
+      + '<rect width="' + w + '" height="' + h + '" fill="url(#f)"/></svg>');
+    const phone = await sharp(body)
+      .composite([{ input: await roundRect(screen, sw, sh, 18), left: bz, top: bz }, { input: fade, blend: 'dest-in' }])
+      .png().toBuffer();
+    layers.push({ input: phone, left: FAN.x + k * (FAN.w + FAN.gap), top: FAN.ys[k] });
+  }
+  return layers;
+}
+
+// Payout card for the referral promo (gold).
+function payoutCard(t) {
+  const x = 640, y = 430, w = 360, h = 250;
+  const row = (yy, label, amt) => '<line x1="' + (x + 28) + '" y1="' + (yy - 40) + '" x2="' + (x + w - 28) + '" y2="' + (yy - 40)
+    + '" stroke="' + t.line + '"/><text x="' + (x + 28) + '" y="' + yy + '" fill="' + t.muted + '" font-size="24">' + label
+    + '</text><text x="' + (x + w - 28) + '" y="' + yy + '" fill="url(#accent)" font-size="30" font-weight="700" text-anchor="end">'
+    + amt + '</text>';
+  return '<g filter="url(#drop)"><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="22" fill="' + t.panel
+    + '" stroke="' + t.line + '"/><rect x="' + x + '" y="' + y + '" width="' + w + '" height="5" rx="2.5" fill="url(#accent)"/></g>'
+    + '<text x="' + (x + 28) + '" y="' + (y + 48) + '" fill="' + t.faint + '" font-size="19" letter-spacing="3">PER REFERRAL</text>'
+    + row(y + 110, 'Starter', NAIRA + '10,000') + row(y + 180, 'Plus', NAIRA + '15,000')
+    + '<text x="' + (x + 28) + '" y="' + (y + 232) + '" fill="' + t.faint + '" font-size="19">Paid once their payment clears</text>';
+}
+
 /* ---------------- page promo ---------------- */
 
 function pagePromo(o) {
   const t = THEMES[o.theme];
   const ramp = o.accent === 'gold' ? o.themeGold || t.gold : t.green;
 
+  // With a visual on the right, the text column is narrowed to leave room for it.
+  const narrow = !!(o.fan || o.payout);
+  const size = narrow ? Math.min(...o.lines.map((l) => fit(l, 540, 84, 40))) : null;
+  const step = narrow ? Math.round(size * 1.22) : 96;
   const head = o.lines.map((l, i) =>
-    '<text x="80" y="' + (352 + i * 96) + '" fill="'
+    '<text x="80" y="' + (352 + i * step) + '" fill="'
     + (i === o.lines.length - 1 ? 'url(#accent)' : t.text) + '" font-size="'
-    + fit(l, 920, 84) + '" font-weight="700" letter-spacing="-1">' + esc(l) + '</text>').join('');
+    + (narrow ? size : fit(l, 920, 84)) + '" font-weight="700" letter-spacing="-1">' + esc(l) + '</text>').join('');
 
-  const subY = 352 + o.lines.length * 96 + 14;
+  const subY = 352 + o.lines.length * step + 14;
+  const subExtra = narrow ? (wrap(o.sub, 32, 3).length - 1) * 40 : 0;
 
   const bullets = (o.bullets || []).map((b, i) =>
-    '<g><circle cx="92" cy="' + (subY + 62 + i * 52 - 8) + '" r="5" fill="url(#accent)"/>'
-    + '<text x="118" y="' + (subY + 62 + i * 52) + '" fill="' + t.muted + '" font-size="29">'
+    '<g><circle cx="92" cy="' + (subY + subExtra + 62 + i * 52 - 8) + '" r="5" fill="url(#accent)"/>'
+    + '<text x="118" y="' + (subY + subExtra + 62 + i * 52) + '" fill="' + t.muted + '" font-size="29">'
     + esc(b) + '</text></g>').join('');
 
   return '<svg xmlns="http://www.w3.org/2000/svg" width="' + S + '" height="' + S + '" viewBox="0 0 '
@@ -202,14 +254,35 @@ function pagePromo(o) {
     + esc(o.eyebrow) + '</text>'
     + rule(t, 232)
     + head
-    + '<text x="80" y="' + subY + '" fill="' + t.muted + '" font-size="30">' + esc(o.sub) + '</text>'
+    + (narrow ? wrap(o.sub, 32, 3) : [o.sub]).map((l, i) =>
+      '<text x="80" y="' + (subY + i * 40) + '" fill="' + t.muted + '" font-size="30">' + esc(l) + '</text>').join('')
     + bullets
+    + (o.payout ? payoutCard(t) : '')
     + (o.qrCaption ? qrCard(t, o.qrCaption) : '')
     + footer(t)
     + '</g></svg>';
 }
 
 /* ---------------- demo promo ---------------- */
+
+// Desktop render of the same template, framed bottom-left. The phone alone
+// only proves "mobile friendly"; this fills the empty corner and shows the
+// site holds up on a laptop too.
+const DESK = { x: 80, y: 664, w: 480 };
+function desktopFrame(t, uri) {
+  const bar = 28, ih = Math.round(DESK.w * 420 / 800), h = bar + ih, r = 12;
+  const { x, y, w } = DESK;
+  return '<g filter="url(#drop)"><clipPath id="deskclip"><rect x="' + x + '" y="' + y + '" width="' + w
+    + '" height="' + h + '" rx="' + r + '"/></clipPath>'
+    + '<g clip-path="url(#deskclip)"><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + bar
+    + '" fill="#221d2e"/><image href="' + uri + '" x="' + x + '" y="' + (y + bar) + '" width="' + w
+    + '" height="' + ih + '"/></g>'
+    + '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + r
+    + '" fill="none" stroke="rgba(247,243,236,0.22)" stroke-width="1.5"/></g>'
+    + ['#ff5f57', '#febc2e', '#28c840'].map((c, i) =>
+      '<circle cx="' + (x + 16 + i * 14) + '" cy="' + (y + bar / 2) + '" r="4" fill="' + c + '"/>').join('')
+    + '<rect x="' + (x + 64) + '" y="' + (y + 7) + '" width="' + (w - 84) + '" height="14" rx="7" fill="rgba(11,10,16,0.65)"/>';
+}
 
 function demoPromo(o) {
   const t = THEMES[o.theme];
@@ -234,6 +307,7 @@ function demoPromo(o) {
     + NAIRA + '50,000 one-time.</text>'
     + '<text x="80" y="' + (306 + nameLines.length * 70 + 122) + '" fill="' + t.muted + '" font-size="27">'
     + 'No monthly hosting fee.</text>'
+    + desktopFrame(t, o.thumbUri)
     + phoneFrame(t)
     + footer(t)
     + '</g></svg>';
@@ -277,6 +351,7 @@ async function deriveScreen() {
       lines: ['Simple Websites.', 'No Monthly', 'Hosting Fee.'],
       sub: 'For small businesses, freelancers and creators.',
       bullets: ['42 live demos across 14 industries', 'From ' + NAIRA + '50,000, one-time'],
+      fan: ['barber', 'fashion', 'fitness'],
     },
     {
       name: 'agents', theme: 'dark', accent: 'gold', qrCaption: 'Scan to join',
@@ -284,7 +359,7 @@ async function deriveScreen() {
       eyebrow: 'REFERRAL PROGRAMME',
       lines: ['Refer Someone.', 'Earn a', 'Commission.'],
       sub: 'No website skills needed. Get paid when they buy.',
-      bullets: ['Starter ' + NAIRA + '10,000 per referral', 'Plus ' + NAIRA + '15,000 per referral'],
+      payout: true,
     },
     {
       name: 'examples', theme: 'light', accent: 'neon', qrCaption: 'Scan to browse',
@@ -293,6 +368,7 @@ async function deriveScreen() {
       lines: ['42 Live Demos.', '14 Industries.'],
       sub: 'Restaurants, salons, churches, schools, and more.',
       bullets: ['Three style options per industry', 'Open them all on your phone'],
+      fan: ['church', 'restaurant', 'consultant'],
     },
     {
       name: 'follow-share', theme: 'light', accent: 'neon', qrCaption: 'Scan to visit',
@@ -301,12 +377,13 @@ async function deriveScreen() {
       lines: ['Like the work?', 'Follow us and', 'share the link.'],
       sub: 'It costs nothing and helps a small business get found.',
       bullets: ['facebook.com/Elevven11Studio', 'linkedin.com/company/elevven11-studio'],
+      fan: ['photographer', 'events', 'logistics'],
     },
   ];
 
   for (const p of PAGES) {
     await sharp(Buffer.from(pagePromo(p)))
-      .composite([await qrLayer(p.url)])
+      .composite([await qrLayer(p.url), ...(p.fan ? await phoneFan(p.fan) : [])])
       .png({ compressionLevel: 9 })
       .toFile(path.join(OUT, p.name + '.png'));
   }
@@ -344,6 +421,8 @@ async function deriveScreen() {
       business, industry,
       style: 'Style ' + (styleMatch ? styleMatch[1] : 'A'),
       theme: i % 2 === 0 ? 'dark' : 'light',
+      thumbUri: 'data:image/jpeg;base64,' + (await sharp(path.join(PREVIEWS, slug + '.webp'))
+        .jpeg({ quality: 82 }).toBuffer()).toString('base64'),
     })))
       .composite([{ input: screen, left: PHONE.x + PHONE.bezel, top: PHONE.y + PHONE.bezel }])
       .png({ compressionLevel: 9 })

@@ -1,0 +1,105 @@
+/**
+ * Flyer subjects with no prices to convert, so they have no -intl edition.
+ * Merged into the base set by generate-flyers.js.
+ */
+module.exports = ({ SITE, utm, WHATSAPP_DISPLAY }) => ({
+  tools: {
+    theme: 'dark', accent: 'neon',
+    eyebrow: 'ELEVVEN11 TOOLS',
+    lines: ['Free Tools.', 'Nothing Uploaded.'],
+    sub: 'Calculators and utilities that run in your browser.',
+    included: [
+      'Profit, markup and discount calculators',
+      'VAT, break-even and percentage',
+      'Invoice generator and word counter',
+      'QR code generator and JSON formatter',
+      'No account and nothing uploaded',
+    ],
+    short: ['Profit, markup and discount', 'Invoice generator, word counter', 'No account, nothing uploaded'],
+    cells: [{ label: 'Tools', value: '10' }, { label: 'Account', value: 'None' }, { label: 'Price', value: 'Free' }],
+    barLabel: 'Try them free',
+    barPrimary: 'elevven11studio.github.io/tools',
+    barSecondary: 'Scan to open them in your browser',
+    qr: SITE + '/tools/?' + utm('tools'),
+  },
+
+  extensions: {
+    theme: 'light', accent: 'neon',
+    eyebrow: 'CHROME EXTENSIONS',
+    lines: ['Small Tools.', 'Stay On Your Machine.'],
+    sub: 'Free extensions built alongside the websites we make.',
+    included: [
+      'WebGuard spots phishing before you type',
+      'WebInspect reports on any website',
+      'ShopInspect checks a product before you buy',
+      'SiteExtract turns a page into a starter project',
+      'No account, no server, nothing uploaded',
+    ],
+    short: ['WebGuard spots phishing', 'WebInspect reports on any site', 'ShopInspect checks before you buy'],
+    cells: [{ label: 'Extensions', value: '4' }, { label: 'Price', value: 'Free' }, { label: 'Data', value: 'On device' }],
+    barLabel: 'See all extensions',
+    barPrimary: 'elevven11studio.github.io/extensions',
+    barSecondary: 'Scan to add them to Chrome',
+    qr: SITE + '/extensions/?' + utm('extensions'),
+  },
+
+  apps: {
+    theme: 'dark', accent: 'neon',
+    eyebrow: 'MOBILE APPS',
+    lines: ['One Codebase.', 'Both App Stores.'],
+    sub: 'Flutter apps for Android and iPhone, quoted per project.',
+    included: [
+      'Android and iPhone from one build',
+      'Scoped and quoted before you commit',
+      'Publish under your own store account',
+      'We handle the store submission',
+      'A change lands on both platforms at once',
+    ],
+    short: ['Android and iPhone from one build', 'Scoped and quoted first', 'Your own store account'],
+    cells: [{ label: 'Platforms', value: '2' }, { label: 'Codebase', value: '1' }, { label: 'Pricing', value: 'Quoted' }],
+    barLabel: 'Tell us your idea',
+    barPrimary: WHATSAPP_DISPLAY,
+    barSecondary: 'elevven11studio.github.io/app-development',
+    qr: SITE + '/app-development/?' + utm('apps'),
+  },
+
+  counterbook: {
+    theme: 'light', accent: 'neon',
+    eyebrow: 'COUNTERBOOK / POINT OF SALE',
+    lines: ['Run Your Shop', 'From One App.'],
+    sub: 'Sales, stock, customers and cash. No account needed.',
+    included: [
+      'Sales, stock, customers and cash',
+      'Works offline at the counter',
+      'Windows and Android',
+      'No account needed',
+      'Free to use',
+    ],
+    short: ['Sales, stock, customers and cash', 'Works offline', 'Windows and Android'],
+    cells: [{ label: 'Price', value: 'Free' }, { label: 'Works', value: 'Offline' }, { label: 'Status', value: 'Coming soon' }],
+    barLabel: 'Read more',
+    barPrimary: 'elevven11studio.github.io/counterbook',
+    barSecondary: 'Scan to see what is coming',
+    qr: SITE + '/counterbook/?' + utm('counterbook'),
+  },
+
+  process: {
+    theme: 'dark', accent: 'neon',
+    eyebrow: 'HOW IT WORKS',
+    lines: ['From First Message', 'To Live Website.'],
+    sub: 'Ten clear steps. You always know what happens next.',
+    included: [
+      'Choose Starter, Plus or Custom',
+      'Send your details and content',
+      'We build it from our template system',
+      'You review it and request revisions',
+      'We publish it and your free updates begin',
+    ],
+    short: ['Choose a package, send your details', 'You review it and request revisions', 'We publish it and free updates begin'],
+    cells: [{ label: 'Steps', value: '10' }, { label: 'Revisions', value: 'Included' }, { label: 'Updates', value: 'Free' }],
+    barLabel: 'Get started',
+    barPrimary: WHATSAPP_DISPLAY,
+    barSecondary: 'elevven11studio.github.io/get-started',
+    qr: SITE + '/get-started/?' + utm('process'),
+  },
+});

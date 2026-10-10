@@ -3,6 +3,7 @@
  * backdrop, pills, cards and the two output formats. Everything returns SVG
  * strings, except qrPng, which returns a PNG buffer to composite on top.
  */
+const fs = require('fs');
 const sharp = require('sharp');
 const QRCode = require('qrcode');
 
@@ -32,10 +33,20 @@ function defs(a = NEON) {
     + '</defs>';
 }
 
+// Faint 11:11 mark bleeding off the top-right corner, same treatment as the
+// social cards in branding/og.
+const watermark = (W) => '<g transform="translate(' + (W - 330) + ' -110) scale(0.8)" opacity="0.06" '
+  + 'font-family="Segoe UI, Arial, sans-serif">'
+  + '<rect x="6" y="6" width="500" height="500" rx="110" fill="none" stroke="url(#accent)" stroke-width="12"/>'
+  + '<text x="226" y="324" text-anchor="end" font-weight="800" font-size="171" fill="url(#accent)">11</text>'
+  + '<text x="286" y="324" font-weight="800" font-size="171" fill="url(#accent)">11</text>'
+  + '<circle cx="256" cy="209" r="13" fill="url(#accent)"/><circle cx="256" cy="303" r="13" fill="url(#accent)"/></g>';
+
 const backdrop = (W, H) => '<rect width="' + W + '" height="' + H + '" fill="#0b0a10"/>'
   + '<rect width="' + W + '" height="' + H + '" fill="url(#g1)"/>'
   + '<rect width="' + W + '" height="' + H + '" fill="url(#g2)"/>'
   + '<rect width="' + W + '" height="' + H + '" fill="url(#dots)"/>'
+  + watermark(W)
   + '<rect width="' + W + '" height="10" fill="url(#accent)"/>';
 
 function pills(labels, x, y, fs) {
@@ -115,7 +126,14 @@ const qrPng = (url, px) => QRCode.toBuffer(url, {
 });
 
 async function render(scene, file) {
-  await sharp(Buffer.from(scene.svg)).composite(scene.layers).png({ compressionLevel: 9 }).toFile(file);
+  const buf = await sharp(Buffer.from(scene.svg)).composite(scene.layers).png({ compressionLevel: 9 }).toBuffer();
+  // Windows file-sync tools briefly lock freshly written PNGs, so retry the write.
+  for (let i = 0; ; i++) {
+    try { return fs.writeFileSync(file, buf); } catch (e) {
+      if (i >= 5) throw e;
+      await new Promise((r) => setTimeout(r, 400 * (i + 1)));
+    }
+  }
 }
 
 module.exports = {

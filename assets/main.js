@@ -628,7 +628,13 @@ function formatUsd(amountNgn) {
   return 'USD ' + rounded.toLocaleString('en-US');
 }
 
+// Search crawlers render JavaScript from US IPs. Without this they would index
+// the America copy and USD prices instead of the Nigeria-facing page.
+const CRAWLER_UA = /bot|crawl|spider|slurp|lighthouse|facebookexternalhit|whatsapp|preview/i;
+
 async function detectCountryCode() {
+  if (CRAWLER_UA.test(navigator.userAgent)) return null;
+
   const cached = sessionStorage.getItem('e11_country');
   if (cached) return cached;
 

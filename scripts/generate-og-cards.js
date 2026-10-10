@@ -54,6 +54,15 @@ const palette = (accent) => {
   return p;
 };
 
+// Large faint 11:11 mark behind the text so every card carries the brand
+// without adding a competing element.
+const watermark = (x, y, size, id) => `<g transform="translate(${x} ${y}) scale(${size / 512})" opacity="0.07" font-family="Segoe UI, Arial, sans-serif">
+    <rect x="6" y="6" width="500" height="500" rx="110" fill="none" stroke="url(#${id})" stroke-width="12"/>
+    <text x="226" y="324" text-anchor="end" font-weight="800" font-size="171" fill="url(#${id})">11</text>
+    <text x="286" y="324" font-weight="800" font-size="171" fill="url(#${id})">11</text>
+    <circle cx="256" cy="209" r="13" fill="url(#${id})"/><circle cx="256" cy="303" r="13" fill="url(#${id})"/>
+  </g>`;
+
 function card({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
   const pal = palette(accent);
   const grad = `<stop offset="0%" stop-color="${pal.from}"/><stop offset="100%" stop-color="${pal.to}"/>`;
@@ -97,6 +106,8 @@ function card({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
   <rect width="1200" height="630" fill="url(#dots)"/>
   <rect width="1200" height="630" fill="url(#glow1)"/>
   <rect width="1200" height="630" fill="url(#glow2)"/>
+  <rect width="1200" height="6" fill="url(#accent)"/>
+  ${watermark(840, 190, 420, 'accent')}
   <g font-family="Segoe UI, Arial, sans-serif">
     <text x="80" y="108" fill="#f7f3ec" font-size="28" font-weight="700" letter-spacing="5">ELEVVEN11 STUDIO</text>
     <text x="80" y="168" fill="${eyebrowFill}" font-size="22" font-weight="600" letter-spacing="3">${esc(eyebrow)}</text>
@@ -194,6 +205,8 @@ function squareCard({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
   <rect width="${SIZE}" height="${SIZE}" fill="url(#dots)"/>
   <rect width="${SIZE}" height="${SIZE}" fill="url(#glow1)"/>
   <rect width="${SIZE}" height="${SIZE}" fill="url(#glow2)"/>
+  <rect width="${SIZE}" height="6" fill="url(#accent)"/>
+  ${watermark(700, 640, 440, 'accent')}
   <g font-family="Segoe UI, Arial, sans-serif">
     <text x="${PAD}" y="${logoY}" fill="#f7f3ec" font-size="26" font-weight="700" letter-spacing="4">ELEVVEN11 STUDIO</text>
     <text x="${PAD}" y="${eyebrowY}" fill="${eyebrowFill}" font-size="20" font-weight="600" letter-spacing="3">${esc(eyebrow)}</text>

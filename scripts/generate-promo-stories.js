@@ -77,6 +77,12 @@ function defs(accent) {
 const backdrop = '<rect width="' + W + '" height="' + H + '" fill="#0b0a10"/>'
   + '<rect width="' + W + '" height="' + H + '" fill="url(#g1)"/>'
   + '<rect width="' + W + '" height="' + H + '" fill="url(#g2)"/>'
+  // Faint 11:11 mark bleeding off the top-right, as on the social cards.
+  + '<g transform="translate(' + (W - 400) + ' -60) scale(0.9)" opacity="0.06" font-family="Segoe UI, Arial, sans-serif">'
+  + '<rect x="6" y="6" width="500" height="500" rx="110" fill="none" stroke="url(#accent)" stroke-width="12"/>'
+  + '<text x="226" y="324" text-anchor="end" font-weight="800" font-size="171" fill="url(#accent)">11</text>'
+  + '<text x="286" y="324" font-weight="800" font-size="171" fill="url(#accent)">11</text>'
+  + '<circle cx="256" cy="209" r="13" fill="url(#accent)"/><circle cx="256" cy="303" r="13" fill="url(#accent)"/></g>'
   + '<rect width="' + W + '" height="10" fill="url(#accent)"/>';
 
 const wordmark = (y) => '<text x="' + MARGIN + '" y="' + y + '" fill="#f7f3ec" font-size="30" '
@@ -97,6 +103,44 @@ function pills(labels, y, fs) {
     x += w + fs * 0.6;
     return g;
   }).join('');
+}
+
+/* ---- page story visuals ---- */
+
+// Feature list in the free area under the pills, left of the QR code.
+function featureList(items, tint) {
+  return items.map((t, i) => {
+    const y = 1130 + i * 92;
+    return '<g><circle cx="' + (MARGIN + 18) + '" cy="' + (y - 12) + '" r="18" fill="' + tint + '" opacity="0.16"/>'
+      + '<path d="M' + (MARGIN + 9) + ' ' + (y - 12) + ' l7 7 l12 -14" fill="none" stroke="' + tint
+      + '" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>'
+      + '<text x="' + (MARGIN + 60) + '" y="' + y + '" fill="#d9d2c7" font-size="34">' + esc(t) + '</text></g>';
+  }).join('');
+}
+
+// Three phone tops, fading toward the footer, in the same area.
+const MOBILE_DIR = path.join(PREVIEWS, 'mobile');
+async function phoneFan(slugs) {
+  const layers = [];
+  const w = 190, bz = 9, gap = 20;
+  for (const [k, slug] of slugs.slice(0, 3).entries()) {
+    const shot = path.join(MOBILE_DIR, slug + '.jpg');
+    const m = await sharp(shot).metadata();
+    const sw = w - bz * 2, sh = Math.round(sw * (m.height - 92) / m.width), h = sh + bz * 2;
+    const screen = await sharp(shot)
+      .extract({ left: 0, top: 92, width: m.width, height: m.height - 92 })
+      .resize({ width: sw, height: sh }).png().toBuffer();
+    const round = Buffer.from('<svg width="' + sw + '" height="' + sh + '"><rect width="' + sw + '" height="' + sh + '" rx="22" fill="#fff"/></svg>');
+    const rounded = await sharp(screen).composite([{ input: round, blend: 'dest-in' }]).png().toBuffer();
+    const body = Buffer.from('<svg width="' + w + '" height="' + h + '"><rect x="1" y="1" width="' + (w - 2) + '" height="' + (h + 40)
+      + '" rx="30" fill="#0a0910" stroke="rgba(247,243,236,0.25)" stroke-width="1.5"/></svg>');
+    const mask = Buffer.from('<svg width="' + w + '" height="' + h + '"><defs><linearGradient id="f" x1="0" y1="0" x2="0" y2="1">'
+      + '<stop offset="0.5" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>'
+      + '<rect width="' + w + '" height="' + h + '" fill="url(#f)"/></svg>');
+    const phone = await sharp(body).composite([{ input: rounded, left: bz, top: bz }, { input: mask, blend: 'dest-in' }]).png().toBuffer();
+    layers.push({ input: phone, left: MARGIN + k * (w + gap), top: [1140, 1090, 1140][k] });
+  }
+  return layers;
 }
 
 /* ---- page story (main / agents / examples) ---- */
@@ -128,6 +172,7 @@ function pageStory(o) {
     + head
     + '<text x="' + MARGIN + '" y="' + subY + '" fill="#a79f95" font-size="32">' + esc(o.sub) + '</text>'
     + pills(o.pillLabels, subY + 46)
+    + (o.list ? featureList(o.list, tint) : '')
     + qr
     + footerUrl(1615)
     + '</g></svg>';
@@ -138,6 +183,23 @@ function pageStory(o) {
 const FRAME = { x: MARGIN, y: 620, w: 920, bar: 54 };
 const IMG = { w: 918, h: 482 };
 const RIBBON = 48;
+// Phone render of the same template overlapping the browser's bottom-right
+// corner: the desktop frame alone left the lower half of the story empty and
+// said nothing about mobile. Screen size follows the portrait capture
+// (500x1000, minus the 92px studio ribbon, see generate-promos.js).
+const PHONE = { x: 718, y: 880, w: 262, bezel: 11 };
+const PHONE_SCREEN = { w: PHONE.w - PHONE.bezel * 2 };
+PHONE_SCREEN.h = Math.round(PHONE_SCREEN.w * (1000 - 92) / 500);
+const MOBILE = path.join(PREVIEWS, 'mobile');
+
+function phoneFrame() {
+  const h = PHONE_SCREEN.h + PHONE.bezel * 2;
+  return '<defs><filter id="pdrop" x="-30%" y="-20%" width="160%" height="150%">'
+    + '<feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#000" flood-opacity="0.6"/></filter></defs>'
+    + '<g filter="url(#pdrop)"><rect x="' + PHONE.x + '" y="' + PHONE.y + '" width="' + PHONE.w + '" height="' + h
+    + '" rx="38" fill="#0a0910"/><rect x="' + (PHONE.x + 1.5) + '" y="' + (PHONE.y + 1.5) + '" width="' + (PHONE.w - 3)
+    + '" height="' + (h - 3) + '" rx="36.5" fill="none" stroke="rgba(247,243,236,0.25)" stroke-width="1.5"/></g>';
+}
 
 function demoStory(o) {
   const nameLines = wrap(o.business, 24, 2);
@@ -162,8 +224,9 @@ function demoStory(o) {
     + '<circle cx="' + (fx + 78) + '" cy="' + (fy + 27) + '" r="7" fill="#28c840"/>'
     + '<rect x="' + (fx + 106) + '" y="' + (fy + 14) + '" width="' + (fw - 132)
     + '" height="26" rx="13" fill="rgba(11,10,16,0.6)"/>'
-    + '<text x="' + MARGIN + '" y="1300" fill="url(#accent)" font-size="54" font-weight="700">Get a website like this.</text>'
-    + '<text x="' + MARGIN + '" y="1364" fill="#a79f95" font-size="31">From ' + NAIRA
+    + phoneFrame()
+    + '<text x="' + MARGIN + '" y="1480" fill="url(#accent)" font-size="54" font-weight="700">Get a website like this.</text>'
+    + '<text x="' + MARGIN + '" y="1544" fill="#a79f95" font-size="31">From ' + NAIRA
     + '50,000 one-time ' + MIDDOT + ' no monthly fee.</text>'
     + footerUrl(1615)
     + '</g></svg>';
@@ -173,6 +236,17 @@ async function roundedBottom(buf, w, h, r) {
   const mask = Buffer.from('<svg width="' + w + '" height="' + h + '">'
     + '<path d="M0 0 H' + w + ' V' + (h - r) + ' a' + r + ' ' + r + ' 0 0 1 ' + (-r) + ' ' + r
     + ' H' + r + ' a' + r + ' ' + r + ' 0 0 1 ' + (-r) + ' ' + (-r) + ' Z" fill="#fff"/></svg>');
+  return sharp(buf).composite([{ input: mask, blend: 'dest-in' }]).png().toBuffer();
+}
+
+async function phoneScreen(slug) {
+  const shot = path.join(MOBILE, slug + '.jpg');
+  const m = await sharp(shot).metadata();
+  const buf = await sharp(shot)
+    .extract({ left: 0, top: 92, width: m.width, height: m.height - 92 })
+    .resize(PHONE_SCREEN.w, PHONE_SCREEN.h, { fit: 'cover', position: 'top' }).png().toBuffer();
+  const mask = Buffer.from('<svg width="' + PHONE_SCREEN.w + '" height="' + PHONE_SCREEN.h
+    + '"><rect width="' + PHONE_SCREEN.w + '" height="' + PHONE_SCREEN.h + '" rx="27" fill="#fff"/></svg>');
   return sharp(buf).composite([{ input: mask, blend: 'dest-in' }]).png().toBuffer();
 }
 
@@ -188,6 +262,7 @@ async function roundedBottom(buf, w, h, r) {
       lines: ['Simple Websites.', 'No Monthly', 'Hosting Fee.'],
       sub: 'For small businesses and freelancers.',
       pillLabels: ['42 live demos', 'From ' + NAIRA + '50,000'],
+      fan: ['barber', 'fashion', 'fitness'],
     },
     {
       name: 'agents', accent: 'gold', qr: true, qrCaption: 'Scan to join',
@@ -196,6 +271,7 @@ async function roundedBottom(buf, w, h, r) {
       lines: ['Refer Someone.', 'Earn a', 'Commission.'],
       sub: 'No website skills needed.',
       pillLabels: ['Starter ' + NAIRA + '10,000', 'Plus ' + NAIRA + '15,000'],
+      list: ['Apply in about two minutes', 'Get a referral code of your own', 'Share your link anywhere', 'Paid once their payment clears'],
     },
     {
       name: 'examples', accent: 'neon', qr: true, qrCaption: 'Scan to browse',
@@ -204,6 +280,7 @@ async function roundedBottom(buf, w, h, r) {
       lines: ['42 Live Demos.', '14 Industries.'],
       sub: 'Restaurants, salons, churches, schools.',
       pillLabels: ['Mobile friendly', '3 styles each'],
+      fan: ['church', 'restaurant', 'consultant'],
     },
     {
       name: 'follow-share', accent: 'neon', qr: true, qrCaption: 'Scan to visit',
@@ -212,6 +289,87 @@ async function roundedBottom(buf, w, h, r) {
       lines: ['Like the work?', 'Follow us and', 'share the link.'],
       sub: 'It costs nothing and helps a small business.',
       pillLabels: ['Facebook', 'LinkedIn'],
+      fan: ['photographer', 'events', 'logistics'],
+    },
+    {
+      name: 'pricing', accent: 'neon', qr: true, qrCaption: 'Scan to see pricing',
+      url: SITE + '/pricing/?' + utm('story-pricing'),
+      eyebrow: 'PRICING', lines: ['One-Time Pricing.', 'No Monthly Fees.'],
+      sub: 'Every package includes a free update period.',
+      pillLabels: ['From ' + NAIRA + '50,000', 'One-time'],
+      list: ['Starter ' + NAIRA + '50,000', 'Plus ' + NAIRA + '80,000', 'Custom from ' + NAIRA + '120,000', 'Hosting and setup handled'],
+    },
+    {
+      name: 'process', accent: 'neon', qr: true, qrCaption: 'Scan to start',
+      url: SITE + '/get-started/?' + utm('story-process'),
+      eyebrow: 'HOW IT WORKS', lines: ['From First Message', 'To Live Website.'],
+      sub: 'Ten clear steps. You always know what is next.',
+      pillLabels: ['10 steps', 'Revisions included'],
+      list: ['Choose Starter, Plus or Custom', 'Send your details and content', 'You review it and request changes', 'We publish it and updates begin'],
+    },
+    {
+      name: 'hosting', accent: 'neon', qr: true, qrCaption: 'Scan to read the FAQ',
+      url: SITE + '/faq/?' + utm('story-hosting'),
+      eyebrow: 'HOSTING', lines: ['No Monthly', 'Hosting Fee.'],
+      sub: 'On our website packages.',
+      pillLabels: ['Free hosting', 'Setup included'],
+      list: ['Free GitHub Pages hosting', 'Use the default URL or your own', 'Domain registration is separate', 'We can help set it up'],
+    },
+    {
+      name: 'updates', accent: 'neon', qr: true, qrCaption: 'Scan to read the FAQ',
+      url: SITE + '/faq/?' + utm('story-updates'),
+      eyebrow: 'AFTER YOU GO LIVE', lines: ['Free Updates', 'Included.'],
+      sub: 'Every package has a free update period.',
+      pillLabels: ['Text', 'Photos', 'Contact details'],
+      list: ['Change your text', 'Swap your images', 'Update phone and WhatsApp', 'Bigger changes are quoted first'],
+    },
+    {
+      name: 'tools', accent: 'neon', qr: true, qrCaption: 'Scan to open',
+      url: SITE + '/tools/?' + utm('story-tools'),
+      eyebrow: 'ELEVVEN11 TOOLS', lines: ['Free Tools.', 'Nothing Uploaded.'],
+      sub: 'They run in your browser.',
+      pillLabels: ['10 tools', 'No account'],
+      list: ['Profit, markup and discount', 'VAT, break-even and percentage', 'Invoice generator and word counter', 'QR code generator and JSON formatter'],
+    },
+    {
+      name: 'extensions', accent: 'neon', qr: true, qrCaption: 'Scan to browse',
+      url: SITE + '/extensions/?' + utm('story-extensions'),
+      eyebrow: 'CHROME EXTENSIONS', lines: ['Small Tools.', 'Stay On Your Machine.'],
+      sub: 'Free, with no account.',
+      pillLabels: ['Free', 'On device'],
+      list: ['WebGuard spots phishing', 'WebInspect reports on any site', 'ShopInspect checks before you buy', 'SiteExtract builds a starter project'],
+    },
+    {
+      name: 'support', accent: 'gold', qr: true, qrCaption: 'Scan to chip in',
+      url: SITE + '/support/?' + utm('story-support'),
+      eyebrow: 'SUPPORT THE STUDIO', lines: ['Pay What', 'You Like.'],
+      sub: 'Optional, and it buys nothing.',
+      pillLabels: ['NGN or USD', 'No account'],
+      list: ['Card, transfer or USSD', 'Secured by Paystack', 'Any amount you choose', 'One payment, nothing recurring'],
+    },
+    {
+      name: 'counterbook', accent: 'neon', qr: true, qrCaption: 'Scan to learn more',
+      url: SITE + '/counterbook/?' + utm('story-counterbook'),
+      eyebrow: 'COUNTERBOOK / POINT OF SALE', lines: ['Run Your Shop', 'From One App.'],
+      sub: 'Free, and coming soon.',
+      pillLabels: ['Works offline', 'No account'],
+      list: ['Sales, stock, customers and cash', 'Windows and Android', 'Works offline at the counter', 'Free to use'],
+    },
+    {
+      name: 'apps', accent: 'neon', qr: true, qrCaption: 'Scan to read more',
+      url: SITE + '/app-development/?' + utm('story-apps'),
+      eyebrow: 'MOBILE APPS', lines: ['One Codebase.', 'Both App Stores.'],
+      sub: 'Flutter apps, quoted per project.',
+      pillLabels: ['Android', 'iPhone'],
+      list: ['One build for both platforms', 'Scoped and quoted first', 'Your own store account', 'We handle the submission'],
+    },
+    {
+      name: 'contact', accent: 'neon', qr: true, qrCaption: 'Scan to message us',
+      url: SITE + '/contact/?' + utm('story-contact'),
+      eyebrow: 'CONTACT', lines: ["Let's Talk.", 'Ask Anything.'],
+      sub: 'WhatsApp or email. We reply quickly.',
+      pillLabels: ['WhatsApp', 'Email'],
+      list: ['A new website', 'Pricing questions', 'The referral programme', 'Extensions and Counterbook'],
     },
   ];
 
@@ -228,10 +386,11 @@ async function roundedBottom(buf, w, h, r) {
         left: QR_BOX.x + QR_BOX.pad, top: QR_BOX.y + QR_BOX.pad,
       });
     }
+    if (p.fan) layers.push(...await phoneFan(p.fan));
     await sharp(Buffer.from(svg)).composite(layers).png({ compressionLevel: 9 }).toFile(file);
     count++;
   }
-  console.log('page stories: main, agents, examples, follow-share');
+  console.log('page stories: ' + pages.map((x) => x.name).join(', '));
 
   const slugs = fs.readdirSync(path.join(ROOT, 'examples'), { withFileTypes: true })
     .filter((d) => d.isDirectory()).map((d) => d.name);
@@ -255,7 +414,10 @@ async function roundedBottom(buf, w, h, r) {
     await sharp(Buffer.from(demoStory({
       business, industry, style: 'Style ' + (styleMatch ? styleMatch[1] : 'A'),
     })))
-      .composite([{ input: await roundedBottom(img, IMG.w, IMG.h, 17), left: FRAME.x + 1, top: FRAME.y + FRAME.bar }])
+      .composite([
+        { input: await roundedBottom(img, IMG.w, IMG.h, 17), left: FRAME.x + 1, top: FRAME.y + FRAME.bar },
+        { input: await phoneScreen(slug), left: PHONE.x + PHONE.bezel, top: PHONE.y + PHONE.bezel },
+      ])
       .png({ compressionLevel: 9 })
       .toFile(path.join(OUT, 'demos', slug + '.png'));
     count++;

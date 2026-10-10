@@ -520,6 +520,14 @@ header.scrolled {
   gap: 12px;
 }
 
+.fab.fab-hidden:not(.open) {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+}
+
+.fab { transition: opacity var(--transition-normal), transform var(--transition-normal), visibility var(--transition-normal); }
+
 .fab-menu {
   display: flex;
   flex-direction: column;
@@ -676,6 +684,7 @@ header.scrolled {
 }
 
 .cookie-banner-actions .btn {
+  min-height: 44px;
   padding: 0.45rem 1.1rem;
   font-size: 0.85rem;
 }

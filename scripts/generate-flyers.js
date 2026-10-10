@@ -181,7 +181,13 @@ function defs(t, accent) {
 const ground = (t, f) =>
   '<rect width="' + f.w + '" height="' + f.h + '" fill="' + t.bg + '"/>'
   + '<rect width="' + f.w + '" height="' + f.h + '" fill="url(#dots)"/>'
-  + '<rect width="' + f.w + '" height="' + f.h + '" fill="url(#glow)"/>';
+  + '<rect width="' + f.w + '" height="' + f.h + '" fill="url(#glow)"/>'
+  // Faint 11:11 mark bleeding off the top-right, as on the social cards.
+  + '<g transform="translate(' + (f.w - 330) + ' -110) scale(0.8)" opacity="0.06" font-family="Segoe UI, Arial, sans-serif">'
+  + '<rect x="6" y="6" width="500" height="500" rx="110" fill="none" stroke="url(#accent)" stroke-width="12"/>'
+  + '<text x="226" y="324" text-anchor="end" font-weight="800" font-size="171" fill="url(#accent)">11</text>'
+  + '<text x="286" y="324" font-weight="800" font-size="171" fill="url(#accent)">11</text>'
+  + '<circle cx="256" cy="209" r="13" fill="url(#accent)"/><circle cx="256" cy="303" r="13" fill="url(#accent)"/></g>';
 
 const wordmark = (t, f) => '<text x="' + f.m + '" y="' + f.wordmarkY + '" fill="' + t.text
   + '" font-size="25" font-weight="700" letter-spacing="5" opacity="0.92">ELEVVEN11 STUDIO</text>';
@@ -272,6 +278,55 @@ async function qrLayer(f, url) {
 
 /* ---------------- the flyer ---------------- */
 
+// Every y that the art layer needs to know about, shared with flyer() so the
+// two can never disagree about where the list ends.
+function layout(o, f) {
+  const headEnd = f.headY + (o.lines.length - 1) * f.headStep;
+  const subY = headEnd + f.subGap;
+  const listY = subY + f.listGap;
+  const items = f.items >= o.included.length ? o.included : (o.short || o.included.slice(0, f.items));
+  const cellsY = listY + items.length * f.listStep + f.cellsGap;
+  return { headEnd, subY, listY, items, cellsY };
+}
+
+const MOBILE = path.join(ROOT, 'assets/previews/mobile');
+const RIBBON_M = 92;
+
+/**
+ * Two phone tops in the space to the right of the included list, fading out
+ * toward the price cells. Only used where the list is short enough to leave
+ * that space free (o.art = [slugA, slugB]).
+ */
+async function artLayers(o, f) {
+  if (!o.art) return [];
+  const { listY, cellsY } = layout(o, f);
+  const top = listY - 40, room = cellsY - 16 - top;
+  const w = 150, bz = 8, x0 = f.w - f.m - w * 2 - 20;
+  const layers = [];
+  for (const [k, slug] of o.art.entries()) {
+    const shot = path.join(MOBILE, slug + '.jpg');
+    const m = await sharp(shot).metadata();
+    const sw = w - bz * 2, sh = Math.round(sw * (m.height - RIBBON_M) / m.width);
+    const dy = k === 0 ? 24 : 0;
+    const h = Math.min(sh + bz * 2, room - dy);
+    const screen = await sharp(shot)
+      .extract({ left: 0, top: RIBBON_M, width: m.width, height: m.height - RIBBON_M })
+      .resize({ width: sw, height: sh }).png().toBuffer();
+    const round = Buffer.from('<svg width="' + sw + '" height="' + sh + '"><rect width="' + sw + '" height="' + sh + '" rx="18" fill="#fff"/></svg>');
+    const rounded = await sharp(screen).composite([{ input: round, blend: 'dest-in' }]).png().toBuffer();
+    const body = Buffer.from('<svg width="' + w + '" height="' + (sh + bz * 2) + '"><rect x="1" y="1" width="' + (w - 2) + '" height="' + (sh + bz * 2 + 40)
+      + '" rx="26" fill="#0a0910" stroke="rgba(120,115,105,0.55)" stroke-width="1.5"/></svg>');
+    const phone = await sharp(body).composite([{ input: rounded, left: bz, top: bz }]).png().toBuffer();
+    const mask = Buffer.from('<svg width="' + w + '" height="' + h + '"><defs><linearGradient id="f" x1="0" y1="0" x2="0" y2="1">'
+      + '<stop offset="0.5" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>'
+      + '<rect width="' + w + '" height="' + h + '" fill="url(#f)"/></svg>');
+    const faded = await sharp(phone).extract({ left: 0, top: 0, width: w, height: h })
+      .composite([{ input: mask, blend: 'dest-in' }]).png().toBuffer();
+    layers.push({ input: faded, left: x0 + k * (w + 20), top: top + dy });
+  }
+  return layers;
+}
+
 function flyer(o, f) {
   const t = THEMES[o.theme];
   const ramp = o.accent === 'gold' ? t.gold : t.green;
@@ -282,15 +337,7 @@ function flyer(o, f) {
     + fit(l, f.w - f.m * 2, f.headSize) + '" font-weight="700" letter-spacing="-1">'
     + esc(l) + '</text>').join('');
 
-  const headEnd = f.headY + (o.lines.length - 1) * f.headStep;
-  const subY = headEnd + f.subGap;
-  const listY = subY + f.listGap;
-
-  // The square carries a curated three rather than the first three: on the
-  // agents flyer the fifth line (when you get paid) is the one that sells it.
-  const items = f.items >= o.included.length
-    ? o.included
-    : (o.short || o.included.slice(0, f.items));
+  const { subY, listY, items, cellsY: cellsYBase } = layout(o, f);
 
   const list = items.map((item, i) => {
     const ly = listY + i * f.listStep;
@@ -299,7 +346,7 @@ function flyer(o, f) {
       + f.listSize + '">' + esc(item) + '</text>';
   }).join('');
 
-  const cellsY = listY + items.length * f.listStep + f.cellsGap;
+  const cellsY = cellsYBase;
   const noteY = f.footnoteAt === 'above'
     ? cellsY - f.footnoteGap
     : cellsY + f.cellH + f.footnoteGap;
@@ -389,6 +436,7 @@ function buildFlyers(rate, asOf) {
       barLabel: 'Message us on WhatsApp',
       barPrimary: WHATSAPP_DISPLAY,
       barSecondary: 'elevven11studio.github.io',
+      art: ['barber', 'fashion'],
       qr: SITE + '/?' + utm('main'),
 
       intl: {
@@ -441,6 +489,7 @@ function buildFlyers(rate, asOf) {
       barLabel: 'Apply to join',
       barPrimary: 'elevven11studio.github.io/agents',
       barSecondary: 'Or message ' + WHATSAPP_DISPLAY + ' on WhatsApp',
+      art: ['consultant', 'events'],
       qr: SITE + '/agents/?' + utm('agents'),
 
       intl: {
@@ -481,6 +530,7 @@ function buildFlyers(rate, asOf) {
       barLabel: 'Browse the demos',
       barPrimary: 'elevven11studio.github.io/examples',
       barSecondary: 'Scan to open them on your phone',
+      art: ['church', 'restaurant'],
       qr: SITE + '/examples/?' + utm('examples'),
 
       intl: {
@@ -535,11 +585,14 @@ function buildFlyers(rate, asOf) {
     },
   };
 
+  // Subjects with no prices, so there is no separate international edition.
+  Object.assign(base, require('./flyers-extra')({ SITE, utm, WHATSAPP_DISPLAY }));
+
   const out = {};
   for (const [slug, cfg] of Object.entries(base)) {
     const { intl, ...local } = cfg;
     out[slug] = local;
-    out[slug + '-intl'] = { ...local, ...intl };
+    if (intl) out[slug + '-intl'] = { ...local, ...intl };
   }
   return out;
 }
@@ -565,7 +618,7 @@ function buildFlyers(rate, asOf) {
       const file = path.join(OUT, name + '.png');
 
       await sharp(Buffer.from(flyer(cfg, f)))
-        .composite([await qrLayer(f, cfg.qr)])
+        .composite([await qrLayer(f, cfg.qr), ...(await artLayers(cfg, f))])
         .png({ compressionLevel: 9 })
         .toFile(file);
 

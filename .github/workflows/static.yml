@@ -36,6 +36,15 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      # Block the deploy on broken links, sitemap drift or broken tool maths.
+      - name: Check site
+        run: node scripts/check-site.js
+      # Only the two packages the tests need, not sharp from scripts/package.json.
+      - name: Test tools
+        run: |
+          npm install --no-save --no-package-lock --prefix "$RUNNER_TEMP/testdeps" jsqr@1.4.0 qrcode@1.5.4
+          NODE_PATH="$RUNNER_TEMP/testdeps/node_modules" node scripts/test-tools.js
+
       # The repo holds more than the website: social/promo exports and the
       # Node scripts that generate them. Publishing those shipped ~34 MB of
       # files no page ever requests. Stage only what the site actually serves.
@@ -45,7 +54,10 @@ jobs:
       # reference images by absolute URL (https://elevven11studio.github.io/...),
       # not just by rooted path. assets/slides/ as a whole is NOT excludable:
       # the numbered subfolders (agents/, contact/, faq/, how-it-works/) are
-      # live slider images. Only the unused exports beside them go.
+      # live slider images. Only the unused exports beside them go, plus the
+      # PNG copies of slider images (pages load the .webp). In branding/, only
+      # og/ and logo files a page links to are served; covers, profile pictures
+      # and logo concepts are for uploading to social accounts by hand.
       - name: Stage site
         run: |
           mkdir -p _site
@@ -57,7 +69,13 @@ jobs:
             --exclude 'promo' \
             --exclude 'assets/previews/mobile' \
             --exclude 'assets/slides/singles' \
-            --exclude 'assets/slides/*-all.png'
+            --exclude 'assets/slides/*-all.png' \
+            --exclude 'assets/slides/*/*.png' \
+            --exclude 'assets/qr/get-started.*' \
+            --exclude 'branding/logo-concepts' \
+            --exclude 'branding/cover-*' \
+            --exclude 'branding/profile-picture*' \
+            --exclude 'branding/logo-horizontal.svg'
           echo "repo:      $(du -sh --exclude=.git --exclude=_site . | cut -f1)"
           echo "published: $(du -sh _site | cut -f1)"
 

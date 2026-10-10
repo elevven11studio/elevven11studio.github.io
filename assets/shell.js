@@ -206,6 +206,17 @@ function initContactFab() {
   `;
   document.body.appendChild(fab);
 
+  // The hero's own buttons offer the same thing, and on phones the FAB sits
+  // on top of them. Keep it out of the way until they scroll off screen.
+  const heroButtons = document.querySelector('.hero .btn-group');
+  if (heroButtons && 'IntersectionObserver' in window) {
+    const r = heroButtons.getBoundingClientRect();
+    fab.classList.toggle('fab-hidden', r.top < innerHeight && r.bottom > 0);
+    new IntersectionObserver(([entry]) => {
+      fab.classList.toggle('fab-hidden', entry.isIntersecting);
+    }).observe(heroButtons);
+  }
+
   const toggle = fab.querySelector('.fab-toggle');
   const actions = fab.querySelectorAll('.fab-action');
 
