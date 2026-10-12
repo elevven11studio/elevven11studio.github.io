@@ -18,6 +18,7 @@
  */
 const sharp = require('sharp');
 const fs = require('fs');
+const brandMark = require('./brand-mark');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -56,12 +57,7 @@ const palette = (accent) => {
 
 // Large faint 11:11 mark behind the text so every card carries the brand
 // without adding a competing element.
-const watermark = (x, y, size, id) => `<g transform="translate(${x} ${y}) scale(${size / 512})" opacity="0.07" font-family="Segoe UI, Arial, sans-serif">
-    <rect x="6" y="6" width="500" height="500" rx="110" fill="none" stroke="url(#${id})" stroke-width="12"/>
-    <text x="226" y="324" text-anchor="end" font-weight="800" font-size="171" fill="url(#${id})">11</text>
-    <text x="286" y="324" font-weight="800" font-size="171" fill="url(#${id})">11</text>
-    <circle cx="256" cy="209" r="13" fill="url(#${id})"/><circle cx="256" cy="303" r="13" fill="url(#${id})"/>
-  </g>`;
+const watermark = (x, y, size, id) => brandMark.watermark(x, y, size / 512, `url(#${id})`, 0.07);
 
 function card({ eyebrow, lines, sub, pills = [], accent = 'neon' }) {
   const pal = palette(accent);

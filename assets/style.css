@@ -761,6 +761,13 @@ body:has(.cookie-banner) .fab { bottom: 84px; }
 /* Grids & Cards */
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+
+/* Contact page, extension help: equal-height cards with the button pinned to
+   the bottom so all three line up whatever the copy length. */
+.help-cards { gap: 1.25rem; }
+.help-cards .glass-card { display: flex; flex-direction: column; padding: 1.75rem; }
+.help-cards .glass-card p { flex: 1; margin: 0 0 1.5rem; line-height: 1.6; }
+.help-cards .btn { align-self: flex-start; white-space: nowrap; padding: 0.7rem 1.5rem; }
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
 
 .glass-card {
@@ -1585,9 +1592,39 @@ body:has(.cookie-banner) .fab { bottom: 84px; }
 /* Contact */
 .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; }
 
-.contact-info-list { display: flex; flex-direction: column; gap: 1.75rem; }
+.contact-card h2 { font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--accent-gold); }
 
-.contact-info-item { display: flex; gap: 1.1rem; }
+/* Two columns of tiles. Each tile is one big tap target: the link inside
+   stretches over it (a::after below), so the markup stays the simple
+   h3 + p > a that scripts/generate-slides.js reads for the contact slides. */
+.contact-info-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+
+.contact-info-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.12);
+  border-radius: 14px;
+  background: rgba(var(--accent-rgb), 0.03);
+  transition: var(--transition-normal);
+}
+.contact-info-item:hover,
+.contact-info-item:focus-within {
+  border-color: rgba(var(--accent-rgb), 0.45);
+  background: rgba(var(--accent-rgb), 0.07);
+  transform: translateY(-2px);
+}
+.contact-info-text { min-width: 0; }
+.contact-info-text a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.contact-info-text a { overflow-wrap: anywhere; }
+
+.contact-card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.75rem; }
+
+@media (max-width: 640px) {
+  .contact-info-list, .contact-card-actions { grid-template-columns: 1fr; }
+}
 
 .contact-info-icon {
   width: 46px;

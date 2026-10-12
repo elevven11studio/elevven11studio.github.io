@@ -23,6 +23,7 @@
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
+const brandMark = require('./brand-mark');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT = path.join(ROOT, 'assets/slides');
@@ -50,6 +51,18 @@ function slugify(text) {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
     .slice(0, 48);
+}
+
+// Windows sometimes holds a freshly written file for a moment (antivirus,
+// indexing, Explorer thumbnails) and the next write fails with UNKNOWN or
+// EBUSY. Retry a few times before giving up.
+async function writeFile(file, data) {
+  for (let attempt = 1; ; attempt++) {
+    try { return fs.writeFileSync(file, data); } catch (e) {
+      if (attempt >= 6) throw e;
+      await new Promise((done) => setTimeout(done, 150 * attempt));
+    }
+  }
 }
 
 function fitSize(text, maxWidth, start, min = 28) {
@@ -95,12 +108,17 @@ function defs(accent) {
     + '<radialGradient id="g2" cx="96%" cy="94%" r="60%">'
     + '<stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.12"/>'
     + '<stop offset="100%" stop-color="#2dd4bf" stop-opacity="0"/></radialGradient>'
+    + '<pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">'
+    + '<circle cx="2" cy="2" r="2" fill="rgba(247,243,236,0.10)"/></pattern>'
     + '</defs>';
 }
 
 /**
  * One slide. When `motif` is absent the text column runs the full width, which
  * suits the FAQ set where the answer is the content.
+ *
+ * The look matches the social cards in branding/og: dot grid, accent rule
+ * under the eyebrow, the faint 11:11 watermark and the site address at the foot.
  */
 function slide(o) {
   const accent = o.accent || 'neon';
@@ -120,24 +138,23 @@ function slide(o) {
     + 'fill="rgba(247,243,236,0.12)"/>'
     + '<rect x="70" y="' + barY + '" width="' + (o.index * unit) + '" height="8" rx="4" fill="url(#accent)"/>';
 
-  const ghost = o.ghost === false ? '' :
-    '<text x="640" y="640" fill="rgba(247,243,236,0.05)" font-size="300" font-weight="700" '
-    + 'text-anchor="end">' + o.index + '</text>';
-
   return '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H
     + '" viewBox="0 0 ' + W + ' ' + H + '">' + defs(accent)
     + '<rect width="' + W + '" height="' + H + '" fill="#0b0a10"/>'
+    + '<rect width="' + W + '" height="' + H + '" fill="url(#dots)"/>'
     + '<rect width="' + W + '" height="' + H + '" fill="url(#g1)"/>'
     + '<rect width="' + W + '" height="' + H + '" fill="url(#g2)"/>'
     + '<rect width="' + W + '" height="7" fill="url(#accent)"/>'
+    + brandMark.watermark(860, 290, 420 / 512, 'url(#accent)', 0.07)
     + '<g font-family="Segoe UI, Arial, sans-serif">'
-    + ghost
     + '<text x="70" y="104" fill="#f7f3ec" font-size="24" font-weight="700" letter-spacing="5">ELEVVEN11 STUDIO</text>'
     + '<text x="70" y="172" fill="' + tint + '" font-size="24" font-weight="600" letter-spacing="4">'
     + esc(o.eyebrow) + '</text>'
+    + '<rect x="70" y="198" width="88" height="4" rx="2" fill="url(#accent)"/>'
     + '<text x="70" y="266" fill="#f7f3ec" font-size="' + titleSize + '" font-weight="700">'
     + esc(o.title) + '</text>'
     + body + bar + (o.motif || '')
+    + '<text x="70" y="628" fill="#7a7268" font-size="22">elevven11studio.github.io</text>'
     + '</g></svg>';
 }
 
@@ -281,7 +298,7 @@ const AGENTS = [
   const faq = parseFaq('faq/index.html');
   sets.faq = faq.map((q, i) => ({
     eyebrow: 'QUESTION ' + (i + 1) + ' OF ' + faq.length,
-    title: q.title, body: wrap(q.body, 74, 4), ghost: false,
+    title: q.title, body: wrap(q.body, 74, 4),
     index: i + 1, total: faq.length,
   }));
 
@@ -289,7 +306,7 @@ const AGENTS = [
   sets.contact = contact.map((c, i) => ({
     eyebrow: 'GET IN TOUCH',
     title: c.title, body: wrap('Reach Elevven11 Studio on ' + c.title + '.', 40, 2),
-    motif: cardMotif(c.title, c.value), ghost: false,
+    motif: cardMotif(c.title, c.value),
     index: i + 1, total: contact.length,
   }));
 
@@ -315,7 +332,10 @@ const AGENTS = [
     fs.mkdirSync(dir, { recursive: true });
     for (const s of slides) {
       const file = path.join(dir, s.index + '.png');
-      await sharp(Buffer.from(slide(s))).png({ compressionLevel: 9 }).toFile(file);
+      // Rendered once and written from memory: re-reading a file just written
+      // fails intermittently on Windows while something else still holds it.
+      const png = await sharp(Buffer.from(slide(s))).png({ compressionLevel: 9 }).toBuffer();
+      await writeFile(file, png);
       bytes += fs.statSync(file).size;
       total++;
 
@@ -324,8 +344,8 @@ const AGENTS = [
       // where lossy encoders normally ring, so 95 rather than the usual 80.
       // The PNG stays: the contact sheet composites from it, and the singles
       // below are copies of it.
-      await sharp(file).webp({ quality: 95, effort: 6 })
-        .toFile(path.join(dir, s.index + '.webp'));
+      await writeFile(path.join(dir, s.index + '.webp'),
+        await sharp(png).webp({ quality: 95, effort: 6 }).toBuffer());
 
       // Flat, self-describing copy for sharing one step at a time. The
       // numbered files above stay exactly as they are because the page markup
@@ -333,7 +353,7 @@ const AGENTS = [
       // is sitting in a downloads folder next to three other "1.png"s.
       const singleName = name + '-' + String(s.index).padStart(2, '0')
         + '-' + slugify(s.title) + '.png';
-      fs.copyFileSync(file, path.join(singlesDir, singleName));
+      await writeFile(path.join(singlesDir, singleName), png);
       singles++;
     }
     fs.writeFileSync(path.join(dir, 'manifest.json'), JSON.stringify(slides.map((s) => ({
@@ -361,10 +381,10 @@ const AGENTS = [
     }).composite(tiles).png().toBuffer();
 
     const sheetFile = path.join(OUT, name + '-all.png');
-    await sharp(composed)
+    await writeFile(sheetFile, await sharp(composed)
       .resize({ width: Math.min(sheetW, 1600) })
       .png({ compressionLevel: 9 })
-      .toFile(sheetFile);
+      .toBuffer());
     sheets.push(name + '-all.png (' + Math.round(fs.statSync(sheetFile).size / 1024) + 'K)');
 
     console.log(name.padEnd(14) + slides.length + ' slides');

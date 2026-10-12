@@ -16,6 +16,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const brandMark = require('./brand-mark');
 const sharp = require('sharp');
 const QRCode = require('qrcode');
 
@@ -98,11 +99,7 @@ function frame(o, body) {
     + '<rect width="' + S + '" height="' + S + '" fill="' + t.bg + '"/>'
     + '<rect width="' + S + '" height="' + S + '" fill="url(#dots)"/>'
     + '<rect width="' + S + '" height="' + S + '" fill="url(#glow)"/>'
-    + '<g transform="translate(540 500) scale(0.9)" opacity="0.06" font-family="Segoe UI, Arial, sans-serif">'
-    + '<rect x="6" y="6" width="500" height="500" rx="110" fill="none" stroke="url(#accent)" stroke-width="12"/>'
-    + '<text x="226" y="324" text-anchor="end" font-weight="800" font-size="171" fill="url(#accent)">11</text>'
-    + '<text x="286" y="324" font-weight="800" font-size="171" fill="url(#accent)">11</text>'
-    + '<circle cx="256" cy="209" r="13" fill="url(#accent)"/><circle cx="256" cy="303" r="13" fill="url(#accent)"/></g>'
+    + brandMark.watermark(540, 500, 0.9, 'url(#accent)', 0.06)
     + '<g font-family="Segoe UI, Arial, sans-serif">'
     + '<text x="80" y="96" fill="' + t.text + '" font-size="24" font-weight="700" letter-spacing="5" '
     + 'opacity="0.9">ELEVVEN11 STUDIO</text>'

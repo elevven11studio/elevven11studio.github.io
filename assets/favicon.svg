@@ -1,13 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#86efac" />
-      <stop offset="100%" stop-color="#22c55e" />
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="14" fill="#0b0a10" />
-  <rect x="11.7" y="18.7" width="6.4" height="26.7" rx="3.2" fill="url(#g)" />
-  <rect x="20.3" y="18.7" width="6.4" height="26.7" rx="3.2" fill="url(#g)" />
-  <rect x="37.3" y="18.7" width="6.4" height="26.7" rx="3.2" fill="url(#g)" />
-  <rect x="45.9" y="18.7" width="6.4" height="26.7" rx="3.2" fill="url(#g)" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs><linearGradient id="mark" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#86efac"/><stop offset="100%" stop-color="#22c55e"/></linearGradient></defs>
+  <rect width="512" height="512" rx="116" fill="#0b0a10"/>
+  <rect x="8" y="8" width="496" height="496" rx="108" fill="none" stroke="url(#mark)" stroke-width="16"/><g fill="url(#mark)"><path d="M77 202H98V323H72V229L47 243V219Z"/><path d="M176 202H197V323H171V229L146 243V219Z"/><path d="M334 202H355V323H329V229L304 243V219Z"/><path d="M433 202H454V323H428V229L403 243V219Z"/><circle cx="256" cy="209" r="13"/><circle cx="256" cy="303" r="13"/></g>
 </svg>

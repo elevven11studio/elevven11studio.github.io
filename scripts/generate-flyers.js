@@ -30,6 +30,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const brandMark = require('./brand-mark');
 const sharp = require('sharp');
 const QRCode = require('qrcode');
 
@@ -183,11 +184,7 @@ const ground = (t, f) =>
   + '<rect width="' + f.w + '" height="' + f.h + '" fill="url(#dots)"/>'
   + '<rect width="' + f.w + '" height="' + f.h + '" fill="url(#glow)"/>'
   // Faint 11:11 mark bleeding off the top-right, as on the social cards.
-  + '<g transform="translate(' + (f.w - 330) + ' -110) scale(0.8)" opacity="0.06" font-family="Segoe UI, Arial, sans-serif">'
-  + '<rect x="6" y="6" width="500" height="500" rx="110" fill="none" stroke="url(#accent)" stroke-width="12"/>'
-  + '<text x="226" y="324" text-anchor="end" font-weight="800" font-size="171" fill="url(#accent)">11</text>'
-  + '<text x="286" y="324" font-weight="800" font-size="171" fill="url(#accent)">11</text>'
-  + '<circle cx="256" cy="209" r="13" fill="url(#accent)"/><circle cx="256" cy="303" r="13" fill="url(#accent)"/></g>';
+  + brandMark.watermark(f.w - 330, -110, 0.8, 'url(#accent)', 0.06);
 
 const wordmark = (t, f) => '<text x="' + f.m + '" y="' + f.wordmarkY + '" fill="' + t.text
   + '" font-size="25" font-weight="700" letter-spacing="5" opacity="0.92">ELEVVEN11 STUDIO</text>';

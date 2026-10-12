@@ -15,6 +15,7 @@
  */
 
 const fs = require('fs');
+const brandMark = require('./brand-mark');
 const path = require('path');
 const sharp = require('sharp');
 const QRCode = require('qrcode');
@@ -78,11 +79,7 @@ const backdrop = '<rect width="' + W + '" height="' + H + '" fill="#0b0a10"/>'
   + '<rect width="' + W + '" height="' + H + '" fill="url(#g1)"/>'
   + '<rect width="' + W + '" height="' + H + '" fill="url(#g2)"/>'
   // Faint 11:11 mark bleeding off the top-right, as on the social cards.
-  + '<g transform="translate(' + (W - 400) + ' -60) scale(0.9)" opacity="0.06" font-family="Segoe UI, Arial, sans-serif">'
-  + '<rect x="6" y="6" width="500" height="500" rx="110" fill="none" stroke="url(#accent)" stroke-width="12"/>'
-  + '<text x="226" y="324" text-anchor="end" font-weight="800" font-size="171" fill="url(#accent)">11</text>'
-  + '<text x="286" y="324" font-weight="800" font-size="171" fill="url(#accent)">11</text>'
-  + '<circle cx="256" cy="209" r="13" fill="url(#accent)"/><circle cx="256" cy="303" r="13" fill="url(#accent)"/></g>'
+  + brandMark.watermark(W - 400, -60, 0.9, 'url(#accent)', 0.06)
   + '<rect width="' + W + '" height="10" fill="url(#accent)"/>';
 
 const wordmark = (y) => '<text x="' + MARGIN + '" y="' + y + '" fill="#f7f3ec" font-size="30" '
