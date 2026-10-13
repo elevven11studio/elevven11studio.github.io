@@ -4,14 +4,14 @@
  *   node scripts/generate-icons.js
  *
  * Writes:
- *   assets/favicon.svg             browser tab icon (every page links it)
+ *   assets/favicon.svg             browser tab icon, round variant (every page links it)
  *   branding/logo-icon.svg         512px, the logo in the home page's structured data
  *   branding/profile-picture.svg   1000px social profile picture, mark inside the circle-crop safe zone
  *   branding/logo-horizontal.svg   mark + ELEVVEN11 STUDIO wordmark
  */
 const fs = require('fs');
 const path = require('path');
-const { markShapes, iconSvg, GRADIENT } = require('./brand-mark');
+const { markShapes, iconSvg, roundIconSvg, GRADIENT } = require('./brand-mark');
 
 const ROOT = path.join(__dirname, '..');
 const out = (rel) => path.join(ROOT, rel);
@@ -54,7 +54,7 @@ const logoHorizontal = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900
 </svg>
 `;
 
-fs.writeFileSync(out('assets/favicon.svg'), iconSvg());
+fs.writeFileSync(out('assets/favicon.svg'), roundIconSvg());
 fs.writeFileSync(out('branding/logo-icon.svg'), iconSvg(512));
 fs.writeFileSync(out('branding/profile-picture.svg'), profilePicture);
 fs.writeFileSync(out('branding/logo-horizontal.svg'), logoHorizontal);

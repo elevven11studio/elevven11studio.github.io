@@ -21,9 +21,12 @@ const one = (x) => `<path d="M${x + 5} 202H${x + 26}V323H${x}V229L${x - 25} 243V
 function markShapes(fill, stroke = 12) {
   const inset = stroke / 2;
   return `<rect x="${inset}" y="${inset}" width="${512 - stroke}" height="${512 - stroke}" rx="${116 - inset}" fill="none" stroke="${fill}" stroke-width="${stroke}"/>`
-    + `<g fill="${fill}">${STEMS.map(one).join('')}`
-    + `<circle cx="256" cy="209" r="13"/><circle cx="256" cy="303" r="13"/></g>`;
+    + digits(fill);
 }
+
+/** Just the 11:11, no outline. */
+const digits = (fill) => `<g fill="${fill}">${STEMS.map(one).join('')}`
+  + `<circle cx="256" cy="209" r="13"/><circle cx="256" cy="303" r="13"/></g>`;
 
 /** Faint watermark: the mark at `scale` from (x, y), at `opacity`. */
 const watermark = (x, y, scale, fill, opacity) =>
@@ -43,4 +46,18 @@ function iconSvg(size) {
 `;
 }
 
-module.exports = { markShapes, watermark, iconSvg, GRADIENT };
+/**
+ * Round variant, used for the favicon: dark disc, circular outline, and the
+ * 11:11 scaled down to clear the curve (its corners would touch at full size).
+ */
+function roundIconSvg() {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>${GRADIENT}</defs>
+  <circle cx="256" cy="256" r="256" fill="#0b0a10"/>
+  <circle cx="256" cy="256" r="246" fill="none" stroke="url(#mark)" stroke-width="20"/>
+  <g transform="translate(256 262.5) scale(0.84) translate(-256 -262.5)">${digits('url(#mark)')}</g>
+</svg>
+`;
+}
+
+module.exports = { markShapes, watermark, iconSvg, roundIconSvg, GRADIENT };
