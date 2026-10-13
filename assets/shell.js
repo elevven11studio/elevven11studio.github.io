@@ -32,11 +32,12 @@ const MESSENGER_LINK = 'https://m.me/Elevven11Studio';
  * closed tab). The consent choice itself is stored in a cookie too, since
  * that's what has to persist to avoid re-asking on every page.
  *
- * Google Analytics runs under Consent Mode v2. Each page's inline gtag
- * snippet sets every consent signal to 'denied' unless the consent cookie
- * already says 'accepted', and the accept handler below flips them to
- * 'granted'. Until then Google may receive cookieless pings but sets no
- * Analytics or advertising cookies.
+ * Google Analytics runs under Consent Mode v2 on an opt-out basis. Each page's
+ * inline gtag snippet grants analytics_storage unless the consent cookie says
+ * 'declined', and keeps the advertising signals (ad_storage, ad_user_data,
+ * ad_personalization, which Google Signals needs) denied until 'accepted'.
+ * The banner is a notice: Decline turns analytics off, Accept adds the
+ * advertising signals and this site's own cookies.
  */
 const CONSENT_COOKIE = 'e11_consent';
 const REFERRAL_COOKIE = 'e11_ref';
@@ -69,8 +70,8 @@ function initCookieConsent() {
   banner.setAttribute('role', 'region');
   banner.setAttribute('aria-label', 'Cookie notice');
   banner.innerHTML = `
-    <p>We use a cookie to save your Get Started form and referral code, and Google Analytics
-      to count visits. Accept turns both on. <a href="/privacy/">Privacy policy</a></p>
+    <p>We use Google Analytics to count visits. Accept also saves your Get Started form and
+      referral code. Decline turns analytics off. <a href="/privacy/">Privacy policy</a></p>
     <div class="cookie-banner-actions">
       <button type="button" class="btn btn-secondary" data-cookie-decline>Decline</button>
       <button type="button" class="btn btn-primary" data-cookie-accept>Accept</button>
@@ -96,6 +97,9 @@ function initCookieConsent() {
   banner.querySelector('[data-cookie-decline]').addEventListener('click', () => {
     setCookie(CONSENT_COOKIE, 'declined', 365);
     banner.remove();
+    if (typeof gtag === 'function') {
+      gtag('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+    }
   });
 }
 

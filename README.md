@@ -81,13 +81,21 @@ Details worth knowing before editing `initGetStartedForm` / `initContactForm` in
 ## Analytics and consent
 
 Google Analytics (`G-5H0KC31NYJ`) runs under Consent Mode v2 on every page,
-including the demos. Each page's inline gtag snippet defaults every consent
-signal to `denied` unless the `e11_consent` cookie says `accepted`, and the
-banner's Accept handler in [assets/shell.js](assets/shell.js) flips them to
-`granted`. Until then Google sets no cookies and may only receive cookieless
-pings. Google Signals is enabled on the property, so after Accept an ads
-audience pixel fires too. The banner copy and
-[privacy policy](privacy/index.html) both say this.
+including the demos, on an **opt-out** basis. Each page's inline gtag snippet
+grants `analytics_storage` unless the `e11_consent` cookie says `declined`, and
+keeps the advertising signals (`ad_storage`, `ad_user_data`,
+`ad_personalization`) denied until it says `accepted`. Google Signals is
+enabled on the property, so its ads audience pixel only fires after Accept.
+The banner in [assets/shell.js](assets/shell.js) is a notice: Decline switches
+analytics off on the spot, Accept adds the advertising signals and the site's
+own cookies. The banner copy and [privacy policy](privacy/index.html) both say
+this.
+
+Opt-out analytics is a deliberate choice for a mostly Nigerian audience. EU/UK
+law expects opt-in for analytics cookies; to go back, change the snippet's
+default to `consent === 'accepted' ? 'granted' : 'denied'` for
+`analytics_storage` across the pages (the tool pages copy their analytics block
+from `pricing/index.html` when regenerated).
 
 Country detection (`ipwho.is`) is skipped for crawlers, so search engines
 index the Nigeria copy and Naira prices rather than the US version.
