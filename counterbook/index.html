@@ -77,6 +77,19 @@
 			flex-shrink: 0;
 		}
 
+		.cb-shots {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.25rem;
+		}
+
+		.cb-shots img {
+			width: 100%;
+			height: auto;
+			border-radius: 12px;
+			border: 1px solid rgba(var(--accent-rgb), 0.25);
+		}
+
 		.cb-card h3 {
 			color: var(--accent-gold);
 			margin-bottom: 0.6rem;
@@ -294,6 +307,22 @@
 					customer or staff name on it. Nothing is stored online. Also included: expenses, quotes and invoices, import from CSV or Excel,
 					export to Excel, CSV or JSON, ready-made products for nine kinds of shop, and light, dark and
 					custom colours.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Screenshots -->
+	<section id="screens">
+		<div class="container">
+			<div class="section-tag u-block-center">Screenshots</div>
+			<h2 class="section-title">See it in use</h2>
+			<div class="cb-shots">
+				<img src="/counterbook/screens/sell.webp" width="1920" height="1080" loading="lazy" alt="Counterbook sell screen with a product grid and a basket totalling N2,675" />
+				<img src="/counterbook/screens/products.webp" width="1920" height="1080" loading="lazy" alt="Counterbook product list showing stock levels" />
+				<img src="/counterbook/screens/customers.webp" width="1920" height="1080" loading="lazy" alt="Counterbook customer list showing credit balances" />
+				<img src="/counterbook/screens/reports.webp" width="1920" height="1080" loading="lazy" alt="Counterbook daily report with revenue, profit and sales by hour" />
+				<img src="/counterbook/screens/shift.webp" width="1920" height="1080" loading="lazy" alt="Counterbook shift screen with expected cash in the drawer" />
+				<img src="/counterbook/screens/pin.webp" width="1920" height="1080" loading="lazy" alt="Counterbook staff PIN sign-in screen" />
 			</div>
 		</div>
 	</section>
