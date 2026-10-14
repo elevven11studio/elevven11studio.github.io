@@ -8,8 +8,8 @@ const NAIRA = 'NGN ';
 const utm = (c) => 'utm_source=promo&utm_medium=carousel&utm_campaign=' + c;
 const last = (c, p, caption) => ({ qr: SITE + p + '?' + utm('carousel-' + c), qrCaption: caption });
 
-const EXT = (c, name, tag, a, b, p) => ({
-  accent: 'neon', peek: false,
+const EXT = (c, name, tag, a, b, p, accent) => ({
+  accent, peek: false,
   slides: [
     { theme: 'dark', head: [name + '.', tag], sub: 'A free Chrome extension by Elevven11 Studio.', chips: ['Free', 'No account'] },
     { theme: 'light', head: a.head, sub: a.sub, chips: a.chips },
@@ -138,11 +138,11 @@ module.exports = {
   counterbook: {
     accent: 'blue', peek: false,
     slides: [
-      { theme: 'dark', head: ['Run your shop', 'from one app.'], sub: 'Counterbook is a free point of sale app.', chips: ['Coming soon', 'Free'] },
+      { theme: 'dark', head: ['Run your shop', 'from one app.'], sub: 'Counterbook is a free point of sale app for Windows.', chips: ['Out now', 'Free'] },
       { theme: 'light', head: ['Sales, stock,', 'customers, cash.'], sub: 'Everything a counter needs in one place.', chips: ['Sales', 'Stock', 'Cash'] },
       { theme: 'dark', head: ['Works offline.'], sub: 'No internet needed at the counter.', chips: ['No account', 'Offline'] },
-      { theme: 'light', head: ['Windows', 'and Android.'], sub: 'Use the device you already have.', chips: ['Windows', 'Android'] },
-      { theme: 'dark', head: ['Hear when', 'it launches.'], sub: 'Read more on the Counterbook page.', ...last('counterbook', '/counterbook/', 'Scan to learn more') },
+      { theme: 'light', head: ['Free download', 'for Windows.'], sub: 'Android is coming soon.', chips: ['Windows', 'Android soon'] },
+      { theme: 'dark', head: ['Download it', 'today.'], sub: 'Get the Windows installer on the Counterbook page.', ...last('counterbook', '/counterbook/', 'Scan to download') },
     ],
   },
 
@@ -170,16 +170,16 @@ module.exports = {
 
   webguard: EXT('webguard', 'WebGuard', 'Spot the fake.',
     { head: ['Lookalike', 'domains.'], sub: 'It flags pages pretending to be someone else.', chips: ['Phishing'] },
-    { head: ['Before you type', 'a password.'], sub: 'Warns about passwords sent over http.', chips: ['Forms', 'Passwords'] }, '/webguard/'),
+    { head: ['Before you type', 'a password.'], sub: 'Warns about passwords sent over http.', chips: ['Forms', 'Passwords'] }, '/webguard/', 'sky'),
   webinspect: EXT('webinspect', 'WebInspect', 'Understand any site.',
     { head: ['Tech and SEO', 'at a glance.'], sub: 'See what a site is built with.', chips: ['Tech', 'SEO'] },
-    { head: ['Speed, access,', 'security.'], sub: 'One report, one keypress.', chips: ['Performance', 'Security'] }, '/webinspect/'),
+    { head: ['Speed, access,', 'security.'], sub: 'One report, one keypress.', chips: ['Performance', 'Security'] }, '/webinspect/', 'violet'),
   shopinspect: EXT('shopinspect', 'ShopInspect', 'Check before you buy.',
     { head: ['Price, reviews,', 'seller.'], sub: 'Checked in your browser as you shop.', chips: ['Price', 'Reviews', 'Seller'] },
-    { head: ['No shopping', 'history kept.'], sub: 'What you shop for stays with you.', chips: ['Private'] }, '/shopinspect/'),
+    { head: ['No shopping', 'history kept.'], sub: 'What you shop for stays with you.', chips: ['Private'] }, '/shopinspect/', 'teal'),
   siteextract: EXT('siteextract', 'SiteExtract', 'Any page, as a project.',
     { head: ['HTML, CSS,', 'images, fonts.'], sub: 'Plus design tokens, all in one ZIP.', chips: ['HTML', 'CSS', 'Fonts'] },
-    { head: ['A starter', 'in one click.'], sub: 'Built on your device from the page you are on.', chips: ['One ZIP'] }, '/siteextract/'),
+    { head: ['A starter', 'in one click.'], sub: 'Built on your device from the page you are on.', chips: ['One ZIP'] }, '/siteextract/', 'orange'),
   ...support,
   ...industries,
   ...toolSets,

@@ -38,11 +38,13 @@ const THEMES = {
     bg: '#0b0a10', text: '#f7f3ec', muted: '#a79f95', faint: '#7a7268',
     dot: 'rgba(247,243,236,0.10)', line: 'rgba(247,243,236,0.16)',
     green: ['#86efac', '#22c55e'], gold: ['#f0c866', '#c99a2e'], blue: ['#60a5fa', '#3b82f6'],
+    sky: ['#38bdf8', '#0ea5e9'], violet: ['#a78bfa', '#8b5cf6'], orange: ['#fb923c', '#f97316'], teal: ['#2dd4bf', '#14b8a6'],
   },
   light: {
     bg: '#f4f1ea', text: '#14121a', muted: '#5d564b', faint: '#8a8175',
     dot: 'rgba(20,18,26,0.10)', line: 'rgba(20,18,26,0.18)',
     green: ['#1f9d55', '#137a40'], gold: ['#9a6f16', '#7a560f'], blue: ['#1d4ed8', '#1e40af'],
+    sky: ['#0369a1', '#075985'], violet: ['#6d28d9', '#5b21b6'], orange: ['#c2410c', '#9a3412'], teal: ['#0f766e', '#115e59'],
   },
 };
 
