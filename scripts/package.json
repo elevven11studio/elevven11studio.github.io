@@ -18,6 +18,7 @@
     "enhance-demos": "node enhance-demos.js",
     "sitemap": "node generate-sitemap.js",
     "store-files": "node generate-store-files.js",
+    "store-brand": "node generate-store-brand.js",
     "demos": "node build-demos.js",
     "tools": "node generate-tools.js",
     "test-tools": "node test-tools.js",
