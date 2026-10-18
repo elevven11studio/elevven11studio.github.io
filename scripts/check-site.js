@@ -17,7 +17,7 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const ORIGIN = 'https://elevven11studio.github.io';
-const SKIP_DIRS = new Set(['.git', '.github', 'node_modules', 'scripts', 'promo', 'branding', '_site']);
+const SKIP_DIRS = new Set(['.git', '.github', 'node_modules', 'scripts', 'promo', 'branding', '_site', 'email']);
 
 const pages = [];
 (function walk(dir) {
