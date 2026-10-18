@@ -15,6 +15,10 @@ https://elevven11studio.github.io/counterbook/
 https://elevven11studio.github.io/counterbook/docs/
 https://elevven11studio.github.io/counterbook/privacy/
 https://elevven11studio.github.io/counterbook/terms/
+https://elevven11studio.github.io/worknest/
+https://elevven11studio.github.io/worknest/docs/
+https://elevven11studio.github.io/worknest/privacy/
+https://elevven11studio.github.io/worknest/terms/
 https://elevven11studio.github.io/extensions/
 https://elevven11studio.github.io/extensions/support/
 https://elevven11studio.github.io/shopinspect/

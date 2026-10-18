@@ -135,7 +135,7 @@ const THEMES = {
   dark: {
     bg: '#0b0a10', panel: 'rgba(247,243,236,0.045)', panelLine: 'rgba(247,243,236,0.10)',
     text: '#f7f3ec', muted: '#a79f95', faint: '#7a7268',
-    green: ['#86efac', '#22c55e'], gold: ['#f0c866', '#c99a2e'],
+    green: ['#86efac', '#22c55e'], gold: ['#f0c866', '#c99a2e'], indigo: ['#a5b4fc', '#6366f1'],
     dot: 'rgba(247,243,236,0.10)',
   },
   light: {
@@ -143,7 +143,7 @@ const THEMES = {
     text: '#14121a', muted: '#5d564b', faint: '#8a8175',
     // The brand green is tuned for a dark ground and is close to illegible on
     // cream, so the light theme goes considerably darker.
-    green: ['#1f9d55', '#137a40'], gold: ['#9a6f16', '#7a560f'],
+    green: ['#1f9d55', '#137a40'], gold: ['#9a6f16', '#7a560f'], indigo: ['#4338ca', '#3730a3'],
     dot: 'rgba(20,18,26,0.10)',
   },
 };
@@ -166,7 +166,7 @@ function fitTracked(text, maxWidth, start, tracking, min = 14) {
 /* ---------------- pieces ---------------- */
 
 function defs(t, accent) {
-  const ramp = accent === 'gold' ? t.gold : t.green;
+  const ramp = t[accent] || t.green;
   return '<defs>'
     + '<linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">'
     + '<stop offset="0%" stop-color="' + ramp[0] + '"/>'
@@ -292,22 +292,24 @@ const RIBBON_M = 92;
 /**
  * Two phone tops in the space to the right of the included list, fading out
  * toward the price cells. Only used where the list is short enough to leave
- * that space free (o.art = [slugA, slugB]).
+ * that space free (o.art = [slugA, slugB]). o.artSrc takes app screenshots
+ * by path instead, which have no demo ribbon to crop.
  */
 async function artLayers(o, f) {
-  if (!o.art) return [];
+  if (!o.art && !o.artSrc) return [];
   const { listY, cellsY } = layout(o, f);
   const top = listY - 40, room = cellsY - 16 - top;
   const w = 150, bz = 8, x0 = f.w - f.m - w * 2 - 20;
   const layers = [];
-  for (const [k, slug] of o.art.entries()) {
-    const shot = path.join(MOBILE, slug + '.jpg');
+  for (const [k, slug] of (o.artSrc || o.art).entries()) {
+    const shot = o.artSrc ? path.join(ROOT, slug) : path.join(MOBILE, slug + '.jpg');
+    const ribbon = o.artSrc ? 0 : RIBBON_M;
     const m = await sharp(shot).metadata();
-    const sw = w - bz * 2, sh = Math.round(sw * (m.height - RIBBON_M) / m.width);
+    const sw = w - bz * 2, sh = Math.round(sw * (m.height - ribbon) / m.width);
     const dy = k === 0 ? 24 : 0;
     const h = Math.min(sh + bz * 2, room - dy);
     const screen = await sharp(shot)
-      .extract({ left: 0, top: RIBBON_M, width: m.width, height: m.height - RIBBON_M })
+      .extract({ left: 0, top: ribbon, width: m.width, height: m.height - ribbon })
       .resize({ width: sw, height: sh }).png().toBuffer();
     const round = Buffer.from('<svg width="' + sw + '" height="' + sh + '"><rect width="' + sw + '" height="' + sh + '" rx="18" fill="#fff"/></svg>');
     const rounded = await sharp(screen).composite([{ input: round, blend: 'dest-in' }]).png().toBuffer();
@@ -326,7 +328,7 @@ async function artLayers(o, f) {
 
 function flyer(o, f) {
   const t = THEMES[o.theme];
-  const ramp = o.accent === 'gold' ? t.gold : t.green;
+  const ramp = t[o.accent] || t.green;
 
   const head = o.lines.map((l, i) =>
     '<text x="' + f.m + '" y="' + (f.headY + i * f.headStep) + '" fill="'
@@ -608,8 +610,11 @@ function buildFlyers(rate, asOf) {
 
   const flyers = buildFlyers(rate, asOf);
   let count = 0;
+  // `node generate-flyers.js worknest` rebuilds only the named flyers.
+  const only = process.argv.slice(2);
 
   for (const [slug, cfg] of Object.entries(flyers)) {
+    if (only.length && !only.includes(slug)) continue;
     for (const f of Object.values(FORMATS)) {
       const name = slug + f.suffix;
       const file = path.join(OUT, name + '.png');

@@ -46,7 +46,8 @@ const ACCENTS = {
   violet: { from: '#a78bfa', to: '#8b5cf6', glow: '#8b5cf6' },
   orange: { from: '#fb923c', to: '#f97316', glow: '#f97316' },
   teal:   { from: '#2dd4bf', to: '#14b8a6', glow: '#14b8a6' },
-  blue:   { from: '#60a5fa', to: '#3b82f6', glow: '#3b82f6' }
+  blue:   { from: '#60a5fa', to: '#3b82f6', glow: '#3b82f6' },
+  indigo: { from: '#a5b4fc', to: '#6366f1', glow: '#6366f1' }
 };
 
 const palette = (accent) => {
@@ -225,6 +226,16 @@ const PAGES = {
     eyebrow: 'COUNTERBOOK / DOCS', accent: 'blue', lines: ['Learn Counterbook.', 'Train Your Staff.'],
     sub: 'Guide, training course, backup and security.',
     pills: ['User guide', '10 training modules', 'Backup + security'] },
+
+  'worknest': { page: 'worknest/index.html', alt: 'WorkNest, an offline office records app by Elevven11 Studio',
+    eyebrow: 'WORKNEST / OFFICE RECORDS', accent: 'indigo', lines: ['Every File.', 'One Office App.'],
+    sub: 'Documents, paper archive, staff and tasks. Offline.',
+    pills: ['Coming soon', 'Works offline', 'Encrypted'] },
+
+  'worknest-docs': { page: 'worknest/docs/index.html', alt: 'WorkNest docs and training',
+    eyebrow: 'WORKNEST / DOCS', accent: 'indigo', lines: ['Learn WorkNest.', 'Train Your Staff.'],
+    sub: 'Guide, training course, backup and security.',
+    pills: ['User guide', '11 training modules', 'Backup + security'] },
 
   'home': { page: 'index.html', alt: 'Elevven11 Studio - affordable website design in Nigeria',
     eyebrow: 'WEBSITE DESIGN IN NIGERIA', lines: ['Simple Websites.', 'No Monthly Hosting Fee.'],

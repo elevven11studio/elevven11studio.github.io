@@ -38,13 +38,13 @@ const THEMES = {
     bg: '#0b0a10', text: '#f7f3ec', muted: '#a79f95', faint: '#7a7268',
     dot: 'rgba(247,243,236,0.10)', line: 'rgba(247,243,236,0.16)',
     green: ['#86efac', '#22c55e'], gold: ['#f0c866', '#c99a2e'], blue: ['#60a5fa', '#3b82f6'],
-    sky: ['#38bdf8', '#0ea5e9'], violet: ['#a78bfa', '#8b5cf6'], orange: ['#fb923c', '#f97316'], teal: ['#2dd4bf', '#14b8a6'],
+    sky: ['#38bdf8', '#0ea5e9'], violet: ['#a78bfa', '#8b5cf6'], orange: ['#fb923c', '#f97316'], teal: ['#2dd4bf', '#14b8a6'], indigo: ['#a5b4fc', '#6366f1'],
   },
   light: {
     bg: '#f4f1ea', text: '#14121a', muted: '#5d564b', faint: '#8a8175',
     dot: 'rgba(20,18,26,0.10)', line: 'rgba(20,18,26,0.18)',
     green: ['#1f9d55', '#137a40'], gold: ['#9a6f16', '#7a560f'], blue: ['#1d4ed8', '#1e40af'],
-    sky: ['#0369a1', '#075985'], violet: ['#6d28d9', '#5b21b6'], orange: ['#c2410c', '#9a3412'], teal: ['#0f766e', '#115e59'],
+    sky: ['#0369a1', '#075985'], violet: ['#6d28d9', '#5b21b6'], orange: ['#c2410c', '#9a3412'], teal: ['#0f766e', '#115e59'], indigo: ['#4338ca', '#3730a3'],
   },
 };
 
@@ -296,8 +296,11 @@ async function peekLayers(seed) {
 (async () => {
   const gridPicks = ['restaurant', 'fashion', 'barber', 'real-estate', 'church', 'photographer'];
   let made = 0;
+  // `node generate-carousels.js worknest` rebuilds only the named sets.
+  const only = process.argv.slice(2);
 
   for (const [name, set] of Object.entries(SETS)) {
+    if (only.length && !only.includes(name)) continue;
     const dir = path.join(OUT, name);
     fs.mkdirSync(dir, { recursive: true });
 
@@ -351,6 +354,18 @@ async function peekLayers(seed) {
           }]).png().toBuffer();
           layers.push({ input: rounded, left: gx + (k % 3) * (gw + gap), top: gy + Math.floor(k / 3) * (gh + gap) });
         }
+      }
+
+      // An app screenshot under the text, top-aligned and cut off by the frame
+      // (sl.shot is a path from the site root, e.g. 'worknest/screens/home.webp').
+      if (sl.visual === 'shot') {
+        const SH = { x: 80, y: 572, w: 920, h: 340 };
+        const crop = await sharp(path.join(ROOT, sl.shot))
+          .resize(SH.w, SH.h, { fit: 'cover', position: 'top' }).png().toBuffer();
+        const mask = Buffer.from('<svg width="' + SH.w + '" height="' + SH.h + '"><defs><linearGradient id="f" x1="0" y1="0" x2="0" y2="1">'
+          + '<stop offset="0.6" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>'
+          + '<path d="M0 ' + SH.h + ' V18 a18 18 0 0 1 18 -18 H' + (SH.w - 18) + ' a18 18 0 0 1 18 18 V' + SH.h + ' Z" fill="url(#f)"/></svg>');
+        layers.push({ input: await sharp(crop).composite([{ input: mask, blend: 'dest-in' }]).png().toBuffer(), left: SH.x, top: SH.y });
       }
 
       if (set.peek !== false && !sl.visual && !sl.qr && !sl.sub2 && !sl.chips) layers.push(...await peekLayers(index + name.length));

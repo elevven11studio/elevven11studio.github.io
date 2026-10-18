@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Email Generator</title>
+<style>
+  :root { --bg:#0b0a10; --panel:#131019; --line:#2a2536; --text:#f7f3ec; --muted:#a79f95; --green:#22c55e; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:'Segoe UI',Helvetica,Arial,sans-serif; }
+  .wrap { max-width:1100px; margin:0 auto; padding:24px 16px; display:grid; grid-template-columns:320px 1fr; gap:20px; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px; align-self:start; }
+  label { display:block; font-size:13px; color:var(--muted); margin:0 0 6px; }
+  input { width:100%; padding:11px 12px; margin-bottom:16px; background:var(--bg); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:15px; }
+  input:focus { outline:2px solid var(--green); border-color:transparent; }
+  button { width:100%; padding:12px; margin-top:8px; border:0; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer; }
+  .primary { background:linear-gradient(135deg,#86efac,#22c55e); color:#0b0a10; }
+  .ghost { background:transparent; color:var(--text); border:1px solid var(--line); }
+  .subject { margin-top:16px; padding:10px 12px; background:var(--bg); border:1px dashed var(--line); border-radius:8px; font-size:13px; color:var(--muted); word-break:break-word; }
+  iframe { width:100%; height:calc(100vh - 48px); min-height:600px; border:1px solid var(--line); border-radius:14px; background:#fff; }
+  #status { min-height:18px; margin-top:12px; font-size:13px; color:var(--green); }
+  @media (max-width:800px) { .wrap { grid-template-columns:1fr; } iframe { height:700px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="panel">
+    <label for="biz">Business name</label>
+    <input id="biz" placeholder="Sunrise Bakery" autocomplete="off">
+    <label for="me">Your name</label>
+    <input id="me" placeholder="Your name" autocomplete="off">
+    <button class="primary" id="copyEmail">Copy email</button>
+    <button class="ghost" id="copyHtml">Copy HTML</button>
+    <button class="ghost" id="copySubject">Copy subject</button>
+    <div class="subject" id="subject"></div>
+    <div id="status" role="status"></div>
+  </div>
+  <iframe id="preview" title="Email preview"></iframe>
+</div>
+<script type="text/template" id="tpl">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A website for {{business_name}}</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; padding:0; background:#ffffff; }
+  a { text-decoration:none; }
+  @media (max-width:620px) {
+    .px { padding-left:20px !important; padding-right:20px !important; }
+    .h1 { font-size:24px !important; }
+  }
+</style>
+</head>
+<body style="margin:0;padding:0;background:#ffffff;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#ffffff;">A fast, clean website for {{business_name}}. Free mockup if you reply.</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;">
+<tr><td align="center" style="padding:24px 12px;">
+
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#ffffff;border:1px solid #dadce0;border-radius:8px;font-family:'Outfit','Segoe UI',Helvetica,Arial,sans-serif;color:#202124;">
+
+  <!-- Logo -->
+  <tr>
+    <td class="px" align="center" style="padding:40px 40px 0 40px;">
+      <a href="https://elevven11studio.github.io/" target="_blank"><span style="font-size:24px;font-weight:800;letter-spacing:0.5px;color:#16a34a;background:linear-gradient(135deg,#1f9d55 0%,#137a40 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">ELEVVEN11 STUDIO</span></a>
+    </td>
+  </tr>
+
+  <!-- Title -->
+  <tr>
+    <td class="px" align="center" style="padding:28px 40px 24px 40px;border-bottom:1px solid #dadce0;">
+      <h1 class="h1" style="margin:0;font-size:28px;line-height:1.3;font-weight:400;color:#202124;"><a href="https://elevven11studio.github.io/" target="_blank" style="color:#202124;text-decoration:none;">Customers are searching for {{business_name}}. Can they find you?</a></h1>
+    </td>
+  </tr>
+
+  <!-- Callout -->
+  <tr>
+    <td class="px" style="padding:28px 40px 0 40px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#dcfce7;border-radius:12px;">
+        <tr>
+          <td style="padding:20px 24px;font-size:15px;line-height:1.65;color:#14532d;">
+            Hello, we build fast, clean websites for small businesses. We could not find one for {{business_name}} that shows your work properly.
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- Details panel -->
+  <tr>
+    <td class="px" style="padding:20px 40px 0 40px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f8fafd;border-radius:20px;">
+        <tr>
+          <td style="padding:28px 28px 8px 28px;font-size:16px;font-weight:500;color:#202124;">What you get</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 28px 4px 28px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:14px;line-height:1.5;">
+              <tr>
+                <td width="28" valign="top" style="padding:8px 0;color:#16a34a;font-size:16px;font-weight:700;">&#10003;</td>
+                <td style="padding:8px 0;color:#202124;"><strong>Live in days</strong><br><span style="color:#5f6368;">From brief to a working site</span></td>
+              </tr>
+              <tr>
+                <td width="28" valign="top" style="padding:8px 0;color:#16a34a;font-size:16px;font-weight:700;">&#10003;</td>
+                <td style="padding:8px 0;color:#202124;"><strong>Found on Google</strong><br><span style="color:#5f6368;">We set up your Maps listing</span></td>
+              </tr>
+              <tr>
+                <td width="28" valign="top" style="padding:8px 0;color:#16a34a;font-size:16px;font-weight:700;">&#10003;</td>
+                <td style="padding:8px 0;color:#202124;"><strong>Built for mobile</strong><br><span style="color:#5f6368;">Call and book in one tap</span></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:12px 28px 28px 28px;">
+            <div style="border-top:1px solid #dadce0;padding-top:16px;font-size:14px;line-height:1.9;color:#5f6368;">
+              <strong style="color:#202124;">Starter</strong> one-page site, 2 weeks of free updates<br>
+              <strong style="color:#202124;">Plus</strong> multi-page site with more features<br>
+              <strong style="color:#202124;">Custom</strong> your design, integrations and mobile app
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- CTA -->
+  <tr>
+    <td class="px" align="center" style="padding:32px 40px 8px 40px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td align="center" bgcolor="#22c55e" style="border-radius:24px;background:linear-gradient(135deg,#86efac 0%,#22c55e 100%);">
+            <a href="mailto:elevven11studio@gmail.com?subject=Free%20mockup%20for%20{{business_name}}" style="display:inline-block;padding:13px 32px;font-family:'Outfit','Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:#0b0a10;border-radius:24px;">Get a free mockup</a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="px" align="center" style="padding:8px 40px 32px 40px;font-size:14px;color:#5f6368;">
+      or <a href="https://elevven11studio.github.io/examples/" style="color:#137a40;font-weight:600;">see example sites</a>
+    </td>
+  </tr>
+
+  <!-- Counterbook ad -->
+  <tr>
+    <td class="px" style="padding:0 40px 28px 40px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0b0a10;border-radius:16px;">
+        <tr>
+          <td style="padding:24px 26px;">
+            <div style="font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#4ade80;">Also from us</div>
+            <div style="margin-top:8px;font-size:20px;font-weight:800;line-height:1.3;color:#f7f3ec;">Counterbook</div>
+            <div style="margin-top:6px;font-size:14px;line-height:1.6;color:#a79f95;">A free point of sale app for shops. Sales, stock, customers and credit. No account or internet needed.</div>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:16px;"><tr>
+              <td align="center" bgcolor="#22c55e" style="border-radius:20px;background:linear-gradient(135deg,#86efac 0%,#22c55e 100%);">
+                <a href="https://elevven11studio.github.io/counterbook/" target="_blank" style="display:inline-block;padding:10px 24px;font-family:'Outfit','Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;color:#0b0a10;border-radius:20px;">Get Counterbook free</a>
+              </td>
+            </tr></table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- Signature -->
+  <tr>
+    <td class="px" align="center" style="padding:0 40px 28px 40px;font-size:14px;line-height:1.7;color:#5f6368;">
+      <strong style="color:#202124;">{{your_name}}</strong>, Elevven11 Studio<br>
+      <a href="mailto:elevven11studio@gmail.com" style="color:#137a40;">elevven11studio@gmail.com</a>
+      &nbsp;·&nbsp;
+      <a href="https://elevven11studio.github.io/" style="color:#137a40;">elevven11studio.github.io</a>
+    </td>
+  </tr>
+
+  <!-- Footer -->
+  <tr>
+    <td class="px" align="center" style="padding:20px 40px 28px 40px;border-top:1px solid #dadce0;font-size:12px;line-height:1.6;color:#80868b;">
+      {{business_name}} is listed publicly as a local business. Reply "no thanks" and we will not email again.
+    </td>
+  </tr>
+
+</table>
+
+</td></tr>
+</table>
+</body>
+</html>
+</script>
+<script>
+  const tpl = document.getElementById('tpl').textContent;
+  const $ = id => document.getElementById(id);
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem('gen') || '{}'); } catch (e) {}
+  $('biz').value = saved.biz || '';
+  $('me').value = saved.me || '';
+
+  function build() {
+    const biz = $('biz').value.trim() || 'Your Business';
+    const me = $('me').value.trim() || 'Your Name';
+    return tpl
+      .split('%20{{business_name}}').join('%20' + encodeURIComponent(biz))
+      .split('{{business_name}}').join(esc(biz))
+      .split('{{your_name}}').join(esc(me));
+  }
+  function subject() { return 'A website for ' + ($('biz').value.trim() || 'Your Business'); }
+  function render() {
+    $('preview').srcdoc = build();
+    $('subject').textContent = 'Subject: ' + subject();
+    try { localStorage.setItem('gen', JSON.stringify({ biz: $('biz').value, me: $('me').value })); } catch (e) {}
+  }
+  function say(m) { $('status').textContent = m; setTimeout(() => $('status').textContent = '', 2500); }
+
+  $('biz').addEventListener('input', render);
+  $('me').addEventListener('input', render);
+
+  $('copyEmail').onclick = async () => {
+    const html = build();
+    try {
+      await navigator.clipboard.write([new ClipboardItem({
+        'text/html': new Blob([html], { type: 'text/html' }),
+        'text/plain': new Blob([html], { type: 'text/plain' })
+      })]);
+      say('Copied. Paste into your email.');
+    } catch (e) {
+      const d = $('preview').contentDocument;
+      d.designMode = 'on'; d.body.focus(); d.execCommand('selectAll');
+      say(d.execCommand('copy') ? 'Copied. Paste into your email.' : 'Copy failed.');
+      d.designMode = 'off'; getSelection().removeAllRanges();
+    }
+  };
+  $('copyHtml').onclick = async () => { await navigator.clipboard.writeText(build()); say('HTML copied.'); };
+  $('copySubject').onclick = async () => { await navigator.clipboard.writeText(subject()); say('Subject copied.'); };
+  render();
+</script>
+</body>
+</html>

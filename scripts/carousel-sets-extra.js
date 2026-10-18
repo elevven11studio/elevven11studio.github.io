@@ -142,7 +142,20 @@ module.exports = {
       { theme: 'light', head: ['Sales, stock,', 'customers, cash.'], sub: 'Everything a counter needs in one place.', chips: ['Sales', 'Stock', 'Cash'] },
       { theme: 'dark', head: ['Works offline.'], sub: 'No internet needed at the counter.', chips: ['No account', 'Offline'] },
       { theme: 'light', head: ['Free download', 'for Windows.'], sub: 'Android is coming soon.', chips: ['Windows', 'Android soon'] },
-      { theme: 'dark', head: ['Download it', 'today.'], sub: 'Get the Windows installer on the Counterbook page.', ...last('counterbook', '/counterbook/', 'Scan to download') },
+      { theme: 'dark', head: ['Want us to', 'set it up?'], sub: 'We install it, load your products and train your staff.', chips: ['Remote', 'On site'] },
+      { theme: 'light', head: ['Download it', 'today.'], sub: 'Get the Windows installer on the Counterbook page.', ...last('counterbook', '/counterbook/', 'Scan to download') },
+    ],
+  },
+
+  worknest: {
+    accent: 'indigo', peek: false,
+    slides: [
+      { theme: 'dark', head: ['Every file.', 'One office app.'], sub: 'WorkNest keeps your records on your own computers.', visual: 'shot', shot: 'worknest/screens/home.webp' },
+      { theme: 'light', head: ['Know where', 'every file is.'], sub: 'Shelf, borrower and due date for each paper file.', visual: 'shot', shot: 'worknest/screens/archive.webp' },
+      { theme: 'dark', head: ['Staff, pay', 'and approvals.'], sub: 'Leave, payroll and tasks, each with the right access.', visual: 'shot', shot: 'worknest/screens/payroll.webp' },
+      { theme: 'light', head: ['No internet', 'needed.'], sub: 'Encrypted and shared over your office Wi-Fi.', visual: 'shot', shot: 'worknest/screens/lock.webp' },
+      { theme: 'dark', head: ['Want us to', 'set it up?'], sub: 'We install it, set up your office and train your staff.', chips: ['Remote', 'On site'] },
+      { theme: 'light', head: ['Coming', 'soon.'], sub: 'Windows first. Hear when WorkNest launches.', ...last('worknest', '/worknest/', 'Scan to read more') },
     ],
   },
 

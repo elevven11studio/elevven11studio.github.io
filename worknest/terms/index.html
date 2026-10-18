@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>WorkNest Terms of Use - Elevven11 Studio</title>
+	<meta name="description" content="The terms for installing and using WorkNest, the offline office records app by Elevven11 Studio." />
+	<link rel="canonical" href="https://elevven11studio.github.io/worknest/terms/" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta name="theme-color" content="#0b0a10" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:locale" content="en_NG" />
+	<meta property="og:title" content="WorkNest Terms of Use - Elevven11 Studio" />
+	<meta property="og:description" content="The terms for installing and using WorkNest, the offline office records app by Elevven11 Studio." />
+	<meta property="og:url" content="https://elevven11studio.github.io/worknest/terms/" />
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/worknest.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="WorkNest, an offline office records app by Elevven11 Studio" />
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/worknest-square.png" />
+	<meta property="og:image:width" content="1080" />
+	<meta property="og:image:height" content="1080" />
+	<meta property="og:image:alt" content="WorkNest, an offline office records app by Elevven11 Studio" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="WorkNest Terms of Use - Elevven11 Studio" />
+	<meta name="twitter:description" content="The terms for installing and using WorkNest, the offline office records app by Elevven11 Studio." />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og/worknest.png" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="preconnect" href="https://ipwho.is" />
+	<link rel="preconnect" href="https://open.er-api.com" />
+	<!-- Font CSS loads without blocking first paint; the fallback face in style.css is sized to match. -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'" />
+	<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" /></noscript>
+	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+
+	<style>
+		/* WorkNest takes its own indigo, from the app. The studio wordmark keeps the
+		   brand gradient. --accent-rgb feeds every tint and glow in style.css. */
+		:root {
+			--accent-gold: #818cf8;
+			--accent-orange: #6366f1;
+			--accent-rgb: 129, 140, 248;
+		}
+
+		:root[data-theme="light"] {
+			--accent-gold: #4338ca;
+			--accent-orange: #3730a3;
+			--glow-gold: 0 0 15px rgba(67, 56, 202, 0.22);
+		}
+
+		.cb-status {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.6rem;
+			background: rgba(var(--accent-rgb), 0.08);
+			border: 1px solid rgba(var(--accent-rgb), 0.3);
+			color: var(--text-primary);
+			padding: 0.6rem 1.2rem;
+			border-radius: 22px;
+			font-size: 0.92rem;
+			font-weight: 600;
+			margin-bottom: 1.75rem;
+		}
+
+		.cb-status::before {
+			content: '';
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: var(--accent-gold);
+			box-shadow: var(--glow-gold);
+			flex-shrink: 0;
+		}
+
+		.cb-card h3 {
+			color: var(--accent-gold);
+			margin-bottom: 0.6rem;
+			font-size: 1.1rem;
+		}
+
+		.cb-card p,
+		.cb-card li {
+			color: var(--text-secondary);
+			font-size: 0.95rem;
+		}
+
+		.cb-card ul {
+			margin: 0;
+			padding-left: 1.1rem;
+		}
+
+		.cb-card code,
+		.section-subtitle code {
+			font-size: 0.9em;
+			padding: 0.1rem 0.35rem;
+			border-radius: 4px;
+			background: rgba(var(--accent-rgb), 0.1);
+			color: var(--accent-gold);
+		}
+
+		.cb-chips {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.45rem;
+			margin: 0.4rem 0 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		.cb-chips li {
+			font-size: 0.88rem;
+			font-weight: 600;
+			padding: 0.3rem 0.8rem;
+			border-radius: 999px;
+			background: rgba(var(--accent-rgb), 0.08);
+			border: 1px solid rgba(var(--accent-rgb), 0.22);
+			color: var(--text-primary);
+		}
+
+		.cb-table {
+			width: 100%;
+			max-width: 900px;
+			margin: 0 auto;
+			border-collapse: collapse;
+			font-size: 0.95rem;
+		}
+
+		.cb-table th,
+		.cb-table td {
+			text-align: left;
+			padding: 0.75rem 1rem;
+			border-bottom: 1px solid rgba(var(--accent-rgb), 0.18);
+			vertical-align: top;
+		}
+
+		.cb-table th {
+			color: var(--accent-gold);
+			font-weight: 700;
+			white-space: nowrap;
+		}
+
+		.cb-table td {
+			color: var(--text-secondary);
+		}
+
+		.cb-scroll {
+			overflow-x: auto;
+		}
+	
+		.doc-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin: 0 auto 2.5rem; padding: 0; list-style: none; }
+		.doc-nav a { display: block; padding: 0.5rem 1.1rem; border-radius: 999px; font-weight: 600; font-size: 0.92rem; color: var(--text-primary); border: 1px solid rgba(var(--accent-rgb), 0.3); background: rgba(var(--accent-rgb), 0.08); text-decoration: none; }
+		.doc-nav a:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+		.doc-body { max-width: 820px; margin: 0 auto; }
+		.doc-body h4 { color: var(--accent-gold); margin: 1.1rem 0 0.35rem; font-size: 0.95rem; }
+		.doc-body p, .doc-body li { color: var(--text-secondary); font-size: 0.95rem; }
+		.doc-body ul, .doc-body ol { padding-left: 1.2rem; margin: 0.4rem 0 0.8rem; }
+		.doc-body code { font-size: 0.9em; padding: 0.1rem 0.35rem; border-radius: 4px; background: rgba(var(--accent-rgb), 0.1); color: var(--accent-gold); }
+		.doc-body .cb-table { max-width: none; }
+		.doc-check { border-left: 3px solid var(--accent-gold); padding-left: 0.9rem; }
+		.faq-item .doc-inner { padding: 0 1.5rem 1.25rem; }
+	
+		.lg { max-width: 760px; margin: 0 auto; }
+		.lg h2 { color: var(--accent-gold); font-size: 1.25rem; margin: 2rem 0 0.6rem; scroll-margin-top: 90px; }
+		.lg p, .lg li { color: var(--text-secondary); font-size: 1rem; line-height: 1.7; }
+		.lg ul { padding-left: 1.3rem; margin: 0.4rem 0 1rem; }
+		.lg a { color: var(--accent-gold); }
+		.lg code { font-size: 0.9em; padding: 0.1rem 0.35rem; border-radius: 4px; background: rgba(var(--accent-rgb), 0.1); color: var(--accent-gold); }
+		.lg-meta { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+		.lg-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; margin: 0.6rem 0 1.2rem; }
+		.lg-table th, .lg-table td { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid rgba(var(--accent-rgb), 0.18); vertical-align: top; color: var(--text-secondary); }
+		.lg-table th { color: var(--accent-gold); }
+	</style>
+
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "BreadcrumbList",
+	  "name": "WorkNest Terms breadcrumb",
+	  "itemListElement": [
+	    {
+	      "@type": "ListItem",
+	      "position": 1,
+	      "name": "Home",
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/",
+	        "url": "https://elevven11studio.github.io/",
+	        "description": "Simple, affordable websites for small businesses and freelancers, anywhere in the world. One-time pricing from NGN 50,000, no monthly hosting fee.",
+	        "name": "Home"
+	      }
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 2,
+	      "name": "WorkNest",
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/worknest/",
+	        "url": "https://elevven11studio.github.io/worknest/",
+	        "description": "Documents, paper archive, staff, tasks, payroll and accounts for paper-heavy offices. Kept on your own computers, with no internet or cloud account needed.",
+	        "name": "WorkNest"
+	      }
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 3,
+	      "name": "Terms",
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/worknest/terms/",
+	        "url": "https://elevven11studio.github.io/worknest/terms/",
+	        "description": "The terms for installing and using WorkNest, the offline office records app by Elevven11 Studio.",
+	        "name": "Terms"
+	      }
+	    }
+	  ]
+	}
+	</script>
+	<script>
+		// Applied before paint so a light-mode visitor never sees a dark flash.
+		(function () {
+			try {
+				if (localStorage.getItem('e11-theme') === 'light') {
+					document.documentElement.setAttribute('data-theme', 'light');
+				}
+			} catch (e) { /* private mode: stay on the dark default */ }
+		})();
+	</script>
+</head>
+
+<body>
+
+	<a class="skip-link" href="#main">Skip to main content</a>
+
+	<header>
+		<div class="container navbar">
+			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+			<ul class="nav-links">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/app-development/">Apps</a></li>
+				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
+				<li class="nav-item"><a href="/examples/">Examples</a></li>
+				<li class="nav-item"><a href="/tools/">Tools</a></li>
+				<li class="nav-item"><a href="/agents/">Agents</a></li>
+				<li class="nav-item"><a href="/faq/">FAQ</a></li>
+				<li class="nav-item"><a href="/contact/">Contact</a></li>
+				<li class="nav-item"><a class="nav-cta" href="/get-started/">Get Your Website</a></li>
+			</ul>
+			<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+				<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+				<svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>
+			</button>
+			<div class="hamburger"><span></span><span></span><span></span></div>
+		</div>
+	</header>
+
+	<main id="main">
+
+	<section class="hero" style="min-height: 40vh;">
+		<div class="hero-content container">
+			<div class="hero-eyebrow"><a class="u-inherit" href="/worknest/">WorkNest</a> / Terms</div>
+			<h1 class="hero-title">Terms of <strong>use.</strong></h1>
+		</div>
+	</section>
+
+	<section>
+		<div class="container">
+			<div class="lg">
+				<p class="lg-meta">Version 0.3 &middot; WorkNest by Elevven11 Studio</p>
+<p>These terms are an agreement between Elevven11 Studio ("we") and the organization that installs WorkNest ("you"). By installing or using WorkNest you accept them on behalf of your organization. If you do not accept them, do not install it.</p>
+<h2 id="1-the-licence">1. The licence</h2>
+<p>1.1 We grant you a non-exclusive, non-transferable licence to install and use WorkNest for your organization's own records, on the number of devices and for the period of your plan.</p>
+<p>1.2 A plan is what you bought or were given: the free trial, or a paid plan shown on your invoice or receipt. The price, number of devices and length of a paid plan are the ones shown when you bought it. If no plan is shown, the licence covers one organization on up to three devices.</p>
+<p>1.3 You may let your staff, contractors and auditors use WorkNest for your organization. You are responsible for what they do in it.</p>
+<p>1.4 You may not sell, rent or sublicense WorkNest, use it to run a records service for other organizations without our written agreement, or copy, decompile or change it except where the law allows you to.</p>
+<p>1.5 The demo workspace contains made-up people and records. Do not use it for real records.</p>
+<h2 id="2-fees">2. Fees</h2>
+<p>2.1 Paid plans are paid in advance. Fees are in Naira unless your invoice says otherwise, and include VAT where it applies.</p>
+<p>2.2 If a renewal is not paid, the licence ends 30 days after it was due. You may still open WorkNest after that to read, back up and export your records, but not to add or change them, until you renew. We never delete your records or hold them back for non-payment.</p>
+<p>2.3 Fees already paid are not refunded, except where the law requires it or we end these terms without cause (section 10.3).</p>
+<h2 id="3-your-records">3. Your records</h2>
+<p>3.1 Your records belong to you. WorkNest stores them on your own devices. We do not host, receive or see them.</p>
+<p>3.2 You are responsible for:</p>
+<ul><li>keeping regular backups, and checking that they restore;</li><li>keeping your 24-word recovery phrase, backup passwords and staff PINs safe. We cannot recover records or backups without them;</li><li>who you give access to, and the roles you give them;</li><li>having a lawful reason to keep the personal data you put in WorkNest, telling people what you keep about them, and answering their requests, as the Nigeria Data Protection Act 2023 and other laws require.</li></ul>
+<p>3.3 Our privacy policy explains what WorkNest does with data. It forms part of these terms.</p>
+<h2 id="4-acceptable-use">4. Acceptable use</h2>
+<p>You must not use WorkNest to keep records you have no right to keep, to break the law, or to harm or harass anyone. You must not try to get around its access controls, activity log or encryption, except to test the security of your own installation.</p>
+<h2 id="5-payroll-tax-and-bookkeeping-figures">5. Payroll, tax and bookkeeping figures</h2>
+<p>5.1 WorkNest works out pay, tax, pension and leave from the rules and rates you set. It starts with rates we believe match Nigerian law at the version's release, but tax and employment laws change and depend on each person's situation.</p>
+<p>5.2 These figures are a tool, not tax, legal or financial advice. Have them checked by a qualified accountant before you rely on them. You are responsible for the amounts you pay, deduct and file.</p>
+<p>5.3 The invoices and accounts module keeps simple books: what was billed, received and spent. It does not produce statutory financial statements or tax returns. Your accountant prepares those.</p>
+<h2 id="6-patient-records">6. Patient records</h2>
+<p>6.1 The patients and clinic module records what clinicians decide: patient details, visits, vital signs, diagnoses, prescriptions and lab results. It is not a medical device. It does not suggest diagnoses or treatment, and it does not check doses, allergies, interactions or results.</p>
+<p>6.2 Clinical decisions, and checking every prescription before it is given, remain the responsibility of qualified health workers. Do not rely on WorkNest in place of clinical judgement or your facility's procedures.</p>
+<p>6.3 Patient records are sensitive personal data. You are responsible for keeping them as the law and your professional rules require, including how long they are kept.</p>
+<h2 id="7-signatures-approvals-and-acknowledgements">7. Signatures, approvals and acknowledgements</h2>
+<p>WorkNest records approvals, acknowledgements and sign-offs in its activity log. Whether these count as signatures or evidence depends on the law that applies and the circumstances. Take legal advice before relying on them in place of signed documents.</p>
+<h2 id="8-updates-and-support">8. Updates and support</h2>
+<p>8.1 We may release updates that fix faults, add features or change how WorkNest works. Updates may need a newer version of Windows, Android or iOS.</p>
+<p>8.2 Updates are designed to keep your records: WorkNest upgrades its database in place. Back up before you install an update.</p>
+<p>8.3 Support is by the contact details below, in working hours, as part of a paid plan.</p>
+<h2 id="9-warranty-and-liability">9. Warranty and liability</h2>
+<p>9.1 WorkNest is provided as it is. We work to keep it reliable and secure, but we do not promise that it will be free of faults or suit every purpose.</p>
+<p>9.2 To the extent the law allows, we are not liable for lost data, lost profit, lost business, or any indirect or consequential loss arising from the use of WorkNest, including loss caused by a forgotten recovery phrase, a missing backup, or figures you did not check.</p>
+<p>9.3 Our total liability under these terms in any 12 months is limited to the fees you paid us in those 12 months.</p>
+<p>9.4 Nothing in these terms limits liability that the law does not allow to be limited, such as for fraud or for death or personal injury caused by negligence.</p>
+<h2 id="10-ending-these-terms">10. Ending these terms</h2>
+<p>10.1 You may stop using WorkNest at any time. Your records stay on your devices.</p>
+<p>10.2 We may end your licence if you seriously break these terms and do not put it right within 30 days of being told.</p>
+<p>10.3 We may end these terms for any reason with 90 days' notice, and will then refund the unused part of any fee paid in advance.</p>
+<p>10.4 When the licence ends, you may keep using WorkNest for 30 days to back up and export your records.</p>
+<h2 id="11-changes-to-these-terms">11. Changes to these terms</h2>
+<p>We may change these terms in a new version of WorkNest. The version number at the top changes when they do, and the new terms apply from the update. If you do not accept them, do not install the update.</p>
+<h2 id="12-law-and-disputes">12. Law and disputes</h2>
+<p>12.1 These terms are governed by the laws of the Federal Republic of Nigeria.</p>
+<p>12.2 If a dispute arises, both sides will first try in good faith to settle it within 30 days of one side writing to the other. If that fails, the dispute will be settled by arbitration in Lagos under the Arbitration and Mediation Act 2023, by one arbitrator, in English. Either side may still ask a court for urgent relief.</p>
+<h2 id="13-contact">13. Contact</h2>
+<p>Elevven11 Studio. Contact: <a href="/contact/?topic=worknest#message-us">the contact page</a> or <a href="mailto:elevven11studio@gmail.com">elevven11studio@gmail.com</a>.</p>
+			</div>
+		</div>
+	</section>
+
+	</main>
+
+	<footer>
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+					<p>Websites, apps and free browser tools.</p>
+					<a href="https://wa.me/2349120925909" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					<div class="footer-social">
+				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
+				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+				<a href="https://www.instagram.com/elevven11studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+				<a href="https://www.facebook.com/share/g/1833ddCnFg/" target="_blank" rel="noopener" aria-label="Join the Elevven11 Studio community on Facebook"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></a>
+			</div>
+				</div>
+				<nav class="footer-col" aria-label="Services">
+					<h2>Services</h2>
+					<ul>
+						<li><a href="/pricing/">Pricing</a></li>
+						<li><a href="/app-development/">App Development</a></li>
+						<li><a href="/how-it-works/">How It Works</a></li>
+						<li><a href="/examples/">Examples</a></li>
+						<li><a href="/tools/">Free Tools</a></li>
+						<li><a href="/get-started/">Get Your Website</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Apps">
+					<h2>Apps</h2>
+					<ul>
+						<li><a href="/counterbook/">Counterbook</a></li>
+						<li><a href="/worknest/">WorkNest</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Extensions">
+					<h2>Extensions</h2>
+					<ul>
+						<li><a href="/extensions/">All extensions</a></li>
+						<li><a href="/webinspect/">WebInspect</a></li>
+						<li><a href="/webguard/">WebGuard</a></li>
+						<li><a href="/siteextract/">SiteExtract</a></li>
+						<li><a href="/shopinspect/">ShopInspect</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Company">
+					<h2>Company</h2>
+					<ul>
+						<li><a href="/contact/">Contact</a></li>
+						<li><a href="/faq/">FAQ</a></li>
+						<li><a href="/agents/">Referral Agents</a></li>
+						<li><a href="/support/">Support</a></li>
+						<li><a href="/terms/">Terms</a></li>
+						<li><a href="/privacy/">Privacy</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="footer-bottom">
+				<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/shell.js" defer></script>
+	<script src="/assets/main.js" defer></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics runs unless the visitor declines; advertising waits for Accept.
+		var consent = (document.cookie.match(/(?:^|; )e11_consent=([^;]*)/) || [])[1];
+		var ads = consent === 'accepted' ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: consent === 'declined' ? 'denied' : 'granted', ad_storage: ads, ad_user_data: ads, ad_personalization: ads });
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
+	</script>
+</body>
+
+</html>

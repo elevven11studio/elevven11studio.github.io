@@ -1719,7 +1719,7 @@ footer {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.6fr repeat(3, 1fr);
+  grid-template-columns: 1.6fr repeat(4, 1fr);
   gap: 2.5rem;
   padding-bottom: 2.5rem;
 }
@@ -1764,6 +1764,45 @@ footer a:hover { color: var(--accent-gold); }
 @media (max-width: 900px) {
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; }
   .footer-brand { grid-column: 1 / -1; }
+}
+
+/* Screenshot viewer (assets/shots.js), used by the app pages. The image
+   sits on a near-black backdrop in both themes, since the shots are dark. */
+.cb-shots img { cursor: zoom-in; transition: transform 0.2s ease, border-color 0.2s ease; }
+.cb-shots img:hover, .cb-shots img:focus-visible { transform: translateY(-2px); border-color: var(--accent-gold); }
+.cb-shots img:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 3px; }
+
+.shot-viewer {
+  width: 100vw; height: 100vh; max-width: none; max-height: none;
+  margin: 0; padding: 0; border: 0;
+  background: rgba(6, 6, 10, 0.92);
+  color: #f7f3ec;
+}
+.shot-viewer[open] { display: flex; align-items: center; justify-content: center; }
+.shot-viewer::backdrop { background: transparent; }
+.shot-viewer figure {
+  margin: 0; flex: 1; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.9rem;
+  padding: 3.5rem 0.5rem;
+}
+.shot-viewer img {
+  max-width: 100%; max-height: calc(100vh - 9rem); width: auto; height: auto;
+  border-radius: 10px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+.shot-viewer figcaption { font-size: 0.9rem; color: #a79f95; text-align: center; max-width: 60ch; }
+.shot-btn {
+  flex-shrink: 0; width: 44px; height: 44px; margin: 0 0.75rem;
+  border-radius: 50%; border: 1px solid rgba(247, 243, 236, 0.2);
+  background: rgba(247, 243, 236, 0.08); color: #f7f3ec;
+  font-size: 1.6rem; line-height: 1; cursor: pointer;
+}
+.shot-btn:hover, .shot-btn:focus-visible { background: rgba(247, 243, 236, 0.18); }
+.shot-close { position: absolute; top: 1rem; right: 0.25rem; }
+@media (max-width: 640px) {
+  .shot-viewer .shot-prev, .shot-viewer .shot-next { position: absolute; bottom: 1rem; }
+  .shot-viewer .shot-prev { left: 30%; }
+  .shot-viewer .shot-next { right: 30%; }
+  .shot-viewer img { max-height: calc(100vh - 11rem); }
 }
 
 .internal-note {

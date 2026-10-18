@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>WorkNest Docs and Training - Elevven11 Studio</title>
+	<meta name="description" content="Guides for running an office with WorkNest: the user guide, a staff training course, backup and recovery, security and common questions." />
+	<link rel="canonical" href="https://elevven11studio.github.io/worknest/docs/" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta name="theme-color" content="#0b0a10" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:locale" content="en_NG" />
+	<meta property="og:title" content="WorkNest Docs and Training - Elevven11 Studio" />
+	<meta property="og:description" content="Guides for running an office with WorkNest: the user guide, a staff training course, backup and recovery, security and common questions." />
+	<meta property="og:url" content="https://elevven11studio.github.io/worknest/docs/" />
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/worknest-docs.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="WorkNest docs and training" />
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/worknest-docs-square.png" />
+	<meta property="og:image:width" content="1080" />
+	<meta property="og:image:height" content="1080" />
+	<meta property="og:image:alt" content="WorkNest docs and training" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="WorkNest Docs and Training - Elevven11 Studio" />
+	<meta name="twitter:description" content="Guides for running an office with WorkNest: the user guide, a staff training course, backup and recovery, security and common questions." />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og/worknest-docs.png" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="preconnect" href="https://ipwho.is" />
+	<link rel="preconnect" href="https://open.er-api.com" />
+	<!-- Font CSS loads without blocking first paint; the fallback face in style.css is sized to match. -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'" />
+	<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" /></noscript>
+	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+
+	<style>
+		/* WorkNest takes its own indigo, from the app. The studio wordmark keeps the
+		   brand gradient. --accent-rgb feeds every tint and glow in style.css. */
+		:root {
+			--accent-gold: #818cf8;
+			--accent-orange: #6366f1;
+			--accent-rgb: 129, 140, 248;
+		}
+
+		:root[data-theme="light"] {
+			--accent-gold: #4338ca;
+			--accent-orange: #3730a3;
+			--glow-gold: 0 0 15px rgba(67, 56, 202, 0.22);
+		}
+
+		.cb-status {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.6rem;
+			background: rgba(var(--accent-rgb), 0.08);
+			border: 1px solid rgba(var(--accent-rgb), 0.3);
+			color: var(--text-primary);
+			padding: 0.6rem 1.2rem;
+			border-radius: 22px;
+			font-size: 0.92rem;
+			font-weight: 600;
+			margin-bottom: 1.75rem;
+		}
+
+		.cb-status::before {
+			content: '';
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: var(--accent-gold);
+			box-shadow: var(--glow-gold);
+			flex-shrink: 0;
+		}
+
+		.cb-card h3 {
+			color: var(--accent-gold);
+			margin-bottom: 0.6rem;
+			font-size: 1.1rem;
+		}
+
+		.cb-card p,
+		.cb-card li {
+			color: var(--text-secondary);
+			font-size: 0.95rem;
+		}
+
+		.cb-card ul {
+			margin: 0;
+			padding-left: 1.1rem;
+		}
+
+		.cb-card code,
+		.section-subtitle code {
+			font-size: 0.9em;
+			padding: 0.1rem 0.35rem;
+			border-radius: 4px;
+			background: rgba(var(--accent-rgb), 0.1);
+			color: var(--accent-gold);
+		}
+
+		.cb-chips {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.45rem;
+			margin: 0.4rem 0 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		.cb-chips li {
+			font-size: 0.88rem;
+			font-weight: 600;
+			padding: 0.3rem 0.8rem;
+			border-radius: 999px;
+			background: rgba(var(--accent-rgb), 0.08);
+			border: 1px solid rgba(var(--accent-rgb), 0.22);
+			color: var(--text-primary);
+		}
+
+		.cb-table {
+			width: 100%;
+			max-width: 900px;
+			margin: 0 auto;
+			border-collapse: collapse;
+			font-size: 0.95rem;
+		}
+
+		.cb-table th,
+		.cb-table td {
+			text-align: left;
+			padding: 0.75rem 1rem;
+			border-bottom: 1px solid rgba(var(--accent-rgb), 0.18);
+			vertical-align: top;
+		}
+
+		.cb-table th {
+			color: var(--accent-gold);
+			font-weight: 700;
+			white-space: nowrap;
+		}
+
+		.cb-table td {
+			color: var(--text-secondary);
+		}
+
+		.cb-scroll {
+			overflow-x: auto;
+		}
+	
+		.doc-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin: 0 auto 2.5rem; padding: 0; list-style: none; }
+		.doc-nav a { display: block; padding: 0.5rem 1.1rem; border-radius: 999px; font-weight: 600; font-size: 0.92rem; color: var(--text-primary); border: 1px solid rgba(var(--accent-rgb), 0.3); background: rgba(var(--accent-rgb), 0.08); text-decoration: none; }
+		.doc-nav a:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+		.doc-body { max-width: 820px; margin: 0 auto; }
+		.doc-body h4 { color: var(--accent-gold); margin: 1.1rem 0 0.35rem; font-size: 0.95rem; }
+		.doc-body p, .doc-body li { color: var(--text-secondary); font-size: 0.95rem; }
+		.doc-body ul, .doc-body ol { padding-left: 1.2rem; margin: 0.4rem 0 0.8rem; }
+		.doc-body code { font-size: 0.9em; padding: 0.1rem 0.35rem; border-radius: 4px; background: rgba(var(--accent-rgb), 0.1); color: var(--accent-gold); }
+		.doc-body .cb-table { max-width: none; }
+		.doc-check { border-left: 3px solid var(--accent-gold); padding-left: 0.9rem; }
+		.faq-item .doc-inner { padding: 0 1.5rem 1.25rem; }
+	</style>
+
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "BreadcrumbList",
+	  "name": "WorkNest docs breadcrumb",
+	  "itemListElement": [
+	    {
+	      "@type": "ListItem",
+	      "position": 1,
+	      "name": "Home",
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/",
+	        "url": "https://elevven11studio.github.io/",
+	        "description": "Simple, affordable websites for small businesses and freelancers, anywhere in the world. One-time pricing from NGN 50,000, no monthly hosting fee.",
+	        "name": "Home"
+	      }
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 2,
+	      "name": "WorkNest",
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/worknest/",
+	        "url": "https://elevven11studio.github.io/worknest/",
+	        "description": "Documents, paper archive, staff, tasks, payroll and accounts for paper-heavy offices. Kept on your own computers, with no internet or cloud account needed.",
+	        "name": "WorkNest"
+	      }
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 3,
+	      "name": "Docs and training",
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/worknest/docs/",
+	        "url": "https://elevven11studio.github.io/worknest/docs/",
+	        "description": "Guides for running an office with WorkNest: the user guide, a staff training course, backup and recovery, security and common questions.",
+	        "name": "Docs and training"
+	      }
+	    }
+	  ]
+	}
+	</script>
+	<script>
+		// Applied before paint so a light-mode visitor never sees a dark flash.
+		(function () {
+			try {
+				if (localStorage.getItem('e11-theme') === 'light') {
+					document.documentElement.setAttribute('data-theme', 'light');
+				}
+			} catch (e) { /* private mode: stay on the dark default */ }
+		})();
+	</script>
+</head>
+
+<body>
+
+	<a class="skip-link" href="#main">Skip to main content</a>
+
+	<header>
+		<div class="container navbar">
+			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+			<ul class="nav-links">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/app-development/">Apps</a></li>
+				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
+				<li class="nav-item"><a href="/examples/">Examples</a></li>
+				<li class="nav-item"><a href="/tools/">Tools</a></li>
+				<li class="nav-item"><a href="/agents/">Agents</a></li>
+				<li class="nav-item"><a href="/faq/">FAQ</a></li>
+				<li class="nav-item"><a href="/contact/">Contact</a></li>
+				<li class="nav-item"><a class="nav-cta" href="/get-started/">Get Your Website</a></li>
+			</ul>
+			<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+				<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+				<svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>
+			</button>
+			<div class="hamburger"><span></span><span></span><span></span></div>
+		</div>
+	</header>
+
+	<main id="main">
+
+	<section class="hero" style="min-height: 40vh;">
+		<div class="hero-content container">
+			<div class="hero-eyebrow"><a class="u-inherit" href="/worknest/">WorkNest</a> / Docs</div>
+			<h1 class="hero-title">Docs and <strong>training.</strong></h1>
+			<p class="hero-tagline">Learn WorkNest, teach your staff and keep your records safe. WorkNest launches soon.</p>
+		</div>
+	</section>
+
+	<section style="padding-bottom: 0;">
+		<div class="container">
+			<ul class="doc-nav" aria-label="On this page">
+				<li><a href="#guide">User guide</a></li>
+				<li><a href="#training">Training course</a></li>
+				<li><a href="#backup">Backup and recovery</a></li>
+				<li><a href="#security">Security</a></li>
+				<li><a href="#faq">Questions</a></li>
+			</ul>
+		</div>
+	</section>
+
+	<section id="guide">
+		<div class="container">
+			<div class="section-tag u-block-center">User Guide</div>
+			<h2 class="section-title">From set-up to a working office</h2>
+			<div class="doc-body">
+				<details class="faq-item">
+					<summary>Starting out</summary>
+					<div class="doc-inner doc-body"><h4>The demo</h4><p>Choose <strong>Try the demo</strong> for a made-up law firm with staff, documents, paper files, letters, payroll and books. Every demo PIN is <code>1234</code>. The demo is kept apart from your own data, and <strong>More > Reset demo</strong> puts it back as it was.</p><h4>Setting up</h4><p>Choose <strong>Create a workspace</strong>, or <strong>Create my workspace</strong> from the demo. Four steps:</p><div class="cb-scroll"><table class="cb-table"><tbody><tr><th>Organization</th><td>Name and kind. The kind picks an industry pack with folders, categories, departments, an archive layout and forms</td></tr><tr><th>Owner</th><td>Your name and PIN. Staff get their own later</td></tr><tr><th>Departments</th><td>Keep the suggested ones or add your own</td></tr><tr><th>Modules</th><td>Start from a bundle, then switch modules on or off. Their records are kept</td></tr></tbody></table></div><h4>Recovery phrase</h4><p>After set-up WorkNest shows 24 words. Write them on paper and keep them away from the computer. They open your backups and are the way back in if the computer is lost or reset.</p><h4>Reference prefix</h4><p>Files, letters and invoices are numbered with a short prefix, for example <code>AP-PF-0012</code> or <code>AP-IN-0001</code>. Set it in <strong>Settings</strong> before you register real records.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Finding your way around</summary>
+					<div class="doc-inner doc-body"><p>The sidebar lists every module that is switched on and that your role may open. Someone not seeing Payroll or Patients is by design. <strong>Home</strong> shows your numbers, notices and what is coming up from every module.</p><ul><li>Choose your name and enter your PIN. With <strong>Hide names at sign-in</strong> on, type your staff ID instead, for example <code>AP-004</code>.</li><li>Five wrong PINs lock that person out for 30 seconds, doubling each time up to 15 minutes.</li><li>WorkNest locks after 15 minutes idle. The padlock at the bottom of the sidebar locks it now.</li><li>The bell shows what needs you: tasks, approvals, files passed to you, notices and reminders.</li></ul></div>
+				</details>
+				<details class="faq-item">
+					<summary>Documents and scanning</summary>
+					<div class="doc-inner doc-body"><p>Open <strong>Documents</strong>, pick a folder and upload one or many files. Give each a category, tags and notes so search finds it later.</p><h4>Versions</h4><p>Uploading a new version never replaces the old one. Open a document to see every version and make any of them current again.</p><h4>Scanning</h4><ol><li>Tap <strong>Scan pages</strong>. On a phone or tablet, photograph each page. On a computer, pick images.</li><li>Reorder or remove pages.</li><li>Save. The pages become one compressed PDF.</li></ol><p>Text on the pages is read on the device, without the internet, and added to search. You can correct it by hand; the scan never changes.</p><h4>Restricted folders</h4><p>Restricted folders and documents are invisible to anyone without the restricted records permission, in search and exports too.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>The paper archive</summary>
+					<div class="doc-inner doc-body"><h4>Storage places</h4><p>Describe where paper lives first: buildings, rooms, cabinets, shelves and boxes. Your industry pack suggests a layout to edit.</p><h4>Paper files</h4><ol><li>Tap <strong>Register</strong> and give the file a title. WorkNest gives it a reference, or type your own.</li><li>Choose its place.</li><li>Print labels: 24 per A4 sheet, each with a QR code.</li></ol><h4>Moving files</h4><ul><li><strong>Check out</strong> to a member of staff or a named visitor, with a return date.</li><li><strong>Return</strong> puts it back where it belongs.</li><li><strong>Report missing</strong> and <strong>Mark found</strong> keep track of lost files.</li></ul><p>Every movement is kept and cannot be edited. Use the <strong>Overdue</strong> and <strong>Missing</strong> filters each week. Scan a label to open its file or shelf.</p><h4>Linking</h4><p>Link a scanned document to its paper original, so either one leads to the other.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Tasks and approvals</summary>
+					<div class="doc-inner doc-body"><p>Tap <strong>New task</strong>, assign it, and set a due date and priority. Link documents or paper files it is about. Comments and changes stay on its timeline.</p><p>An approval task goes to a named approver who holds the approval permission. They <strong>Approve</strong>, <strong>Send back</strong> or <strong>Reject</strong> it. Nobody approves their own work.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Letters and contacts</summary>
+					<div class="doc-inner doc-body"><p><strong>Register a letter</strong> as it arrives or leaves. Letters in and out get their own numbers, for example <code>AP-IN-0001</code> and <code>AP-OUT-0001</code>. Record the sender's reference, who acts on it and a reply date, and attach the scan.</p><p><strong>Register reply</strong> links an answer to the letter it answers. Late replies show on Home and the calendar.</p><p><strong>Contacts</strong> holds clients, agencies and suppliers with their letters and documents. Import a CSV; WorkNest warns about likely duplicates.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Forms, notices, meetings and the calendar</summary>
+					<div class="doc-inner doc-body"><ul><li><strong>Forms</strong>: build with text, number, date, choice, yes or no and confirmation questions. Reviewers accept or return answers, and an answer prints to PDF. Changing a form makes a new version, so old answers keep their questions.</li><li><strong>Notices</strong>: post to everyone or a department. People confirm they have read it.</li><li><strong>Meetings</strong>: agenda, attendance, minutes and action items.</li><li><strong>Calendar</strong>: everything due from every module, including tasks, files due back, replies, meetings, leave and expiring certificates.</li></ul></div>
+				</details>
+				<details class="faq-item">
+					<summary>People and HR</summary>
+					<div class="doc-inner doc-body"><p>Employee records, with or without a sign-in. Leave counts working days against a yearly allowance and is approved by someone else. Also daily attendance, equipment with tags, and certificates with expiry dates.</p><h4>Hiring</h4><p>Open a job, add applicants with their CVs and move them stage by stage. <strong>Hire</strong> makes the employee record and starts the joining checklist.</p><p>HR records are private to HR. Everyone sees their own record, leave and checklist.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Payroll</summary>
+					<div class="doc-inner doc-body"><ol><li>Set each person's monthly pay: basic, housing, transport, other allowances and loans.</li><li>Tap <strong>Prepare a payroll</strong> for the month.</li><li>Someone other than the preparer approves it. Approved runs never change.</li><li><strong>Mark paid</strong> once the bank has paid.</li></ol><p>PAYE follows the Nigeria Tax Act 2025 bands, with pension at 8% and 10% and optional NHF and rent relief, all editable. Payslips print to PDF. Export a bank schedule, the payroll sheet, and PAYE, pension and NHF remittance schedules. Anyone missing a tax ID or RSA PIN is named.</p><p class="doc-check"><strong>Check:</strong> have an accountant confirm the rates before your first real payroll.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Invoices, books and the bank</summary>
+					<div class="doc-inner doc-body"><ul><li><strong>Accounts</strong>: set up your cash, bank and POS accounts first.</li><li><strong>Invoices</strong>: draft, then issue with a number. Record payments in parts, each with a receipt, or void with a reason. VAT at 7.5% when switched on.</li><li><strong>Expenses</strong>: by category, with the receipt attached.</li><li><strong>Fixed assets</strong>: cost, useful life and value at the end, written off each month.</li></ul><p>Every invoice, payment, expense, asset and payroll posts itself to the books. Add journals by hand for the rest. Profit and loss, balance sheet and trial balance save to Excel.</p><h4>Bank matching</h4><p>Save a statement as CSV from internet banking, then <strong>Import statement</strong>. Lines already imported are skipped. WorkNest matches by amount and date; <strong>Match</strong> the rest by hand or record them as expenses or income.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Clinic</summary>
+					<div class="doc-inner doc-body"><p>On for the clinic pack, off elsewhere. Register patients with a hospital number, allergies and HMO details. Record visits with vital signs, notes, diagnosis and plan. Prescriptions go to the pharmacy queue; lab tests move from ordered to sampled to resulted.</p><p>Also appointments, wards and a bed board, inpatient charts, a daily drug round, drug stock with expiry dates, and HMO claims saved as Excel.</p><p class="doc-check"><strong>Important:</strong> WorkNest records what clinicians decide. It does not suggest or check doses, allergies or diagnoses.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Property and rent</summary>
+					<div class="doc-inner doc-body"><p>On for the property pack. Add properties, units and landlords, then tenancies with rent per year, half, quarter or month, service charge, caution deposit and the signed agreement. Rent is invoiced period by period, deposit first. Repairs move from reported to done, with the cost recorded as an expense.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Shared passwords</summary>
+					<div class="doc-inner doc-body"><ol><li>Each person taps <strong>Set passphrase</strong>. It is separate from the PIN and is never stored.</li><li>Add a login and share it with everyone who has access, or with named people.</li><li><strong>Unlock passwords</strong> to see or copy one. A copied password clears from the clipboard after 30 seconds.</li></ol><p>WorkNest warns about weak, reused and old passwords. Removing someone gives the login a new key and flags the password to change.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Reports and export</summary>
+					<div class="doc-inner doc-body"><p><strong>Reports</strong> summarizes every module: open tasks by person, documents by category and more. Export any register to one Excel workbook or CSV files, and every document as a ZIP by folder. Exports hold only what you may see, and are logged.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Several computers on one network</summary>
+					<div class="doc-inner doc-body"><ol><li>On the main computer, open <strong>More > Devices</strong> and turn on <strong>Share on this network</strong>.</li><li>Tap <strong>Add a device</strong> to show a pairing code.</li><li>On the other computer, choose <strong>Join a workspace</strong> and scan or type the code.</li></ol><p>Paired devices work offline and catch up when they reconnect. <strong>Sync now</strong> catches up straight away. The main computer must be on for others to sync.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Making it yours</summary>
+					<div class="doc-inner doc-body"><p><strong>Settings > Customize</strong> sets your logo on the lock screen, sidebar and printouts, your colour, your own names for tabs (Patients as Clients, People as Staff), invoice defaults and a footer line. Saved once, it applies on every device. Each person can still pick light, dark and their own colour.</p></div>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<section id="training" class="section-tinted">
+		<div class="container">
+			<div class="section-tag u-block-center">Training Course</div>
+			<h2 class="section-title">Teach staff in the demo first</h2>
+			<p class="section-subtitle">Open the demo with PIN <code>1234</code> so mistakes cost nothing. Each module ends with a check, and the trainee moves on only when it passes.</p>
+			<div class="doc-body">
+<div class="cb-scroll"><table class="cb-table"><tbody><tr><th>All staff</th><td>Modules 1 and 4</td></tr><tr><th>Records officer</th><td>Modules 1 to 5</td></tr><tr><th>HR officer</th><td>Modules 1, 4, 6 and 7</td></tr><tr><th>Accounts officer</th><td>Modules 1, 4, 7 and 8</td></tr><tr><th>Clinical staff</th><td>Modules 1, 4 and 9</td></tr><tr><th>Administrator</th><td>Modules 1 to 10</td></tr><tr><th>Owner</th><td>Every module</td></tr></tbody></table></div>
+				<div style="height:1.5rem"></div>
+				<details class="faq-item">
+					<summary>Module 1. Signing in and getting around (10 minutes)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> sign in, find each module, lock the screen.</p><ol><li>Choose your name and enter the PIN.</li><li>Visit each item in the sidebar. Missing entries for your role are correct.</li><li>Open the bell and read one notification.</li><li>Lock with the padlock, then sign in again.</li></ol><p class="doc-check"><strong>Check:</strong> the trainee signs in without help and says where to find what is due today.</p><p><strong>Rule to teach:</strong> your PIN is yours. Lock when you step away.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 2. Documents and scanning (20 minutes)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> file, find and update a document.</p><ol><li>Upload a file with a category, two tags and a note.</li><li>Scan three pages into one PDF and reorder one.</li><li>Search for a word that appears only on the scan.</li><li>Upload a new version, then make the old one current again.</li><li>Move the document to another folder.</li></ol><p class="doc-check"><strong>Check:</strong> the trainee finds any document by a word in it within a minute.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 3. The paper archive (20 minutes)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> always know where a paper file is.</p><ol><li>Register a paper file on a shelf and print its label.</li><li>Check it out to a colleague, due tomorrow.</li><li>Check out another to a visitor and return it.</li><li>Report one missing, then mark it found.</li><li>Use the Overdue and Missing filters.</li></ol><p class="doc-check"><strong>Check:</strong> the trainee says who has the overdue file in the demo and since when.</p><p><strong>Rule to teach:</strong> no file leaves the room without being checked out.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 4. Tasks, approvals and letters (20 minutes)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> move work along and keep the register complete.</p><ol><li>Create a task with a due date and link a document to it.</li><li>Create an approval task for a colleague. As them, send it back with a comment.</li><li>Register an incoming letter with its scan and a reply date.</li><li>Register the reply and link it to the letter.</li></ol><p class="doc-check"><strong>Check:</strong> the trainee explains why nobody can approve their own work.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 5. Forms, notices and meetings (15 minutes)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> collect answers and share news.</p><ol><li>Build a form with a choice and a date question.</li><li>Fill it as another person, then accept the answer as reviewer and print it.</li><li>Post a notice to one department and confirm it as a reader.</li><li>Plan a meeting with an agenda and add one action item.</li></ol><p class="doc-check"><strong>Check:</strong> the meeting and its action item appear on the calendar.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 6. People, leave and hiring (20 minutes, HR)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> keep staff records and leave correct.</p><ol><li>Add an employee and a certificate that expires next month.</li><li>Record five days' leave for them, then approve it as a second person.</li><li>Open a job, add an applicant, move them to interview, then Hire.</li><li>Tick off two steps of the joining checklist.</li></ol><p class="doc-check"><strong>Check:</strong> the trainee finds the expiring certificate on the calendar.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 7. Payroll (30 minutes, HR and accounts)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> run a month's pay from start to paid.</p><ol><li>Set one person's basic and allowances.</li><li>Prepare a payroll for the month and read one payslip.</li><li>Approve it as a second person.</li><li>Mark it paid from a bank account.</li><li>Export the bank schedule and the PAYE remittance schedule.</li></ol><p class="doc-check"><strong>Check:</strong> the trainee explains why an approved run cannot change, and who is named as missing a tax ID.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 8. Invoices, books and the bank (30 minutes, accounts)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> bill, record and reconcile.</p><ol><li>Issue an invoice and record a part payment.</li><li>Add an expense with its receipt.</li><li>Open profit and loss and the balance sheet for the month.</li><li>Import the demo bank statement and match the remaining lines.</li></ol><p class="doc-check"><strong>Check:</strong> every statement line is matched or recorded.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 9. Clinic (30 minutes, clinical staff)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> follow a patient from arrival to bill. Use a workspace made with the clinic pack.</p><ol><li>Register a patient with an allergy and HMO details.</li><li>Book an appointment and mark them arrived.</li><li>Record vital signs, a diagnosis and a prescription.</li><li>As pharmacy, dispense it from stock.</li><li>Bill the visit to an invoice.</li></ol><p class="doc-check"><strong>Check:</strong> the trainee points out where the allergy shows.</p><p><strong>Rule to teach:</strong> WorkNest records decisions. It does not check them.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 10. Staff, roles and the activity log (20 minutes, administrators)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> give each person the right access and see what happened.</p><ol><li>In <strong>More > Staff and departments</strong>, add a person with the Staff role.</li><li>Sign in as them and note what is missing.</li><li>Make a new role and give it one extra permission.</li><li>Open the <strong>Activity log</strong>, filter to one person, then check the log has not been changed.</li><li>Mark the test person inactive.</li></ol><p class="doc-check"><strong>Check:</strong> the trainee explains why roles are checked in the data, not just hidden on screen.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Module 11. Backups, recovery and devices (30 minutes, owner)</summary>
+					<div class="doc-inner doc-body"><p><strong>Goal:</strong> be certain a lost computer does not lose the records.</p><ol><li>Write down the recovery phrase and have a second person check it.</li><li>Run <strong>Back up now</strong> and save a copy to USB.</li><li>Turn on automatic backup.</li><li>Restore the file on a second computer and sign in with a staff PIN.</li><li>Pair a device, sync it, then remove it.</li></ol><p class="doc-check"><strong>Check:</strong> the owner opens a document on the restored computer, then stores the phrase and USB drive safely.</p></div>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<section id="backup">
+		<div class="container">
+			<div class="section-tag u-block-center">Backup and Recovery</div>
+			<h2 class="section-title">Do this on the day you start using real records</h2>
+			<div class="doc-body">
+				<details class="faq-item">
+					<summary>Backup and recovery guide</summary>
+					<div class="doc-inner doc-body"><h4>Three things to understand</h4><ul><li><strong>Recovery phrase</strong>: 24 words shown at set-up. It opens phrase-protected backups and recovers shared passwords.</li><li><strong>Backup file</strong> (<code>.wnbak</code>): every record and file, encrypted, including staff and their logins.</li><li><strong>Backup password</strong>: an alternative you choose when backing up. It opens the file on any computer without the phrase.</li></ul><h4>Set up once (15 minutes)</h4><ol><li>Write the 24 words on paper and have someone read them back. Do not photograph them.</li><li>Keep the paper away from the computer.</li><li>Open <strong>More > Backup and restore > Back up now</strong> and choose what opens it.</li><li>Save a copy to a USB drive.</li><li>Turn on <strong>Back up automatically</strong>: every 6 hours, every day or every week, with a copy to a USB drive or another folder.</li></ol><p>Automatic backups run while WorkNest is open and someone who can back up is signed in.</p><h4>Restoring</h4><ul><li><strong>Same computer</strong>: Backup and restore, then <strong>Restore</strong> a backup on this computer. A safety backup of the current data is made first.</li><li><strong>New computer</strong>: install WorkNest, choose <strong>Restore from backup</strong>, pick the file, enter the phrase or password, then sign in with a staff PIN.</li></ul><h4>Test your backups</h4><p>Once a month, restore the latest backup on a spare computer and confirm documents, paper files and staff logins are there.</p><h4>If something goes wrong</h4><div class="cb-scroll"><table class="cb-table"><tbody><tr><th>Lost computer, have file and phrase or password</th><td>Restore on a new computer</td></tr><tr><th>Have the phrase but no file</th><td>Check USB drives and other copies. The phrase alone cannot recreate records that were never copied</td></tr><tr><th>Have the file, lost phrase and password</th><td>The file cannot be opened by anyone, including us</td></tr><tr><th>Main computer still works</th><td>Owners can view the phrase again in Settings. Write it down now</td></tr></tbody></table></div></div>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<section id="security" class="section-tinted">
+		<div class="container">
+			<div class="section-tag u-block-center">Security</div>
+			<h2 class="section-title">Protecting your records</h2>
+			<p class="section-subtitle">Written for owners and administrators.</p>
+			<div class="doc-body">
+				<details class="faq-item">
+					<summary>Security guide</summary>
+					<div class="doc-inner doc-body"><h4>What WorkNest does for you</h4><div class="cb-scroll"><table class="cb-table"><tbody><tr><th>Records on the device</th><td>Encrypted with SQLCipher (AES-256). The key is in the system's secure storage</td></tr><tr><th>Files</th><td>Stored inside the encrypted database and checked by SHA-256 every time they are opened</td></tr><tr><th>Staff PINs</th><td>Never stored. Only a salted Argon2id hash is kept</td></tr><tr><th>Wrong PINs</th><td>Lockout from 30 seconds up to 15 minutes</td></tr><tr><th>Permissions</th><td>Checked in the data layer for every action, export and search</td></tr><tr><th>Activity log</th><td>Every action, who, when and on which device, chained so a change or gap is reported</td></tr><tr><th>Shared passwords</th><td>Each login has its own AES-256-GCM key, sealed to each person who may use it</td></tr><tr><th>Network</th><td>Paired devices talk over HTTPS on your office network, after a one-time code</td></tr></tbody></table></div><h4>What you need to do</h4><ul><li>Give every person their own PIN and the least access that does the job.</li><li>Mark people inactive the day they leave.</li><li>Use restricted folders for sensitive records.</li><li>Review the activity log weekly and check it has not been changed.</li><li>Use a Windows password, keep Windows updated, and turn on disk encryption.</li><li>Keep the recovery phrase on paper, away from the computer.</li><li>Store exports with care. Excel, CSV, PDF and ZIP exports are not encrypted.</li></ul><h4>Known limits</h4><ul><li>Records are protected at rest and in backups, not against someone watching a signed-in screen or who knows a PIN.</li><li>Sync works on one network only. There is no cloud service.</li><li>Pop-up notifications can be seen by people near the screen. Turn off their details in your notification settings.</li></ul><h4>Reporting a problem</h4><p>Do not post security details publicly. <a href="/contact/?topic=worknest-help#message-us">Contact us</a> and say it is a security report.</p></div>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<section id="faq">
+		<div class="container">
+			<div class="section-tag u-block-center">Questions</div>
+			<h2 class="section-title">Something went wrong or looks odd</h2>
+			<div class="doc-body">
+				<details class="faq-item">
+					<summary>Someone forgot their PIN.</summary>
+					<div class="doc-inner doc-body"><p>The owner or an administrator sets a new one in Staff and departments.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>The lock screen says "Too many attempts".</summary>
+					<div class="doc-inner doc-body"><p>Five wrong PINs lock that person out for 30 seconds, then longer. Wait, then enter it carefully.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>A module is missing from the sidebar.</summary>
+					<div class="doc-inner doc-body"><p>Either it is switched off in More > Modules, or your role cannot open it. Ask an administrator.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Search does not find a scanned page.</summary>
+					<div class="doc-inner doc-body"><p>The text may have been read wrongly. Open the document and correct the scanned text. On Windows, text reading needs an OCR language, which English installs include.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>A paper file is shown on the shelf but is not there.</summary>
+					<div class="doc-inner doc-body"><p>Report it missing so everyone sees it, then check its history to see who had it last.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Payroll figures look wrong.</summary>
+					<div class="doc-inner doc-body"><p>Check the person's pay and the tax and pension rates. Rates are editable, and an accountant should confirm them. An approved run cannot be changed; correct it in the next month.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>A paired computer is not catching up.</summary>
+					<div class="doc-inner doc-body"><p>Check the main computer is on with WorkNest open, both are on the same network, and Windows Firewall allows WorkNest on private networks. Then tap Sync now.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>I forgot my vault passphrase.</summary>
+					<div class="doc-inner doc-body"><p>Set a new one. The owner then re-shares your logins using the recovery phrase. This is logged.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Someone leaves and knew company passwords.</summary>
+					<div class="doc-inner doc-body"><p>Mark them inactive and remove them from each login. WorkNest flags those passwords to change. Change them at the bank, tax office or email provider too.</p></div>
+				</details>
+				<details class="faq-item">
+					<summary>Something looks wrong.</summary>
+					<div class="doc-inner doc-body"><p>Make a backup first, note what you did and saw, then contact us.</p></div>
+				</details>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
+	<section id="final-cta" class="section-tinted">
+		<div class="container u-center">
+			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Still stuck?</h2>
+			<p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem;">Make a backup first, then tell us what you did and what you saw.</p>
+			<div class="btn-group">
+				<a href="/contact/?topic=worknest-help#message-us" class="btn btn-primary">Contact us</a>
+				<a href="/worknest/" class="btn btn-secondary">Back to WorkNest</a>
+			</div>
+			<p style="margin-top: 1.5rem; font-size: 0.9rem;"><a class="u-gold" href="/worknest/privacy/">Privacy policy</a> &middot; <a class="u-gold" href="/worknest/terms/">Terms of use</a></p>
+		</div>
+	</section>
+
+	</main>
+
+	<footer>
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+					<p>Websites, apps and free browser tools.</p>
+					<a href="https://wa.me/2349120925909" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					<div class="footer-social">
+				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
+				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+				<a href="https://www.instagram.com/elevven11studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+				<a href="https://www.facebook.com/share/g/1833ddCnFg/" target="_blank" rel="noopener" aria-label="Join the Elevven11 Studio community on Facebook"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></a>
+			</div>
+				</div>
+				<nav class="footer-col" aria-label="Services">
+					<h2>Services</h2>
+					<ul>
+						<li><a href="/pricing/">Pricing</a></li>
+						<li><a href="/app-development/">App Development</a></li>
+						<li><a href="/how-it-works/">How It Works</a></li>
+						<li><a href="/examples/">Examples</a></li>
+						<li><a href="/tools/">Free Tools</a></li>
+						<li><a href="/get-started/">Get Your Website</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Apps">
+					<h2>Apps</h2>
+					<ul>
+						<li><a href="/counterbook/">Counterbook</a></li>
+						<li><a href="/worknest/">WorkNest</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Extensions">
+					<h2>Extensions</h2>
+					<ul>
+						<li><a href="/extensions/">All extensions</a></li>
+						<li><a href="/webinspect/">WebInspect</a></li>
+						<li><a href="/webguard/">WebGuard</a></li>
+						<li><a href="/siteextract/">SiteExtract</a></li>
+						<li><a href="/shopinspect/">ShopInspect</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Company">
+					<h2>Company</h2>
+					<ul>
+						<li><a href="/contact/">Contact</a></li>
+						<li><a href="/faq/">FAQ</a></li>
+						<li><a href="/agents/">Referral Agents</a></li>
+						<li><a href="/support/">Support</a></li>
+						<li><a href="/terms/">Terms</a></li>
+						<li><a href="/privacy/">Privacy</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="footer-bottom">
+				<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/shell.js" defer></script>
+	<script src="/assets/main.js" defer></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics runs unless the visitor declines; advertising waits for Accept.
+		var consent = (document.cookie.match(/(?:^|; )e11_consent=([^;]*)/) || [])[1];
+		var ads = consent === 'accepted' ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: consent === 'declined' ? 'denied' : 'granted', ad_storage: ads, ad_user_data: ads, ad_personalization: ads });
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+		// gtag.js is fetched after first interaction, or a few seconds after load,
+		// so it never competes with the page for bandwidth. Calls above queue in dataLayer.
+		function loadGtag() {
+			if (loadGtag.done) return;
+			loadGtag.done = true;
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ';
+			document.head.appendChild(s);
+		}
+		['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) {
+			addEventListener(e, loadGtag, { once: true, passive: true });
+		});
+		addEventListener('load', function () { setTimeout(loadGtag, 3500); });
+	</script>
+</body>
+
+</html>
