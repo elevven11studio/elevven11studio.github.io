@@ -1,6 +1,6 @@
 {
-  "version": "0.1.0",
-  "notes": "",
+  "version": "0.1.1",
+  "notes": "Adds Send feedback in Help.",
   "url": "https://elevven11studio.github.io/worknest/",
   "minimum": "0.1.0"
 }

@@ -1,6 +1,6 @@
 {
-  "version": "0.2.0",
-  "notes": "",
+  "version": "0.2.1",
+  "notes": "Adds in-app guides, Send feedback and a PIN lockout fix.",
   "url": "https://elevven11studio.github.io/counterbook/",
   "minimum": "0.1.0"
 }
