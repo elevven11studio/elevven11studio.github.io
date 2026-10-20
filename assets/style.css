@@ -2323,7 +2323,7 @@ footer > * {
 .u-text-1 { color: var(--text-primary) !important; }
 .u-text-2 { color: var(--text-secondary) !important; }
 .u-gold { color: var(--accent-gold) !important; }
-.link-sep { margin: 0 0.6em; }
+.link-sep { display: inline-block; width: 0.3em; height: 0.3em; margin: 0 0.5cm; border-radius: 50%; background: currentColor; vertical-align: middle; }
 .u-inherit { color: inherit !important; }
 .u-mb-1 { margin-bottom: 1rem !important; }
 .u-mb-2 { margin-bottom: 2rem !important; }
