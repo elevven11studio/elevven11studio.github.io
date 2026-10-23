@@ -380,6 +380,17 @@ header.scrolled {
   transition: var(--transition-fast);
 }
 
+/* Breadcrumbs */
+.crumbs { font-size: 0.85rem; color: var(--text-muted); }
+.crumbs ol { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; }
+.crumbs li + li::before { content: "/"; margin-right: 0.4rem; color: var(--text-muted); }
+.crumbs a { color: var(--text-secondary); }
+.crumbs a:hover { color: var(--accent-gold); }
+.crumbs [aria-current] { color: var(--text-muted); }
+.hero .crumbs { margin-bottom: 1.25rem; }
+.hero .crumbs ol { justify-content: center; }
+.tools-hero .crumbs { margin-bottom: 1rem; }
+
 /* Hero */
 .hero {
   min-height: 90vh;

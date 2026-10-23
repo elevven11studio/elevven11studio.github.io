@@ -14,13 +14,6 @@
 .tool-head h1 { font-size: 2.4rem; margin: 0.35rem 0 0.6rem; letter-spacing: -0.5px; }
 .tool-head .lead { color: var(--text-secondary); font-size: 1.1rem; max-width: 640px; }
 
-.crumbs { font-size: 0.85rem; color: var(--text-muted); }
-.crumbs ol { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; }
-.crumbs li + li::before { content: '/'; margin-right: 0.4rem; color: var(--text-muted); }
-.crumbs a { color: var(--text-secondary); }
-.crumbs a:hover { color: var(--accent-gold); }
-.crumbs [aria-current] { color: var(--text-muted); }
-
 .t-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
   min-height: 44px; padding: 0.55rem 1.25rem; border-radius: 30px; cursor: pointer;
