@@ -437,11 +437,11 @@
 
 				<h3>Email breach checking</h3>
 				<p class="u-text-2">
-					Not implemented. Every breach directory for email addresses requires a paid, authenticated key, and
-					an extension cannot hold one secretly. Rather than ship a key or invent a result, WebGuard tells
-					you so and offers to open the service that can answer. WebGuard never checks an email address it
-					finds on a page; only one you type in yourself, and only when you ask.
-				</p>
+						WebGuard does not check email addresses. Every breach directory for them requires a paid,
+						authenticated key, and an extension cannot hold one secretly. The Email check view only opens
+						haveibeenpwned.com in a new tab. No address is typed into WebGuard, read from a page or sent
+						anywhere by it.
+					</p>
 			</div>
 
 			<div class="glass-card policy-card u-mb-2">
@@ -535,6 +535,27 @@
 					settings page.
 				</p>
 			</div>
+
+				<div class="glass-card policy-card u-mb-2">
+					<h2 class="u-gold u-mb-1 u-h-sm">Promotions and the uninstall page</h2>
+					<p class="u-text-2 u-mb-1">
+						WebGuard shows one house advert at the foot of the popup, labelled "Ad", for the studio's own
+						extensions and apps. The list ships inside the extension, so showing it makes no request and tells
+						nobody it was shown. The settings page lists every advert, and one switch turns them off.
+					</p>
+					<p class="u-text-2 u-mb-1">
+						Clicking an advert, the donation prompt or a link in settings opens a studio page or a Chrome Web
+						Store listing in a new tab. Links to studio pages carry <code>utm_source</code>,
+						<code>utm_medium</code>, <code>utm_campaign</code> and <code>utm_content</code> in the address, so
+						the studio can tell which extension sent a visitor. Nothing is sent from the extension: the browser
+						navigates, and the page reads its own address.
+					</p>
+					<p class="u-text-2">
+						When you uninstall WebGuard, Chrome opens the studio's support page, tagged
+						<code>utm_campaign=uninstall</code>. The extension sends nothing for this either. It only tells
+						Chrome which page to open.
+					</p>
+				</div>
 
 			<div class="glass-card policy-card u-mb-2">
 				<h2 class="u-gold u-mb-1 u-h-sm">Your control</h2>
