@@ -271,6 +271,10 @@ ${head({ title, description, url, ld: [collection, breadcrumbLd([['Home', '/'], 
 
 	<section class="tools-hero">
 		<div class="container">
+			<nav class="crumbs" aria-label="Breadcrumb"><ol>
+					<li><a href="/">Home</a></li>
+					<li aria-current="page">Tools</li>
+				</ol></nav>
 			<h1>Free tools for <span class="u-gold">business</span> and everyday work</h1>
 			<p>Calculate, create and convert in your browser. Nothing you enter is uploaded.</p>
 			<div class="t-search">

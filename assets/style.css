@@ -382,12 +382,40 @@ header.scrolled {
 
 /* Breadcrumbs */
 .crumbs { font-size: 0.85rem; color: var(--text-muted); }
-.crumbs ol { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; }
-.crumbs li + li::before { content: "/"; margin-right: 0.4rem; color: var(--text-muted); }
-.crumbs a { color: var(--text-secondary); }
-.crumbs a:hover { color: var(--accent-gold); }
-.crumbs [aria-current] { color: var(--text-muted); }
+.crumbs ol {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem;
+  list-style: none;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+}
+.crumbs li { display: inline-flex; align-items: center; }
+.crumbs li + li::before {
+  content: "";
+  width: 0.35rem;
+  height: 0.35rem;
+  margin: 0 0.3rem;
+  border-top: 1.5px solid var(--text-muted);
+  border-right: 1.5px solid var(--text-muted);
+  transform: rotate(45deg);
+  opacity: 0.6;
+}
+.crumbs a {
+  color: var(--text-secondary);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.crumbs a:hover { color: var(--accent-gold); background: rgba(255, 255, 255, 0.06); }
+.crumbs a:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 1px; }
+.crumbs [aria-current] { color: var(--text-primary); font-weight: 500; padding: 0.2rem 0.6rem 0.2rem 0; }
+.crumbs [aria-current]::before { margin-right: 0.9rem; }
 .hero .crumbs { margin-bottom: 1.25rem; }
+.hero .crumbs { text-align: center; }
 .hero .crumbs ol { justify-content: center; }
 .tools-hero .crumbs { margin-bottom: 1rem; }
 

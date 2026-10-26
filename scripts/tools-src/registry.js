@@ -22,7 +22,7 @@ const IDS = [
 ];
 
 // Shown on the homepage strip.
-const HOME = ['profit-calculator', 'invoice-generator', 'qr-code-generator', 'json-formatter', 'word-counter', 'percentage-calculator'];
+const HOME = ['profit-calculator', 'invoice-generator', 'qr-code-generator', 'json-formatter', 'word-counter', 'percentage-calculator', 'vat-calculator', 'markup-calculator', 'discount-calculator', 'break-even-calculator'];
 
 const tools = IDS.map((id) => {
   const t = require('./' + id);
