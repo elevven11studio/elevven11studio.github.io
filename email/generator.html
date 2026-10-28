@@ -29,6 +29,8 @@
     <input id="biz" placeholder="Sunrise Bakery" autocomplete="off">
     <label for="ind">Industry</label>
     <select id="ind"><option value="">None</option></select>
+    <label for="subj">Subject</label>
+    <select id="subj"></select>
     <label for="me">Your name</label>
     <input id="me" placeholder="Your name" autocomplete="off">
     <button class="primary" id="copyEmail">Copy email</button>
@@ -268,17 +270,38 @@
       .split('{{business_name}}').join(esc(biz))
       .split('{{your_name}}').join(esc(me));
   }
-  function subject() { return 'A website for ' + ($('biz').value.trim() || 'Your Business'); }
+  const SUBJECTS = [
+    b => 'Quick question about ' + b + "'s website",
+    b => b + ': a free website mockup',
+    b => 'Can customers find ' + b + ' online?',
+    (b, i) => i ? 'A ' + i.toLowerCase() + ' website for ' + b : 'A website for ' + b,
+    b => 'Ideas for ' + b + "'s online presence"
+  ];
+  function subjectOptions() {
+    const b = $('biz').value.trim() || 'Your Business';
+    const slug = $('ind').value;
+    const i = slug ? INDUSTRIES.find(x => x[0] === slug)[1] : '';
+    return SUBJECTS.map(f => f(b, i));
+  }
+  function subject() { return subjectOptions()[$('subj').selectedIndex]; }
+  function fillSubjects() {
+    const idx = Math.max(0, $('subj').selectedIndex);
+    $('subj').innerHTML = '';
+    subjectOptions().forEach(t => $('subj').add(new Option(t, t)));
+    $('subj').selectedIndex = idx;
+  }
   function render() {
+    fillSubjects();
     $('preview').srcdoc = build();
-    $('subject').textContent = 'Subject: ' + subject();
-    try { localStorage.setItem('gen', JSON.stringify({ biz: $('biz').value, me: $('me').value, ind: $('ind').value })); } catch (e) {}
+    $('subject').textContent = subject();
+    try { localStorage.setItem('gen', JSON.stringify({ biz: $('biz').value, me: $('me').value, ind: $('ind').value, subj: $('subj').selectedIndex })); } catch (e) {}
   }
   function say(m) { $('status').textContent = m; setTimeout(() => $('status').textContent = '', 2500); }
 
   $('biz').addEventListener('input', render);
   $('me').addEventListener('input', render);
   $('ind').addEventListener('change', render);
+  $('subj').addEventListener('change', render);
 
   $('copyEmail').onclick = async () => {
     const html = build();
@@ -297,6 +320,8 @@
   };
   $('copyHtml').onclick = async () => { await navigator.clipboard.writeText(build()); say('HTML copied.'); };
   $('copySubject').onclick = async () => { await navigator.clipboard.writeText(subject()); say('Subject copied.'); };
+  fillSubjects();
+  $('subj').selectedIndex = saved.subj || 0;
   render();
 </script>
 </body>
