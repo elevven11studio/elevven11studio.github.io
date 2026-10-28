@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Pricing - Elevven11 Studio</title>
-	<meta name="description" content="Elevven11 Studio pricing: Starter, Plus, and Custom website packages, add-ons like custom domains and QR codes, and Flutter mobile apps quoted per project." />
+	<meta name="description" content="Elevven11 Studio pricing: Starter, Plus, Store, and Custom website packages, add-ons like custom domains and QR codes, and Flutter mobile apps quoted per project." />
 	<link rel="canonical" href="https://elevven11studio.github.io/pricing/" />
 	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 	<meta name="theme-color" content="#0b0a10" />
@@ -14,24 +14,24 @@
 	<meta property="og:site_name" content="Elevven11 Studio" />
 	<meta property="og:locale" content="en_NG" />
 	<meta property="og:title" content="Pricing - Elevven11 Studio" />
-	<meta property="og:description" content="Elevven11 Studio pricing: Starter, Plus, and Custom website packages, add-ons like custom domains and QR codes, and Flutter mobile apps quoted per project." />
+	<meta property="og:description" content="Elevven11 Studio pricing: Starter, Plus, Store, and Custom website packages, add-ons like custom domains and QR codes, and Flutter mobile apps quoted per project." />
 	<meta property="og:url" content="https://elevven11studio.github.io/pricing/" />
 	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/pricing.png" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
-	<meta property="og:image:alt" content="Elevven11 Studio pricing - Starter, Plus and Custom packages" />
+	<meta property="og:image:alt" content="Elevven11 Studio pricing - Starter, Plus, Store and Custom packages" />
 	<!-- Square alternate: platforms whose share dialog lets you pick between
 	     linked images (Facebook, LinkedIn) can offer this one instead of a
 	     landscape crop for mobile-style posts. -->
 	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/pricing-square.png" />
 	<meta property="og:image:width" content="1080" />
 	<meta property="og:image:height" content="1080" />
-	<meta property="og:image:alt" content="Elevven11 Studio pricing - Starter, Plus and Custom packages" />
+	<meta property="og:image:alt" content="Elevven11 Studio pricing - Starter, Plus, Store and Custom packages" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Pricing - Elevven11 Studio" />
-	<meta name="twitter:description" content="Elevven11 Studio pricing: Starter, Plus, and Custom website packages, add-ons like custom domains and QR codes, and Flutter mobile apps quoted per project." />
+	<meta name="twitter:description" content="Elevven11 Studio pricing: Starter, Plus, Store, and Custom website packages, add-ons like custom domains and QR codes, and Flutter mobile apps quoted per project." />
 	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og/pricing.png" />
-	<meta name="twitter:image:alt" content="Elevven11 Studio pricing - Starter, Plus and Custom packages" />
+	<meta name="twitter:image:alt" content="Elevven11 Studio pricing - Starter, Plus, Store and Custom packages" />
 
 	<!-- Fonts. Linked here rather than @import-ed from style.css so the browser
 	     can start the font request immediately, in parallel with the stylesheet,
@@ -79,6 +79,15 @@
 	      "name": "Plus",
 	      "description": "Multi-page website with 1 month of free updates. For more content and pages.",
 	      "price": "80000",
+	      "priceCurrency": "NGN",
+	      "url": "https://elevven11studio.github.io/pricing/",
+	      "availability": "https://schema.org/InStock"
+	    },
+	    {
+	      "@type": "Offer",
+	      "name": "Store",
+	      "description": "Online store with up to 30 products, a cart and WhatsApp checkout, with 1 month of free updates.",
+	      "price": "100000",
 	      "priceCurrency": "NGN",
 	      "url": "https://elevven11studio.github.io/pricing/",
 	      "availability": "https://schema.org/InStock"
@@ -188,7 +197,7 @@
 	        "@type": "WebPage",
 	        "@id": "https://elevven11studio.github.io/pricing/",
 	        "url": "https://elevven11studio.github.io/pricing/",
-	        "description": "Elevven11 Studio pricing: Starter, Plus, and Custom website packages, add-ons like custom domains and QR codes, and Flutter mobile apps quoted per project.",
+	        "description": "Elevven11 Studio pricing: Starter, Plus, Store, and Custom website packages, add-ons like custom domains and QR codes, and Flutter mobile apps quoted per project.",
 	        "name": "Pricing"
 	      }
 	    }
@@ -315,6 +324,39 @@
 
 	<hr class="styled-hr" />
 
+	<!-- Its own section rather than a fourth card in the grid above: a store is
+	     a different product (catalogue + cart), not a bigger brochure site. -->
+	<section>
+		<div class="container">
+			<div class="section-tag u-block-center">Online Store</div>
+			<h2 class="section-title">Sell on your own site</h2>
+			<p style="text-align:center; color: var(--text-muted); max-width: 640px; margin: 0 auto 2rem;">
+				Customers fill a cart and send the order to your WhatsApp. No monthly platform fee.
+			</p>
+
+			<div class="glass-card pricing-card" style="max-width: 620px; margin: 0 auto;">
+				<div class="pricing-name">Store</div>
+				<div class="pricing-price" data-ngn="100000">NGN 100,000</div>
+				<div class="pricing-note">For selling products directly</div>
+				<ul class="pricing-features">
+					<li>Up to 30 products with sizes or colours</li>
+					<li>Categories and sold-out labels</li>
+					<li>Cart that remembers items</li>
+					<li>WhatsApp checkout with total and delivery fee</li>
+					<li>Delivery zones, pickup and minimum order</li>
+					<li>Mobile responsive design</li>
+					<li>GitHub Pages hosting for eligible static sites</li>
+					<li>1 month of free updates, including prices and stock</li>
+				</ul>
+				<div class="pricing-commission">Referral commission: <strong data-ngn="20000">NGN 20,000</strong></div>
+				<a href="/examples/#online-store" class="btn btn-primary">See store examples</a>
+				<a href="/get-started/?package=Store" class="btn btn-secondary" style="margin-top: 0.75rem;">Choose Store</a>
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
 	<section class="section-tinted">
 		<div class="container">
 			<div class="section-tag u-block-center">Update Policy</div>
@@ -338,6 +380,11 @@
 						<tr>
 							<td>Plus</td>
 							<td data-ngn="80000">NGN 80,000</td>
+							<td>1 month</td>
+						</tr>
+						<tr>
+							<td>Store</td>
+							<td data-ngn="100000">NGN 100,000</td>
 							<td>1 month</td>
 						</tr>
 						<tr>
@@ -372,7 +419,7 @@
 						<li>New pages</li>
 						<li>Major redesign</li>
 						<li>New functionality</li>
-						<li>E-commerce functionality</li>
+						<li>Online payments and stock tracking</li>
 						<li>Booking systems</li>
 						<li>Authentication</li>
 						<li>Database-backed functionality</li>

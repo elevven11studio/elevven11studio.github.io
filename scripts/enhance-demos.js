@@ -8,7 +8,7 @@
  * better.
  *
  * Everything is styled from each demo's OWN custom properties (--accent, --bg,
- * --muted, --text, all present in all 42), so the additions inherit each
+ * --muted, --text, all present in all 54), so the additions inherit each
  * template's palette instead of imposing one. --card only exists in 22 of them,
  * so it is always used with a fallback.
  *

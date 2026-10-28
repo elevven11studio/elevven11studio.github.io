@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>BrightSmile Dental - Clinic Template Demo | Elevven11 Studio</title>
+	<meta name="description" content="Clinic template demo by Elevven11 Studio." />
+	<meta name="robots" content="noindex, follow" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:url" content="https://elevven11studio.github.io/examples/clinic-2/" />
+	<meta property="og:title" content="BrightSmile Dental - Clinic Template Demo | Elevven11 Studio" />
+	<meta property="og:description" content="Clinic template demo by Elevven11 Studio." />
+	<meta property="og:image" content="https://elevven11studio.github.io/assets/previews/clinic-2-og.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="Preview of the BrightSmile Dental template demo by Elevven11 Studio" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/assets/previews/clinic-2-og.jpg" />
+	<style>
+		:root {
+			--bg: #f5f8ff;
+			--text: #14213d;
+			--muted: #56627d;
+			--accent: #2563eb;
+			--on-accent: #fff;
+			--card: #fff;
+			--hero: #14213d;
+			--hero-text: #f5f8ff;
+			--accent2: #fcd34d;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		a { color: inherit; }
+		.wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem;
+			font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+		body { background: var(--bg); color: var(--text); line-height: 1.6; }
+		nav.top { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; gap: 1rem; }
+		.brand { font-size: 1.35rem; font-weight: 800; }
+		.brand span { color: var(--accent); }
+		.nav-links { display: flex; gap: 1.5rem; font-size: .9rem; color: var(--muted); }
+		.nav-links a { text-decoration: none; }
+		section { padding: 4rem 0; }
+		.section-title { font-size: 2rem; margin-bottom: 1.75rem; text-align: center; }
+		.btn { display: inline-block; padding: .9rem 2rem; background: var(--accent); color: var(--on-accent); font-weight: 700; text-decoration: none; border: 0; cursor: pointer; font-size: 1rem; font-family: inherit; }
+		.btn-ghost { background: none; color: var(--text); border: 1px solid currentColor; }
+		.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+		.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; max-width: 760px; margin: 0 auto; }
+		.chips span { border: 1px solid rgba(127,127,127,.3); padding: .45rem 1rem; font-size: .9rem; }
+		.meta { color: var(--accent); font-weight: 700; font-size: .95rem; margin-top: .6rem; display: block; }
+		.tag { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+		.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+		.tile { aspect-ratio: 4/3; position: relative; overflow: hidden; }
+		.tile span { position: absolute; left: .75rem; bottom: .75rem; background: var(--bg); color: var(--text); font-size: .8rem; font-weight: 700; padding: .3rem .7rem; }
+		.wa-form { max-width: 620px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+		.wa-form label { display: grid; gap: .3rem; font-size: .85rem; color: var(--muted); }
+		.wa-form label.full, .wa-form .full { grid-column: 1 / -1; }
+		.wa-form input, .wa-form select, .wa-form textarea { font: inherit; font-size: .95rem; color: var(--text); background: var(--card); border: 1px solid rgba(127,127,127,.3); padding: .7rem .8rem; }
+		.wa-form option { color: #111; }
+		.wa-form .btn { background: #25d366; color: #0b1f12; }
+		.form-note { grid-column: 1 / -1; text-align: center; color: var(--muted); font-size: .8rem; }
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(127,127,127,0.18); }
+		footer a { color: var(--accent); }
+		@media (max-width: 800px) {
+			.nav-links { display: none; }
+			.tiles { grid-template-columns: 1fr 1fr; }
+		}
+		@media (max-width: 600px) {
+			.wa-form { grid-template-columns: 1fr; }
+			.tiles { grid-template-columns: 1fr; }
+		}
+		/* ---- added content sections ---- */
+		.e11-x { padding: 4.5rem 0; }
+		.e11-x-intro { max-width: 640px; margin: 0 auto 2.75rem; text-align: center; color: var(--muted); }
+		.e11-x-rule { width: 64px; height: 3px; border-radius: 2px; background: var(--accent); margin: 0 auto 1.5rem; }
+		.e11-x-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.e11-x-card {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border: 1px solid rgba(127, 127, 127, 0.22);
+			border-radius: 14px;
+			padding: 1.75rem;
+		}
+		.e11-x-card h3 { font-size: 1.08rem; margin-bottom: 0.6rem; color: var(--text); }
+		.e11-x-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		.e11-x-num {
+			display: inline-flex; align-items: center; justify-content: center;
+			width: 34px; height: 34px; border-radius: 50%;
+			background: var(--accent); color: var(--on-accent);
+			font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem;
+		}
+		.e11-quotes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+		.e11-quote {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border-left: 3px solid var(--accent);
+			border-radius: 10px;
+			padding: 1.75rem;
+		}
+		.e11-quote p { color: var(--text); font-size: 1.02rem; line-height: 1.7; margin-bottom: 1rem; }
+		.e11-quote .who { color: var(--accent); font-weight: 700; font-size: 0.92rem; }
+		.e11-quote .role { color: var(--muted); font-size: 0.85rem; }
+		.e11-sched { max-width: 720px; margin: 0 auto; }
+		.e11-sched-row {
+			display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+			padding: 0.95rem 0; border-bottom: 1px solid rgba(127, 127, 127, 0.2);
+		}
+		.e11-sched-row:last-child { border-bottom: none; }
+		.e11-sched-label { color: var(--text); font-weight: 600; font-size: 1rem; }
+		.e11-sched-note { color: var(--muted); font-size: 0.86rem; display: block; margin-top: 0.15rem; }
+		.e11-sched-value { color: var(--accent); font-weight: 700; font-size: 0.98rem; white-space: nowrap; }
+		.e11-faq { max-width: 760px; margin: 0 auto; }
+		.e11-faq-item { border-bottom: 1px solid rgba(127, 127, 127, 0.22); padding: 1.35rem 0; }
+		.e11-faq-item h3 { font-size: 1.02rem; margin-bottom: 0.5rem; color: var(--text); }
+		.e11-faq-item p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		@media (max-width: 800px) {
+			.e11-x-grid, .e11-quotes { grid-template-columns: 1fr; }
+			.e11-sched-row { flex-direction: column; gap: 0.2rem; }
+		}
+
+		body { font-family: 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif; }
+		.top-wrap { background: var(--hero); color: var(--hero-text); }
+		.top-wrap .nav-links { color: inherit; opacity: .8; }
+		.top-wrap .brand span { color: var(--accent2); }
+		header.hero { text-align: center; padding: 3.5rem 0 6rem; position: relative; overflow: hidden; }
+		header.hero::before, header.hero::after { content: ''; position: absolute; border-radius: 50%; }
+		header.hero::before { width: 240px; height: 240px; left: -70px; bottom: -90px; background: var(--accent); }
+		header.hero::after { width: 150px; height: 150px; right: 7%; top: -40px; background: var(--accent2); }
+		header.hero .inner { position: relative; z-index: 1; }
+		.eyebrow { display: inline-block; background: var(--accent2); color: #1b1b1b; font-weight: 800; font-size: .8rem; padding: .35rem .9rem; border-radius: 999px; transform: rotate(-2deg); margin-bottom: 1.25rem; }
+		h1 { font-size: 3.3rem; line-height: 1.05; font-weight: 900; margin-bottom: 1rem; }
+		.tagline { opacity: .85; font-size: 1.1rem; max-width: 540px; margin: 0 auto 2rem; }
+		.hero-actions { justify-content: center; }
+		.btn { border-radius: 14px; box-shadow: 0 5px 0 rgba(0,0,0,.25); font-weight: 800; }
+		.btn-ghost { color: inherit; box-shadow: none; }
+		.hero-art, .hero-badge { display: none; }
+		.section-title { font-weight: 900; }
+		.e11-x-card { border: 2px solid var(--text); border-radius: 20px; box-shadow: 6px 6px 0 var(--text); }
+		.chips span { border: 2px solid var(--text); border-radius: 12px; font-weight: 700; background: var(--card); }
+		.tile { border: 2px solid var(--text); border-radius: 18px; }
+		.wa-form input, .wa-form select, .wa-form textarea { border: 2px solid rgba(0,0,0,.2); border-radius: 12px; }
+		@media (max-width: 700px) { h1 { font-size: 2.4rem; } header.hero { padding: 2.5rem 0 4.5rem; } }
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Plus">Get a website like this →</a>
+	</div>
+
+	<div class="top-wrap">
+		<div class="wrap">
+		<nav class="top">
+			<div class="brand">BrightSmile <span>Dental</span></div>
+			<div class="nav-links"><a href="#treatments">Treatments</a><a href="#prices">Prices</a><a href="#book">Book</a></div>
+		</nav>
+		<header class="hero">
+			<div class="inner">
+				<div class="eyebrow">New patients welcome</div>
+				<h1>Smile like you mean it.</h1>
+				<p class="tagline" data-intl="Gentle dentistry in Denver for kids, adults and nervous patients.">Gentle dentistry in Lekki for kids, adults and nervous patients.</p>
+				<div class="hero-actions"><a class="btn" href="#book">Book a check-up</a><a class="btn btn-ghost demo-cta" href="#">Chat with us</a></div>
+			</div>
+			<div class="hero-art" style="background: " aria-hidden="true"><span class="hero-badge"></span></div>
+		</header>
+		</div>
+	</div>
+
+	<section class="e11-x" id="treatments">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Treatments</h2>
+			<div class="e11-x-grid">
+				<div class="e11-x-card">
+					<span class="tag">Most booked</span>
+					<h3>Scale and polish</h3>
+					<p>A deep clean that takes 30 minutes and leaves you feeling brand new.</p>
+				</div>
+				<div class="e11-x-card">
+					<span class="tag">Cosmetic</span>
+					<h3>Teeth whitening</h3>
+					<p>Up to eight shades brighter in one visit.</p>
+				</div>
+				<div class="e11-x-card">
+					<span class="tag">Kids</span>
+					<h3>Children's dentistry</h3>
+					<p>Fun first visits so they are not scared of the dentist later.</p>
+				</div>
+				<div class="e11-x-card">
+					<span class="tag">Restorative</span>
+					<h3>Fillings and crowns</h3>
+					<p>Tooth-coloured fillings that nobody will notice.</p>
+				</div>
+				<div class="e11-x-card">
+					<span class="tag">Straightening</span>
+					<h3>Clear aligners</h3>
+					<p>Straighter teeth without metal braces.</p>
+				</div>
+				<div class="e11-x-card">
+					<span class="tag">Urgent</span>
+					<h3>Toothache</h3>
+					<p>Same-day appointments for pain and broken teeth.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x" id="prices">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Prices</h2>
+			<div class="e11-sched">
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Check-up and X-ray</span>
+						<span class="e11-sched-note">Includes a treatment plan</span>
+					</div>
+					<div class="e11-sched-value" data-intl="$120">₦15,000</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Scale and polish</span>
+						<span class="e11-sched-note">30 minutes</span>
+					</div>
+					<div class="e11-sched-value" data-intl="$140">₦20,000</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Teeth whitening</span>
+						<span class="e11-sched-note">In-chair, one visit</span>
+					</div>
+					<div class="e11-sched-value" data-intl="$450">₦90,000</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Clear aligners</span>
+						<span class="e11-sched-note">Full course, paid monthly</span>
+					</div>
+					<div class="e11-sched-value" data-intl="From $3,800">From ₦850,000</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x" id="book">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Book a check-up</h2>
+			<form class="wa-form" data-intro="Hello BrightSmile, I would like to book an appointment.">
+				<label>Full name<input name="name" type="text" required /></label>
+				<label>Phone<input name="phone" type="tel" required /></label>
+				<label>Treatment<select name="treatment"><option>Check-up</option><option>Scale and polish</option><option>Whitening</option><option>Toothache</option><option>Aligners consultation</option></select></label>
+				<label>Preferred day<select name="day"><option>Weekday morning</option><option>Weekday evening</option><option>Saturday</option></select></label>
+				<button class="btn full" type="submit">Book on WhatsApp</button>
+				<p class="form-note">Demo: pick any WhatsApp chat to see the message.</p>
+			</form>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Happy patients</h2>
+			<div class="e11-quotes">
+				<div class="e11-quote">
+					<p>"I had avoided the dentist for years. They were patient and nothing hurt."</p>
+					<div class="who" data-intl="Rachel E.">Chiamaka E.</div>
+					<div class="role" data-intl="Cherry Creek">Lekki Phase 1</div>
+				</div>
+				<div class="e11-quote">
+					<p>"My twins actually ask when their next visit is."</p>
+					<div class="who" data-intl="Mark O.">Femi O.</div>
+					<div class="role" data-intl="Aurora">Ajah</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Common questions</h2>
+			<div class="e11-faq">
+				<div class="e11-faq-item">
+					<h3>Does whitening damage teeth?</h3>
+					<p>No. We use a gel that is safe for enamel and check sensitivity first.</p>
+				</div>
+				<div class="e11-faq-item">
+					<h3>Can I pay in instalments?</h3>
+					<p>Yes, for aligners and larger treatment plans.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Got a question first?</h2>
+			<p>Send a photo of your smile and we will tell you what is possible.</p>
+			<a href="#" class="btn demo-cta">Chat with us</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 BrightSmile Dental. Fictional business for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo. Contact buttons are for layout only. The form works: try it.');
+			});
+		});
+		// The form writes its answers into a WhatsApp message. A real site sets its number after wa.me/.
+		document.querySelectorAll('.wa-form').forEach((form) => {
+			form.addEventListener('submit', (e) => {
+				e.preventDefault();
+				const lines = [form.dataset.intro, ''];
+				form.querySelectorAll('label').forEach((l) => {
+					const field = l.querySelector('input, select, textarea');
+					if (field && field.value.trim()) lines.push(l.firstChild.textContent.trim() + ': ' + field.value.trim());
+				});
+				window.open('https://wa.me/?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+			});
+		});
+	</script>
+	<script src="/assets/demo-localize.js"></script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics runs unless the visitor declines; advertising waits for Accept.
+		var consent = (document.cookie.match(/(?:^|; )e11_consent=([^;]*)/) || [])[1];
+		var ads = consent === 'accepted' ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: consent === 'declined' ? 'denied' : 'granted', ad_storage: ads, ad_user_data: ads, ad_personalization: ads });
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+	</script>
+</body>
+
+</html>

@@ -297,5 +297,5 @@ Each also writes a matching `.svg` next to the PNG if you want to hand-edit.
 ## After running
 
 Check the diff before committing — these overwrite files in place. The demo
-count on the covers (`42 live demos`, `14 industries`) is hardcoded in
+count on the covers (`54 live demos`, `18 industries`) is hardcoded in
 `generate-covers.js`; update it there if you add templates.

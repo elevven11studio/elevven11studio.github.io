@@ -100,7 +100,7 @@ const facebook = () => `<svg xmlns="http://www.w3.org/2000/svg" width="1640" hei
     <text x="190" y="278" fill="#f7f3ec" font-size="50" font-weight="700">Simple Websites.</text>
     <text x="190" y="338" fill="url(#accent)" font-size="50" font-weight="700">No Monthly Hosting Fee.</text>
     <text x="190" y="386" fill="#a79f95" font-size="24">For small businesses and freelancers in Nigeria.</text>
-    ${pills(['42 live demos', '14 industries', 'From NGN 50,000'], 190, 414, 22, 20)}
+    ${pills(['54 live demos', '18 industries', 'From NGN 50,000'], 190, 414, 22, 20)}
     <text x="190" y="516" fill="#7a7268" font-size="22">elevven11studio.github.io</text>
     ${browser(880, 100, 1)}
   </g>
@@ -142,7 +142,7 @@ const linkedin = () => `<svg xmlns="http://www.w3.org/2000/svg" width="1128" hei
     <text x="262" y="164" fill="#f7f3ec" font-size="35" font-weight="700">Simple Websites.</text>
     <text x="262" y="208" fill="url(#accent)" font-size="35" font-weight="700">No Monthly Hosting Fee.</text>
     <text x="262" y="248" fill="#a79f95" font-size="18">For small businesses and freelancers in Nigeria.</text>
-    ${pills(['42 live demos', '14 industries', 'From NGN 50,000'], 262, 270, 14, 12)}
+    ${pills(['54 live demos', '18 industries', 'From NGN 50,000'], 262, 270, 14, 12)}
     <text x="262" y="348" fill="#7a7268" font-size="16">elevven11studio.github.io</text>
     ${browser(730, 40, 0.62)}
   </g>

@@ -632,6 +632,20 @@ function formatUsd(amountNgn) {
 // the America copy and USD prices instead of the Nigeria-facing page.
 const CRAWLER_UA = /bot|crawl|spider|slurp|lighthouse|facebookexternalhit|whatsapp|preview/i;
 
+// Testing aid: ?usd (or ?currency=usd) previews the international prices and
+// demos, and keeps doing so in every tab, since demo links open new tabs.
+// ?ngn (or ?currency=ngn) turns it off again.
+(function applyCurrencyOverride() {
+  const q = new URLSearchParams(location.search);
+  const c = (q.get('currency') || (q.has('usd') ? 'usd' : q.has('ngn') ? 'ngn' : '')).toLowerCase();
+  try {
+    if (c === 'usd') localStorage.setItem('e11_currency', 'usd');
+    else if (c === 'ngn') localStorage.removeItem('e11_currency');
+    if (localStorage.getItem('e11_currency') === 'usd') sessionStorage.setItem('e11_country', 'US');
+    else if (c === 'ngn') sessionStorage.setItem('e11_country', 'NG');
+  } catch (e) { /* storage blocked: the override just doesn't apply */ }
+})();
+
 async function detectCountryCode() {
   if (CRAWLER_UA.test(navigator.userAgent)) return null;
 

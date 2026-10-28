@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Crumb &amp; Co. - Online Store Template Demo | Elevven11 Studio</title>
+	<meta name="description" content="Online store template demo by Elevven11 Studio." />
+	<meta name="robots" content="noindex, follow" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:url" content="https://elevven11studio.github.io/examples/online-store-2/" />
+	<meta property="og:title" content="Crumb &amp; Co. - Online Store Template Demo | Elevven11 Studio" />
+	<meta property="og:description" content="Online store template demo by Elevven11 Studio." />
+	<meta property="og:image" content="https://elevven11studio.github.io/assets/previews/online-store-2-og.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="Preview of the Crumb &amp; Co. template demo by Elevven11 Studio" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/assets/previews/online-store-2-og.jpg" />
+	<style>
+		:root {
+			--bg: #fff4f6;
+			--text: #3b1f1a;
+			--muted: #8a5f58;
+			--accent: #e8467c;
+			--on-accent: #fff;
+			--card: #fff;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 1050px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem;
+			font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero { background: var(--text); color: #fff4f6; text-align: center; padding: 5rem 0 6.5rem; position: relative; overflow: hidden; }
+		header.hero::before, header.hero::after { content: ''; position: absolute; border-radius: 50%; background: var(--accent); opacity: .9; }
+		header.hero::before { width: 220px; height: 220px; left: -60px; bottom: -80px; }
+		header.hero::after { width: 140px; height: 140px; right: 8%; top: -50px; background: #ffc857; }
+		.hero .wrap { position: relative; z-index: 1; }
+		.badge { display: inline-block; background: #ffc857; color: var(--text); font-weight: 800; font-size: .8rem; padding: .35rem .9rem; border-radius: 999px; transform: rotate(-3deg); margin-bottom: 1.25rem; }
+		h1 { font-size: 3.4rem; line-height: 1.05; margin-bottom: 1rem; font-weight: 900; }
+		h1 em { font-style: normal; color: var(--accent); }
+		.tagline { color: #f3c9d2; font-size: 1.1rem; max-width: 500px; margin: 0 auto 2rem; }
+		.btn { display: inline-block; padding: 0.95rem 2.1rem; background: var(--accent); color: var(--on-accent); font-weight: 800; text-decoration: none; border-radius: 16px; box-shadow: 0 5px 0 #a8204f; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-size: 2.1rem; font-weight: 900; margin-bottom: 1.5rem; text-align: center; }
+
+		.filters { display: flex; justify-content: center; flex-wrap: wrap; gap: .6rem; margin-bottom: 2rem; }
+		.filters button { border: 2px solid var(--text); background: var(--card); color: var(--text); border-radius: 14px; padding: .45rem 1.1rem; font: 800 .9rem inherit; cursor: pointer; }
+		.filters button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+		.shop { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.product { background: var(--card); border: 2px solid var(--text); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 6px 6px 0 var(--text); }
+		.pic { aspect-ratio: 16/11; position: relative; display: grid; place-items: center; }
+		.pic::after { content: ''; width: 46%; aspect-ratio: 1; border-radius: 50%; background: rgba(255,255,255,.35); box-shadow: 0 0 0 14px rgba(255,255,255,.18); }
+		.p1 { background: #6b3a2a; }
+		.p2 { background: #ffc857; }
+		.p3 { background: #f497b6; }
+		.p4 { background: #c98b5b; }
+		.p5 { background: #9ad1c4; }
+		.p6 { background: #b48ad8; }
+		.info { padding: 1.1rem 1.2rem 1.3rem; display: flex; flex-direction: column; gap: .5rem; flex: 1; }
+		.info h3 { font-size: 1.12rem; font-weight: 800; }
+		.info p { color: var(--muted); font-size: .9rem; }
+		.price { font-weight: 900; font-size: 1.1rem; }
+		.variant { font: inherit; font-size: .88rem; padding: .45rem .6rem; border-radius: 10px; border: 2px solid rgba(59,31,26,.2); background: var(--bg); color: var(--text); }
+		.add { margin-top: auto; border: 0; border-radius: 14px; padding: .7rem; background: var(--accent); color: #fff; font: 800 .92rem inherit; cursor: pointer; }
+		.add:disabled { background: rgba(59,31,26,.15); color: var(--muted); cursor: not-allowed; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.75rem; }
+
+		footer { padding: 2.5rem 0 5rem; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 2px dashed rgba(59,31,26,0.15); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 900px) { .shop { grid-template-columns: repeat(2, 1fr); } }
+		@media (max-width: 700px) {
+			h1 { font-size: 2.4rem; }
+			header.hero { padding: 3.5rem 0 4.5rem; }
+			.shop { grid-template-columns: 1fr; }
+		}
+		/* ---- added content sections ---- */
+		.e11-x { padding: 4.5rem 0; }
+		.e11-x-intro { max-width: 640px; margin: 0 auto 2.75rem; text-align: center; color: var(--muted); }
+		.e11-x-rule { width: 64px; height: 3px; border-radius: 2px; background: var(--accent); margin: 0 auto 1.5rem; }
+		.e11-sched { max-width: 720px; margin: 0 auto; }
+		.e11-sched-row {
+			display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+			padding: 0.95rem 0; border-bottom: 1px solid rgba(127, 127, 127, 0.2);
+		}
+		.e11-sched-row:last-child { border-bottom: none; }
+		.e11-sched-label { color: var(--text); font-weight: 600; font-size: 1rem; }
+		.e11-sched-note { color: var(--muted); font-size: 0.86rem; display: block; margin-top: 0.15rem; }
+		.e11-sched-value { color: var(--accent); font-weight: 700; font-size: 0.98rem; white-space: nowrap; }
+		.e11-feature {
+			max-width: 720px; margin: 0 auto; text-align: center;
+			border: 1px solid rgba(127, 127, 127, 0.28); border-radius: 14px; padding: 2.5rem 2rem;
+		}
+		.e11-feature-eyebrow {
+			color: var(--accent); font-size: 0.78rem; font-weight: 700;
+			letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.9rem;
+		}
+		.e11-feature-title { font-size: 1.9rem; margin-bottom: 0.7rem; color: var(--text); }
+		.e11-feature-meta { color: var(--accent); font-weight: 700; margin-bottom: 1rem; }
+		.e11-feature p { color: var(--muted); line-height: 1.7; max-width: 520px; margin: 0 auto; }
+		.e11-faq { max-width: 760px; margin: 0 auto; }
+		.e11-faq-item { border-bottom: 1px solid rgba(127, 127, 127, 0.22); padding: 1.35rem 0; }
+		.e11-faq-item h3 { font-size: 1.02rem; margin-bottom: 0.5rem; color: var(--text); }
+		.e11-faq-item p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		@media (max-width: 700px) {
+			.e11-feature { padding: 1.9rem 1.25rem; }
+			.e11-feature-title { font-size: 1.45rem; }
+			.e11-sched-row { flex-direction: column; gap: 0.2rem; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Store">Get a store like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<span class="badge">Baked fresh every morning</span>
+			<h1>Crumb <em>&amp;</em> Co.</h1>
+			<p class="tagline" data-intl="Cakes, pastries and party bites from our East Austin kitchen. Order by 6pm for tomorrow.">Cakes, pastries and small chops from our Yaba kitchen. Order by 6pm for tomorrow.</p>
+			<a class="btn" href="#menu">Start your order</a>
+		</div>
+	</header>
+
+	<section id="menu">
+		<div class="wrap">
+			<h2 class="section-title">Today's menu</h2>
+			<div class="filters">
+				<button type="button" data-filter="all" aria-pressed="true">Everything</button>
+				<button type="button" data-filter="cakes" aria-pressed="false">Cakes</button>
+				<button type="button" data-filter="pastries" aria-pressed="false">Pastries</button>
+				<button type="button" data-filter="chops" aria-pressed="false">Small chops</button>
+			</div>
+			<div class="shop">
+				<article class="product" data-id="choc" data-name="Chocolate Fudge Cake" data-price="15000" data-price-intl="38" data-cat="cakes">
+					<div class="pic p1"></div>
+					<div class="info">
+						<h3>Chocolate Fudge Cake</h3>
+						<p>Three layers, ganache, sprinkles on request.</p>
+						<span class="price" data-intl="$38">₦15,000</span>
+						<select class="variant" aria-label="Size"><option>6 inch</option><option>8 inch</option></select>
+						<button class="add" type="button">Add to order</button>
+					</div>
+				</article>
+				<article class="product" data-id="puff" data-name="Puff-Puff (30 pcs)" data-price="3000" data-price-intl="9" data-cat="chops">
+					<div class="pic p2"></div>
+					<div class="info">
+						<h3>Puff-Puff (30 pcs)</h3>
+						<p>Soft, golden, dusted with sugar if you like.</p>
+						<span class="price" data-intl="$9">₦3,000</span>
+						<button class="add" type="button">Add to order</button>
+					</div>
+				</article>
+				<article class="product" data-id="velvet" data-name="Red Velvet Cupcakes (6)" data-price="6500" data-price-intl="18" data-cat="cakes">
+					<div class="pic p3"></div>
+					<div class="info">
+						<h3>Red Velvet Cupcakes (6)</h3>
+						<p>Cream cheese frosting, boxed for gifting.</p>
+						<span class="price" data-intl="$18">₦6,500</span>
+						<button class="add" type="button">Add to order</button>
+					</div>
+				</article>
+				<article class="product" data-id="meatpie" data-name="Meat Pies (6)" data-price="4800" data-price-intl="14" data-cat="pastries">
+					<div class="pic p4"></div>
+					<div class="info">
+						<h3>Meat Pies (6)</h3>
+						<p>Buttery crust, minced beef and potato.</p>
+						<span class="price" data-intl="$14">₦4,800</span>
+						<button class="add" type="button">Add to order</button>
+					</div>
+				</article>
+				<article class="product" data-id="samosa" data-name="Samosa &amp; Spring Roll Tray" data-price="9000" data-price-intl="28" data-cat="chops">
+					<div class="pic p5"></div>
+					<div class="info">
+						<h3>Samosa &amp; Spring Roll Tray</h3>
+						<p>40 pieces with sweet chilli dip. Feeds 10.</p>
+						<span class="price" data-intl="$28">₦9,000</span>
+						<button class="add" type="button">Add to order</button>
+					</div>
+				</article>
+				<article class="product" data-id="croissant" data-name="Butter Croissants (4)" data-price="5200" data-price-intl="16" data-cat="pastries" data-soldout>
+					<div class="pic p6"></div>
+					<div class="info">
+						<h3>Butter Croissants (4)</h3>
+						<p>Back on Saturday.</p>
+						<span class="price" data-intl="$16">₦5,200</span>
+						<button class="add" type="button">Add to order</button>
+					</div>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Custom cakes</h2>
+			<div class="e11-feature">
+				<div class="e11-feature-eyebrow">Birthdays &amp; weddings</div>
+				<h3 class="e11-feature-title">Your design, our oven</h3>
+				<div class="e11-feature-meta" data-intl="From $95 · 5 days notice">From ₦35,000 · 5 days notice</div>
+				<p>Send a reference picture and the date. We reply with a sketch and a fixed price.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Pickup &amp; delivery</h2>
+			<div class="e11-sched">
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label" data-intl="Pickup in East Austin">Pickup in Yaba</span>
+						<span class="e11-sched-note">Ready from 10am</span>
+					</div>
+					<div class="e11-sched-value">Free</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label" data-intl="Central Austin delivery">Mainland delivery</span>
+						<span class="e11-sched-note" data-intl="Downtown, Hyde Park, Mueller, Zilker">Yaba, Surulere, Ikeja, Gbagada</span>
+					</div>
+					<div class="e11-sched-value" data-intl="$6">₦2,000</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label" data-intl="Greater Austin delivery">Island delivery</span>
+						<span class="e11-sched-note" data-intl="Round Rock, Cedar Park, Pflugerville">VI, Ikoyi, Lekki Phase 1</span>
+					</div>
+					<div class="e11-sched-value" data-intl="$10">₦3,500</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Common questions</h2>
+			<div class="e11-faq">
+				<div class="e11-faq-item">
+					<h3>Is there a minimum order?</h3>
+					<p data-intl="$20 per order. That keeps delivery worth the trip for everyone.">₦5,000 per order. That keeps delivery worth the trip for everyone.</p>
+				</div>
+				<div class="e11-faq-item">
+					<h3>Can I order for the same day?</h3>
+					<p>Small chops and pastries, yes, before 11am. Cakes need the evening before.</p>
+				</div>
+				<div class="e11-faq-item">
+					<h3>Do you do eggless or sugar-free?</h3>
+					<p>Eggless, yes. Mention it in the note at checkout.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Planning a party?</h2>
+			<p>Trays for 50 guests and above get a custom quote.</p>
+			<a href="#" class="btn demo-cta">Ask for a quote</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Crumb &amp; Co. Fictional brand for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		window.E11Store = {
+			name: 'Crumb & Co.',
+			phone: '',
+			minOrder: 5000,
+minOrderIntl: 20,
+			deliveryIntl: [
+				{ label: 'Pickup in East Austin', fee: 0, pickup: true },
+				{ label: 'Central Austin delivery', fee: 6 },
+				{ label: 'Greater Austin delivery', fee: 10 },
+			],
+			delivery: [
+				{ label: 'Pickup in Yaba', fee: 0, pickup: true },
+				{ label: 'Mainland delivery', fee: 2000 },
+				{ label: 'Island delivery', fee: 3500 },
+			],
+		};
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo. Contact buttons are for layout only. The cart works: try "Order on WhatsApp".');
+			});
+		});
+	</script>
+	<script src="/assets/demos/store-cart.js"></script>
+	<script src="/assets/demo-localize.js"></script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics runs unless the visitor declines; advertising waits for Accept.
+		var consent = (document.cookie.match(/(?:^|; )e11_consent=([^;]*)/) || [])[1];
+		var ads = consent === 'accepted' ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: consent === 'declined' ? 'denied' : 'granted', ad_storage: ads, ad_user_data: ads, ad_personalization: ads });
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+	</script>
+</body>
+
+</html>

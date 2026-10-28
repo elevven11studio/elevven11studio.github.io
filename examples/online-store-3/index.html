@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Glow Theory - Online Store Template Demo | Elevven11 Studio</title>
+	<meta name="description" content="Online store template demo by Elevven11 Studio." />
+	<meta name="robots" content="noindex, follow" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:url" content="https://elevven11studio.github.io/examples/online-store-3/" />
+	<meta property="og:title" content="Glow Theory - Online Store Template Demo | Elevven11 Studio" />
+	<meta property="og:description" content="Online store template demo by Elevven11 Studio." />
+	<meta property="og:image" content="https://elevven11studio.github.io/assets/previews/online-store-3-og.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="Preview of the Glow Theory template demo by Elevven11 Studio" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/assets/previews/online-store-3-og.jpg" />
+	<style>
+		:root {
+			--bg: #101412;
+			--text: #ecefe9;
+			--muted: #9aa59c;
+			--accent: #b9d3a8;
+			--on-accent: #101412;
+			--card: #171d1a;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+		.serif { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem;
+			font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		header.hero { padding: 6rem 0 5rem; border-bottom: 1px solid rgba(236,239,233,.08);
+			background: radial-gradient(ellipse at 80% 30%, rgba(185,211,168,.18), transparent 55%); }
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 5px; font-size: 0.75rem; margin-bottom: 1.5rem; }
+		h1 { font-size: 4rem; line-height: 1.05; margin-bottom: 1.25rem; max-width: 640px; }
+		h1 i { color: var(--accent); }
+		.tagline { color: var(--muted); font-size: 1.05rem; max-width: 460px; margin-bottom: 2rem; }
+		.btn { display: inline-block; padding: 0.9rem 2.2rem; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; letter-spacing: 2px; text-transform: uppercase; font-size: .78rem; font-weight: 700; }
+		.btn:hover { background: var(--accent); color: var(--on-accent); }
+
+		section { padding: 4.5rem 0; }
+		.section-title { font-family: Georgia, serif; font-weight: 400; font-size: 2.2rem; margin-bottom: 1.75rem; text-align: center; }
+
+		.filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.75rem; margin-bottom: 2.5rem; }
+		.filters button { background: none; border: 0; border-bottom: 1px solid transparent; color: var(--muted); padding: .3rem 0; font: 600 .78rem inherit; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; }
+		.filters button[aria-pressed="true"] { color: var(--text); border-color: var(--accent); }
+
+		.shop { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(236,239,233,.08); border: 1px solid rgba(236,239,233,.08); }
+		.product { background: var(--bg); padding: 1.5rem; display: flex; flex-direction: column; gap: .55rem; }
+		.pic { aspect-ratio: 1; margin-bottom: .6rem; display: grid; place-items: center; background: var(--card); }
+		.pic::after { content: ''; width: 26%; height: 58%; border-radius: 10px 10px 6px 6px; background: var(--c, #b9d3a8); box-shadow: inset 0 18px 0 rgba(0,0,0,.25); }
+		.pic.jar::after { width: 42%; height: 30%; border-radius: 8px; }
+		.tag { color: var(--accent); font-size: .7rem; letter-spacing: 2px; text-transform: uppercase; }
+		.product h3 { font-family: Georgia, serif; font-weight: 400; font-size: 1.3rem; }
+		.product p { color: var(--muted); font-size: .88rem; }
+		.price { font-weight: 600; }
+		.variant { font: inherit; font-size: .85rem; padding: .45rem .55rem; border: 1px solid rgba(236,239,233,.18); background: var(--card); color: var(--text); }
+		.add { margin-top: auto; border: 1px solid var(--accent); background: none; color: var(--accent); padding: .7rem; font: 700 .75rem inherit; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; }
+		.add:hover { background: var(--accent); color: var(--on-accent); }
+		.add:disabled { border-color: rgba(236,239,233,.15); color: var(--muted); background: none; cursor: not-allowed; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.75rem; }
+
+		footer { padding: 2.5rem 0 5rem; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(236,239,233,0.08); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 900px) { .shop { grid-template-columns: repeat(2, 1fr); } }
+		@media (max-width: 700px) {
+			h1 { font-size: 2.6rem; }
+			header.hero { padding: 4rem 0 3.5rem; }
+			.shop { grid-template-columns: 1fr; }
+			.filters { gap: 1.1rem; }
+		}
+		/* ---- added content sections ---- */
+		.e11-x { padding: 4.5rem 0; }
+		.e11-x-intro { max-width: 640px; margin: 0 auto 2.75rem; text-align: center; color: var(--muted); }
+		.e11-x-rule { width: 64px; height: 3px; border-radius: 2px; background: var(--accent); margin: 0 auto 1.5rem; }
+		.e11-x-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.e11-x-card {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border: 1px solid rgba(127, 127, 127, 0.22);
+			border-radius: 14px;
+			padding: 1.75rem;
+		}
+		.e11-x-card h3 { font-size: 1.08rem; margin-bottom: 0.6rem; color: var(--text); }
+		.e11-x-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		.e11-quotes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+		.e11-quote {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border-left: 3px solid var(--accent);
+			border-radius: 10px;
+			padding: 1.75rem;
+		}
+		.e11-quote p { color: var(--text); font-size: 1.02rem; line-height: 1.7; margin-bottom: 1rem; }
+		.e11-quote .who { color: var(--accent); font-weight: 700; font-size: 0.92rem; }
+		.e11-quote .role { color: var(--muted); font-size: 0.85rem; }
+		.e11-faq { max-width: 760px; margin: 0 auto; }
+		.e11-faq-item { border-bottom: 1px solid rgba(127, 127, 127, 0.22); padding: 1.35rem 0; }
+		.e11-faq-item h3 { font-size: 1.02rem; margin-bottom: 0.5rem; color: var(--text); }
+		.e11-faq-item p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		@media (max-width: 700px) {
+			.e11-x-grid, .e11-quotes { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Store">Get a store like this →</a>
+	</div>
+
+	<header class="hero">
+		<div class="wrap">
+			<div class="eyebrow">Skincare for melanin-rich skin</div>
+			<h1 class="serif">Less routine. <i>More glow.</i></h1>
+			<p class="tagline" data-intl="Small-batch serums and creams, formulated in Atlanta for heat, humidity and hyperpigmentation.">Small-batch serums and creams, formulated in Abuja for heat, humidity and hyperpigmentation.</p>
+			<a class="btn" href="#shop">Shop the range</a>
+		</div>
+	</header>
+
+	<section id="shop">
+		<div class="wrap">
+			<h2 class="section-title">The range</h2>
+			<div class="filters">
+				<button type="button" data-filter="all" aria-pressed="true">All</button>
+				<button type="button" data-filter="serums" aria-pressed="false">Serums</button>
+				<button type="button" data-filter="moisturisers" aria-pressed="false">Moisturisers</button>
+				<button type="button" data-filter="sets" aria-pressed="false">Sets</button>
+			</div>
+			<div class="shop">
+				<article class="product" data-id="vitc" data-name="Vitamin C Serum" data-price="14000" data-price-intl="34" data-cat="serums">
+					<div class="pic" style="--c:#e8b04b"></div>
+					<span class="tag">Brightening</span>
+					<h3>Vitamin C Serum</h3>
+					<p>Fades dark spots in 6 to 8 weeks.</p>
+					<span class="price" data-intl="$34">₦14,000</span>
+					<select class="variant" aria-label="Size"><option>30ml</option><option>50ml</option></select>
+					<button class="add" type="button">Add to bag</button>
+				</article>
+				<article class="product" data-id="niacin" data-name="Niacinamide 10% Serum" data-price="11500" data-price-intl="28" data-cat="serums">
+					<div class="pic" style="--c:#b9d3a8"></div>
+					<span class="tag">Oil control</span>
+					<h3>Niacinamide 10%</h3>
+					<p>Calms shine and shrinks the look of pores.</p>
+					<span class="price" data-intl="$28">₦11,500</span>
+					<button class="add" type="button">Add to bag</button>
+				</article>
+				<article class="product" data-id="shea" data-name="Whipped Shea Cream" data-price="9000" data-price-intl="24" data-cat="moisturisers">
+					<div class="pic jar" style="--c:#efe2cf"></div>
+					<span class="tag">Barrier repair</span>
+					<h3>Whipped Shea Cream</h3>
+					<p>Rich but fast-absorbing. Fragrance free.</p>
+					<span class="price" data-intl="$24">₦9,000</span>
+					<button class="add" type="button">Add to bag</button>
+				</article>
+				<article class="product" data-id="gel" data-name="Aloe Gel Moisturiser" data-price="8000" data-price-intl="22" data-cat="moisturisers" data-soldout>
+					<div class="pic jar" style="--c:#8fc7b1"></div>
+					<span class="tag">Lightweight</span>
+					<h3>Aloe Gel Moisturiser</h3>
+					<p>Restocking on the 15th.</p>
+					<span class="price" data-intl="$22">₦8,000</span>
+					<button class="add" type="button">Add to bag</button>
+				</article>
+				<article class="product" data-id="spf" data-name="Invisible SPF 50" data-price="12500" data-price-intl="30" data-cat="moisturisers">
+					<div class="pic" style="--c:#f2c6b4"></div>
+					<span class="tag">No white cast</span>
+					<h3>Invisible SPF 50</h3>
+					<p>Clear finish on every skin tone.</p>
+					<span class="price" data-intl="$30">₦12,500</span>
+					<button class="add" type="button">Add to bag</button>
+				</article>
+				<article class="product" data-id="set" data-name="Glow Starter Set" data-price="30000" data-price-intl="76" data-cat="sets">
+					<div class="pic jar" style="--c:#b9d3a8"></div>
+					<span class="tag" data-intl="Save $12">Save ₦5,000</span>
+					<h3>Glow Starter Set</h3>
+					<p>Vitamin C, shea cream and SPF in a gift box.</p>
+					<span class="price" data-intl="$76">₦30,000</span>
+					<button class="add" type="button">Add to bag</button>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Why it works</h2>
+			<div class="e11-x-grid">
+				<div class="e11-x-card">
+					<h3>Made for our climate</h3>
+					<p data-intl="Tested through Atlanta summers and Houston humidity, not a lab in Europe.">Tested through Abuja dry season and Lagos rainy season, not a lab in Europe.</p>
+				</div>
+				<div class="e11-x-card">
+					<h3>Small batches</h3>
+					<p>Mixed every two weeks, so nothing sits on a shelf for months.</p>
+				</div>
+				<div class="e11-x-card">
+					<h3>Free skin check</h3>
+					<p>Send a photo with your order and we suggest a routine.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">From customers</h2>
+			<div class="e11-quotes">
+				<div class="e11-quote">
+					<p>"My hyperpigmentation from acne finally faded. Ordering on WhatsApp took two minutes."</p>
+					<div class="who" data-intl="Jasmine B.">Halima B.</div>
+					<div class="role" data-intl="Atlanta">Kaduna</div>
+				</div>
+				<div class="e11-quote">
+					<p>"The SPF actually disappears on my skin. I've reordered three times."</p>
+					<div class="who" data-intl="Keisha A.">Tobi A.</div>
+					<div class="role" data-intl="Houston">Lagos</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Common questions</h2>
+			<div class="e11-faq">
+				<div class="e11-faq-item">
+					<h3>How much is delivery?</h3>
+					<p data-intl="$6 within Atlanta, $10 to other states. Most orders arrive in 1 to 3 days.">₦2,000 within Abuja, ₦4,000 to other states. Most orders arrive in 1 to 3 days.</p>
+				</div>
+				<div class="e11-faq-item">
+					<h3>Is it safe during pregnancy?</h3>
+					<p>The shea cream and SPF are. Ask us before using the serums.</p>
+				</div>
+				<div class="e11-faq-item">
+					<h3>How do I pay?</h3>
+					<p>Transfer or card link, sent on WhatsApp once we confirm your order.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Not sure where to start?</h2>
+			<p>Tell us your skin concern and we will build a routine.</p>
+			<a href="#" class="btn demo-cta">Get a routine</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Glow Theory. Fictional brand for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		window.E11Store = {
+			name: 'Glow Theory',
+			phone: '',
+deliveryIntl: [
+				{ label: 'Atlanta', fee: 6 },
+				{ label: 'Other states', fee: 10 },
+			],
+			delivery: [
+				{ label: 'Abuja', fee: 2000 },
+				{ label: 'Other states', fee: 4000 },
+			],
+		};
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo. Contact buttons are for layout only. The cart works: try "Order on WhatsApp".');
+			});
+		});
+	</script>
+	<script src="/assets/demos/store-cart.js"></script>
+	<script src="/assets/demo-localize.js"></script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics runs unless the visitor declines; advertising waits for Accept.
+		var consent = (document.cookie.match(/(?:^|; )e11_consent=([^;]*)/) || [])[1];
+		var ads = consent === 'accepted' ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: consent === 'declined' ? 'denied' : 'granted', ad_storage: ads, ad_user_data: ads, ad_personalization: ads });
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+	</script>
+</body>
+
+</html>

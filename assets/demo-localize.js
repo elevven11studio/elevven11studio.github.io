@@ -12,6 +12,17 @@
  * one.
  */
 (async function () {
+  // Testing aid, same as main.js: ?usd turns the international version on in
+  // every tab until ?ngn turns it off.
+  const q = new URLSearchParams(location.search);
+  const c = (q.get('currency') || (q.has('usd') ? 'usd' : q.has('ngn') ? 'ngn' : '')).toLowerCase();
+  try {
+    if (c === 'usd') localStorage.setItem('e11_currency', 'usd');
+    else if (c === 'ngn') localStorage.removeItem('e11_currency');
+    if (localStorage.getItem('e11_currency') === 'usd') sessionStorage.setItem('e11_country', 'US');
+    else if (c === 'ngn') sessionStorage.setItem('e11_country', 'NG');
+  } catch (e) { /* storage blocked: the override just doesn't apply */ }
+
   async function detectCountryCode() {
     const cached = sessionStorage.getItem('e11_country');
     if (cached) return cached;
@@ -35,4 +46,8 @@
   document.querySelectorAll('[data-intl]').forEach((el) => {
     el.textContent = el.getAttribute('data-intl');
   });
+  // Page scripts that format their own text (the store cart) switch on this.
+  // The flag covers scripts that load after the event has fired.
+  window.E11Intl = true;
+  document.dispatchEvent(new CustomEvent('e11:intl'));
 })();

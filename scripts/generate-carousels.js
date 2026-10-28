@@ -140,7 +140,7 @@ const SETS = {
         sub: 'Six messages later, they have stopped replying.' },
       { theme: 'dark', head: ['One link.', 'Everything', 'they need.'],
         sub: 'Send it once. They read it at their own pace.' },
-      { theme: 'light', head: ['42 live demos.', '14 industries.'],
+      { theme: 'light', head: ['54 live demos.', '18 industries.'],
         sub: 'Open them on your phone before you decide.', visual: 'grid' },
       { theme: 'dark', head: ['From ' + NAIRA + '50,000.', 'One-time.'],
         sub: 'No monthly hosting fee on eligible sites.',
@@ -346,7 +346,7 @@ async function peekLayers(seed) {
           if (!fs.existsSync(src)) continue;
           // og jpgs are cropped ribbon-free at capture time now.
           const buf = await sharp(src)
-            .resize(gw, gh, { fit: 'cover', position: 'top' }).png().toBuffer();
+            .resize(gw, gh, { fit: 'cover', position: [].concat(sl.gridPosition || 'top')[k] || 'top' }).png().toBuffer();
           const rounded = await sharp(buf).composite([{
             input: Buffer.from('<svg width="' + gw + '" height="' + gh + '"><rect width="' + gw
               + '" height="' + gh + '" rx="12" fill="#fff"/></svg>'),

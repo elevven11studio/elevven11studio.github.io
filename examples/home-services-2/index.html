@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Sparkle Clean Co. - Home services Template Demo | Elevven11 Studio</title>
+	<meta name="description" content="Home services template demo by Elevven11 Studio." />
+	<meta name="robots" content="noindex, follow" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:url" content="https://elevven11studio.github.io/examples/home-services-2/" />
+	<meta property="og:title" content="Sparkle Clean Co. - Home services Template Demo | Elevven11 Studio" />
+	<meta property="og:description" content="Home services template demo by Elevven11 Studio." />
+	<meta property="og:image" content="https://elevven11studio.github.io/assets/previews/home-services-2-og.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="Preview of the Sparkle Clean Co. template demo by Elevven11 Studio" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/assets/previews/home-services-2-og.jpg" />
+	<style>
+		:root {
+			--bg: #f3fafb;
+			--text: #0f2a33;
+			--muted: #58717a;
+			--accent: #14a3b8;
+			--on-accent: #fff;
+			--card: #fff;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		a { color: inherit; }
+		.wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem;
+			font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+		body { background: var(--bg); color: var(--text); line-height: 1.6; }
+		nav.top { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; gap: 1rem; }
+		.brand { font-size: 1.35rem; font-weight: 800; }
+		.brand span { color: var(--accent); }
+		.nav-links { display: flex; gap: 1.5rem; font-size: .9rem; color: var(--muted); }
+		.nav-links a { text-decoration: none; }
+		section { padding: 4rem 0; }
+		.section-title { font-size: 2rem; margin-bottom: 1.75rem; text-align: center; }
+		.btn { display: inline-block; padding: .9rem 2rem; background: var(--accent); color: var(--on-accent); font-weight: 700; text-decoration: none; border: 0; cursor: pointer; font-size: 1rem; font-family: inherit; }
+		.btn-ghost { background: none; color: var(--text); border: 1px solid currentColor; }
+		.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+		.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; max-width: 760px; margin: 0 auto; }
+		.chips span { border: 1px solid rgba(127,127,127,.3); padding: .45rem 1rem; font-size: .9rem; }
+		.meta { color: var(--accent); font-weight: 700; font-size: .95rem; margin-top: .6rem; display: block; }
+		.tag { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+		.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+		.tile { aspect-ratio: 4/3; position: relative; overflow: hidden; }
+		.tile span { position: absolute; left: .75rem; bottom: .75rem; background: var(--bg); color: var(--text); font-size: .8rem; font-weight: 700; padding: .3rem .7rem; }
+		.wa-form { max-width: 620px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+		.wa-form label { display: grid; gap: .3rem; font-size: .85rem; color: var(--muted); }
+		.wa-form label.full, .wa-form .full { grid-column: 1 / -1; }
+		.wa-form input, .wa-form select, .wa-form textarea { font: inherit; font-size: .95rem; color: var(--text); background: var(--card); border: 1px solid rgba(127,127,127,.3); padding: .7rem .8rem; }
+		.wa-form option { color: #111; }
+		.wa-form .btn { background: #25d366; color: #0b1f12; }
+		.form-note { grid-column: 1 / -1; text-align: center; color: var(--muted); font-size: .8rem; }
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(127,127,127,0.18); }
+		footer a { color: var(--accent); }
+		@media (max-width: 800px) {
+			.nav-links { display: none; }
+			.tiles { grid-template-columns: 1fr 1fr; }
+		}
+		@media (max-width: 600px) {
+			.wa-form { grid-template-columns: 1fr; }
+			.tiles { grid-template-columns: 1fr; }
+		}
+		/* ---- added content sections ---- */
+		.e11-x { padding: 4.5rem 0; }
+		.e11-x-intro { max-width: 640px; margin: 0 auto 2.75rem; text-align: center; color: var(--muted); }
+		.e11-x-rule { width: 64px; height: 3px; border-radius: 2px; background: var(--accent); margin: 0 auto 1.5rem; }
+		.e11-x-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.e11-x-card {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border: 1px solid rgba(127, 127, 127, 0.22);
+			border-radius: 14px;
+			padding: 1.75rem;
+		}
+		.e11-x-card h3 { font-size: 1.08rem; margin-bottom: 0.6rem; color: var(--text); }
+		.e11-x-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		.e11-x-num {
+			display: inline-flex; align-items: center; justify-content: center;
+			width: 34px; height: 34px; border-radius: 50%;
+			background: var(--accent); color: var(--on-accent);
+			font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem;
+		}
+		.e11-quotes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+		.e11-quote {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border-left: 3px solid var(--accent);
+			border-radius: 10px;
+			padding: 1.75rem;
+		}
+		.e11-quote p { color: var(--text); font-size: 1.02rem; line-height: 1.7; margin-bottom: 1rem; }
+		.e11-quote .who { color: var(--accent); font-weight: 700; font-size: 0.92rem; }
+		.e11-quote .role { color: var(--muted); font-size: 0.85rem; }
+		.e11-sched { max-width: 720px; margin: 0 auto; }
+		.e11-sched-row {
+			display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+			padding: 0.95rem 0; border-bottom: 1px solid rgba(127, 127, 127, 0.2);
+		}
+		.e11-sched-row:last-child { border-bottom: none; }
+		.e11-sched-label { color: var(--text); font-weight: 600; font-size: 1rem; }
+		.e11-sched-note { color: var(--muted); font-size: 0.86rem; display: block; margin-top: 0.15rem; }
+		.e11-sched-value { color: var(--accent); font-weight: 700; font-size: 0.98rem; white-space: nowrap; }
+		.e11-faq { max-width: 760px; margin: 0 auto; }
+		.e11-faq-item { border-bottom: 1px solid rgba(127, 127, 127, 0.22); padding: 1.35rem 0; }
+		.e11-faq-item h3 { font-size: 1.02rem; margin-bottom: 0.5rem; color: var(--text); }
+		.e11-faq-item p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		@media (max-width: 800px) {
+			.e11-x-grid, .e11-quotes { grid-template-columns: 1fr; }
+			.e11-sched-row { flex-direction: column; gap: 0.2rem; }
+		}
+
+		body { font-family: 'Segoe UI', system-ui, sans-serif; }
+		header.hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 2.5rem; align-items: center; padding: 2rem 0 4rem; }
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 3px; font-size: .78rem; font-weight: 700; margin-bottom: 1rem; }
+		h1 { font-size: 3rem; line-height: 1.12; margin-bottom: 1rem; }
+		.tagline { color: var(--muted); font-size: 1.08rem; max-width: 460px; margin-bottom: 1.75rem; }
+		.btn { border-radius: 999px; }
+		.hero-art { aspect-ratio: 5/4; border-radius: 26px; position: relative; overflow: hidden; }
+		.hero-art::before { content: ''; position: absolute; width: 55%; aspect-ratio: 1; border-radius: 50%; background: rgba(255,255,255,.22); top: 14%; left: 14%; }
+		.hero-badge { position: absolute; left: 1.25rem; bottom: 1.25rem; background: var(--bg); padding: .5rem 1rem; border-radius: 999px; font-size: .85rem; font-weight: 700; }
+		.e11-x-card { background: var(--card); border-radius: 18px; box-shadow: 0 2px 12px rgba(0,0,0,.05); }
+		.chips span, .tile, .wa-form input, .wa-form select, .wa-form textarea { border-radius: 12px; }
+		.chips span { border-radius: 999px; background: var(--card); }
+		@media (max-width: 800px) { header.hero { grid-template-columns: 1fr; padding-top: .5rem; } h1 { font-size: 2.3rem; } .hero-art { aspect-ratio: 16/10; } }
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Plus">Get a website like this →</a>
+	</div>
+
+	<div class="wrap">
+		<nav class="top">
+			<div class="brand">Sparkle <span>Clean</span></div>
+			<div class="nav-links"><a href="#services">Services</a><a href="#prices">Prices</a><a href="#book">Book</a></div>
+		</nav>
+		<header class="hero">
+			<div class="inner">
+				<div class="eyebrow">Home &amp; office cleaning</div>
+				<h1>Come home to clean.</h1>
+				<p class="tagline" data-intl="Vetted, trained cleaners in San Diego. Book once or every week.">Vetted, trained cleaners in Abuja. Book once or every week.</p>
+				<div class="hero-actions"><a class="btn" href="#book">Book a clean</a><a class="btn btn-ghost demo-cta" href="#">Get a custom quote</a></div>
+			</div>
+			<div class="hero-art" style="background: linear-gradient(150deg, #bdeef3, #14a3b8 70%)" aria-hidden="true"><span class="hero-badge">Supplies included</span></div>
+		</header>
+	</div>
+
+	<section class="e11-x" id="services">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Services</h2>
+			<div class="e11-x-grid">
+				<div class="e11-x-card">
+					<h3>Regular cleaning</h3>
+					<p>Weekly or fortnightly, same cleaner each time.</p>
+				</div>
+				<div class="e11-x-card">
+					<h3>Deep cleaning</h3>
+					<p>Inside cupboards, behind appliances, every corner.</p>
+				</div>
+				<div class="e11-x-card">
+					<h3>Move-in, move-out</h3>
+					<p>Get your deposit back or start fresh.</p>
+				</div>
+				<div class="e11-x-card">
+					<h3>Post-construction</h3>
+					<p>Dust, paint splashes and cement residue removed.</p>
+				</div>
+				<div class="e11-x-card">
+					<h3>Office cleaning</h3>
+					<p>Before or after hours so work is not disrupted.</p>
+				</div>
+				<div class="e11-x-card">
+					<h3>Upholstery</h3>
+					<p>Sofas, rugs and mattresses steam-cleaned.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x" id="prices">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Prices</h2>
+			<div class="e11-sched">
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Regular clean</span>
+						<span class="e11-sched-note">1 to 2 bedrooms, 3 hours</span>
+					</div>
+					<div class="e11-sched-value" data-intl="$120">₦18,000</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Deep clean</span>
+						<span class="e11-sched-note">3 bedrooms, full day</span>
+					</div>
+					<div class="e11-sched-value" data-intl="$380">₦65,000</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Sofa cleaning</span>
+						<span class="e11-sched-note">Per seat</span>
+					</div>
+					<div class="e11-sched-value" data-intl="$35">₦5,000</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Weekly plan</span>
+						<span class="e11-sched-note">Four visits a month</span>
+					</div>
+					<div class="e11-sched-value" data-intl="$420">₦60,000</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Before and after</h2>
+			<div class="tiles">
+				<div class="tile" style="background: linear-gradient(90deg, #8a7d6b 50%, #e9f7f9 50%)"><span>Kitchen</span></div>
+				<div class="tile" style="background: linear-gradient(90deg, #7b8a83 50%, #f1fbfc 50%)"><span>Bathroom</span></div>
+				<div class="tile" style="background: linear-gradient(90deg, #6f6a5f 50%, #e3f4f6 50%)"><span>Living room</span></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x" id="book">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Book a clean</h2>
+			<form class="wa-form" data-intro="Hello Sparkle Clean, I would like to book a clean.">
+				<label>Service<select name="service"><option>Regular cleaning</option><option>Deep cleaning</option><option>Move-in or move-out</option><option>Post-construction</option><option>Office</option><option>Upholstery</option></select></label>
+				<label>Bedrooms<select name="rooms"><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select></label>
+				<label>Date<input name="date" type="date" required /></label>
+				<label>Area<input name="area" type="text" required /></label>
+				<label class="full">Your name<input name="name" type="text" required /></label>
+				<button class="btn full" type="submit">Book on WhatsApp</button>
+				<p class="form-note">Demo: pick any WhatsApp chat to see the message.</p>
+			</form>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Common questions</h2>
+			<div class="e11-faq">
+				<div class="e11-faq-item">
+					<h3>Do I need to be home?</h3>
+					<p>No. Many clients leave a key with security.</p>
+				</div>
+				<div class="e11-faq-item">
+					<h3>What if I am not happy?</h3>
+					<p>Tell us within 24 hours and we come back for free.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Cleaning a large space?</h2>
+			<p>Offices, schools and estates get a custom quote.</p>
+			<a href="#" class="btn demo-cta">Get a custom quote</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Sparkle Clean Co.. Fictional business for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo. Contact buttons are for layout only. The form works: try it.');
+			});
+		});
+		// The form writes its answers into a WhatsApp message. A real site sets its number after wa.me/.
+		document.querySelectorAll('.wa-form').forEach((form) => {
+			form.addEventListener('submit', (e) => {
+				e.preventDefault();
+				const lines = [form.dataset.intro, ''];
+				form.querySelectorAll('label').forEach((l) => {
+					const field = l.querySelector('input, select, textarea');
+					if (field && field.value.trim()) lines.push(l.firstChild.textContent.trim() + ': ' + field.value.trim());
+				});
+				window.open('https://wa.me/?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+			});
+		});
+	</script>
+	<script src="/assets/demo-localize.js"></script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics runs unless the visitor declines; advertising waits for Accept.
+		var consent = (document.cookie.match(/(?:^|; )e11_consent=([^;]*)/) || [])[1];
+		var ads = consent === 'accepted' ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: consent === 'declined' ? 'denied' : 'granted', ad_storage: ads, ad_user_data: ads, ad_personalization: ads });
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+	</script>
+</body>
+
+</html>

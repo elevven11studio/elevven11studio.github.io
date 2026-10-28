@@ -350,7 +350,7 @@ async function deriveScreen() {
       eyebrow: 'WEBSITE DESIGN IN NIGERIA',
       lines: ['Simple Websites.', 'No Monthly', 'Hosting Fee.'],
       sub: 'For small businesses, freelancers and creators.',
-      bullets: ['42 live demos across 14 industries', 'From ' + NAIRA + '50,000, one-time'],
+      bullets: ['54 live demos across 18 industries', 'From ' + NAIRA + '50,000, one-time'],
       fan: ['barber', 'fashion', 'fitness'],
     },
     {
@@ -365,10 +365,19 @@ async function deriveScreen() {
       name: 'examples', theme: 'light', accent: 'neon', qrCaption: 'Scan to browse',
       url: SITE + '/examples/?' + utm('examples'),
       eyebrow: 'TEMPLATE LIBRARY',
-      lines: ['42 Live Demos.', '14 Industries.'],
+      lines: ['54 Live Demos.', '18 Industries.'],
       sub: 'Restaurants, salons, churches, schools, and more.',
       bullets: ['Three style options per industry', 'Open them all on your phone'],
       fan: ['church', 'restaurant', 'consultant'],
+    },
+    {
+      name: 'online-stores', theme: 'dark', accent: 'neon', qrCaption: 'Scan to try one',
+      url: SITE + '/examples/?' + utm('online-stores') + '#online-store',
+      eyebrow: 'NEW: ONLINE STORES',
+      lines: ['Sell From', 'Your Own', 'Website.'],
+      sub: 'Customers fill a cart and send the order to your WhatsApp.',
+      bullets: ['Three live stores to try', 'No monthly platform fee'],
+      fan: ['online-store', 'online-store-2', 'online-store-3'],
     },
     {
       name: 'follow-share', theme: 'light', accent: 'neon', qrCaption: 'Scan to visit',
@@ -400,9 +409,9 @@ async function deriveScreen() {
     if (!fs.existsSync(shot)) { missing.push(slug); continue; }
 
     const html = fs.readFileSync(path.join(ROOT, 'examples', slug, 'index.html'), 'utf8');
-    const title = (html.match(/<title>([^<]*)<\/title>/) || [, ''])[1];
+    const title = (html.match(/<title>([^<]*)<\/title>/) || [, ''])[1].replace(/&amp;/g, '&');
     const desc = (html.match(/name="description" content="([^"]*)"/) || [, ''])[1];
-    const business = title.split(EMDASH)[0].trim() || slug;
+    const business = title.split(/\s+[—-]\s+/)[0].trim() || slug;
     const styleMatch = desc.match(/\(Style ([ABC])\)/);
     const industry = (desc.split(/\s+template demo/i)[0] || 'Website')
       .replace(/\s*\(Style [ABC]\)/, '').trim();

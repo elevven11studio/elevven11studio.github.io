@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>FixRight Plumbing &amp; Electrical - Home services Template Demo | Elevven11 Studio</title>
+	<meta name="description" content="Home services template demo by Elevven11 Studio." />
+	<meta name="robots" content="noindex, follow" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:url" content="https://elevven11studio.github.io/examples/home-services/" />
+	<meta property="og:title" content="FixRight Plumbing &amp; Electrical - Home services Template Demo | Elevven11 Studio" />
+	<meta property="og:description" content="Home services template demo by Elevven11 Studio." />
+	<meta property="og:image" content="https://elevven11studio.github.io/assets/previews/home-services-og.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="Preview of the FixRight Plumbing &amp; Electrical template demo by Elevven11 Studio" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/assets/previews/home-services-og.jpg" />
+	<style>
+		:root {
+			--bg: #fbfaf5;
+			--text: #16140f;
+			--muted: #5f5a4d;
+			--accent: #f5b301;
+			--on-accent: #16140f;
+			--card: #fff;
+			--hero: #16140f;
+			--hero-text: #fbfaf5;
+			--accent2: #f5b301;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		a { color: inherit; }
+		.wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem;
+			font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+		body { background: var(--bg); color: var(--text); line-height: 1.6; }
+		nav.top { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; gap: 1rem; }
+		.brand { font-size: 1.35rem; font-weight: 800; }
+		.brand span { color: var(--accent); }
+		.nav-links { display: flex; gap: 1.5rem; font-size: .9rem; color: var(--muted); }
+		.nav-links a { text-decoration: none; }
+		section { padding: 4rem 0; }
+		.section-title { font-size: 2rem; margin-bottom: 1.75rem; text-align: center; }
+		.btn { display: inline-block; padding: .9rem 2rem; background: var(--accent); color: var(--on-accent); font-weight: 700; text-decoration: none; border: 0; cursor: pointer; font-size: 1rem; font-family: inherit; }
+		.btn-ghost { background: none; color: var(--text); border: 1px solid currentColor; }
+		.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+		.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; max-width: 760px; margin: 0 auto; }
+		.chips span { border: 1px solid rgba(127,127,127,.3); padding: .45rem 1rem; font-size: .9rem; }
+		.meta { color: var(--accent); font-weight: 700; font-size: .95rem; margin-top: .6rem; display: block; }
+		.tag { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+		.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+		.tile { aspect-ratio: 4/3; position: relative; overflow: hidden; }
+		.tile span { position: absolute; left: .75rem; bottom: .75rem; background: var(--bg); color: var(--text); font-size: .8rem; font-weight: 700; padding: .3rem .7rem; }
+		.wa-form { max-width: 620px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+		.wa-form label { display: grid; gap: .3rem; font-size: .85rem; color: var(--muted); }
+		.wa-form label.full, .wa-form .full { grid-column: 1 / -1; }
+		.wa-form input, .wa-form select, .wa-form textarea { font: inherit; font-size: .95rem; color: var(--text); background: var(--card); border: 1px solid rgba(127,127,127,.3); padding: .7rem .8rem; }
+		.wa-form option { color: #111; }
+		.wa-form .btn { background: #25d366; color: #0b1f12; }
+		.form-note { grid-column: 1 / -1; text-align: center; color: var(--muted); font-size: .8rem; }
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(127,127,127,0.18); }
+		footer a { color: var(--accent); }
+		@media (max-width: 800px) {
+			.nav-links { display: none; }
+			.tiles { grid-template-columns: 1fr 1fr; }
+		}
+		@media (max-width: 600px) {
+			.wa-form { grid-template-columns: 1fr; }
+			.tiles { grid-template-columns: 1fr; }
+		}
+		/* ---- added content sections ---- */
+		.e11-x { padding: 4.5rem 0; }
+		.e11-x-intro { max-width: 640px; margin: 0 auto 2.75rem; text-align: center; color: var(--muted); }
+		.e11-x-rule { width: 64px; height: 3px; border-radius: 2px; background: var(--accent); margin: 0 auto 1.5rem; }
+		.e11-x-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.e11-x-card {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border: 1px solid rgba(127, 127, 127, 0.22);
+			border-radius: 14px;
+			padding: 1.75rem;
+		}
+		.e11-x-card h3 { font-size: 1.08rem; margin-bottom: 0.6rem; color: var(--text); }
+		.e11-x-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		.e11-x-num {
+			display: inline-flex; align-items: center; justify-content: center;
+			width: 34px; height: 34px; border-radius: 50%;
+			background: var(--accent); color: var(--on-accent);
+			font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem;
+		}
+		.e11-quotes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+		.e11-quote {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border-left: 3px solid var(--accent);
+			border-radius: 10px;
+			padding: 1.75rem;
+		}
+		.e11-quote p { color: var(--text); font-size: 1.02rem; line-height: 1.7; margin-bottom: 1rem; }
+		.e11-quote .who { color: var(--accent); font-weight: 700; font-size: 0.92rem; }
+		.e11-quote .role { color: var(--muted); font-size: 0.85rem; }
+		.e11-sched { max-width: 720px; margin: 0 auto; }
+		.e11-sched-row {
+			display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+			padding: 0.95rem 0; border-bottom: 1px solid rgba(127, 127, 127, 0.2);
+		}
+		.e11-sched-row:last-child { border-bottom: none; }
+		.e11-sched-label { color: var(--text); font-weight: 600; font-size: 1rem; }
+		.e11-sched-note { color: var(--muted); font-size: 0.86rem; display: block; margin-top: 0.15rem; }
+		.e11-sched-value { color: var(--accent); font-weight: 700; font-size: 0.98rem; white-space: nowrap; }
+		.e11-faq { max-width: 760px; margin: 0 auto; }
+		.e11-faq-item { border-bottom: 1px solid rgba(127, 127, 127, 0.22); padding: 1.35rem 0; }
+		.e11-faq-item h3 { font-size: 1.02rem; margin-bottom: 0.5rem; color: var(--text); }
+		.e11-faq-item p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		@media (max-width: 800px) {
+			.e11-x-grid, .e11-quotes { grid-template-columns: 1fr; }
+			.e11-sched-row { flex-direction: column; gap: 0.2rem; }
+		}
+
+		body { font-family: 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif; }
+		.top-wrap { background: var(--hero); color: var(--hero-text); }
+		.top-wrap .nav-links { color: inherit; opacity: .8; }
+		.top-wrap .brand span { color: var(--accent2); }
+		header.hero { text-align: center; padding: 3.5rem 0 6rem; position: relative; overflow: hidden; }
+		header.hero::before, header.hero::after { content: ''; position: absolute; border-radius: 50%; }
+		header.hero::before { width: 240px; height: 240px; left: -70px; bottom: -90px; background: var(--accent); }
+		header.hero::after { width: 150px; height: 150px; right: 7%; top: -40px; background: var(--accent2); }
+		header.hero .inner { position: relative; z-index: 1; }
+		.eyebrow { display: inline-block; background: var(--accent2); color: #1b1b1b; font-weight: 800; font-size: .8rem; padding: .35rem .9rem; border-radius: 999px; transform: rotate(-2deg); margin-bottom: 1.25rem; }
+		h1 { font-size: 3.3rem; line-height: 1.05; font-weight: 900; margin-bottom: 1rem; }
+		.tagline { opacity: .85; font-size: 1.1rem; max-width: 540px; margin: 0 auto 2rem; }
+		.hero-actions { justify-content: center; }
+		.btn { border-radius: 14px; box-shadow: 0 5px 0 rgba(0,0,0,.25); font-weight: 800; }
+		.btn-ghost { color: inherit; box-shadow: none; }
+		.hero-art, .hero-badge { display: none; }
+		.section-title { font-weight: 900; }
+		.e11-x-card { border: 2px solid var(--text); border-radius: 20px; box-shadow: 6px 6px 0 var(--text); }
+		.chips span { border: 2px solid var(--text); border-radius: 12px; font-weight: 700; background: var(--card); }
+		.tile { border: 2px solid var(--text); border-radius: 18px; }
+		.wa-form input, .wa-form select, .wa-form textarea { border: 2px solid rgba(0,0,0,.2); border-radius: 12px; }
+		@media (max-width: 700px) { h1 { font-size: 2.4rem; } header.hero { padding: 2.5rem 0 4.5rem; } }
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Plus">Get a website like this →</a>
+	</div>
+
+	<div class="top-wrap">
+		<div class="wrap">
+		<nav class="top">
+			<div class="brand">Fix<span>Right</span></div>
+			<div class="nav-links"><a href="#services">Services</a><a href="#areas">Areas</a><a href="#quote">Get a quote</a></div>
+		</nav>
+		<header class="hero">
+			<div class="inner">
+				<div class="eyebrow">Same-day call-outs</div>
+				<h1>Leaks, faults and fittings. Fixed right.</h1>
+				<p class="tagline" data-intl="Licensed plumbers and electricians across Chicago. Upfront prices, no surprises.">Licensed plumbers and electricians across Lagos. Upfront prices, no surprises.</p>
+				<div class="hero-actions"><a class="btn" href="#quote">Get a quote</a><a class="btn btn-ghost demo-cta" href="#">Call now</a></div>
+			</div>
+			<div class="hero-art" style="background: " aria-hidden="true"><span class="hero-badge"></span></div>
+		</header>
+		</div>
+	</div>
+
+	<section class="e11-x" id="services">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">What we fix</h2>
+			<div class="e11-x-grid">
+				<div class="e11-x-card">
+					<span class="tag">Plumbing</span>
+					<h3>Leaks and blockages</h3>
+					<p>Burst pipes, dripping taps and blocked drains.</p>
+					<span class="meta" data-intl="From $120">From ₦15,000</span>
+				</div>
+				<div class="e11-x-card">
+					<span class="tag">Plumbing</span>
+					<h3>Water heaters</h3>
+					<p>Installation, repair and descaling.</p>
+					<span class="meta" data-intl="From $150">From ₦20,000</span>
+				</div>
+				<div class="e11-x-card">
+					<span class="tag">Electrical</span>
+					<h3>Faults and wiring</h3>
+					<p>Tripping breakers, dead sockets and rewiring.</p>
+					<span class="meta" data-intl="From $130">From ₦18,000</span>
+				</div>
+				<div class="e11-x-card">
+					<span class="tag">Electrical</span>
+					<h3>Inverters and solar</h3>
+					<p>Sizing, installation and battery checks.</p>
+					<span class="meta">Free site visit</span>
+				</div>
+				<div class="e11-x-card">
+					<span class="tag">Fittings</span>
+					<h3>Lights and fans</h3>
+					<p>Chandeliers, ceiling fans and outdoor lights.</p>
+					<span class="meta" data-intl="From $60">From ₦8,000</span>
+				</div>
+				<div class="e11-x-card">
+					<span class="tag">Emergency</span>
+					<h3>After-hours call-out</h3>
+					<p>Nights, weekends and public holidays.</p>
+					<span class="meta" data-intl="+$75">+₦10,000</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">How it works</h2>
+			<div class="e11-x-grid">
+				<div class="e11-x-card">
+					<div class="e11-x-num">1</div>
+					<h3>Tell us the problem</h3>
+					<p>Send a photo or short video on WhatsApp.</p>
+				</div>
+				<div class="e11-x-card">
+					<div class="e11-x-num">2</div>
+					<h3>Get a fixed price</h3>
+					<p>We quote before anyone picks up a tool.</p>
+				</div>
+				<div class="e11-x-card">
+					<div class="e11-x-num">3</div>
+					<h3>Fixed and guaranteed</h3>
+					<p>Every job comes with a 90-day guarantee.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x" id="areas">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Areas we cover</h2>
+			<div class="chips"><span data-intl="Lincoln Park">Ikeja</span><span data-intl="Wicker Park">Surulere</span><span data-intl="Logan Square">Yaba</span><span data-intl="Lakeview">Gbagada</span><span data-intl="Hyde Park">Magodo</span><span data-intl="Evanston">Lekki</span><span data-intl="Oak Park">Ajah</span><span data-intl="The Loop">Victoria Island</span></div>
+		</div>
+	</section>
+
+	<section class="e11-x" id="quote">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Get a quote</h2>
+			<form class="wa-form" data-intro="Hello FixRight, I need a quote.">
+				<label>Service<select name="service"><option>Plumbing</option><option>Electrical</option><option>Inverter or solar</option><option>Fittings</option><option>Emergency</option></select></label>
+				<label>Area<select name="area"><option data-intl="Lincoln Park">Ikeja</option><option data-intl="Wicker Park">Surulere</option><option data-intl="Logan Square">Yaba</option><option data-intl="Lakeview">Gbagada</option><option data-intl="Hyde Park">Magodo</option><option data-intl="Evanston">Lekki</option><option data-intl="Oak Park">Ajah</option><option data-intl="The Loop">Victoria Island</option></select></label>
+				<label class="full">What is the problem?<textarea name="problem" rows="3" required></textarea></label>
+				<label>Your name<input name="name" type="text" required /></label>
+				<label>Phone<input name="phone" type="tel" required /></label>
+				<button class="btn full" type="submit">Send on WhatsApp</button>
+				<p class="form-note">Demo: pick any WhatsApp chat to see the message.</p>
+			</form>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Common questions</h2>
+			<div class="e11-faq">
+				<div class="e11-faq-item">
+					<h3>Do you charge for the visit?</h3>
+					<p data-intl="A $49 call-out fee, taken off the bill if you go ahead.">A ₦5,000 call-out fee, taken off the bill if you go ahead.</p>
+				</div>
+				<div class="e11-faq-item">
+					<h3>Do you supply parts?</h3>
+					<p>Yes, at market price with receipts. Or use your own.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Water everywhere right now?</h2>
+			<p>Turn off the main valve, then call us.</p>
+			<a href="#" class="btn demo-cta">Call now</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 FixRight Plumbing &amp; Electrical. Fictional business for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo. Contact buttons are for layout only. The form works: try it.');
+			});
+		});
+		// The form writes its answers into a WhatsApp message. A real site sets its number after wa.me/.
+		document.querySelectorAll('.wa-form').forEach((form) => {
+			form.addEventListener('submit', (e) => {
+				e.preventDefault();
+				const lines = [form.dataset.intro, ''];
+				form.querySelectorAll('label').forEach((l) => {
+					const field = l.querySelector('input, select, textarea');
+					if (field && field.value.trim()) lines.push(l.firstChild.textContent.trim() + ': ' + field.value.trim());
+				});
+				window.open('https://wa.me/?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+			});
+		});
+	</script>
+	<script src="/assets/demo-localize.js"></script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics runs unless the visitor declines; advertising waits for Accept.
+		var consent = (document.cookie.match(/(?:^|; )e11_consent=([^;]*)/) || [])[1];
+		var ads = consent === 'accepted' ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: consent === 'declined' ? 'denied' : 'granted', ad_storage: ads, ad_user_data: ads, ad_personalization: ads });
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+	</script>
+</body>
+
+</html>

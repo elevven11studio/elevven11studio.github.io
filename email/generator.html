@@ -11,8 +11,8 @@
   .wrap { max-width:1100px; margin:0 auto; padding:24px 16px; display:grid; grid-template-columns:320px 1fr; gap:20px; }
   .panel { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px; align-self:start; }
   label { display:block; font-size:13px; color:var(--muted); margin:0 0 6px; }
-  input { width:100%; padding:11px 12px; margin-bottom:16px; background:var(--bg); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:15px; }
-  input:focus { outline:2px solid var(--green); border-color:transparent; }
+  input, select { width:100%; padding:11px 12px; margin-bottom:16px; background:var(--bg); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:15px; }
+  input:focus, select:focus { outline:2px solid var(--green); border-color:transparent; }
   button { width:100%; padding:12px; margin-top:8px; border:0; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer; }
   .primary { background:linear-gradient(135deg,#86efac,#22c55e); color:#0b0a10; }
   .ghost { background:transparent; color:var(--text); border:1px solid var(--line); }
@@ -27,6 +27,8 @@
   <div class="panel">
     <label for="biz">Business name</label>
     <input id="biz" placeholder="Sunrise Bakery" autocomplete="off">
+    <label for="ind">Industry</label>
+    <select id="ind"><option value="">None</option></select>
     <label for="me">Your name</label>
     <input id="me" placeholder="Your name" autocomplete="off">
     <button class="primary" id="copyEmail">Copy email</button>
@@ -88,6 +90,8 @@
       </table>
     </td>
   </tr>
+
+  <!--EXAMPLES-->
 
   <!-- Details panel -->
   <tr>
@@ -220,15 +224,46 @@
   const tpl = document.getElementById('tpl').textContent;
   const $ = id => document.getElementById(id);
   const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const SITE = 'https://elevven11studio.github.io/';
+  const BASE = SITE + 'examples/';
+  const INDUSTRIES = [
+    ['barber','Barber'], ['church','Church'], ['clinic','Clinic'], ['consultant','Consultant'],
+    ['events','Events'], ['fashion','Fashion'], ['fitness','Fitness'], ['freelancer','Freelancer'],
+    ['home-services','Home services'], ['logistics','Logistics'], ['online-store','Online store'],
+    ['photographer','Photographer'], ['portfolio','Portfolio'], ['real-estate','Real estate'],
+    ['restaurant','Restaurant'], ['school','School'], ['shortlet','Short-let'], ['small-business','Small business']
+  ];
+  INDUSTRIES.forEach(([v, l]) => $('ind').add(new Option(l, v)));
+
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem('gen') || '{}'); } catch (e) {}
   $('biz').value = saved.biz || '';
   $('me').value = saved.me || '';
+  $('ind').value = saved.ind || '';
+
+  function examples() {
+    const slug = $('ind').value;
+    if (!slug) return '';
+    const label = INDUSTRIES.find(i => i[0] === slug)[1];
+    const card = (n, last) => {
+      const id = slug + (n > 1 ? '-' + n : '');
+      return '<td class="stack" width="33%" valign="top" style="padding:0 ' + (last ? '0' : '8px') + ' 12px 0;">' +
+        '<a href="' + BASE + id + '/" target="_blank" style="text-decoration:none;">' +
+        '<img src="' + SITE + 'assets/previews/' + id + '-og.jpg" width="152" alt="' + esc(label) + ' website design ' + n + '" style="display:block;width:100%;height:auto;border:1px solid #dadce0;border-radius:10px;">' +
+        '<div style="padding-top:8px;font-family:\'Outfit\',\'Segoe UI\',Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#137a40;text-align:center;">View design ' + n + ' &rarr;</div>' +
+        '</a></td>';
+    };
+    return '<tr><td class="px" style="padding:24px 40px 0 40px;">' +
+      '<div style="font-size:15px;font-weight:600;color:#202124;text-align:center;">' + esc(label) + ' websites we have built</div>' +
+      '<div style="font-size:13px;color:#5f6368;text-align:center;padding:4px 0 14px 0;">Tap a design to open the live site</div>' +
+      '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>' + card(1) + card(2) + card(3, true) + '</tr></table></td></tr>';
+  }
 
   function build() {
     const biz = $('biz').value.trim() || 'Your Business';
     const me = $('me').value.trim() || 'Your Name';
     return tpl
+      .replace('<!--EXAMPLES-->', examples)
       .split('%20{{business_name}}').join('%20' + encodeURIComponent(biz))
       .split('{{business_name}}').join(esc(biz))
       .split('{{your_name}}').join(esc(me));
@@ -237,12 +272,13 @@
   function render() {
     $('preview').srcdoc = build();
     $('subject').textContent = 'Subject: ' + subject();
-    try { localStorage.setItem('gen', JSON.stringify({ biz: $('biz').value, me: $('me').value })); } catch (e) {}
+    try { localStorage.setItem('gen', JSON.stringify({ biz: $('biz').value, me: $('me').value, ind: $('ind').value })); } catch (e) {}
   }
   function say(m) { $('status').textContent = m; setTimeout(() => $('status').textContent = '', 2500); }
 
   $('biz').addEventListener('input', render);
   $('me').addEventListener('input', render);
+  $('ind').addEventListener('change', render);
 
   $('copyEmail').onclick = async () => {
     const html = build();

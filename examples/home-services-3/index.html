@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>CoolBreeze AC Services - Home services Template Demo | Elevven11 Studio</title>
+	<meta name="description" content="Home services template demo by Elevven11 Studio." />
+	<meta name="robots" content="noindex, follow" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:url" content="https://elevven11studio.github.io/examples/home-services-3/" />
+	<meta property="og:title" content="CoolBreeze AC Services - Home services Template Demo | Elevven11 Studio" />
+	<meta property="og:description" content="Home services template demo by Elevven11 Studio." />
+	<meta property="og:image" content="https://elevven11studio.github.io/assets/previews/home-services-3-og.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="Preview of the CoolBreeze AC Services template demo by Elevven11 Studio" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/assets/previews/home-services-3-og.jpg" />
+	<style>
+		:root {
+			--bg: #0b1220;
+			--text: #e8eef8;
+			--muted: #93a1b8;
+			--accent: #5cc8ff;
+			--on-accent: #0b1220;
+			--card: #111a2c;
+			--glow: rgba(92,200,255,.16);
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		a { color: inherit; }
+		.wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem;
+			font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+		body { background: var(--bg); color: var(--text); line-height: 1.6; }
+		nav.top { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; gap: 1rem; }
+		.brand { font-size: 1.35rem; font-weight: 800; }
+		.brand span { color: var(--accent); }
+		.nav-links { display: flex; gap: 1.5rem; font-size: .9rem; color: var(--muted); }
+		.nav-links a { text-decoration: none; }
+		section { padding: 4rem 0; }
+		.section-title { font-size: 2rem; margin-bottom: 1.75rem; text-align: center; }
+		.btn { display: inline-block; padding: .9rem 2rem; background: var(--accent); color: var(--on-accent); font-weight: 700; text-decoration: none; border: 0; cursor: pointer; font-size: 1rem; font-family: inherit; }
+		.btn-ghost { background: none; color: var(--text); border: 1px solid currentColor; }
+		.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+		.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; max-width: 760px; margin: 0 auto; }
+		.chips span { border: 1px solid rgba(127,127,127,.3); padding: .45rem 1rem; font-size: .9rem; }
+		.meta { color: var(--accent); font-weight: 700; font-size: .95rem; margin-top: .6rem; display: block; }
+		.tag { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+		.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+		.tile { aspect-ratio: 4/3; position: relative; overflow: hidden; }
+		.tile span { position: absolute; left: .75rem; bottom: .75rem; background: var(--bg); color: var(--text); font-size: .8rem; font-weight: 700; padding: .3rem .7rem; }
+		.wa-form { max-width: 620px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+		.wa-form label { display: grid; gap: .3rem; font-size: .85rem; color: var(--muted); }
+		.wa-form label.full, .wa-form .full { grid-column: 1 / -1; }
+		.wa-form input, .wa-form select, .wa-form textarea { font: inherit; font-size: .95rem; color: var(--text); background: var(--card); border: 1px solid rgba(127,127,127,.3); padding: .7rem .8rem; }
+		.wa-form option { color: #111; }
+		.wa-form .btn { background: #25d366; color: #0b1f12; }
+		.form-note { grid-column: 1 / -1; text-align: center; color: var(--muted); font-size: .8rem; }
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+		footer { padding: 2.5rem 0; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(127,127,127,0.18); }
+		footer a { color: var(--accent); }
+		@media (max-width: 800px) {
+			.nav-links { display: none; }
+			.tiles { grid-template-columns: 1fr 1fr; }
+		}
+		@media (max-width: 600px) {
+			.wa-form { grid-template-columns: 1fr; }
+			.tiles { grid-template-columns: 1fr; }
+		}
+		/* ---- added content sections ---- */
+		.e11-x { padding: 4.5rem 0; }
+		.e11-x-intro { max-width: 640px; margin: 0 auto 2.75rem; text-align: center; color: var(--muted); }
+		.e11-x-rule { width: 64px; height: 3px; border-radius: 2px; background: var(--accent); margin: 0 auto 1.5rem; }
+		.e11-x-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.e11-x-card {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border: 1px solid rgba(127, 127, 127, 0.22);
+			border-radius: 14px;
+			padding: 1.75rem;
+		}
+		.e11-x-card h3 { font-size: 1.08rem; margin-bottom: 0.6rem; color: var(--text); }
+		.e11-x-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		.e11-x-num {
+			display: inline-flex; align-items: center; justify-content: center;
+			width: 34px; height: 34px; border-radius: 50%;
+			background: var(--accent); color: var(--on-accent);
+			font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem;
+		}
+		.e11-quotes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+		.e11-quote {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border-left: 3px solid var(--accent);
+			border-radius: 10px;
+			padding: 1.75rem;
+		}
+		.e11-quote p { color: var(--text); font-size: 1.02rem; line-height: 1.7; margin-bottom: 1rem; }
+		.e11-quote .who { color: var(--accent); font-weight: 700; font-size: 0.92rem; }
+		.e11-quote .role { color: var(--muted); font-size: 0.85rem; }
+		.e11-sched { max-width: 720px; margin: 0 auto; }
+		.e11-sched-row {
+			display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+			padding: 0.95rem 0; border-bottom: 1px solid rgba(127, 127, 127, 0.2);
+		}
+		.e11-sched-row:last-child { border-bottom: none; }
+		.e11-sched-label { color: var(--text); font-weight: 600; font-size: 1rem; }
+		.e11-sched-note { color: var(--muted); font-size: 0.86rem; display: block; margin-top: 0.15rem; }
+		.e11-sched-value { color: var(--accent); font-weight: 700; font-size: 0.98rem; white-space: nowrap; }
+		.e11-faq { max-width: 760px; margin: 0 auto; }
+		.e11-faq-item { border-bottom: 1px solid rgba(127, 127, 127, 0.22); padding: 1.35rem 0; }
+		.e11-faq-item h3 { font-size: 1.02rem; margin-bottom: 0.5rem; color: var(--text); }
+		.e11-faq-item p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		@media (max-width: 800px) {
+			.e11-x-grid, .e11-quotes { grid-template-columns: 1fr; }
+			.e11-sched-row { flex-direction: column; gap: 0.2rem; }
+		}
+
+		:root { color-scheme: dark; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; }
+		h1, .section-title, .brand, .e11-x-card h3, .e11-feature-title { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
+		header.hero { padding: 5.5rem 0 5rem; border-bottom: 1px solid rgba(127,127,127,.15);
+			background: radial-gradient(ellipse at 80% 30%, var(--glow), transparent 55%); }
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 5px; font-size: .75rem; margin-bottom: 1.5rem; }
+		h1 { font-size: 3.8rem; line-height: 1.06; margin-bottom: 1.25rem; max-width: 700px; }
+		h1 i { color: var(--accent); }
+		.tagline { color: var(--muted); font-size: 1.05rem; max-width: 480px; margin-bottom: 2rem; }
+		.btn { letter-spacing: 2px; text-transform: uppercase; font-size: .78rem; }
+		.btn-ghost { color: var(--accent); border-color: var(--accent); }
+		.hero-art, .hero-badge { display: none; }
+		.e11-x-card { border-radius: 0; background: transparent; border: 0; border-top: 1px solid var(--accent); padding: 1.5rem 0 0; }
+		.e11-x-card h3 { font-size: 1.35rem; }
+		.e11-quote { border-radius: 0; }
+		.chips span { border-color: rgba(127,127,127,.35); font-size: .78rem; letter-spacing: 2px; text-transform: uppercase; }
+		@media (max-width: 700px) { h1 { font-size: 2.5rem; } header.hero { padding: 3.5rem 0; } }
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Plus">Get a website like this →</a>
+	</div>
+
+	<div class="wrap">
+		<nav class="top">
+			<div class="brand">CoolBreeze</div>
+			<div class="nav-links"><a href="#services">Services</a><a href="#plans">Plans</a><a href="#book">Book</a></div>
+		</nav>
+		<header class="hero">
+			<div class="inner">
+				<div class="eyebrow" data-intl="Air conditioning · Tampa">Air conditioning · Port Harcourt</div>
+				<h1>Cold air, <i>every day.</i></h1>
+				<p class="tagline">Installation, servicing and repairs for split units, standing units and central systems.</p>
+				<div class="hero-actions"><a class="btn" href="#book">Book a service</a><a class="btn btn-ghost demo-cta" href="#">Call a technician</a></div>
+			</div>
+			<div class="hero-art" style="background: " aria-hidden="true"><span class="hero-badge"></span></div>
+		</header>
+	</div>
+
+	<section class="e11-x" id="services">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Services</h2>
+			<div class="e11-x-grid">
+				<div class="e11-x-card">
+					<h3>Installation</h3>
+					<p>New units mounted, piped and tested the same day.</p>
+					<span class="meta" data-intl="From $180">From ₦25,000</span>
+				</div>
+				<div class="e11-x-card">
+					<h3>Servicing</h3>
+					<p>Filters, coils and gas pressure checked and cleaned.</p>
+					<span class="meta" data-intl="From $89">From ₦12,000</span>
+				</div>
+				<div class="e11-x-card">
+					<h3>Repairs</h3>
+					<p>Leaking water, no cooling, strange noises.</p>
+					<span class="meta">Quoted on inspection</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x" id="plans">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Maintenance plans</h2>
+			<p class="e11-x-intro">Regular servicing cuts power bills and stops breakdowns in the hot months.</p>
+			<div class="e11-sched">
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Home plan</span>
+						<span class="e11-sched-note">Up to 3 units, serviced every quarter</span>
+					</div>
+					<div class="e11-sched-value" data-intl="$390 / year">₦90,000 / year</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Family plan</span>
+						<span class="e11-sched-note">Up to 6 units, plus one free repair visit</span>
+					</div>
+					<div class="e11-sched-value" data-intl="$690 / year">₦160,000 / year</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Business plan</span>
+						<span class="e11-sched-note">Offices and shops, monthly checks</span>
+					</div>
+					<div class="e11-sched-value">Custom quote</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x" id="book">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Book a service</h2>
+			<form class="wa-form" data-intro="Hello CoolBreeze, I would like to book an AC service.">
+				<label>Service<select name="service"><option>Servicing</option><option>Repair</option><option>Installation</option><option>Maintenance plan</option></select></label>
+				<label>Number of units<select name="units"><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select></label>
+				<label>Preferred date<input name="date" type="date" /></label>
+				<label>Phone<input name="phone" type="tel" required /></label>
+				<label class="full">Address<input name="address" type="text" required /></label>
+				<button class="btn full" type="submit">Book on WhatsApp</button>
+				<p class="form-note">Demo: pick any WhatsApp chat to see the message.</p>
+			</form>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Customers say</h2>
+			<div class="e11-quotes">
+				<div class="e11-quote">
+					<p>"They serviced six units in one morning and cleaned up after themselves."</p>
+					<div class="who" data-intl="Carlos B.">Tamuno B.</div>
+					<div class="role" data-intl="Hyde Park">GRA Phase 2</div>
+				</div>
+				<div class="e11-quote">
+					<p>"Our shop AC had been dripping for months. Fixed in an hour."</p>
+					<div class="who" data-intl="Linda N.">Ebere N.</div>
+					<div class="role" data-intl="Ybor City">Trans-Amadi</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Common questions</h2>
+			<div class="e11-faq">
+				<div class="e11-faq-item">
+					<h3>How often should I service my AC?</h3>
+					<p data-intl="Every three months in Tampa's humidity.">Every three months in Port Harcourt's humidity.</p>
+				</div>
+				<div class="e11-faq-item">
+					<h3>Do you refill gas?</h3>
+					<p>Yes, after checking for leaks first so it does not run out again.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">AC not cooling?</h2>
+			<p>Send the model and what it is doing. A technician will reply.</p>
+			<a href="#" class="btn demo-cta">Call a technician</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 CoolBreeze AC Services. Fictional business for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo. Contact buttons are for layout only. The form works: try it.');
+			});
+		});
+		// The form writes its answers into a WhatsApp message. A real site sets its number after wa.me/.
+		document.querySelectorAll('.wa-form').forEach((form) => {
+			form.addEventListener('submit', (e) => {
+				e.preventDefault();
+				const lines = [form.dataset.intro, ''];
+				form.querySelectorAll('label').forEach((l) => {
+					const field = l.querySelector('input, select, textarea');
+					if (field && field.value.trim()) lines.push(l.firstChild.textContent.trim() + ': ' + field.value.trim());
+				});
+				window.open('https://wa.me/?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+			});
+		});
+	</script>
+	<script src="/assets/demo-localize.js"></script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics runs unless the visitor declines; advertising waits for Accept.
+		var consent = (document.cookie.match(/(?:^|; )e11_consent=([^;]*)/) || [])[1];
+		var ads = consent === 'accepted' ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: consent === 'declined' ? 'denied' : 'granted', ad_storage: ads, ad_user_data: ads, ad_personalization: ads });
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+	</script>
+</body>
+
+</html>

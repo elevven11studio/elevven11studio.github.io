@@ -240,12 +240,12 @@ const PAGES = {
   'home': { page: 'index.html', alt: 'Elevven11 Studio - affordable website design in Nigeria',
     eyebrow: 'WEBSITE DESIGN IN NIGERIA', lines: ['Simple Websites.', 'No Monthly Hosting Fee.'],
     sub: 'Affordable sites for small businesses and freelancers.',
-    pills: ['From NGN 50,000', 'Mobile friendly', 'Fast delivery', 'Free updates'] },
+    pills: ['One-time payment', 'Mobile friendly', 'Fast delivery', 'Free updates'] },
 
-  'pricing': { page: 'pricing/index.html', alt: 'Elevven11 Studio pricing - Starter, Plus and Custom packages',
+  'pricing': { page: 'pricing/index.html', alt: 'Elevven11 Studio pricing - Starter, Plus, Store and Custom packages',
     eyebrow: 'PRICING', lines: ['One-Time Pricing.', 'No Monthly Fees.'],
     sub: 'Every package includes a free update period.',
-    pills: ['Starter NGN 50,000', 'Plus NGN 80,000', 'Custom NGN 120,000+'] },
+    pills: ['Starter', 'Plus', 'Store', 'Custom'] },
 
   'tools': { page: 'tools/index.html', alt: 'Elevven11 Tools, free calculators and utilities that run in your browser',
     eyebrow: 'ELEVVEN11 TOOLS', lines: ['Free Tools For Work', 'And Everyday Life.'],
@@ -255,12 +255,12 @@ const PAGES = {
   'agents': { page: 'agents/index.html', alt: 'Become an Elevven11 Studio referral agent and earn commission',
     eyebrow: 'REFERRAL PROGRAMME', accent: 'gold', lines: ['Refer Someone.', 'Earn a Commission.'],
     sub: 'No website skills needed. Get paid when they buy.',
-    pills: ['Starter NGN 10,000', 'Plus NGN 15,000', 'No skills needed'] },
+    pills: ['Commission on every sale', 'No skills needed'] },
 
   'examples': { page: 'examples/index.html', alt: 'Elevven11 Studio website template examples',
-    eyebrow: 'TEMPLATE EXAMPLES', lines: ['14 Templates.', '42 Live Demos.'],
+    eyebrow: 'TEMPLATE EXAMPLES', lines: ['18 Templates.', '54 Live Demos.'],
     sub: 'Restaurants, salons, churches, schools, and more.',
-    pills: ['Mobile friendly', 'Ready to customise', '42 live demos'] },
+    pills: ['Mobile friendly', 'Ready to customise', '54 live demos'] },
 
   'how-it-works': { page: 'how-it-works/index.html', alt: 'How Elevven11 Studio builds and delivers your website',
     eyebrow: 'HOW IT WORKS', lines: ['From Idea to', 'Live Website.'],
@@ -270,7 +270,7 @@ const PAGES = {
   'get-started': { page: 'get-started/index.html', alt: 'Get your website started with Elevven11 Studio',
     eyebrow: 'GET STARTED', lines: ['Ready to Get', 'Your Website Online?'],
     sub: "Tell us what you need and we'll take it from there.",
-    pills: ['From NGN 50,000', 'Fast delivery', 'WhatsApp or email'] },
+    pills: ['One-time payment', 'Fast delivery', 'WhatsApp or email'] },
 
   'faq': { page: 'faq/index.html', alt: 'Frequently asked questions about Elevven11 Studio websites',
     eyebrow: 'FAQ', lines: ['Common Questions,', 'Answered.'],

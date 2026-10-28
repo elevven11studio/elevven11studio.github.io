@@ -522,8 +522,8 @@ function buildFlyers(rate, asOf) {
         'Three style variants of each one',
       ],
       cells: [
-        { label: 'Live demos', value: '42' },
-        { label: 'Industries', value: '14' },
+        { label: 'Live demos', value: '54' },
+        { label: 'Industries', value: '18' },
         { label: 'From', value: PRICES.starter },
       ],
       barLabel: 'Browse the demos',
@@ -534,8 +534,8 @@ function buildFlyers(rate, asOf) {
 
       intl: {
         cells: [
-          { label: 'Live demos', value: '42' },
-          { label: 'Industries', value: '14' },
+          { label: 'Live demos', value: '54' },
+          { label: 'Industries', value: '18' },
           { label: 'From', value: usd(AMOUNTS.starter, rate) },
         ],
         footnote: converted,

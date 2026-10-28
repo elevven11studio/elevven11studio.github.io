@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Kemi's Closet - Online Store Template Demo | Elevven11 Studio</title>
+	<meta name="description" content="Online store template demo by Elevven11 Studio." />
+	<meta name="robots" content="noindex, follow" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Elevven11 Studio" />
+	<meta property="og:url" content="https://elevven11studio.github.io/examples/online-store/" />
+	<meta property="og:title" content="Kemi's Closet - Online Store Template Demo | Elevven11 Studio" />
+	<meta property="og:description" content="Online store template demo by Elevven11 Studio." />
+	<meta property="og:image" content="https://elevven11studio.github.io/assets/previews/online-store-og.jpg" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="Preview of the Kemi's Closet template demo by Elevven11 Studio" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/assets/previews/online-store-og.jpg" />
+	<style>
+		:root {
+			--bg: #faf5ee;
+			--text: #2b1d16;
+			--muted: #7a6a5f;
+			--accent: #c2562f;
+			--on-accent: #fff;
+			--card: #fff;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+		.e11-ribbon {
+			position: sticky; top: 0; z-index: 999;
+			display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;
+			background: #0b0a10; color: #f7f3ec;
+			padding: 0.65rem 1.25rem;
+			font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.85rem;
+		}
+		.e11-ribbon .back { color: #a79f95; text-decoration: none; }
+		.e11-ribbon .cta {
+			background: linear-gradient(135deg, #86efac, #22c55e);
+			color: #0b0a10; font-weight: 700; text-decoration: none;
+			padding: 0.4rem 1rem; border-radius: 20px;
+		}
+
+		nav.top { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; }
+		.brand { font-family: Georgia, serif; font-size: 1.5rem; font-weight: 700; letter-spacing: .5px; }
+		.brand span { color: var(--accent); }
+		.top-cart { background: none; border: 1px solid var(--text); color: var(--text); border-radius: 999px; padding: .45rem 1rem; font: 600 .85rem inherit; cursor: pointer; }
+
+		header.hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 2.5rem; align-items: center; padding: 2.5rem 0 4rem; }
+		.eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 3px; font-size: 0.78rem; font-weight: 700; margin-bottom: 1rem; }
+		h1 { font-family: Georgia, serif; font-size: 3.1rem; line-height: 1.12; margin-bottom: 1rem; }
+		.tagline { color: var(--muted); font-size: 1.08rem; max-width: 440px; margin-bottom: 1.75rem; }
+		.btn { display: inline-block; padding: 0.9rem 2rem; background: var(--accent); color: var(--on-accent); font-weight: 700; text-decoration: none; border-radius: 999px; }
+		.hero-art { aspect-ratio: 1; border-radius: 28px; background: linear-gradient(150deg, #e8b48f, #c2562f 70%); position: relative; overflow: hidden; }
+		.hero-art::before { content: ''; position: absolute; width: 58%; aspect-ratio: 1; border-radius: 50%; background: #faf5ee; opacity: .25; top: 12%; left: 12%; }
+		.hero-art::after { content: 'New season'; position: absolute; left: 1.25rem; bottom: 1.25rem; background: var(--bg); padding: .45rem .9rem; border-radius: 999px; font-size: .82rem; font-weight: 700; }
+
+		section { padding: 4rem 0; }
+		.section-title { font-family: Georgia, serif; font-size: 2rem; margin-bottom: 1.5rem; text-align: center; }
+
+		.filters { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem; margin-bottom: 2rem; }
+		.filters button { border: 1px solid rgba(43,29,22,.25); background: none; color: var(--text); border-radius: 999px; padding: .45rem 1.1rem; font: 600 .88rem inherit; cursor: pointer; }
+		.filters button[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+		.shop { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+		.product { background: var(--card); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(43,29,22,.06); }
+		.pic { aspect-ratio: 4/5; position: relative; }
+		.pic::after { content: ''; position: absolute; inset: 22% 24%; border-radius: 40% 40% 14px 14px; background: rgba(255,255,255,.28); }
+		.p1 { background: linear-gradient(160deg, #d9a679, #8a4b2a); }
+		.p2 { background: linear-gradient(160deg, #2f2a28, #6b5a4e); }
+		.p3 { background: linear-gradient(160deg, #e9cfc0, #b07a63); }
+		.p4 { background: linear-gradient(160deg, #a7b39a, #4f5d45); }
+		.p5 { background: linear-gradient(160deg, #f1d9a6, #c69a3c); }
+		.p6 { background: linear-gradient(160deg, #c9c2d6, #6e6286); }
+		.p7 { background: linear-gradient(160deg, #e7b3a2, #b2463a); }
+		.p8 { background: linear-gradient(160deg, #d8d2c8, #8b8174); }
+		.info { padding: 1rem 1rem 1.15rem; display: flex; flex-direction: column; gap: .5rem; flex: 1; }
+		.info h3 { font-size: 1rem; }
+		.price { color: var(--accent); font-weight: 700; }
+		.variant { font: inherit; font-size: .85rem; padding: .4rem .5rem; border-radius: 8px; border: 1px solid rgba(43,29,22,.2); background: var(--bg); color: var(--text); }
+		.add { margin-top: auto; border: 0; border-radius: 999px; padding: .65rem; background: var(--text); color: var(--bg); font: 700 .88rem inherit; cursor: pointer; }
+		.add:hover { background: var(--accent); }
+		.add:disabled { background: rgba(43,29,22,.15); color: var(--muted); cursor: not-allowed; }
+
+		.contact { text-align: center; }
+		.contact p { color: var(--muted); margin-bottom: 1.5rem; }
+
+		footer { padding: 2.5rem 0 5rem; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid rgba(43,29,22,0.1); }
+		footer a { color: var(--accent); }
+
+		@media (max-width: 900px) { .shop { grid-template-columns: repeat(2, 1fr); } }
+		@media (max-width: 700px) {
+			header.hero { grid-template-columns: 1fr; padding-top: 1rem; }
+			h1 { font-size: 2.3rem; }
+			.hero-art { aspect-ratio: 16/10; }
+			.shop { gap: .85rem; }
+		}
+		/* ---- added content sections ---- */
+		.e11-x { padding: 4.5rem 0; }
+		.e11-x-intro { max-width: 640px; margin: 0 auto 2.75rem; text-align: center; color: var(--muted); }
+		.e11-x-rule { width: 64px; height: 3px; border-radius: 2px; background: var(--accent); margin: 0 auto 1.5rem; }
+		.e11-x-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+		.e11-x-card {
+			background: var(--card, rgba(127, 127, 127, 0.08));
+			border: 1px solid rgba(127, 127, 127, 0.22);
+			border-radius: 14px;
+			padding: 1.75rem;
+		}
+		.e11-x-card h3 { font-size: 1.08rem; margin-bottom: 0.6rem; color: var(--text); }
+		.e11-x-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		.e11-x-num {
+			display: inline-flex; align-items: center; justify-content: center;
+			width: 34px; height: 34px; border-radius: 50%;
+			background: var(--accent); color: var(--bg);
+			font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem;
+		}
+		.e11-sched { max-width: 720px; margin: 0 auto; }
+		.e11-sched-row {
+			display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+			padding: 0.95rem 0; border-bottom: 1px solid rgba(127, 127, 127, 0.2);
+		}
+		.e11-sched-row:last-child { border-bottom: none; }
+		.e11-sched-label { color: var(--text); font-weight: 600; font-size: 1rem; }
+		.e11-sched-note { color: var(--muted); font-size: 0.86rem; display: block; margin-top: 0.15rem; }
+		.e11-sched-value { color: var(--accent); font-weight: 700; font-size: 0.98rem; white-space: nowrap; }
+		.e11-faq { max-width: 760px; margin: 0 auto; }
+		.e11-faq-item { border-bottom: 1px solid rgba(127, 127, 127, 0.22); padding: 1.35rem 0; }
+		.e11-faq-item h3 { font-size: 1.02rem; margin-bottom: 0.5rem; color: var(--text); }
+		.e11-faq-item p { color: var(--muted); font-size: 0.95rem; line-height: 1.65; }
+		@media (max-width: 700px) {
+			.e11-x-grid { grid-template-columns: 1fr; }
+			.e11-sched-row { flex-direction: column; gap: 0.2rem; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="e11-ribbon">
+		<a class="back" href="/examples/">← All examples</a>
+		<span>Template demo by <strong>Elevven11 Studio</strong></span>
+		<a class="cta" href="/get-started/?package=Store">Get a store like this →</a>
+	</div>
+
+	<div class="wrap">
+		<nav class="top">
+			<div class="brand">Kemi's <span>Closet</span></div>
+			<button class="top-cart" type="button" data-open-cart>View cart</button>
+		</nav>
+
+		<header class="hero">
+			<div>
+				<div class="eyebrow">Bags, shoes &amp; accessories</div>
+				<h1>Pieces you'll wear on repeat.</h1>
+				<p class="tagline" data-intl="Handpicked in Brooklyn. Order in a few taps and confirm on WhatsApp.">Handpicked in Lagos. Order in a few taps and confirm on WhatsApp.</p>
+				<a class="btn" href="#shop">Shop now</a>
+			</div>
+			<div class="hero-art" aria-hidden="true"></div>
+		</header>
+	</div>
+
+	<section id="shop">
+		<div class="wrap">
+			<h2 class="section-title">Shop the edit</h2>
+			<div class="filters">
+				<button type="button" data-filter="all" aria-pressed="true">All</button>
+				<button type="button" data-filter="bags" aria-pressed="false">Bags</button>
+				<button type="button" data-filter="shoes" aria-pressed="false">Shoes</button>
+				<button type="button" data-filter="accessories" aria-pressed="false">Accessories</button>
+			</div>
+			<div class="shop">
+				<article class="product" data-id="tote" data-name="Leather Tote" data-price="25000" data-price-intl="48" data-cat="bags">
+					<div class="pic p1"></div>
+					<div class="info">
+						<h3>Leather Tote</h3>
+						<span class="price" data-intl="$48">₦25,000</span>
+						<select class="variant" aria-label="Colour"><option>Tan</option><option>Black</option></select>
+						<button class="add" type="button">Add to cart</button>
+					</div>
+				</article>
+				<article class="product" data-id="mule" data-name="Block Heel Mule" data-price="18500" data-price-intl="36" data-cat="shoes">
+					<div class="pic p2"></div>
+					<div class="info">
+						<h3>Block Heel Mule</h3>
+						<span class="price" data-intl="$36">₦18,500</span>
+						<select class="variant" aria-label="Size"><option>38</option><option>39</option><option>40</option><option>41</option></select>
+						<button class="add" type="button">Add to cart</button>
+					</div>
+				</article>
+				<article class="product" data-id="scarf" data-name="Silk Head Scarf" data-price="7500" data-price-intl="18" data-cat="accessories">
+					<div class="pic p3"></div>
+					<div class="info">
+						<h3>Silk Head Scarf</h3>
+						<span class="price" data-intl="$18">₦7,500</span>
+						<button class="add" type="button">Add to cart</button>
+					</div>
+				</article>
+				<article class="product" data-id="crossbody" data-name="Mini Crossbody" data-price="16000" data-price-intl="32" data-cat="bags">
+					<div class="pic p4"></div>
+					<div class="info">
+						<h3>Mini Crossbody</h3>
+						<span class="price" data-intl="$32">₦16,000</span>
+						<select class="variant" aria-label="Colour"><option>Sage</option><option>Cream</option></select>
+						<button class="add" type="button">Add to cart</button>
+					</div>
+				</article>
+				<article class="product" data-id="hoops" data-name="Gold Hoop Set" data-price="6000" data-price-intl="14" data-cat="accessories">
+					<div class="pic p5"></div>
+					<div class="info">
+						<h3>Gold Hoop Set</h3>
+						<span class="price" data-intl="$14">₦6,000</span>
+						<button class="add" type="button">Add to cart</button>
+					</div>
+				</article>
+				<article class="product" data-id="slides" data-name="Woven Slides" data-price="12000" data-price-intl="26" data-cat="shoes">
+					<div class="pic p6"></div>
+					<div class="info">
+						<h3>Woven Slides</h3>
+						<span class="price" data-intl="$26">₦12,000</span>
+						<select class="variant" aria-label="Size"><option>38</option><option>39</option><option>40</option><option>41</option></select>
+						<button class="add" type="button">Add to cart</button>
+					</div>
+				</article>
+				<article class="product" data-id="clutch" data-name="Beaded Clutch" data-price="14500" data-price-intl="30" data-cat="bags" data-soldout>
+					<div class="pic p7"></div>
+					<div class="info">
+						<h3>Beaded Clutch</h3>
+						<span class="price" data-intl="$30">₦14,500</span>
+						<button class="add" type="button">Add to cart</button>
+					</div>
+				</article>
+				<article class="product" data-id="shades" data-name="Cat-Eye Sunglasses" data-price="8500" data-price-intl="20" data-cat="accessories">
+					<div class="pic p8"></div>
+					<div class="info">
+						<h3>Cat-Eye Sunglasses</h3>
+						<span class="price" data-intl="$20">₦8,500</span>
+						<button class="add" type="button">Add to cart</button>
+					</div>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">How ordering works</h2>
+			<div class="e11-x-grid">
+				<div class="e11-x-card">
+					<div class="e11-x-num">1</div>
+					<h3>Fill your cart</h3>
+					<p>Pick your size or colour and add as many pieces as you like.</p>
+				</div>
+				<div class="e11-x-card">
+					<div class="e11-x-num">2</div>
+					<h3>Send it on WhatsApp</h3>
+					<p>Your order, total and address arrive in one message. No account needed.</p>
+				</div>
+				<div class="e11-x-card">
+					<div class="e11-x-num">3</div>
+					<h3>Pay and receive</h3>
+					<p>We confirm stock, send payment details, and dispatch the same day.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Delivery</h2>
+			<div class="e11-sched">
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label" data-intl="Brooklyn &amp; Queens">Lagos Mainland</span>
+						<span class="e11-sched-note">Orders confirmed before 2pm</span>
+					</div>
+					<div class="e11-sched-value" data-intl="Same day · $8">Same day · ₦2,500</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label" data-intl="Manhattan">Lagos Island</span>
+						<span class="e11-sched-note" data-intl="Every neighborhood below 125th St">Lekki, VI, Ikoyi, Ajah</span>
+					</div>
+					<div class="e11-sched-value" data-intl="Next day · $12">Next day · ₦3,500</div>
+				</div>
+				<div class="e11-sched-row">
+					<div>
+						<span class="e11-sched-label">Other states</span>
+						<span class="e11-sched-note" data-intl="Via UPS Ground">Via GIG Logistics</span>
+					</div>
+					<div class="e11-sched-value" data-intl="2 – 4 days · $15">2 – 4 days · ₦5,000</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="e11-x">
+		<div class="wrap">
+			<div class="e11-x-rule"></div>
+			<h2 class="section-title">Common questions</h2>
+			<div class="e11-faq">
+				<div class="e11-faq-item">
+					<h3>How do I pay?</h3>
+					<p data-intl="Card or PayPal once we confirm your order on WhatsApp. Pay on delivery is available in Brooklyn.">Bank transfer once we confirm your order on WhatsApp. Pay on delivery is available on the Mainland.</p>
+				</div>
+				<div class="e11-faq-item">
+					<h3>Can I exchange a size?</h3>
+					<p>Yes, within 5 days if the item is unworn. You cover the return delivery.</p>
+				</div>
+				<div class="e11-faq-item">
+					<h3>Will sold-out pieces come back?</h3>
+					<p>Some do. Message us and we will tell you when they restock.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact">
+		<div class="wrap">
+			<h2 class="section-title">Need help choosing?</h2>
+			<p>Send a photo of your outfit and we will suggest a match.</p>
+			<a href="#" class="btn demo-cta">Chat with us</a>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrap">
+			<p>&copy; 2026 Kemi's Closet. Fictional brand for demo purposes.</p>
+			<p>Website design by <a href="/">Elevven11 Studio</a></p>
+		</div>
+	</footer>
+
+	<script>
+		window.E11Store = {
+			name: "Kemi's Closet",
+			phone: '',
+deliveryIntl: [
+				{ label: 'Brooklyn & Queens', fee: 8 },
+				{ label: 'Manhattan', fee: 12 },
+				{ label: 'Other states', fee: 15 },
+			],
+			delivery: [
+				{ label: 'Lagos Mainland', fee: 2500 },
+				{ label: 'Lagos Island', fee: 3500 },
+				{ label: 'Other states', fee: 5000 },
+			],
+		};
+		document.querySelectorAll('.demo-cta').forEach((el) => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
+				alert('This is a template demo. Contact buttons are for layout only. The cart works: try "Order on WhatsApp".');
+			});
+		});
+	</script>
+	<script src="/assets/demos/store-cart.js"></script>
+	<script src="/assets/demo-localize.js"></script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H0KC31NYJ"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		// Consent Mode v2: analytics runs unless the visitor declines; advertising waits for Accept.
+		var consent = (document.cookie.match(/(?:^|; )e11_consent=([^;]*)/) || [])[1];
+		var ads = consent === 'accepted' ? 'granted' : 'denied';
+		gtag('consent', 'default', { analytics_storage: consent === 'declined' ? 'denied' : 'granted', ad_storage: ads, ad_user_data: ads, ad_personalization: ads });
+		gtag('js', new Date());
+		gtag('config', 'G-5H0KC31NYJ');
+	</script>
+</body>
+
+</html>

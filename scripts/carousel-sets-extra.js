@@ -55,9 +55,15 @@ const INDUSTRY_GROUPS = [
     ['portfolio', 'Personal portfolios.', 'Your projects in one place.'],
     ['school', 'Tutorial centres.', 'Courses and how to enrol.'],
   ]],
-  ['community-business', 'Churches and small businesses', [
+  ['community-business', 'Churches, small businesses and stores', [
     ['church', 'Churches and ministries.', 'Service times and a plan your visit button.'],
     ['small-business', 'Small businesses.', 'What you sell and how to reach you.'],
+    ['online-store', 'Online stores.', 'A cart that sends orders to WhatsApp.', ['left top','top','left top']],
+  ]],
+  ['health-stay-home', 'Clinics, short-lets and home services', [
+    ['clinic', 'Clinics and dentists.', 'Services, hours and appointment booking.', ['left top','top','left top']],
+    ['shortlet', 'Short-lets and hotels.', 'Rooms, rates and booking requests.', ['left top','left top','top']],
+    ['home-services', 'Home services.', 'Services, areas covered and quote requests.', ['top','left top','left top']],
   ]],
 ];
 
@@ -67,8 +73,8 @@ for (const [key, title, items] of INDUSTRY_GROUPS) {
     accent: 'neon', peek: true,
     slides: [
       { theme: 'dark', head: ['A website', 'for your', 'kind of business.'], sub: title + '.' },
-      ...items.map(([slug, head, sub], i) => ({
-        theme: i % 2 === 0 ? 'light' : 'dark', head: [head], sub, visual: 'grid', picks: [slug, slug + '-2', slug + '-3'],
+      ...items.map(([slug, head, sub, gridPosition], i) => ({
+        theme: i % 2 === 0 ? 'light' : 'dark', head: [head], sub, visual: 'grid', picks: [slug, slug + '-2', slug + '-3'], gridPosition,
       })),
       ...(items.length < 3 ? [{ theme: 'light', head: ['Three styles', 'each.'], sub: 'Pick the look that fits your brand.' }] : []),
       { theme: 'dark', head: ['See them', 'live.'], sub: 'Open every demo on your phone.', ...last('industry-' + key, '/examples/', 'Scan to browse') },
@@ -95,10 +101,21 @@ module.exports = {
     accent: 'neon', peek: true,
     slides: [
       { theme: 'dark', head: ['Not sure what', 'your site could', 'look like?'], sub: 'Browse real examples before you decide.' },
-      { theme: 'light', head: ['14 industries.', '3 styles each.'], sub: 'Barbers, churches, caterers, tutors and more.' },
+      { theme: 'light', head: ['18 industries.', '3 styles each.'], sub: 'Barbers, churches, caterers, tutors and more.' },
       { theme: 'dark', head: ['Open them', 'on your phone.'], sub: 'Every demo is a live site, not a screenshot.' },
-      { theme: 'light', head: ['42 live demos.'], sub: 'Pick the one closest to your business.', visual: 'grid' },
+      { theme: 'light', head: ['54 live demos.'], sub: 'Pick the one closest to your business.', visual: 'grid' },
       { theme: 'dark', head: ['Found one', 'you like?'], sub: 'We rebuild it with your name and details.', ...last('examples', '/examples/', 'Scan to browse') },
+    ],
+  },
+
+  'online-stores': {
+    accent: 'neon', peek: false,
+    slides: [
+      { theme: 'dark', head: ['Still taking', 'orders in', 'your DMs?'], sub: 'One chat, one order at a time.' },
+      { theme: 'light', head: ['Your own', 'online store.'], sub: 'Products, sizes and prices on one page.', chips: ['Categories', 'Sold-out labels'] },
+      { theme: 'dark', head: ['They fill', 'a cart.'], sub: 'Delivery fee and total worked out for them.', chips: ['Delivery zones', 'Pickup'] },
+      { theme: 'light', head: ['The order lands', 'on WhatsApp.'], sub: 'Try one of the three live stores.', visual: 'grid', picks: ['online-store', 'online-store-2', 'online-store-3'], gridPosition: ['left top', 'top', 'left top'] },
+      { theme: 'dark', head: ['No monthly', 'platform fee.'], sub: 'Pay once. We set it up for you.', ...last('online-stores', '/examples/', 'Scan to try one') },
     ],
   },
 
