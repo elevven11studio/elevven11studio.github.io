@@ -5,6 +5,7 @@
  * Chrome (or Edge) and writes two files:
  *
  *   <slug>.webp     800x420   card thumbnail on the examples page
+ *   <slug>-400.webp 400x210   smaller copy for the homepage example strip
  *   <slug>-og.jpg   1200x630  og:image for that demo's social preview
  *
  * JPEG for the og:image is deliberate: Facebook's crawler handles WebP, but
@@ -155,6 +156,9 @@ function startServer() {
     await sharp(shot).extract(CROP).resize(THUMB.width, THUMB.height)
       .webp({ quality: THUMB.quality }).toFile(thumb);
     thumbBytes += fs.statSync(thumb).size;
+
+    // Half-size copy for the homepage strip's srcset on phones.
+    await sharp(thumb).resize(400, 210).webp({ quality: THUMB.quality }).toFile(path.join(OUT, `${slug}-400.webp`));
 
     // Portrait capture, used by the promo phone mockups.
     const mshot = path.join(tmp, `${slug}-m.png`);

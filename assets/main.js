@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAgentLinkGenerator();
   initGetStartedForm();
   initGeoLocalization();
+  initExampleStrip();
   initLeadChannelTracking();
   initSliders();
   initContactForm();
@@ -512,10 +513,10 @@ function directSendFeedback(form, mainBtn) {
  * Every price in the markup is written in Naira by default and tagged
  * with data-ngn="<amount>" (optionally data-suffix="+" for "starting at"
  * prices). Every "Nigeria"-referencing phrase that should adapt for other
- * countries is wrapped in a <span class="geo-phrase" data-us="..."> with
- * the Nigeria-facing text as its default content. For US visitors that
- * span's text is swapped to its data-us alternative (e.g. "in Nigeria" ->
- * "in America"); for every other country the phrase is simply removed.
+ * countries is wrapped in a <span class="geo-phrase" data-global="..."> with
+ * the Nigeria-facing text as its default content. Every visitor outside
+ * Nigeria gets the same global wording from data-global (e.g. "for Nigeria" ->
+ * ", Worldwide"), or the phrase removed if it has none.
  */
 /**
  * Live NGN/USD rate.
@@ -629,7 +630,7 @@ function formatUsd(amountNgn) {
 }
 
 // Search crawlers render JavaScript from US IPs. Without this they would index
-// the America copy and USD prices instead of the Nigeria-facing page.
+// the global copy and USD prices instead of the Nigeria-facing page.
 const CRAWLER_UA = /bot|crawl|spider|slurp|lighthouse|facebookexternalhit|whatsapp|preview/i;
 
 // Testing aid: ?usd (or ?currency=usd) previews the international prices and
@@ -689,7 +690,38 @@ async function initGeoLocalization() {
   });
 
   geoEls.forEach((el) => {
-    el.textContent = country === 'US' ? (el.getAttribute('data-us') || '') : '';
+    el.textContent = el.getAttribute('data-global') || '';
+  });
+}
+
+/**
+ * Homepage example strip: three demos from three different industries, in a
+ * random style, picked fresh on each visit. The cards in the HTML stay as the
+ * no-JavaScript fallback and are what crawlers index.
+ */
+const EXAMPLE_INDUSTRIES = [
+  ['portfolio', 'Portfolio'], ['freelancer', 'Freelancer'], ['small-business', 'Small business'],
+  ['online-store', 'Online store'], ['restaurant', 'Restaurant'], ['photographer', 'Photographer'],
+  ['fashion', 'Fashion brand'], ['barber', 'Salon & barber'], ['events', 'Event planner'],
+  ['consultant', 'Consultant'], ['real-estate', 'Real estate'], ['church', 'Church & NGO'],
+  ['school', 'School'], ['fitness', 'Fitness coach'], ['logistics', 'Logistics'],
+  ['clinic', 'Clinic'], ['shortlet', 'Short-let & hotel'], ['home-services', 'Home services'],
+];
+
+function initExampleStrip() {
+  const cards = document.querySelectorAll('.example-strip .example-card');
+  if (!cards.length) return;
+
+  const pool = EXAMPLE_INDUSTRIES.slice();
+  cards.forEach((card) => {
+    const [base, label] = pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
+    const slug = base + ['', '-2', '-3'][Math.floor(Math.random() * 3)];
+    const img = card.querySelector('img');
+    card.href = '/examples/' + slug + '/';
+    img.src = '/assets/previews/' + slug + '.webp';
+    img.srcset = '/assets/previews/' + slug + '-400.webp 400w, /assets/previews/' + slug + '.webp 800w';
+    img.alt = label + ' website example';
+    card.querySelector('span').textContent = label;
   });
 }
 
