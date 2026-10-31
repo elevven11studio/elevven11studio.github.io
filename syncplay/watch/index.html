@@ -132,18 +132,59 @@
 			outline-offset: 2px;
 		}
 
-		.jr-code {
-			text-align: center;
-			font-size: 1.6rem;
-			font-weight: 700;
-			letter-spacing: 0.35em;
-			text-indent: 0.35em;
-			font-variant-numeric: tabular-nums;
+		.jr-field {
+			position: relative;
 		}
 
-		.jr-code::placeholder {
-			letter-spacing: 0.35em;
-			opacity: 0.35;
+		.jr-field input {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			opacity: 0;
+			font-size: 16px;
+			cursor: text;
+		}
+
+		.jr-cells {
+			display: flex;
+			align-items: center;
+			gap: 0.45rem;
+			pointer-events: none;
+		}
+
+		.jr-cells i {
+			flex: 1;
+			min-width: 0;
+			height: 3.6rem;
+			display: grid;
+			place-items: center;
+			font-style: normal;
+			font-size: 1.5rem;
+			font-weight: 700;
+			font-variant-numeric: tabular-nums;
+			color: var(--text-primary);
+			background: rgba(var(--accent-rgb), 0.04);
+			border: 1px solid rgba(var(--accent-rgb), 0.2);
+			border-radius: 12px;
+			transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+		}
+
+		.jr-cells i.full {
+			background: rgba(var(--accent-rgb), 0.1);
+		}
+
+		.jr-cells i.on {
+			border-color: var(--accent-gold);
+			box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.18);
+		}
+
+		.jr-cells b {
+			flex: none;
+			color: var(--text-muted);
+			font-weight: 600;
 		}
 
 		.jr-err {
@@ -158,6 +199,8 @@
 
 		.jr-submit {
 			width: 100%;
+			font-family: inherit;
+			font-size: 1rem;
 		}
 
 		.jr-tabs[hidden],
@@ -265,7 +308,10 @@
 					</div>
 					<div class="form-group" id="codeRow">
 						<label class="form-label" for="code">Room code</label>
-						<input class="form-input jr-code" id="code" inputmode="numeric" autocomplete="off" maxlength="7" placeholder="000 000" />
+						<div class="jr-field">
+							<input id="code" inputmode="numeric" autocomplete="off" maxlength="6" aria-label="Room code" />
+							<span class="jr-cells" aria-hidden="true"><i></i><i></i><i></i><b>-</b><i></i><i></i><i></i></span>
+						</div>
 					</div>
 					<button class="btn btn-primary jr-submit" type="submit" id="submit">Join room</button>
 				</form>
@@ -330,7 +376,8 @@
 				$('tab-room').parentNode.hidden = false;
 				show(mode);
 			}
-			function leave(url) {
+			function leave(url, addr) {
+				remember(mode, addr);
 				$('title').textContent = TEXT[mode].go;
 				$('line').textContent = 'Stay on the same Wi-Fi as the host.';
 				$('form').hidden = true;
@@ -339,8 +386,8 @@
 				$('go').hidden = false;
 				location.assign(url);
 			}
-			function remember(addr) { try { localStorage.setItem('sp-host', addr); } catch (e) { } }
-			function recall() { try { return localStorage.getItem('sp-host') || ''; } catch (e) { return ''; } }
+			function remember(kind, addr) { try { localStorage.setItem('sp-host-' + kind, addr); } catch (e) { } }
+			function recall(kind) { try { return localStorage.getItem('sp-host-' + kind) || ''; } catch (e) { return ''; } }
 
 			var p = {};
 			location.hash.replace(/^#/, '').split('&').forEach(function (kv) {
@@ -348,25 +395,41 @@
 				if (i > 0) { try { p[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1)); } catch (e) { } }
 			});
 			if (p.k === 'library') mode = 'library';
-			$('addr').value = p.h && p.p ? p.h + ':' + p.p : recall();
+			$('addr').value = p.h && p.p ? p.h + ':' + p.p : recall(mode);
 
-			$('tab-room').addEventListener('click', function () { $('err').hidden = true; show('room'); });
-			$('tab-lib').addEventListener('click', function () { $('err').hidden = true; show('library'); });
-			$('code').addEventListener('input', function () {
-				var d = this.value.replace(/\D/g, '').slice(0, 6);
-				this.value = d.length > 3 ? d.slice(0, 3) + ' ' + d.slice(3) : d;
-			});
+			function pick(kind) {
+				var typed = $('addr').value.trim();
+				var other = recall(mode);
+				$('err').hidden = true;
+				show(kind);
+				if (!typed || typed === other) $('addr').value = recall(kind) || typed;
+			}
+			$('tab-room').addEventListener('click', function () { pick('room'); });
+			$('tab-lib').addEventListener('click', function () { pick('library'); });
+			var cells = document.querySelectorAll('.jr-cells i');
+			function paint() {
+				var el = $('code');
+				var v = el.value.replace(/\D/g, '').slice(0, 6);
+				if (el.value !== v) el.value = v;
+				for (var i = 0; i < cells.length; i++) {
+					cells[i].textContent = v.charAt(i);
+					cells[i].classList.toggle('full', i < v.length);
+					cells[i].classList.toggle('on', document.activeElement === el && i === Math.min(v.length, 5));
+				}
+			}
+			['input', 'focus', 'blur'].forEach(function (ev) { $('code').addEventListener(ev, paint); });
+			paint();
 			$('form').addEventListener('submit', function (e) {
 				e.preventDefault();
 				var a = $('addr').value.trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
 				var i = a.lastIndexOf(':');
 				var r = i > 0 ? build(mode, a.slice(0, i), a.slice(i + 1), $('code').value, {}) : { error: 'Add the port, like 192.168.1.5:47801.' };
-				if (r.url) { remember(a); leave(r.url); } else ask(r.error);
+				if (r.url) leave(r.url, a); else ask(r.error);
 			});
 
 			if (p.h && p.p && (mode === 'library' || p.c)) {
 				var r = build(mode, p.h, p.p, p.c || '', p);
-				if (r.url) { show(mode); leave(r.url); } else ask(r.error);
+				if (r.url) { show(mode); leave(r.url, p.h + ':' + p.p); } else ask(r.error);
 			} else {
 				ask();
 				if (p.h && p.p) $('code').focus();
