@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Join a SyncPlay room - Elevven11 Studio</title>
+
+	<meta name="description" content="Open a SyncPlay watch party from the link or code your host shared." />
+	<!-- The link carries a room code and a local address after the #. Kept out of
+	     search, and out of analytics (below), so neither leaves the visitor. -->
+	<meta name="robots" content="noindex, nofollow" />
+	<meta name="referrer" content="no-referrer" />
+
+	<!-- Favicon -->
+	<link rel="icon" type="image/svg+xml" href="/syncplay/icon.svg" />
+	<meta name="theme-color" content="#0b0a10" />
+
+	<!-- Fonts. Linked here rather than @import-ed from style.css so the browser
+	     can start the font request immediately, in parallel with the stylesheet,
+	     instead of waiting for style.css to download and parse first. -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="preconnect" href="https://ipwho.is" />
+	<link rel="preconnect" href="https://open.er-api.com" />
+	<!-- Font CSS loads without blocking first paint; the fallback face in style.css is sized to match. -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'" />
+	<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" /></noscript>
+	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+	<style>
+		/* SyncPlay is grey with the icon's gold as its one accent. */
+		:root {
+			--accent-gold: #f0c866;
+			--accent-orange: #d4a63b;
+			--accent-rgb: 240, 200, 102;
+		}
+
+		:root[data-theme="light"] {
+			--accent-gold: #9a6f16;
+			--accent-orange: #6b4a0e;
+			--glow-gold: 0 0 15px rgba(154, 111, 22, 0.22);
+		}
+		/* Join page. */
+		.jr-hero {
+			position: relative;
+			padding: 7.5rem 0 1.5rem;
+			text-align: center;
+			overflow: hidden;
+		}
+
+		.jr-hero::before {
+			content: '';
+			position: absolute;
+			left: 50%;
+			top: -8rem;
+			width: 42rem;
+			height: 26rem;
+			transform: translateX(-50%);
+			background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.28), transparent);
+			pointer-events: none;
+		}
+
+		.jr-hero .container {
+			position: relative;
+		}
+
+		.jr-mark {
+			display: block;
+			margin: 0 auto 1.25rem;
+			border-radius: 18px;
+			box-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.3), 0 14px 40px rgba(var(--accent-rgb), 0.28);
+		}
+
+		.jr-hero .hero-title {
+			margin-bottom: 0.5rem;
+		}
+
+		.jr-body {
+			padding-top: 0;
+		}
+
+		.jr-card {
+			padding: 1.5rem;
+			border-color: rgba(var(--accent-rgb), 0.25);
+			box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(var(--accent-rgb), 0.08);
+		}
+
+		.jr-tabs {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 0.35rem;
+			padding: 0.3rem;
+			margin-bottom: 1.5rem;
+			border-radius: 14px;
+			background: rgba(var(--accent-rgb), 0.07);
+			border: 1px solid rgba(var(--accent-rgb), 0.18);
+		}
+
+		.jr-tabs button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0.5rem;
+			padding: 0.65rem 0.5rem;
+			border: 0;
+			border-radius: 10px;
+			background: transparent;
+			color: var(--text-secondary);
+			font: inherit;
+			font-weight: 600;
+			cursor: pointer;
+			transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.jr-tabs button svg {
+			width: 1.1rem;
+			height: 1.1rem;
+		}
+
+		.jr-tabs button:hover {
+			color: var(--text-primary);
+		}
+
+		.jr-tabs button[aria-selected="true"] {
+			background: var(--gradient-neon);
+			color: var(--bg-primary);
+			box-shadow: 0 6px 18px rgba(var(--accent-rgb), 0.3);
+		}
+
+		.jr-tabs button:focus-visible {
+			outline: 2px solid var(--accent-gold);
+			outline-offset: 2px;
+		}
+
+		.jr-code {
+			text-align: center;
+			font-size: 1.6rem;
+			font-weight: 700;
+			letter-spacing: 0.35em;
+			text-indent: 0.35em;
+			font-variant-numeric: tabular-nums;
+		}
+
+		.jr-code::placeholder {
+			letter-spacing: 0.35em;
+			opacity: 0.35;
+		}
+
+		.jr-err {
+			margin: 0 0 1.25rem;
+			padding: 0.7rem 0.9rem;
+			border-radius: 10px;
+			background: rgba(248, 113, 113, 0.1);
+			border: 1px solid rgba(248, 113, 113, 0.35);
+			color: var(--accent-danger);
+			font-size: 0.92rem;
+		}
+
+		.jr-submit {
+			width: 100%;
+		}
+
+		.jr-tabs[hidden],
+		.jr-go[hidden] {
+			display: none;
+		}
+
+		.jr-go {
+			display: grid;
+			justify-items: center;
+			gap: 1.1rem;
+			padding: 1rem 0 0.5rem;
+		}
+
+		.jr-spin {
+			width: 44px;
+			height: 44px;
+			border-radius: 50%;
+			border: 3px solid rgba(var(--accent-rgb), 0.2);
+			border-top-color: var(--accent-gold);
+			animation: jr-turn 0.9s linear infinite;
+		}
+
+		@keyframes jr-turn {
+			to { transform: rotate(360deg); }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.jr-spin { animation-duration: 3s; }
+		}
+	</style>
+	<script>
+		// Applied before paint so a light-mode visitor never sees a dark flash.
+		(function () {
+			try {
+				if (localStorage.getItem('e11-theme') === 'light') {
+					document.documentElement.setAttribute('data-theme', 'light');
+				}
+			} catch (e) { /* private mode: stay on the dark default */ }
+		})();
+	</script>
+</head>
+
+<body>
+
+	<a class="skip-link" href="#main">Skip to main content</a>
+
+	<header>
+		<div class="container navbar">
+			<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+			<ul class="nav-links">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item"><a href="/pricing/">Pricing</a></li>
+				<li class="nav-item"><a href="/app-development/">Apps</a></li>
+				<li class="nav-item"><a href="/how-it-works/">How It Works</a></li>
+				<li class="nav-item"><a href="/examples/">Examples</a></li>
+				<li class="nav-item"><a href="/tools/">Tools</a></li>
+				<li class="nav-item"><a href="/agents/">Agents</a></li>
+				<li class="nav-item"><a href="/faq/">FAQ</a></li>
+				<li class="nav-item"><a href="/contact/">Contact</a></li>
+				<li class="nav-item"><a class="nav-cta" href="/get-started/">Get Your Website</a></li>
+			</ul>
+			<button class="theme-toggle" type="button" aria-label="Switch colour theme">
+				<svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+				<svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>
+			</button>
+			<div class="hamburger">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+	</header>
+
+	<main id="main">
+
+	<section class="jr-hero">
+		<div class="container">
+			<img class="jr-mark" src="/syncplay/icon.svg" width="72" height="72" alt="" />
+			<h1 class="hero-title" id="title">Join a room</h1>
+			<p class="hero-tagline" id="line">Enter what your host shared.</p>
+		</div>
+	</section>
+
+	<section class="jr-body">
+		<div class="container" style="max-width: 460px;">
+			<div class="glass-card jr-card">
+
+				<div class="jr-tabs" role="tablist" aria-label="What to open">
+					<button type="button" role="tab" id="tab-room" aria-selected="true" aria-controls="form">
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+						Room
+					</button>
+					<button type="button" role="tab" id="tab-lib" aria-selected="false" aria-controls="form">
+						<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+						Library
+					</button>
+				</div>
+
+				<form id="form" novalidate hidden>
+					<p class="jr-err" id="err" role="alert" hidden></p>
+					<div class="form-group">
+						<label class="form-label" for="addr">Host address</label>
+						<input class="form-input" id="addr" inputmode="url" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="192.168.1.5:47801" />
+					</div>
+					<div class="form-group" id="codeRow">
+						<label class="form-label" for="code">Room code</label>
+						<input class="form-input jr-code" id="code" inputmode="numeric" autocomplete="off" maxlength="7" placeholder="000 000" />
+					</div>
+					<button class="btn btn-primary jr-submit" type="submit" id="submit">Join room</button>
+				</form>
+
+				<div class="jr-go" id="go" hidden>
+					<div class="jr-spin" aria-hidden="true"></div>
+					<a class="u-gold" id="open" href="#">Not opening? Tap here</a>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<script>
+		// Everything after the # stays in the browser; nothing here is sent anywhere.
+		// Only local network hosts are accepted, so this page can't send anyone to a stranger.
+		(function () {
+			var $ = function (id) { return document.getElementById(id); };
+			var mode = 'room';
+			var TEXT = {
+				room: { title: 'Join a room', line: 'Enter what your host shared.', go: 'Opening the room', submit: 'Join room' },
+				library: { title: 'Open a library', line: 'Browse what the host shares.', go: 'Opening the library', submit: 'Open library' }
+			};
+			function local(host) {
+				var m = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(host);
+				if (m) {
+					var a = +m[1], b = +m[2];
+					if (+m[3] > 255 || +m[4] > 255) return false;
+					return a === 10 || (a === 172 && b >= 16 && b <= 31) || (a === 192 && b === 168) || (a === 169 && b === 254) || (a === 100 && b >= 64 && b <= 127);
+				}
+				return /^[a-z0-9-]+\.local$/i.test(host);
+			}
+			// A room needs its code; a library is just the host's address.
+			function build(kind, host, port, code, extra) {
+				host = host.trim();
+				if (!local(host)) return { error: 'That address is not on a local network.' };
+				if (!/^\d{1,5}$/.test(port) || +port < 1 || +port > 65535) return { error: 'The port looks wrong.' };
+				var base = 'http://' + host + ':' + port;
+				if (kind === 'library') return { url: base + '/' };
+				code = code.replace(/\s/g, '');
+				if (!/^\d{6}$/.test(code)) return { error: 'The room code has 6 digits.' };
+				var q = 'c=' + code;
+				if (extra.s && /^\d{1,5}$/.test(extra.s)) q += '&s=' + extra.s;
+				if (extra.f && /^([A-Za-z0-9_-]{43}|[0-9a-f]{64})$/.test(extra.f)) q += '&f=' + extra.f;
+				return { url: base + '/join?' + q };
+			}
+			function show(kind) {
+				mode = kind;
+				var t = TEXT[kind];
+				$('tab-room').setAttribute('aria-selected', String(kind === 'room'));
+				$('tab-lib').setAttribute('aria-selected', String(kind === 'library'));
+				$('codeRow').hidden = kind === 'library';
+				$('submit').textContent = t.submit;
+				$('title').textContent = t.title;
+				$('line').textContent = t.line;
+			}
+			function ask(text) {
+				$('err').hidden = !text;
+				if (text) $('err').textContent = text;
+				$('form').hidden = false;
+				$('go').hidden = true;
+				$('tab-room').parentNode.hidden = false;
+				show(mode);
+			}
+			function leave(url) {
+				$('title').textContent = TEXT[mode].go;
+				$('line').textContent = 'Stay on the same Wi-Fi as the host.';
+				$('form').hidden = true;
+				$('tab-room').parentNode.hidden = true;
+				$('open').href = url;
+				$('go').hidden = false;
+				location.assign(url);
+			}
+			function remember(addr) { try { localStorage.setItem('sp-host', addr); } catch (e) { } }
+			function recall() { try { return localStorage.getItem('sp-host') || ''; } catch (e) { return ''; } }
+
+			var p = {};
+			location.hash.replace(/^#/, '').split('&').forEach(function (kv) {
+				var i = kv.indexOf('=');
+				if (i > 0) { try { p[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1)); } catch (e) { } }
+			});
+			if (p.k === 'library') mode = 'library';
+			$('addr').value = p.h && p.p ? p.h + ':' + p.p : recall();
+
+			$('tab-room').addEventListener('click', function () { $('err').hidden = true; show('room'); });
+			$('tab-lib').addEventListener('click', function () { $('err').hidden = true; show('library'); });
+			$('code').addEventListener('input', function () {
+				var d = this.value.replace(/\D/g, '').slice(0, 6);
+				this.value = d.length > 3 ? d.slice(0, 3) + ' ' + d.slice(3) : d;
+			});
+			$('form').addEventListener('submit', function (e) {
+				e.preventDefault();
+				var a = $('addr').value.trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+				var i = a.lastIndexOf(':');
+				var r = i > 0 ? build(mode, a.slice(0, i), a.slice(i + 1), $('code').value, {}) : { error: 'Add the port, like 192.168.1.5:47801.' };
+				if (r.url) { remember(a); leave(r.url); } else ask(r.error);
+			});
+
+			if (p.h && p.p && (mode === 'library' || p.c)) {
+				var r = build(mode, p.h, p.p, p.c || '', p);
+				if (r.url) { show(mode); leave(r.url); } else ask(r.error);
+			} else {
+				ask();
+				if (p.h && p.p) $('code').focus();
+			}
+		})();
+	</script>
+
+	</main>
+
+	<footer>
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<a href="/" class="logo">ELEVVEN11 STUDIO</a>
+					<p>Websites, apps and free browser tools.</p>
+					<a href="https://wa.me/2349120925909" target="_blank" rel="noopener">Chat on WhatsApp</a>
+					<div class="footer-social">
+				<a href="https://www.linkedin.com/company/elevven11-studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 12.28h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-11h2.88v1.5h.04c.4-.76 1.38-1.56 2.84-1.56 3.03 0 3.6 2 3.6 4.59v6.47z"/></svg></a>
+				<a href="https://www.facebook.com/Elevven11Studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8v-6.93h-2.4v-2.87h2.4v-2.19c0-2.39 1.44-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.36h-1.21c-1.19 0-1.56.74-1.56 1.5v1.86h2.66l-.43 2.87h-2.23v6.93c4.56-.93 8-4.96 8-9.8z"/></svg></a>
+				<a href="https://www.instagram.com/elevven11studio/" target="_blank" rel="noopener" aria-label="Elevven11 Studio on Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+				<a href="https://www.tiktok.com/@elevven11studio" target="_blank" rel="noopener" aria-label="Elevven11 Studio on TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/></svg></a>
+				<a href="https://www.facebook.com/share/g/1833ddCnFg/" target="_blank" rel="noopener" aria-label="Join the Elevven11 Studio community on Facebook"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></a>
+			</div>
+				</div>
+				<nav class="footer-col" aria-label="Services">
+					<h2>Services</h2>
+					<ul>
+						<li><a href="/pricing/">Pricing</a></li>
+						<li><a href="/app-development/">App Development</a></li>
+						<li><a href="/how-it-works/">How It Works</a></li>
+						<li><a href="/examples/">Examples</a></li>
+						<li><a href="/tools/">Free Tools</a></li>
+						<li><a href="/get-started/">Get Your Website</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Apps">
+					<h2>Apps</h2>
+					<ul>
+						<li><a href="/counterbook/">Counterbook</a></li>
+						<li><a href="/worknest/">WorkNest</a></li>
+						<li><a href="/syncplay/">SyncPlay</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Extensions">
+					<h2>Extensions</h2>
+					<ul>
+						<li><a href="/extensions/">All extensions</a></li>
+						<li><a href="/webinspect/">WebInspect</a></li>
+						<li><a href="/webguard/">WebGuard</a></li>
+						<li><a href="/siteextract/">SiteExtract</a></li>
+						<li><a href="/shopinspect/">ShopInspect</a></li>
+					</ul>
+				</nav>
+				<nav class="footer-col" aria-label="Company">
+					<h2>Company</h2>
+					<ul>
+						<li><a href="/contact/">Contact</a></li>
+						<li><a href="/faq/">FAQ</a></li>
+						<li><a href="/agents/">Referral Agents</a></li>
+						<li><a href="/support/">Support</a></li>
+						<li><a href="/terms/">Terms</a></li>
+						<li><a href="/privacy/">Privacy</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="footer-bottom">
+				<p>&copy; 2026 Elevven11 Studio. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/shell.js" defer></script>
+	<script src="/assets/main.js" defer></script>
+</body>
+
+</html>

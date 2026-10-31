@@ -59,6 +59,7 @@ const PAGES = [
   ['/worknest/docs/',        'monthly',  0.7],
   ['/worknest/privacy/',     'yearly',   0.4],
   ['/worknest/terms/',       'yearly',   0.4],
+  ['/syncplay/',             'monthly',  0.8],
   ['/extensions/',           'monthly',  0.8],
   ['/extensions/support/',   'monthly',  0.6],
   ['/shopinspect/',          'monthly',  0.7],

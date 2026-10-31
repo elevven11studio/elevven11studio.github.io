@@ -19,6 +19,7 @@ https://elevven11studio.github.io/worknest/
 https://elevven11studio.github.io/worknest/docs/
 https://elevven11studio.github.io/worknest/privacy/
 https://elevven11studio.github.io/worknest/terms/
+https://elevven11studio.github.io/syncplay/
 https://elevven11studio.github.io/extensions/
 https://elevven11studio.github.io/extensions/support/
 https://elevven11studio.github.io/shopinspect/
