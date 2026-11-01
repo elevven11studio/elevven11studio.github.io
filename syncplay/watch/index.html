@@ -19,15 +19,17 @@
 	<!-- Fonts. Linked here rather than @import-ed from style.css so the browser
 	     can start the font request immediately, in parallel with the stylesheet,
 	     instead of waiting for style.css to download and parse first. -->
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link rel="preconnect" href="https://ipwho.is" />
-	<link rel="preconnect" href="https://open.er-api.com" />
-	<!-- Font CSS loads without blocking first paint; the fallback face in style.css is sized to match. -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'" />
-	<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" /></noscript>
 	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
 	<style>
+		/* The studio's typeface from this site, so a visit to this page asks nobody else. */
+		@font-face {
+			font-family: 'Outfit';
+			font-style: normal;
+			font-weight: 400 800;
+			font-display: swap;
+			src: url('/syncplay/watch/outfit.woff2') format('woff2');
+		}
+
 		/* SyncPlay is grey with the icon's gold as its one accent. */
 		:root {
 			--accent-gold: #f0c866;
@@ -36,9 +38,9 @@
 		}
 
 		:root[data-theme="light"] {
-			--accent-gold: #9a6f16;
+			--accent-gold: #7d5a0f;
 			--accent-orange: #6b4a0e;
-			--glow-gold: 0 0 15px rgba(154, 111, 22, 0.22);
+			--glow-gold: 0 0 15px rgba(125, 90, 15, 0.22);
 		}
 		/* Join page. */
 		.jr-hero {
@@ -197,6 +199,23 @@
 			font-size: 0.92rem;
 		}
 
+		.jr-forget {
+			margin: 0.45rem 0 0;
+			padding: 0;
+			border: 0;
+			background: none;
+			color: var(--text-muted);
+			font: inherit;
+			font-size: 0.85rem;
+			cursor: pointer;
+		}
+
+		.jr-forget:hover,
+		.jr-forget:focus-visible {
+			color: var(--accent-gold);
+			text-decoration: underline;
+		}
+
 		.jr-submit {
 			width: 100%;
 			font-family: inherit;
@@ -300,16 +319,19 @@
 					</button>
 				</div>
 
-				<form id="form" novalidate hidden>
+				<noscript><p class="u-text-2">This page needs JavaScript. Or open http://HOST:PORT/join in your browser, with the host's address.</p></noscript>
+
+				<form id="form" role="tabpanel" aria-labelledby="tab-room" novalidate hidden>
 					<p class="jr-err" id="err" role="alert" hidden></p>
 					<div class="form-group">
 						<label class="form-label" for="addr">Host address</label>
 						<input class="form-input" id="addr" inputmode="url" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="192.168.1.5:47801" />
+						<button class="jr-forget" id="forget" type="button" hidden>Forget this host</button>
 					</div>
 					<div class="form-group" id="codeRow">
 						<label class="form-label" for="code">Room code</label>
 						<div class="jr-field">
-							<input id="code" inputmode="numeric" autocomplete="off" maxlength="6" aria-label="Room code" />
+							<input id="code" inputmode="numeric" autocomplete="off" aria-label="Room code" />
 							<span class="jr-cells" aria-hidden="true"><i></i><i></i><i></i><b>-</b><i></i><i></i><i></i></span>
 						</div>
 					</div>
@@ -336,7 +358,7 @@
 				library: { title: 'Open a library', line: 'Browse what the host shares.', go: 'Opening the library', submit: 'Open library' }
 			};
 			function local(host) {
-				var m = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(host);
+				var m = /^(0|[1-9]\d{0,2})\.(0|[1-9]\d{0,2})\.(0|[1-9]\d{0,2})\.(0|[1-9]\d{0,2})$/.exec(host);
 				if (m) {
 					var a = +m[1], b = +m[2];
 					if (+m[3] > 255 || +m[4] > 255) return false;
@@ -367,6 +389,15 @@
 				$('submit').textContent = t.submit;
 				$('title').textContent = t.title;
 				$('line').textContent = t.line;
+				$('tab-room').tabIndex = kind === 'room' ? 0 : -1;
+				$('tab-lib').tabIndex = kind === 'library' ? 0 : -1;
+				$('form').setAttribute('aria-labelledby', kind === 'room' ? 'tab-room' : 'tab-lib');
+				sync();
+			}
+			// Offered only while the address in the field is the one saved for this tab.
+			function sync() {
+				var a = $('addr').value.trim();
+				$('forget').hidden = !(a && a === recall(mode));
 			}
 			function ask(text) {
 				$('err').hidden = !text;
@@ -384,6 +415,7 @@
 				$('tab-room').parentNode.hidden = true;
 				$('open').href = url;
 				$('go').hidden = false;
+				try { history.replaceState(null, '', location.pathname); } catch (e) { }
 				location.assign(url);
 			}
 			function remember(kind, addr) { try { localStorage.setItem('sp-host-' + kind, addr); } catch (e) { } }
@@ -397,6 +429,13 @@
 			if (p.k === 'library') mode = 'library';
 			$('addr').value = p.h && p.p ? p.h + ':' + p.p : recall(mode);
 
+			$('addr').addEventListener('input', sync);
+			$('forget').addEventListener('click', function () {
+				try { localStorage.removeItem('sp-host-' + mode); } catch (e) { }
+				$('addr').value = '';
+				sync();
+				$('addr').focus();
+			});
 			function pick(kind) {
 				var typed = $('addr').value.trim();
 				var other = recall(mode);
@@ -406,6 +445,15 @@
 			}
 			$('tab-room').addEventListener('click', function () { pick('room'); });
 			$('tab-lib').addEventListener('click', function () { pick('library'); });
+			[$('tab-room'), $('tab-lib')].forEach(function (tab, i, tabs) {
+				tab.addEventListener('keydown', function (e) {
+					var n = e.key === 'ArrowRight' || e.key === 'ArrowLeft' ? 1 - i : e.key === 'Home' ? 0 : e.key === 'End' ? 1 : -1;
+					if (n < 0) return;
+					e.preventDefault();
+					pick(n === 0 ? 'room' : 'library');
+					tabs[n].focus();
+				});
+			});
 			var cells = document.querySelectorAll('.jr-cells i');
 			function paint() {
 				var el = $('code');
@@ -429,7 +477,7 @@
 
 			if (p.h && p.p && (mode === 'library' || p.c)) {
 				var r = build(mode, p.h, p.p, p.c || '', p);
-				if (r.url) { show(mode); leave(r.url, p.h + ':' + p.p); } else ask(r.error);
+				if (r.url) { show(mode); leave(r.url, p.h.trim() + ':' + p.p); } else ask(r.error);
 			} else {
 				ask();
 				if (p.h && p.p) $('code').focus();

@@ -237,6 +237,11 @@ const PAGES = {
     sub: 'Guide, training course, backup and security.',
     pills: ['User guide', '11 training modules', 'Backup + security'] },
 
+  'syncplay': { page: 'syncplay/index.html', alt: 'SyncPlay, an app by Elevven11 Studio that plays one video on every screen at the same moment',
+    eyebrow: 'SYNCPLAY / WATCH TOGETHER', accent: 'gold', lines: ['Press Play Together.', 'Stay In Sync.'],
+    sub: 'One video on every screen, over your own Wi-Fi.',
+    pills: ['In testing', 'Nothing uploaded', 'No account'] },
+
   'home': { page: 'index.html', alt: 'Elevven11 Studio - affordable website design in Nigeria',
     eyebrow: 'WEBSITE DESIGN IN NIGERIA', lines: ['Simple Websites.', 'No Monthly Hosting Fee.'],
     sub: 'Affordable sites for small businesses and freelancers.',

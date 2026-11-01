@@ -15,6 +15,8 @@
     "qr": "node generate-qr.js",
     "stories": "node generate-promo-stories.js",
     "carousels": "node generate-carousels.js",
+    "facts": "node generate-fact-posts.js",
+    "reels": "node generate-reel-carousels.js",
     "enhance-demos": "node enhance-demos.js",
     "sitemap": "node generate-sitemap.js",
     "store-files": "node generate-store-files.js",

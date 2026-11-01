@@ -16,14 +16,21 @@
 	<meta property="og:title" content="SyncPlay - Watch Together by Elevven11 Studio" />
 	<meta property="og:description" content="Play one video on every screen at the same moment, over your own Wi-Fi. Nothing is uploaded and nobody needs an account." />
 	<meta property="og:url" content="https://elevven11studio.github.io/syncplay/" />
-	<meta name="twitter:card" content="summary" />
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/syncplay.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="SyncPlay, an app by Elevven11 Studio that plays one video on every screen at the same moment" />
+	<meta property="og:image" content="https://elevven11studio.github.io/branding/og/syncplay-square.png" />
+	<meta property="og:image:width" content="1080" />
+	<meta property="og:image:height" content="1080" />
+	<meta property="og:image:alt" content="SyncPlay, an app by Elevven11 Studio that plays one video on every screen at the same moment" />
+	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="SyncPlay - Watch Together by Elevven11 Studio" />
 	<meta name="twitter:description" content="Play one video on every screen at the same moment, over your own Wi-Fi. Nothing is uploaded and nobody needs an account." />
+	<meta name="twitter:image" content="https://elevven11studio.github.io/branding/og/syncplay.png" />
 
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link rel="preconnect" href="https://ipwho.is" />
-	<link rel="preconnect" href="https://open.er-api.com" />
 	<!-- Font CSS loads without blocking first paint; the fallback face in style.css is sized to match. -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'" />
 	<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" /></noscript>
@@ -39,9 +46,9 @@
 		}
 
 		:root[data-theme="light"] {
-			--accent-gold: #9a6f16;
+			--accent-gold: #7d5a0f;
 			--accent-orange: #6b4a0e;
-			--glow-gold: 0 0 15px rgba(154, 111, 22, 0.22);
+			--glow-gold: 0 0 15px rgba(125, 90, 15, 0.22);
 		}
 
 		.cb-status {
@@ -156,6 +163,50 @@
 			overflow-x: auto;
 		}
 	</style>
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "BreadcrumbList",
+	  "name": "SyncPlay breadcrumb",
+	  "itemListElement": [
+	    {
+	      "@type": "ListItem",
+	      "position": 1,
+	      "name": "Home",
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/",
+	        "url": "https://elevven11studio.github.io/",
+	        "name": "Home"
+	      }
+	    },
+	    {
+	      "@type": "ListItem",
+	      "position": 2,
+	      "name": "SyncPlay",
+	      "item": {
+	        "@type": "WebPage",
+	        "@id": "https://elevven11studio.github.io/syncplay/",
+	        "url": "https://elevven11studio.github.io/syncplay/",
+	        "description": "Play one video on every screen at the same moment, over your own Wi-Fi. Nothing is uploaded and nobody needs an account.",
+	        "name": "SyncPlay"
+	      }
+	    }
+	  ]
+	}
+	</script>
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "SoftwareApplication",
+	  "name": "SyncPlay",
+	  "applicationCategory": "MultimediaApplication",
+	  "operatingSystem": "Windows, Android, Android TV",
+	  "description": "Play one video on every screen at the same moment, over your own Wi-Fi. Nothing is uploaded and nobody needs an account.",
+	  "url": "https://elevven11studio.github.io/syncplay/",
+	  "publisher": { "@type": "Organization", "name": "Elevven11 Studio", "url": "https://elevven11studio.github.io/" }
+	}
+	</script>
 </head>
 
 <body>
@@ -242,6 +293,20 @@
 
 	<hr class="styled-hr" />
 
+	<!-- Screenshots -->
+	<section id="screens">
+		<div class="container">
+			<div class="section-tag u-block-center">Screenshots</div>
+			<h2 class="section-title">See it in use</h2>
+			<div class="cb-shots" style="grid-template-columns: repeat(auto-fit, minmax(240px, 340px)); justify-content: center; align-items: start;">
+				<img src="/syncplay/screens/invite.webp" width="780" height="660" loading="lazy" alt="SyncPlay invite with a QR code, the room code as six digits and a link to copy" />
+				<img src="/syncplay/screens/join.webp" width="780" height="1450" loading="lazy" alt="SyncPlay join screen with a half typed room code and a number pad" />
+			</div>
+		</div>
+	</section>
+
+	<hr class="styled-hr" />
+
 	<!-- Getting started -->
 	<section>
 		<div class="container">
@@ -279,8 +344,7 @@
 			<div class="section-tag u-block-center">In a Browser</div>
 			<h2 class="section-title">No app needed to join</h2>
 			<div class="glass-card cb-card">
-				<p>Guests open the link from the host, or <a class="u-gold" href="/syncplay/watch/">type the code here</a>. They need to be on the same Wi-Fi as the host.</p>
-				<p style="margin-top: 0.75rem;">Browsers cannot play every format. For files they cannot play, such as HEVC video, the host makes a browser copy in one tap.</p>
+				<p>Guests open the link from the host, or <a class="u-gold" href="/syncplay/watch/">type the code here</a>. </p>
 			</div>
 		</div>
 	</section>
@@ -289,12 +353,13 @@
 	<section>
 		<div class="container" style="max-width: 760px;">
 			<div class="section-tag u-block-center">Privacy</div>
-			<h2 class="section-title">Stays on your network</h2>
+			<h2 class="section-title">Private by design</h2>
 			<div class="glass-card cb-card">
 				<ul>
 					<li>No accounts, no cloud and no ads.</li>
 					<li>App guests connect over an encrypted link, checked against the host's own certificate.</li>
 					<li>Browser guests join over the local network without encryption, so use them on a network you trust.</li>
+					<li>Poster lookups send film titles to free online sources. You can turn that off in Settings.</li>
 					<li>Rooms close on their own after a few hours.</li>
 				</ul>
 			</div>
@@ -316,7 +381,7 @@
 				</details>
 				<details class="faq-item">
 					<summary>Does it work over the internet?</summary>
-					<p>It is built for one network, such as a home or a hostel. Everyone needs to be on the same Wi-Fi as the host.</p>
+					<p>No. Everyone needs to be on the same network as the host.</p>
 				</details>
 				<details class="faq-item">
 					<summary>Which devices does it run on?</summary>
@@ -339,7 +404,7 @@
 		<div class="container u-center">
 			<h2 style="font-size: 2.25rem; margin-bottom: 1.25rem;">Try SyncPlay</h2>
 			<p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem;">
-				SyncPlay is still in testing. Message us and we will tell you when it is ready.
+				Message us and we will tell you when it is ready.
 			</p>
 			<div class="btn-group">
 				<a href="/contact/?topic=syncplay-launch#message-us" class="btn btn-primary">Tell me when it launches</a>

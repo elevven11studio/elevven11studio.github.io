@@ -33,6 +33,8 @@ finds them at the usual paths and falls over with a clear message if it can't.
 | `npm run stories` | `promo/stories/` | Same triggers as `promos` |
 | `npm run qr` | `assets/qr/` | Rarely — only if a target URL changes |
 | `npm run carousels` | `promo/carousel/` | Same triggers as `promos` |
+| `npm run facts` | `promo/facts/` | After editing `fact-posts-data.js` |
+| `npm run reels` | `promo/reels/` | After editing `reel-carousels-data.js` |
 | `npm run enhance-demos` | `examples/<slug>/index.html` | After adding a demo template |
 | `npm run verify-qr` | nothing (read-only check) | After any promo or QR change |
 | `npm run tools` | `tools/**/index.html`, the homepage tools strip | After editing anything in `tools-src/` |
@@ -260,6 +262,39 @@ reply box down there, so anything placed in those strips gets covered.
 
 `main`, `agents` and `examples` carry a QR tagged `utm_campaign=story-*`, so
 story scans are separable from square-promo scans in GA4.
+
+### `facts` — fact and comedy posts
+
+One 1080x1080 sticker-style post per line of `fact-posts-data.js`, written to
+`promo/facts/`, plus `captions.txt` with a ready-to-paste caption for each.
+Each post has a starburst picture (a drawing or a huge number), a headline, one
+supporting fact and a joke in a speech bubble.
+
+The posts carry no prices, so they work for a worldwide audience. The data file
+keeps three kinds apart: `WEB HISTORY` and `TECH TRIVIA` are documented facts,
+`HOT TAKE` is opinion, and `ELEVVEN11 FACT` describes what the studio offers.
+Check any new fact before adding it, and hedge figures that come from studies.
+
+To add a post, add a line to the data file. A new drawing goes in `MOTIFS` in
+`fact-art.js`, which this generator shares with `reels`.
+
+### `reels` — carousel and reel slides by topic
+
+Twelve topics, each a 12-slide set: a cover, ten facts or jokes, and a closing
+call to action. Ten topics are facts (weird web, phones, food, fashion, shopping,
+body, travel, photography, space, animals) and two are comedy (what sellers hear,
+what clients say). Copy lives in `reel-carousels-data.js`.
+
+Every slide is written twice in `promo/reels/<topic>/`: 1080x1920 for reels and
+stories, and 1080x1350 in `feed/` for 4:5 carousel posts. They are the same art:
+the design sits in a 1080x1350 band and the reel version centres it on a taller
+canvas, leaving the top and bottom clear for the platform's own buttons. Each
+topic also gets `script.txt`, a read-aloud script and a caption to paste.
+
+The comedy topics are jokes, not facts. In the fact topics, keep claims that come
+from a legend, a study or a theory hedged ("said to be", "scientists think").
+Pictures come from `fact-art.js`. The existing square posts in `promo/facts/`
+are a separate generator and are not touched by this one.
 
 ### `qr` — QR codes used on the site
 
