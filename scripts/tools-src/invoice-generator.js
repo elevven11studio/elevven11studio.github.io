@@ -67,7 +67,41 @@ module.exports = {
     formula: 'Subtotal = sum of (quantity x price)\nDiscount = subtotal x discount % / 100\nTax = (subtotal - discount) x tax % / 100\nTotal = subtotal - discount + tax',
     example: 'Two items worth 1,000 and 500 give a subtotal of 1,500. A 10% discount takes off 150, and 7.5% tax on 1,350 adds 101.25, so the total is 1,451.25.'
   },
+  extra: [
+    {
+      h: 'What to put on an invoice',
+      p: ['A clear invoice gets paid faster and avoids back and forth. Most invoices should carry these details.'],
+      list: [
+        'Your business name, address and contact details.',
+        'The customer name and address.',
+        'A unique invoice number, such as INV-001, then INV-002 and so on.',
+        'The invoice date and a due date.',
+        'Each item or service with its quantity, price and line total.',
+        'Any discount and tax, shown separately from the subtotal.',
+        'The total due and how to pay: bank name, account number and account name.',
+        'Your tax number, if your country requires one.'
+      ]
+    },
+    {
+      h: 'Tips for getting paid on time',
+      list: [
+        'Send the invoice as soon as the work is done or agreed.',
+        'Set a due date. "Pay within 7 days" is clearer than "pay soon".',
+        'Describe each item specifically, so the customer knows what they are paying for.',
+        'Keep a copy and a running list of invoice numbers so none is skipped or repeated.',
+        'For larger jobs, invoice a deposit first and the balance on delivery.'
+      ]
+    },
+    {
+      h: 'Invoice, receipt and quote',
+      p: [
+        'A quote is an estimate you send before the work. An invoice asks for payment after the work or delivery. A receipt confirms that payment was made. Use this tool for invoices, and mark the notes field "Paid" once the customer has settled.'
+      ]
+    }
+  ],
   faq: [
+    { q: 'How do I number invoices?', a: 'Use a simple running sequence such as INV-001, INV-002. Never reuse a number. Some businesses add the year, for example 2026-001.' },
+    { q: 'Can I use it in Naira and other currencies?', a: 'Yes. Pick NGN, USD, GBP, EUR, GHS, KES or ZAR, or choose no symbol. The currency only changes the display.' },
     { q: 'How do I get a PDF?', a: 'Choose Print or save as PDF, then pick "Save as PDF" as the printer in the print window. Turn off headers and footers for a clean page.' },
     { q: 'Is my invoice stored anywhere?', a: 'Only in this browser on this device, so you can resume a draft. Nothing is sent to us. Clear removes it.' },
     { q: 'Can I add my logo?', a: 'Not yet. Put your business name and details at the top, which is what the invoice header shows.' },

@@ -35,6 +35,9 @@ finds them at the usual paths and falls over with a clear message if it can't.
 | `npm run carousels` | `promo/carousel/` | Same triggers as `promos` |
 | `npm run facts` | `promo/facts/` | After editing `fact-posts-data.js` |
 | `npm run reels` | `promo/reels/` | After editing `reel-carousels-data.js` |
+| `npm run doodle-posts` | `promo/doodle/posts/` | After editing `doodle-posts-data.js` |
+| `npm run doodle-reels` | `promo/doodle/reels/` | After editing `doodle-reels-data.js` (takes a few minutes) |
+| `npm run tech` | `promo/tech/` | After editing `tech-posts-data.js` or `tech-reels-data.js` (`tech-doodle` and `tech-code` do one style) |
 | `npm run enhance-demos` | `examples/<slug>/index.html` | After adding a demo template |
 | `npm run verify-qr` | nothing (read-only check) | After any promo or QR change |
 | `npm run tools` | `tools/**/index.html`, the homepage tools strip | After editing anything in `tools-src/` |
@@ -295,6 +298,49 @@ The comedy topics are jokes, not facts. In the fact topics, keep claims that com
 from a legend, a study or a theory hedged ("said to be", "scientists think").
 Pictures come from `fact-art.js`. The existing square posts in `promo/facts/`
 are a separate generator and are not touched by this one.
+
+### `doodle-posts` and `doodle-reels` — hand-drawn style
+
+The same kinds of post, redrawn as doodles on notebook paper: wobbly marker
+outlines, handwriting lettering, a sticky note for the joke, tape, and scribbled
+stars and spirals. All topics are new and none repeat the sticker posts.
+
+- `doodle-posts` writes 60 square posts to `promo/doodle/posts/` (ancient history,
+  Africa, transport, web tips, business origins, dinosaurs) plus `captions.txt`.
+  Copy lives in `doodle-posts-data.js`. `WEB TIP` posts are advice, not facts.
+- `doodle-reels` writes ten 12-slide sets to `promo/doodle/reels/` (music, sports,
+  ocean, brain and sleep, accidental inventions, design, weather, languages, and
+  two comedy sets), each in 1080x1920 and a 1080x1350 `feed/` crop, plus a
+  `script.txt`. Copy lives in `doodle-reels-data.js`. Rendering takes a few
+  minutes because of the wobble filter.
+
+`doodle-art.js` is the shared engine. It needs a handwriting font: Ink Free and
+Segoe Print come with Windows, and the stacks fall back to Comic Sans or any
+cursive face. The pictures are the `MOTIFS` in `fact-art.js`, and the wobble
+filter turns any of them into a doodle, so a new motif needs no extra styling.
+
+### `tech` — tech and programming posts and reels, in two styles
+
+One set of copy, rendered twice: in the doodle style and in a new code-editor
+style. Each style gets 40 square posts and six 12-slide reel sets, in the same
+sizes as the other generators (1080x1080, 1080x1920, and a 1080x1350 `feed/`
+crop), plus `captions.txt` and a `script.txt` per reel.
+
+- Posts: tech trivia, web basics explained for non-developers, coder jokes and
+  coding tips (`tech-posts-data.js`). Coding tips are advice, not facts.
+- Reels: coding history, web dev, dev life (comedy), AI and data, hardware, and
+  cyber security (`tech-reels-data.js`).
+- Output goes to `promo/tech/doodle/` and `promo/tech/code/`. Use
+  `node generate-tech.js code posts` to render just one style or one part.
+
+The code design (`code-art.js`) is deliberately plain: a solid dark background,
+one accent colour per topic, a flat icon (or the big number in the accent
+colour), a `// tag` label, the headline in heavy sans with its last line in the
+accent, a readable supporting line, and the joke after an accent bar. No
+gradients, glows or decoration. The icon size flexes to the text so every slide
+is balanced. It needs Cascadia Code (Consolas is the fallback) and Segoe UI
+Black, which come with Windows, and it measures the big numbers when it renders
+so they centre exactly.
 
 ### `qr` — QR codes used on the site
 
