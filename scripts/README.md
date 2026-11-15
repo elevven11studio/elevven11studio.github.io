@@ -37,6 +37,8 @@ finds them at the usual paths and falls over with a clear message if it can't.
 | `npm run reels` | `promo/reels/` | After editing `reel-carousels-data.js` |
 | `npm run doodle-posts` | `promo/doodle/posts/` | After editing `doodle-posts-data.js` |
 | `npm run doodle-reels` | `promo/doodle/reels/` | After editing `doodle-reels-data.js` (takes a few minutes) |
+| `npm run bright` | `promo/bright/*.png` | After editing `bright-promos-data.js` |
+| `npm run bright-carousels` | `promo/bright/carousel/` | Same triggers as `bright` |
 | `npm run tech` | `promo/tech/` | After editing `tech-posts-data.js` or `tech-reels-data.js` (`tech-doodle` and `tech-code` do one style) |
 | `npm run enhance-demos` | `examples/<slug>/index.html` | After adding a demo template |
 | `npm run verify-qr` | nothing (read-only check) | After any promo or QR change |
