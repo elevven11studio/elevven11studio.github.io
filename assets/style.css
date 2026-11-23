@@ -2302,11 +2302,10 @@ footer a:hover { color: var(--accent-gold); }
   .theme-toggle { margin-left: auto; }
 }
 
-/* The nav has ten items. Just above the hamburger breakpoint the container is
-   narrower than the full row at its normal spacing, which wrapped the logo onto
-   two lines. Tighter gaps keep it on one line until the container reaches its
-   full 1200px width. */
-@media (min-width: 1151px) and (max-width: 1250px) {
+/* The nav has eleven items. At its normal spacing the row is wider than even
+   the full 1200px container, which wrapped the logo onto two lines. Tighter
+   gaps keep it on one line at every width above the hamburger breakpoint. */
+@media (min-width: 1151px) {
   .nav-links { gap: 1rem; }
   .nav-item a.nav-cta { padding-left: 1.5rem; padding-right: 1.5rem; }
 }

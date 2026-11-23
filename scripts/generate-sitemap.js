@@ -80,6 +80,14 @@ const PAGES = [
 // touching this file.
 for (const t of require('./tools-src/registry').tools) PAGES.push([t.path, 'monthly', 0.8]);
 
+// Blog: the index plus every post page generate-blog.js has written.
+if (fs.existsSync(path.join(ROOT, 'blog', 'index.html'))) {
+  PAGES.push(['/blog/', 'weekly', 0.8]);
+  for (const d of fs.readdirSync(path.join(ROOT, 'blog'), { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+    if (d.isDirectory() && fs.existsSync(path.join(ROOT, 'blog', d.name, 'index.html'))) PAGES.push(['/blog/' + d.name + '/', 'monthly', 0.7]);
+  }
+}
+
 // Pages whose images are worth declaring. Most are CSS background-image, which
 // a crawler will not discover on its own. QR codes and the 128px extension
 // icons are skipped: neither makes a useful Image Search result.

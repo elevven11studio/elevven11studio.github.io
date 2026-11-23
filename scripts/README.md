@@ -43,6 +43,7 @@ finds them at the usual paths and falls over with a clear message if it can't.
 | `npm run enhance-demos` | `examples/<slug>/index.html` | After adding a demo template |
 | `npm run verify-qr` | nothing (read-only check) | After any promo or QR change |
 | `npm run tools` | `tools/**/index.html`, the homepage tools strip | After editing anything in `tools-src/` |
+| `npm run blog` | `blog/**/index.html`, `blog/*.md`, `blog/feed.xml`, `sitemap.xml` | After adding or editing a post in `blog-src/posts/` |
 | `npm run test-tools` | nothing (read-only check) | After touching `tools/assets/calc.js` or `qr.js` |
 
 `npm run enhance-demos` edits HTML rather than images — it's the odd one out in
@@ -65,6 +66,20 @@ design that no longer exists — this is the one that goes stale silently.
 
 JPEG for the `og:image` is deliberate: Facebook's crawler handles WebP, LinkedIn
 only commits to JPG/PNG/GIF.
+
+### `blog` — the blog
+
+Builds `/blog/`, one page per post, a Markdown copy of each post
+(`/blog/<slug>.md`, plus `/blog/index.md`) and an RSS feed from the Markdown files in
+`blog-src/posts/`, then rebuilds the sitemap. Header, footer and analytics are
+copied from `pricing/index.html`, like the tool pages.
+
+To add a post, create `blog-src/posts/<slug>.md` with front matter (`title`,
+`description`, `date`, `product`) and run `npm run blog`. `product` is a key in
+`blog-src/products.js` and picks the card image, topic and call to action. A
+post dated in the future stays unpublished until a build on or after that date.
+The build fails on em dashes, long titles, missing fields and broken internal
+links. Deleting a post file removes its page on the next build.
 
 ### `tools` — Elevven11 Tools pages
 
